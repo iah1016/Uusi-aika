@@ -1,4 +1,4 @@
-# Uusi aika
+# Uusi aika – aiheen kuvaus ja rakenne
 
 **Aihe:** Uskonliikesimulaatiopeli, jossa pelaaja perustaa uskonnollisen liikkeen ja pyrkii kartuttamaan jäsenten lukumäärää erilaisin menetelmin: ovelta ovelle -käynneillä, infokojun pystyttämisellä, puskaradiolla jne. Pelissä on roolipelimäisiä elementtejä; käännytystyö siis helpottuu muun muassa karisman ja argumentointitaitojen parantuessa.
 
