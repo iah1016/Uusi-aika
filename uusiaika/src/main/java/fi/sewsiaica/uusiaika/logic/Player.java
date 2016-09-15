@@ -1,5 +1,9 @@
 package fi.sewsiaica.uusiaika.logic;
 
+/**
+ *
+ * @author iah1016
+ */
 public class Player {
 
     private int charisma;
