@@ -1,4 +1,4 @@
-package fi.uusiaika.logic;
+package fi.sewsiaica.uusiaika.logic;
 
 public class Villager {
 
