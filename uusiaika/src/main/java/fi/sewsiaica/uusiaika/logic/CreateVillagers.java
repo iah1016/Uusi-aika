@@ -25,10 +25,10 @@ public class CreateVillagers {
         ArrayList<Villager> vlist = new ArrayList<Villager>();
         
         String[] namesForVillagers = pickStrings(quantity, names);
-        int[] sceptValues = pickRandomNumbers(quantity, 10);
-        int[] selfEsValues = pickRandomNumbers(quantity, 10);
-        int[] selfAwValues = pickRandomNumbers(quantity, 10);
-        int[] argSkillsValues = pickRandomNumbers(quantity, 10);
+        int[] sceptValues = pickRandomNumbers(quantity, 10, 50);
+        int[] selfEsValues = pickRandomNumbers(quantity, 10, 50);
+        int[] selfAwValues = pickRandomNumbers(quantity, 10, 50);
+        int[] argSkillsValues = pickRandomNumbers(quantity, 10, 50);
         String[] professions = pickStrings(quantity, profs);
 
         for (int i = 0; i < quantity; i++) {
@@ -40,21 +40,22 @@ public class CreateVillagers {
         return vlist;
     }
 
-    private String[] pickStrings(int quantity, String[] selection) {
+    public String[] pickStrings(int quantity, String[] selection) {
         String[] stringArray = new String[quantity];
 
         for (int i = 0; i < quantity; i++) {
-            stringArray[i] = selection[i % quantity];
+            stringArray[i] = selection[i % selection.length];
         }
 
         return stringArray;
     }
 
-    private int[] pickRandomNumbers(int quantity, int baseValue) {
+    public int[] pickRandomNumbers(int quantity, int baseValue, int bound) {
+        
         int[] numbers = new int[quantity];
 
         for (int i = 0; i < quantity; i++) {
-            numbers[i] = baseValue + random.nextInt(50);
+            numbers[i] = baseValue + random.nextInt(bound);
         }
 
         return numbers;

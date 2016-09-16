@@ -56,7 +56,9 @@ public class Game {
     public boolean accusation(Villager villager) {
         return false;
     }
-    
+
+    //setters and getters
+    //
     public void setPlayer(Player player) {
         this.player = player;
     }
