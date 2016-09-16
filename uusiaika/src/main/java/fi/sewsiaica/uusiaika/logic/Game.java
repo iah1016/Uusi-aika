@@ -13,7 +13,7 @@ public class Game {
     private Player player;
     private ArrayList<Villager> villagers;
 
-    public Game() {
+    public Game(String playerName, String sectName) {
         //Later from a file
         String[] namesForVillagers = {"Jaakko P", "Harri H", "Mikko M", "Teemu P",
             "Ilona R", "Taina E", "Marika M", "Robert F", "Cecilia C", "Oleg M"};
@@ -27,7 +27,7 @@ public class Game {
         this.villagers = new ArrayList<Villager>();
         populateVillage(namesForVillagers.length, namesForVillagers, professions);
     }
-
+    
     public void populateVillage(int quantity, String[] names, String[] profs) {
         //Villager(String name, boolean inSect, int scepticism, int selfEsteem, int selfAwareness, int argSkills, String profession)
 
