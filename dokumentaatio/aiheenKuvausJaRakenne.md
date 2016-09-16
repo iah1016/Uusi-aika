@@ -48,3 +48,6 @@
     - Tyrkytä esitteitä (minipeli?)
     - Tarjoa kahvia ja rupattele niitä-näitä (karismasta hyötyä)
     - Paluu karttanäkymään
+
+##Luokkakaavio
+![dokumentaatio/Luokkakaavio 1.png](Luokkakaavio 1.png)
