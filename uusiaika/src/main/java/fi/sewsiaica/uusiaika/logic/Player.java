@@ -6,12 +6,22 @@ package fi.sewsiaica.uusiaika.logic;
  */
 public class Player {
 
+    private String name;
     private int charisma;
     private int argSkills;
 
     public Player(int charisma, int argSkills) {
+        this.name = "0";
         this.charisma = charisma;
         this.argSkills = argSkills;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCharisma() {

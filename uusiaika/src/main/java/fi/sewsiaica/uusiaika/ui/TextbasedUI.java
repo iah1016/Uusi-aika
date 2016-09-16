@@ -18,6 +18,17 @@ public class TextbasedUI {
     }
 
     public void openingView() {
+        System.out.print("Se suuri johtaja! Valitse nimesi: ");
+        String playerName = reader.nextLine();
+        System.out.print("Valitse liikkeesi nimi: ");
+        String sectName = reader.nextLine();
+        System.out.println("\n" + playerName + ", " + sectName + "-liikkeen yliukko");
+
+        // temp
+        for (int i = 0; i < game.getVillagers().size(); i++) {
+            Villager v = game.getVillagers().get(i);
+            System.out.println(v.getName() + " on " + v.getProfession());
+        }
 
     }
 }
