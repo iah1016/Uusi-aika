@@ -1,5 +1,6 @@
 package fi.sewsiaica.uusiaika.logic;
 
+import fi.sewsiaica.uusiaika.ui.TextbasedUI;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,60 +10,71 @@ import java.util.Random;
  */
 public class Game {
 
+    private TextbasedUI tui;
     private Random random;
     private Player player;
+    private Sect sect;
     private ArrayList<Villager> villagers;
 
-    public Game(String playerName, String sectName) {
+    public Game() {
+        this.random = new Random();
+        
         //Later from a file
         String[] namesForVillagers = {"Jaakko P", "Harri H", "Mikko M", "Teemu P",
             "Ilona R", "Taina E", "Marika M", "Robert F", "Cecilia C", "Oleg M"};
         String[] professions = {"Kauppias", "Leipuri", "Opettaja", "Postinjakaja",
             "Lääkäri", "Radiojuontaja", "Poliisi", "Bussikuski", "Putkimies",
-            "Poliitikko", "Tutkija", "Apteekkari", "AD", "Toimitusjohtaja",};
-
-        this.random = new Random();
-        // attributes: charisma, arg.skills
-        this.player = new Player(10, 10);
-        this.villagers = new ArrayList<Villager>();
-        populateVillage(namesForVillagers.length, namesForVillagers, professions);
+            "Poliitikko", "Tutkija", "Apteekkari", "AD", "Toimitusjohtaja"};
+        CreateVillagers cv = new CreateVillagers(random);
+        int quantity = namesForVillagers.length;
+        this.villagers = cv.populateVillage(quantity, namesForVillagers, professions);
     }
     
-    public void populateVillage(int quantity, String[] names, String[] profs) {
-        //Villager(String name, boolean inSect, int scepticism, int selfEsteem, int selfAwareness, int argSkills, String profession)
-
-        String[] namesForVillagers = pickStrings(quantity, names);
-        int[] sceptValues = pickRandomNumbers(quantity, 10);
-        int[] selfEsValues = pickRandomNumbers(quantity, 10);
-        int[] selfAwValues = pickRandomNumbers(quantity, 10);
-        int[] argSkillsValues = pickRandomNumbers(quantity, 10);
-        String[] professions = pickStrings(quantity, profs);
-
-        for (int i = 0; i < quantity; i++) {
-            villagers.add(new Villager(namesForVillagers[i], false,
-                    sceptValues[i], selfEsValues[i], selfAwValues[i],
-                    argSkillsValues[i], professions[i]));
-        }
+    public void initGame(String[] names) {
+        String[] playerAndSectNames = names;
+        // attributes: name, charisma, arg.skills
+        this.player = new Player(playerAndSectNames[0], 10, 10);
+        // attributes: name, expenses, member fee
+        this.sect = new Sect(playerAndSectNames[1], 1000, 10);
+    }
+    
+    public boolean conversion(Villager villager, String option) {
+        //a  charisma vs. selfAwareness + scepticism
+        //b  charisma + argSkills vs. argSkills vs. scepticism
+        //c  charisma vs. selfEsteem + argSkills
+        return false;
+    }
+    
+    public boolean persuasion(Villager villager) {
+        return false;
+    }
+    
+    public boolean sermon(Villager villager) {
+        return false;
+    }
+    
+    public boolean accusation(Villager villager) {
+        return false;
+    }
+    
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    private String[] pickStrings(int quantity, String[] selection) {
-        String[] stringArray = new String[quantity];
-
-        for (int i = 0; i < quantity; i++) {
-            stringArray[i] = selection[i % quantity];
-        }
-
-        return stringArray;
+    public Player getPlayer() {
+        return player;
     }
 
-    private int[] pickRandomNumbers(int quantity, int baseValue) {
-        int[] numbers = new int[quantity];
+    public Sect getSect() {
+        return sect;
+    }
 
-        for (int i = 0; i < quantity; i++) {
-            numbers[i] = baseValue + random.nextInt(50);
-        }
-
-        return numbers;
+    public void setSect(Sect sect) {
+        this.sect = sect;
+    }
+    
+    public void setVillagers(ArrayList<Villager> villagers) {
+        this.villagers = villagers;
     }
 
     public ArrayList<Villager> getVillagers() {

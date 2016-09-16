@@ -15,8 +15,11 @@ public class Main {
         try {
             // To be used before the implementation of the GUI.
             Scanner reader = new Scanner(System.in);
-
             TextbasedUI tui = new TextbasedUI(reader);
+            Game game = new Game();
+            tui.setGame(game);
+            tui.openingView();
+            tui.mainMenu();
             //
 
         } catch (Exception e) {

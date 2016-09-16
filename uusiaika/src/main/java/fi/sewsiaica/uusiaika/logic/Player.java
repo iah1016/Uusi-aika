@@ -10,12 +10,12 @@ public class Player {
     private int charisma;
     private int argSkills;
 
-    public Player(int charisma, int argSkills) {
-        this.name = "0";
+    public Player(String name, int charisma, int argSkills) {
+        this.name = name;
         this.charisma = charisma;
         this.argSkills = argSkills;
     }
-
+    
     public String getName() {
         return name;
     }
