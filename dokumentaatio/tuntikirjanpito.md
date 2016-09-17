@@ -10,4 +10,4 @@ Päivä | Tunnit | Kuvaus
 16.09.2016 | 2h | Ohjelmointia (aamuyöllä)
 16.09.2016 | 2h | Teknisen ongelman syynselvitys laitoksen koneella (iltapäivä)
 16.09.2016 | 3h | Ohjelmointia (yöllä); testit kesken
-17.09.2016 | 7h | (Tilapäinen) tekstipohjainen käyttöliittymä, testit lisätty
+17.09.2016 | 10h | (Tilapäinen) tekstipohjainen käyttöliittymä, käännytyslogiikka ja testit lisätty
