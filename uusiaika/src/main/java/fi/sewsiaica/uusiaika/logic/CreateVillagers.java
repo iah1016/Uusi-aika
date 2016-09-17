@@ -41,6 +41,10 @@ public class CreateVillagers {
     }
 
     public String[] pickStrings(int quantity, String[] selection) {
+        if (quantity <= 0) {
+            return null;
+        }
+        
         String[] stringArray = new String[quantity];
 
         for (int i = 0; i < quantity; i++) {
@@ -51,6 +55,9 @@ public class CreateVillagers {
     }
 
     public int[] pickRandomNumbers(int quantity, int baseValue, int bound) {
+        if (quantity <= 0 || bound <= 0) {
+            return null;
+        }
         
         int[] numbers = new int[quantity];
 

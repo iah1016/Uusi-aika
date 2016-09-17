@@ -2,6 +2,7 @@ package fi.sewsiaica.uusiaika.ui;
 
 import java.util.Scanner;
 import fi.sewsiaica.uusiaika.logic.*;
+import java.util.HashSet;
 
 /**
  *
@@ -9,20 +10,24 @@ import fi.sewsiaica.uusiaika.logic.*;
  */
 public class TextbasedUI {
 
+    private HashSet<Character> allAllowedChars;
     private Scanner reader;
     private Game game;
 
     public TextbasedUI(Scanner reader) {
         this.reader = reader;
+        String chars = "abcdefghijklmnopqrstuvwxyzåäöüáéóúàèòù ABCDEFGHIJKLMN"
+                + "OPQRSTUVWXYZÅÄÖÜÁÉÓÚÀÈÒÙ0123456789.,:;-_+!?&()/";
+        this.allAllowedChars = createAllowedChars(chars);
     }
 
     public void openingView() {
         String[] playerAndSectNames = new String[2];
 
         System.out.print("Se suuri johtaja! Valitse nimesi: ");
-        playerAndSectNames[0] = reader.nextLine();
+        playerAndSectNames[0] = readInput(allAllowedChars);
         System.out.print("Valitse liikkeesi nimi: ");
-        playerAndSectNames[1] = reader.nextLine();
+        playerAndSectNames[1] = readInput(allAllowedChars);
 
         game.initGame(playerAndSectNames);
     }
@@ -32,13 +37,11 @@ public class TextbasedUI {
             System.out.println("Päävalikko:");
             System.out.println("(a)  käännytysvalikkoon");
             System.out.println("(x)  lopeta");
-            String option = reader.nextLine();
+            String option = readInput(createAllowedChars("ax"));
             if (option.equals("x")) {
                 break;
             } else if (option.equals("a")) {
                 conversionMenu(chooseVillagerMenu());
-            } else {
-                System.out.println("Väärä komento!");
             }
         }
     }
@@ -46,48 +49,86 @@ public class TextbasedUI {
     public Villager chooseVillagerMenu() {
         int index = 0;
         while (true) {
-            System.out.println("valitse kyläläinen: 1-" + game.getVillagers().size());
-            String value = reader.nextLine();
-            if (value.matches("^[0-9]+$")) {
-                index = Integer.parseInt(value) - 1;
-                if (index >= 0 && index < game.getVillagers().size()) {
-                    System.out.println("kyläläinen " + game.getVillagers().get(index).getName() + " valittu.");
-                    return game.getVillagers().get(index);
-                } else {
-                    System.out.println("virheellinen luku");
-                }
-            } else {
-                System.out.println("syötä mieluummin numero");
-            }
+            int highest = game.getVillagers().size();
+            System.out.println("valitse kyläläinen: 1-" + highest);
+            String value = readInput(createAllowedChars("0123456789"));
 
+            if (validNumberGivenAsString(value)) {
+                index = Integer.parseInt(value) - 1;
+                if (index < highest) {
+                    Villager chosenOne = game.getVillagers().get(index);
+                    System.out.println("kyläinen " + chosenOne.getName()
+                            + " valittu ");
+                    return chosenOne;
+                }
+            }
         }
     }
 
     public void conversionMenu(Villager villager) {
-        boolean inTheLoop = true;
+        System.out.println("Käännytysvalikko:");
+        System.out.println("(a)  lepertele keveitä");
+        System.out.println("(b)  kerro pyhästä kalasta");
+        System.out.println("(c)  syytä syntisyydestä");
+        System.out.println("(m)  palaa päävalikkoon");
+        String option = readInput(createAllowedChars("abcm"));
+        if (option.equals("m")) {
+            System.out.println("ei sitten");
+        } else if (option.equals("a")
+                || option.equals("b")
+                || option.equals("c")) {
+            //a  charisma vs. selfAwareness + scepticism
+            //b  charisma + argSkills vs. argSkills vs. scepticism
+            //c  charisma vs. selfEsteem + argSkills
+            game.conversion(villager, option);
+        }
+    }
 
-        while (inTheLoop) {
-            System.out.println("Käännytysvalikko:");
-            System.out.println("(a)  lepertele keveitä");
-            System.out.println("(b)  kerro pyhästä kalasta");
-            System.out.println("(c)  syytä syntisyydestä");
-            System.out.println("(m)  palaa päävalikkoon");
-            String option = reader.nextLine();
-            if (option.equals("m")) {
-                System.out.println("ei sitten");
-                inTheLoop = false;
-            } else if (option.equals("a") || 
-                    option.equals("b") ||
-                    option.equals("c")) {
-                //a  charisma vs. selfAwareness + scepticism
-                //b  charisma + argSkills vs. argSkills vs. scepticism
-                //c  charisma vs. selfEsteem + argSkills
-                inTheLoop = game.conversion(villager, option);
+    public boolean validNumberGivenAsString(String string) {
+        if (string == null) {
+            return false;
+        }
+        if (string.equals("") || string.charAt(0) == '0') {
+            return false;
+        }
+        return true;
+    }
+
+    public String readInput(HashSet<Character> allowed) {
+        String s = "";
+
+        while (true) {
+            s = reader.nextLine();
+
+            if (s == null) {
+                System.out.println("tyhjä rivi");
+            } else if (s.equals("")) {
+                System.out.println("tyhjä rivi");
+            } else if (checkIfAllowedCharacters(s, allowed)) {
+                return s;
             } else {
-                System.out.println("Väärä komento!");
-                inTheLoop = true;
+                System.out.println("kiellettyjä merkkejä");
             }
         }
+    }
+
+    public boolean checkIfAllowedCharacters(String string,
+            HashSet<Character> allowed) {
+        for (int i = 0; i < string.length(); i++) {
+            if (!allowed.contains(string.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public HashSet<Character> createAllowedChars(String chars) {
+
+        HashSet<Character> allowed = new HashSet<Character>();
+        for (int i = 0; i < chars.length(); i++) {
+            allowed.add(chars.charAt(i));
+        }
+        return allowed;
     }
 
     public void setGame(Game game) {

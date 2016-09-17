@@ -34,6 +34,16 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.1.8</version>
+                <configuration>
+                    <targetClasses>
+                        <param>fi.sewsiaica.uusiaika.logic.*</param>
+                        <param>fi.sewsiaica.uusiaika.ui.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>fi.sewsiaica.uusiaika.logic.*</param>
+                        <param>fi.sewsiaica.uusiaika.ui.*</param>
+                    </targetTests>
+                </configuration>
             </plugin>            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

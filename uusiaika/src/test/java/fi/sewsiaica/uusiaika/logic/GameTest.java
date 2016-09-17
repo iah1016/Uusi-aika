@@ -5,6 +5,7 @@
  */
 package fi.sewsiaica.uusiaika.logic;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -33,17 +34,34 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        
-        game = new Game();
+        String[] namesForVillagers = {"A", "B", "C", "D"};
+        String[] professions = {"a", "b", "c", "d", "e"};
+        game = new Game(namesForVillagers, professions);
     }
 
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void villagersAreProperlyInitiated() {
+        StringBuilder sb = new StringBuilder();
+        ArrayList<Villager> villagers = game.getVillagers();
+        for (int i = 0; i < villagers.size(); i++) {
+            sb.append(villagers.get(i).getName());
+            sb.append(villagers.get(i).getProfession());
+        }
+        String expected = "AaBbCcDd";
+        
+        assertEquals(expected, sb.toString());
+    }
+    
+    @Test
+    public void initGameWorksAsExpected() {
+        String[] names = {"AA", "AB"};
+        game.initGame(names);
+        String res = game.getPlayer().getName() + game.getSect().getName();
+        String expected = "AAAB";
+        assertEquals(expected, res);
+    }
 }

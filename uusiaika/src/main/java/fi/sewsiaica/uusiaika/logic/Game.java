@@ -16,20 +16,13 @@ public class Game {
     private Sect sect;
     private ArrayList<Villager> villagers;
 
-    public Game() {
+    public Game(String[] namesForVillagers, String[] professions) {
         this.random = new Random();
-        
-        //Later from a file
-        String[] namesForVillagers = {"Jaakko P", "Harri H", "Mikko M", "Teemu P",
-            "Ilona R", "Taina E", "Marika M", "Robert F", "Cecilia C", "Oleg M"};
-        String[] professions = {"Kauppias", "Leipuri", "Opettaja", "Postinjakaja",
-            "Lääkäri", "Radiojuontaja", "Poliisi", "Bussikuski", "Putkimies",
-            "Poliitikko", "Tutkija", "Apteekkari", "AD", "Toimitusjohtaja"};
         CreateVillagers cv = new CreateVillagers(random);
         int quantity = namesForVillagers.length;
         this.villagers = cv.populateVillage(quantity, namesForVillagers, professions);
     }
-    
+
     public void initGame(String[] names) {
         String[] playerAndSectNames = names;
         // attributes: name, charisma, arg.skills
@@ -37,22 +30,22 @@ public class Game {
         // attributes: name, expenses, member fee
         this.sect = new Sect(playerAndSectNames[1], 1000, 10);
     }
-    
+
     public boolean conversion(Villager villager, String option) {
         //a  charisma vs. selfAwareness + scepticism
         //b  charisma + argSkills vs. argSkills vs. scepticism
         //c  charisma vs. selfEsteem + argSkills
         return false;
     }
-    
+
     public boolean persuasion(Villager villager) {
         return false;
     }
-    
+
     public boolean sermon(Villager villager) {
         return false;
     }
-    
+
     public boolean accusation(Villager villager) {
         return false;
     }
@@ -74,7 +67,7 @@ public class Game {
     public void setSect(Sect sect) {
         this.sect = sect;
     }
-    
+
     public void setVillagers(ArrayList<Villager> villagers) {
         this.villagers = villagers;
     }

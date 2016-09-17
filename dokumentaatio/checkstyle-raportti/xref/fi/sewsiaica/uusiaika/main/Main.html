@@ -21,21 +21,28 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(String[] args) {
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>              <em class="jxr_comment">// To be used before the implementation of the GUI.</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>              Scanner reader = <strong class="jxr_keyword">new</strong> Scanner(System.in);
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>              <a href="../../../../fi/sewsiaica/uusiaika/ui/TextbasedUI.html">TextbasedUI</a> tui = <strong class="jxr_keyword">new</strong> <a href="../../../../fi/sewsiaica/uusiaika/ui/TextbasedUI.html">TextbasedUI</a>(reader);
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>              <a href="../../../../fi/sewsiaica/uusiaika/logic/Game.html">Game</a> game = <strong class="jxr_keyword">new</strong> <a href="../../../../fi/sewsiaica/uusiaika/logic/Game.html">Game</a>();
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>              tui.setGame(game);
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>              tui.openingView();
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>              tui.mainMenu();
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>              <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>              System.out.println(<span class="jxr_string">"Ei natsaa"</span>);
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>          }
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      }
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  }
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>              <em class="jxr_comment">//Later from a file</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>              String[] namesForVillagers = {<span class="jxr_string">"Jaakko P"</span>, <span class="jxr_string">"Harri H"</span>, <span class="jxr_string">"Mikko M"</span>, <span class="jxr_string">"Teemu P"</span>,
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>                  <span class="jxr_string">"Ilona R"</span>, <span class="jxr_string">"Taina E"</span>, <span class="jxr_string">"Marika M"</span>, <span class="jxr_string">"Robert F"</span>, <span class="jxr_string">"Cecilia C"</span>, <span class="jxr_string">"Oleg M"</span>};
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>              String[] professions = {<span class="jxr_string">"Kauppias"</span>, <span class="jxr_string">"Leipuri"</span>, <span class="jxr_string">"Opettaja"</span>, <span class="jxr_string">"Postinjakaja"</span>,
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>                  <span class="jxr_string">"Lääkäri"</span>, <span class="jxr_string">"Radiojuontaja"</span>, <span class="jxr_string">"Poliisi"</span>, <span class="jxr_string">"Bussikuski"</span>, <span class="jxr_string">"Putkimies"</span>,
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>                  <span class="jxr_string">"Poliitikko"</span>, <span class="jxr_string">"Tutkija"</span>, <span class="jxr_string">"Apteekkari"</span>, <span class="jxr_string">"AD"</span>, <span class="jxr_string">"Toimitusjohtaja"</span>};
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>              <em class="jxr_comment">// To be used before the implementation of the GUI.</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>              Scanner reader = <strong class="jxr_keyword">new</strong> Scanner(System.in, <span class="jxr_string">"ISO-8859-1"</span>);
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>              <a href="../../../../fi/sewsiaica/uusiaika/ui/TextbasedUI.html">TextbasedUI</a> tui = <strong class="jxr_keyword">new</strong> <a href="../../../../fi/sewsiaica/uusiaika/ui/TextbasedUI.html">TextbasedUI</a>(reader);
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>              <a href="../../../../fi/sewsiaica/uusiaika/logic/Game.html">Game</a> game = <strong class="jxr_keyword">new</strong> <a href="../../../../fi/sewsiaica/uusiaika/logic/Game.html">Game</a>(namesForVillagers, professions);
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>              tui.setGame(game);
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>              tui.openingView();
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>              tui.mainMenu();
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>              <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>              System.out.println(<span class="jxr_string">"Ei natsaa"</span>);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          }
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      }
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2016. All rights reserved.</div>
