@@ -15,12 +15,30 @@ public class Game {
     private Player player;
     private Sect sect;
     private ArrayList<Villager> villagers;
+    private final int maxNoOfPs;
+    private final int maxNoOfSe;
+    private final int maxNoOfAc;
 
     public Game(String[] namesForVillagers, String[] professions) {
         this.random = new Random();
+        this.maxNoOfPs = 3;
+        this.maxNoOfSe = 2;
+        this.maxNoOfAc = 2;
         CreateVillagers cv = new CreateVillagers(random);
         int quantity = namesForVillagers.length;
         this.villagers = cv.populateVillage(quantity, namesForVillagers, professions);
+    }
+
+    public int getMaxNoOfPs() {
+        return maxNoOfPs;
+    }
+
+    public int getMaxNoOfSe() {
+        return maxNoOfSe;
+    }
+
+    public int getMaxNoOfAc() {
+        return maxNoOfAc;
     }
 
     public void initGame(String[] names) {
@@ -47,9 +65,11 @@ public class Game {
     }
 
     public boolean persuasion(Villager villager) {
-        if (villager.getNoOfPersuations() < 3) {
+        if (villager.getNoOfPersuations() >= 0
+                && villager.getNoOfPersuations() < maxNoOfPs) {
             if (player.getCharisma() + random.nextInt(20)
-                    >= villager.getSelfAwareness() + random.nextInt(20)) {
+                    >= villager.getSelfAwareness() + random.nextInt(20)
+                    && villager.getNoOfPersuations() < maxNoOfPs - 1) {
 
                 villager.setSelfAwareness(villager.getSelfAwareness() - 5);
                 villager.setScepticism(villager.getScepticism() - 5);
@@ -62,13 +82,16 @@ public class Game {
     }
 
     public boolean sermon(Villager villager) {
-        if (villager.getNoOfSermons() < 2) {
+        if (villager.getNoOfSermons() >= 0
+                && villager.getNoOfSermons() < maxNoOfSe) {
             if (player.getCharisma() + player.getArgSkills()
                     + random.nextInt(20) >= villager.getArgSkills()
-                    + villager.getScepticism() + random.nextInt(20)) {
+                    + villager.getScepticism() + random.nextInt(20)
+                    && villager.getNoOfSermons() < maxNoOfSe - 1) {
 
                 villager.setInSect(true);
                 player.setCharisma(player.getCharisma() + 2);
+                villager.setScepticism(villager.getScepticism() - 5);
             }
             villager.setNoOfSermons(villager.getNoOfSermons() + 1);
         }
@@ -76,13 +99,16 @@ public class Game {
     }
 
     public boolean accusation(Villager villager) {
-        if (villager.getNoOfAccusations() < 2) {
+        if (villager.getNoOfAccusations() >= 0
+                && villager.getNoOfAccusations() < maxNoOfAc) {
             if (player.getCharisma() + player.getArgSkills()
                     + random.nextInt(20) >= villager.getSelfEsteem()
-                    + villager.getArgSkills() + random.nextInt(20)) {
+                    + villager.getArgSkills() + random.nextInt(20)
+                    && villager.getNoOfAccusations() < maxNoOfAc - 1) {
 
                 villager.setInSect(true);
                 player.setCharisma(player.getCharisma() + 2);
+                villager.setSelfEsteem(villager.getSelfEsteem() - 5);
             }
             villager.setNoOfAccusations(villager.getNoOfAccusations() + 1);
         }

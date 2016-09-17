@@ -113,6 +113,5 @@ public class Villager {
     public void setNoOfAccusations(int noOfAccusations) {
         this.noOfAccusations = noOfAccusations;
     }
-    
-    
+
 }
