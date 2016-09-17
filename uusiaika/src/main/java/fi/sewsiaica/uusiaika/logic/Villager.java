@@ -13,6 +13,9 @@ public class Villager {
     private int selfAwareness;
     private int argSkills;
     private String profession;
+    private int noOfPersuations;
+    private int noOfSermons;
+    private int noOfAccusations;
 
     public Villager(String name, boolean inSect, int scepticism, int selfEsteem, int selfAwareness, int argSkills, String profession) {
         this.inSect = inSect;
@@ -22,6 +25,9 @@ public class Villager {
         this.selfAwareness = selfAwareness;
         this.argSkills = argSkills;
         this.profession = profession;
+        this.noOfPersuations = 0;
+        this.noOfSermons = 0;
+        this.noOfAccusations = 0;
     }
 
     public String getName() {
@@ -56,23 +62,57 @@ public class Villager {
         this.inSect = inSect;
     }
 
-    public void setScepticism(int scepticism) {
-        this.scepticism = scepticism;
+    public void setScepticism(int value) {
+        if (value >= 0) {
+            this.scepticism = value;
+        }
     }
 
-    public void setSelfEsteem(int selfEsteem) {
-        this.selfEsteem = selfEsteem;
+    public void setSelfEsteem(int value) {
+        if (value >= 0) {
+            this.selfEsteem = value;
+        }
     }
 
-    public void setSelfAwareness(int selfAwareness) {
-        this.selfAwareness = selfAwareness;
+    public void setSelfAwareness(int value) {
+        if (value >= 0) {
+            this.selfAwareness = value;
+        }
     }
 
-    public void setArgSkills(int argSkills) {
-        this.argSkills = argSkills;
+    public void setArgSkills(int value) {
+        if (value >= 0) {
+            this.argSkills = value;
+        }
     }
 
     public void setProfession(String profession) {
         this.profession = profession;
     }
+
+    public int getNoOfPersuations() {
+        return noOfPersuations;
+    }
+
+    public void setNoOfPersuations(int noOfPersuations) {
+        this.noOfPersuations = noOfPersuations;
+    }
+
+    public int getNoOfSermons() {
+        return noOfSermons;
+    }
+
+    public void setNoOfSermons(int noOfSermons) {
+        this.noOfSermons = noOfSermons;
+    }
+
+    public int getNoOfAccusations() {
+        return noOfAccusations;
+    }
+
+    public void setNoOfAccusations(int noOfAccusations) {
+        this.noOfAccusations = noOfAccusations;
+    }
+    
+    
 }

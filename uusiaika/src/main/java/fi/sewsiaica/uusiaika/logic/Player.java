@@ -28,16 +28,20 @@ public class Player {
         return charisma;
     }
 
-    public void setCharisma(int charisma) {
-        this.charisma = charisma;
+    public void setCharisma(int value) {
+        if (value >= 0) {
+            this.charisma = value;
+        }
     }
 
     public int getArgSkills() {
         return argSkills;
     }
 
-    public void setArgSkills(int argSkills) {
-        this.argSkills = argSkills;
+    public void setArgSkills(int value) {
+        if (value >= 0) {
+            this.argSkills = value;
+        }
     }
 
 }

@@ -57,30 +57,45 @@ public class TextbasedUI {
                 index = Integer.parseInt(value) - 1;
                 if (index < highest) {
                     Villager chosenOne = game.getVillagers().get(index);
-                    System.out.println("kyläinen " + chosenOne.getName()
-                            + " valittu ");
-                    return chosenOne;
+
+                    if (!game.getVillagers().get(index).isInSect()) {
+                        System.out.println("kyläläinen " + chosenOne.getName()
+                                + " valittu ");
+                        return chosenOne;
+                    } else {
+                        System.out.println(chosenOne.getName() + " on jo jäsen!");
+                    }
                 }
             }
         }
     }
 
     public void conversionMenu(Villager villager) {
-        System.out.println("Käännytysvalikko:");
-        System.out.println("(a)  lepertele keveitä");
-        System.out.println("(b)  kerro pyhästä kalasta");
-        System.out.println("(c)  syytä syntisyydestä");
-        System.out.println("(m)  palaa päävalikkoon");
-        String option = readInput(createAllowedChars("abcm"));
-        if (option.equals("m")) {
-            System.out.println("ei sitten");
-        } else if (option.equals("a")
-                || option.equals("b")
-                || option.equals("c")) {
-            //a  charisma vs. selfAwareness + scepticism
-            //b  charisma + argSkills vs. argSkills vs. scepticism
-            //c  charisma vs. selfEsteem + argSkills
-            game.conversion(villager, option);
+        boolean ongoing = true;
+
+        while (ongoing) {
+            System.out.println("Käännytysvalikko:");
+            System.out.println("(a)  lepertele keveitä");
+            System.out.println("(b)  kerro pyhästä kalasta");
+            System.out.println("(c)  syytä syntisyydestä");
+            System.out.println("(m)  palaa päävalikkoon");
+            String option = readInput(createAllowedChars("abcm"));
+            if (option.equals("m")) {
+                ongoing = false;
+            } else if (option.equals("a")
+                    || option.equals("b")
+                    || option.equals("c")) {
+                //a  persuasion
+                //b  sermon
+                //c  accusation
+                ongoing = game.conversion(villager, option);
+                if (!ongoing && !villager.isInSect()) {
+                    System.out.println("eipä onnistanut");
+                } else if (!ongoing && villager.isInSect()) {
+                    System.out.println("Onnittelut! " + villager.getName()
+                            + " on liittynyt liikkeen jäseneksi!");
+                }
+            }
         }
     }
 

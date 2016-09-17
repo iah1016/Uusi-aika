@@ -25,10 +25,10 @@ public class CreateVillagers {
         ArrayList<Villager> vlist = new ArrayList<Villager>();
         
         String[] namesForVillagers = pickStrings(quantity, names);
-        int[] sceptValues = pickRandomNumbers(quantity, 10, 50);
-        int[] selfEsValues = pickRandomNumbers(quantity, 10, 50);
-        int[] selfAwValues = pickRandomNumbers(quantity, 10, 50);
-        int[] argSkillsValues = pickRandomNumbers(quantity, 10, 50);
+        int[] sceptValues = pickRandomNumbers(quantity, 10, 51);
+        int[] selfEsValues = pickRandomNumbers(quantity, 10, 51);
+        int[] selfAwValues = pickRandomNumbers(quantity, 10, 51);
+        int[] argSkillsValues = pickRandomNumbers(quantity, 10, 51);
         String[] professions = pickStrings(quantity, profs);
 
         for (int i = 0; i < quantity; i++) {
