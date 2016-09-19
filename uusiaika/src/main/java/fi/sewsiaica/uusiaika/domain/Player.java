@@ -1,4 +1,4 @@
-package fi.sewsiaica.uusiaika.logic;
+package fi.sewsiaica.uusiaika.domain;
 
 /**
  *

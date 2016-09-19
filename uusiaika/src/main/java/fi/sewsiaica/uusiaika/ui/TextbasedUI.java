@@ -1,5 +1,6 @@
 package fi.sewsiaica.uusiaika.ui;
 
+import fi.sewsiaica.uusiaika.domain.Villager;
 import java.util.Scanner;
 import fi.sewsiaica.uusiaika.logic.*;
 import java.util.HashSet;

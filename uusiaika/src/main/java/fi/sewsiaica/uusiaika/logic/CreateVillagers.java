@@ -5,6 +5,7 @@
  */
 package fi.sewsiaica.uusiaika.logic;
 
+import fi.sewsiaica.uusiaika.domain.Villager;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,7 +20,7 @@ public class CreateVillagers {
     public CreateVillagers(Random random) {
         this.random = random;
     }
-
+    
     public ArrayList<Villager> populateVillage(int quantity, String[] names, String[] profs) {
         //Villager(String name, boolean inSect, int scepticism, int selfEsteem, int selfAwareness, int argSkills, String profession)
         ArrayList<Villager> vlist = new ArrayList<Villager>();

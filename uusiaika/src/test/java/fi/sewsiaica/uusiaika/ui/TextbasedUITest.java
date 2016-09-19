@@ -5,6 +5,7 @@
  */
 package fi.sewsiaica.uusiaika.ui;
 
+import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.logic.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

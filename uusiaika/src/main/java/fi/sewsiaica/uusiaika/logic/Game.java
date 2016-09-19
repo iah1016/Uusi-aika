@@ -1,5 +1,8 @@
 package fi.sewsiaica.uusiaika.logic;
 
+import fi.sewsiaica.uusiaika.domain.Villager;
+import fi.sewsiaica.uusiaika.domain.Sect;
+import fi.sewsiaica.uusiaika.domain.Player;
 import fi.sewsiaica.uusiaika.ui.TextbasedUI;
 import java.util.ArrayList;
 import java.util.Random;

@@ -5,6 +5,7 @@
  */
 package fi.sewsiaica.uusiaika.logic;
 
+import fi.sewsiaica.uusiaika.domain.Villager;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
