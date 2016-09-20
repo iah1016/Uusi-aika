@@ -1,8 +1,6 @@
 package fi.sewsiaica.uusiaika.logic;
 
-import fi.sewsiaica.uusiaika.domain.Villager;
-import fi.sewsiaica.uusiaika.domain.Sect;
-import fi.sewsiaica.uusiaika.domain.Player;
+import fi.sewsiaica.uusiaika.domain.*;
 import fi.sewsiaica.uusiaika.ui.TextbasedUI;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,118 +16,49 @@ public class Game {
     private Player player;
     private Sect sect;
     private ArrayList<Villager> villagers;
-    private final int maxNoOfPs;
-    private final int maxNoOfSe;
-    private final int maxNoOfAc;
-
-    public Game(String[] namesForVillagers, String[] professions) {
-        this.random = new Random();
-        this.maxNoOfPs = 3;
-        this.maxNoOfSe = 2;
-        this.maxNoOfAc = 2;
+    private Conversion conversion;
+    
+    public Game(Random random, String[] namesForVillagers, 
+            String[] professions, int[] maxNumbersForConversion) {
+        this.random = random;
+        
         CreateVillagers cv = new CreateVillagers(random);
         int quantity = namesForVillagers.length;
         this.villagers = cv.populateVillage(quantity, namesForVillagers, professions);
-    }
-
-    public int getMaxNoOfPs() {
-        return maxNoOfPs;
-    }
-
-    public int getMaxNoOfSe() {
-        return maxNoOfSe;
-    }
-
-    public int getMaxNoOfAc() {
-        return maxNoOfAc;
+        
+        this.conversion = new Conversion(random, maxNumbersForConversion);
     }
 
     public void initGame(String[] names) {
         String[] playerAndSectNames = names;
-        // attributes: name, charisma, arg.skills
+
+        // This creates Player and Sect objects.
+        // Player attributes: name, charisma, arg.skills
         this.player = new Player(playerAndSectNames[0], 10, 10);
-        // attributes: name, expenses, member fee
+        // Sect attributes: name, expenses, member fee
         this.sect = new Sect(playerAndSectNames[1], 1000, 10);
     }
 
     public boolean conversion(Villager villager, String option) {
-        //a  charisma vs. selfAwareness
-        //b  charisma + argSkills vs. argSkills vs. scepticism
-        //c  charisma + argSkills vs. selfEsteem + argSkills
+        // Player attempts to convert a villager. Future expansion allows
+        // a Villager (Sect member) to convert other villagers.
+        // (a) Persuasion:  charisma vs. selfAwareness
+        // (b) Sermon:      charisma + argSkills vs. argSkills vs. scepticism
+        // (c) Accusation:  charisma + argSkills vs. selfEsteem + argSkills
         if (option.equals("a")) {
-            return persuasion(villager);
+            return conversion.persuasion(player, villager);
         } else if (option.equals("b")) {
-            return sermon(villager);
+            return conversion.sermon(player, villager);
         } else if (option.equals("c")) {
-            return accusation(villager);
+            return conversion.accusation(player, villager);
         }
 
         return false;
     }
 
-    public boolean persuasion(Villager villager) {
-        if (villager.getNoOfPersuations() >= 0
-                && villager.getNoOfPersuations() < maxNoOfPs) {
-            if (player.getCharisma() + random.nextInt(20)
-                    >= villager.getSelfAwareness() + random.nextInt(20)
-                    && villager.getNoOfPersuations() < maxNoOfPs - 1) {
-
-                villager.setSelfAwareness(villager.getSelfAwareness() - 5);
-                villager.setScepticism(villager.getScepticism() - 5);
-                player.setCharisma(player.getCharisma() + 2);
-            }
-            villager.setNoOfPersuations(villager.getNoOfPersuations() + 1);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean sermon(Villager villager) {
-        if (villager.getNoOfSermons() >= 0
-                && villager.getNoOfSermons() < maxNoOfSe) {
-            if (player.getCharisma() + player.getArgSkills()
-                    + random.nextInt(20) >= villager.getArgSkills()
-                    + villager.getScepticism() + random.nextInt(20)
-                    && villager.getNoOfSermons() < maxNoOfSe - 1) {
-
-                villager.setInSect(true);
-                player.setCharisma(player.getCharisma() + 2);
-                villager.setScepticism(villager.getScepticism() - 5);
-            }
-            villager.setNoOfSermons(villager.getNoOfSermons() + 1);
-        }
-        return false;
-    }
-
-    public boolean accusation(Villager villager) {
-        if (villager.getNoOfAccusations() >= 0
-                && villager.getNoOfAccusations() < maxNoOfAc) {
-            if (player.getCharisma() + player.getArgSkills()
-                    + random.nextInt(20) >= villager.getSelfEsteem()
-                    + villager.getArgSkills() + random.nextInt(20)
-                    && villager.getNoOfAccusations() < maxNoOfAc - 1) {
-
-                villager.setInSect(true);
-                player.setCharisma(player.getCharisma() + 2);
-                villager.setSelfEsteem(villager.getSelfEsteem() - 5);
-            }
-            villager.setNoOfAccusations(villager.getNoOfAccusations() + 1);
-        }
-        return false;
-    }
-
-    //setters and getters
-    //
+    // Setters
     public void setPlayer(Player player) {
         this.player = player;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Sect getSect() {
-        return sect;
     }
 
     public void setSect(Sect sect) {
@@ -140,8 +69,17 @@ public class Game {
         this.villagers = villagers;
     }
 
+    // Getters
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Sect getSect() {
+        return sect;
+    }
+
     public ArrayList<Villager> getVillagers() {
         return villagers;
     }
-
 }

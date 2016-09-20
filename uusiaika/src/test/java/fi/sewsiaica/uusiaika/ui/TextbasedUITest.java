@@ -11,6 +11,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Scanner;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -26,6 +27,7 @@ import static org.junit.Assert.*;
 public class TextbasedUITest {
 
     private Scanner reader;
+    private Random random;
     private Game game;
     private TextbasedUI tui;
     private PrintStream ps;
@@ -43,9 +45,14 @@ public class TextbasedUITest {
 
     @Before
     public void setUp() {
+        // Later from a file
         String[] namesForVillagers = {"A", "B"};
         String[] professions = {"a", "b"};
-        game = new Game(namesForVillagers, professions);
+        int[] maxNumbersForConversion = {3, 2, 2};
+        
+        random = new Random();
+        game = new Game(random, namesForVillagers,
+                professions, maxNumbersForConversion);
         reader = new Scanner(System.in, "ISO-8859-1");
         tui = new TextbasedUI(reader);
         tui.setGame(game);
@@ -91,7 +98,7 @@ public class TextbasedUITest {
                 + "\ndab"
                 + "\nöööö";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
-        Scanner mockReader = new Scanner(System.in);
+        Scanner mockReader = new Scanner(System.in, "ISO-8859-1");
         tui = new TextbasedUI(mockReader);
         tui.setGame(game);
 
@@ -105,10 +112,12 @@ public class TextbasedUITest {
     public void chooseVillagerMenuChoosesCorrectVillager() {
         String[] names = {"A", "B", "C", "D"};
         String[] profs = {"A", "B", "C", "D"};
-        Game game2 = new Game(names, profs);
+        int[] maxNumbersForConversion = {3, 2, 2};
+        
+        Game game2 = new Game(random, names, profs, maxNumbersForConversion);
         String data = "3";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
-        Scanner mockReader = new Scanner(System.in);
+        Scanner mockReader = new Scanner(System.in, "ISO-8859-1");
         tui = new TextbasedUI(mockReader);
         tui.setGame(game2);
         
@@ -121,7 +130,7 @@ public class TextbasedUITest {
         String data = "Jesus Garcia"
                 + "\nThe Worshippers of Ancient Execution Methods";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
-        Scanner mockReader = new Scanner(System.in);
+        Scanner mockReader = new Scanner(System.in, "ISO-8859-1");
         tui = new TextbasedUI(mockReader);
         tui.setGame(game);
         

@@ -13,9 +13,9 @@ public class Villager {
     private int selfAwareness;
     private int argSkills;
     private String profession;
-    private int noOfPersuations;
-    private int noOfSermons;
-    private int noOfAccusations;
+    private int numberOfPersuations;
+    private int numberOfSermons;
+    private int numberOfAccusations;
 
     public Villager(String name, boolean inSect, int scepticism, int selfEsteem, int selfAwareness, int argSkills, String profession) {
         this.inSect = inSect;
@@ -25,9 +25,9 @@ public class Villager {
         this.selfAwareness = selfAwareness;
         this.argSkills = argSkills;
         this.profession = profession;
-        this.noOfPersuations = 0;
-        this.noOfSermons = 0;
-        this.noOfAccusations = 0;
+        this.numberOfPersuations = 0;
+        this.numberOfSermons = 0;
+        this.numberOfAccusations = 0;
     }
 
     public String getName() {
@@ -90,28 +90,28 @@ public class Villager {
         this.profession = profession;
     }
 
-    public int getNoOfPersuations() {
-        return noOfPersuations;
+    public int getNumberOfPersuasions() {
+        return numberOfPersuations;
     }
 
-    public void setNoOfPersuations(int noOfPersuations) {
-        this.noOfPersuations = noOfPersuations;
+    public void setNumberOfPersuations(int numberOfPersuations) {
+        this.numberOfPersuations = numberOfPersuations;
     }
 
-    public int getNoOfSermons() {
-        return noOfSermons;
+    public int getNumberOfSermons() {
+        return numberOfSermons;
     }
 
-    public void setNoOfSermons(int noOfSermons) {
-        this.noOfSermons = noOfSermons;
+    public void setNumberOfSermons(int numberOfSermons) {
+        this.numberOfSermons = numberOfSermons;
     }
 
-    public int getNoOfAccusations() {
-        return noOfAccusations;
+    public int getNumberOfAccusations() {
+        return numberOfAccusations;
     }
 
-    public void setNoOfAccusations(int noOfAccusations) {
-        this.noOfAccusations = noOfAccusations;
+    public void setNumberOfAccusations(int numberOfAccusations) {
+        this.numberOfAccusations = numberOfAccusations;
     }
 
 }
