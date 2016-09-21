@@ -12,31 +12,34 @@ import java.util.Random;
 public class Game {
 
     private TextbasedUI tui;
-    private Random random;
     private Player player;
     private Sect sect;
     private ArrayList<Villager> villagers;
     private Conversion conversion;
-    
+    private TrainingCentre trainingCentre;
+
     // Move these to a yaml file
     private final int defaultPlayerCharisma = 10;
     private final int defaultPlayerArgSkills = 10;
     private final int defaultSectExpenses = 1000;
-    private final int defaultSectMemberFee = 10;
+    private final int defaultSectMemberFee = 100;
+    private final int defaultTrainingCharismaIncr = 10;
+    private final int defaultTrainingArgSkillsIncr = 10;
     private int numberOfVillagers;
 
     public Game(Random random, String[] namesForVillagers,
             String[] professions, int[] maxNumbersForConversion) {
-        this.random = random;
-        
+        this.conversion = new Conversion(random, maxNumbersForConversion);
+        this.trainingCentre = new TrainingCentre(defaultTrainingCharismaIncr,
+                defaultTrainingArgSkillsIncr);
+
         // Move this to a yaml file
         numberOfVillagers = namesForVillagers.length;
 
+        // Change this so that the values come from a yaml file.
         CreateVillagers cv = new CreateVillagers(random);
         this.villagers = cv.populateVillage(numberOfVillagers,
                 namesForVillagers, professions);
-
-        this.conversion = new Conversion(random, maxNumbersForConversion);
     }
 
     public void initGame(String[] names) {
@@ -48,7 +51,7 @@ public class Game {
                 defaultPlayerArgSkills);
         // Sect attributes: name, expenses, member fee
         this.sect = new Sect(playerAndSectNames[1], defaultSectExpenses,
-        defaultSectMemberFee);
+                defaultSectMemberFee);
     }
 
     public boolean conversion(Villager villager, String option) {
@@ -74,6 +77,33 @@ public class Game {
             return conversion.accusation(player, villager);
         }
         return false;
+    }
+
+    public void holySiteActions(String option) {
+        // These are the actions that are set in the sect's holy site.
+        // (a) Preach
+        // (b) Offer soda to the congregation 
+        // (c) Buy a one-way ticket to a paradise island
+        // Option (a) will decrease the scepticism of all the sect members.
+        // Options (b) and (c) will end the game, if the conditions are met.
+//        if (option.equals("a")) {
+//
+//        } else if (option.equals("b")) {
+//
+//        } else if (option.equals("c")) {
+//
+//        }
+    }
+
+    public void trainingCentreActions(String option) {
+        // These are the actions that are set in the training centre.
+        // (a) apply for a charisma course
+        // (b) apply for a debate course
+        if (option.equals("a")) {
+            trainingCentre.applyForCharismaCourse(player);
+        } else if (option.equals("b")) {
+            trainingCentre.applyForDebateCourse(player);
+        }
     }
 
     // Setters
