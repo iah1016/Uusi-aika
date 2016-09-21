@@ -6,7 +6,7 @@ import fi.sewsiaica.uusiaika.logic.*;
 import java.util.HashSet;
 
 /**
- *
+ * Temporary text-based UI
  * @author iah1016
  */
 public class TextbasedUI {

@@ -14,13 +14,15 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            // Later from a file
-            String[] namesForVillagers = {"Jaakko P", "Harri H", "Mikko M", "Teemu P",
-                "Ilona R", "Taina E", "Marika M", "Robert F", "Cecilia C", "Oleg M"};
-            String[] professions = {"Kauppias", "Leipuri", "Opettaja", "Postinjakaja",
-                "Lääkäri", "Radiojuontaja", "Poliisi", "Bussikuski", "Putkimies",
-                "Poliitikko", "Tutkija", "Apteekkari", "AD", "Toimitusjohtaja"};
-            int[] maxNumbersForConversion = {4, 2, 2};
+            // Move these to a yaml file
+            String[] namesForVillagers = {"Jaakko P", "Harri H", "Mikko M",
+                "Teemu P", "Ilona R", "Taina E", "Marika M", "Robert F",
+                "Cecilia C", "Oleg M"};
+            String[] professions = {"Kauppias", "Leipuri", "Opettaja",
+                "Postinjakaja", "Lääkäri", "Radiojuontaja", "Poliisi",
+                "Bussikuski", "Putkimies", "Poliitikko", "Tutkija",
+                "Apteekkari", "AD", "Toimitusjohtaja"};
+            int[] maxNumbersForConversion = {4, 2, 2}; // three types
             //
 
             // To be used before the implementation of the GUI.

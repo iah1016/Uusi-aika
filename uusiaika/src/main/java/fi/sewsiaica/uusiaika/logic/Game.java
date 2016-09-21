@@ -17,14 +17,24 @@ public class Game {
     private Sect sect;
     private ArrayList<Villager> villagers;
     private Conversion conversion;
+    
+    // Move these to a yaml file
+    private final int defaultPlayerCharisma = 10;
+    private final int defaultPlayerArgSkills = 10;
+    private final int defaultSectExpenses = 1000;
+    private final int defaultSectMemberFee = 10;
+    private int numberOfVillagers;
 
     public Game(Random random, String[] namesForVillagers,
             String[] professions, int[] maxNumbersForConversion) {
         this.random = random;
+        
+        // Move this to a yaml file
+        numberOfVillagers = namesForVillagers.length;
 
         CreateVillagers cv = new CreateVillagers(random);
-        int quantity = namesForVillagers.length;
-        this.villagers = cv.populateVillage(quantity, namesForVillagers, professions);
+        this.villagers = cv.populateVillage(numberOfVillagers,
+                namesForVillagers, professions);
 
         this.conversion = new Conversion(random, maxNumbersForConversion);
     }
@@ -34,16 +44,18 @@ public class Game {
 
         // This creates Player and Sect objects.
         // Player attributes: name, charisma, arg.skills
-        this.player = new Player(playerAndSectNames[0], 10, 10);
+        this.player = new Player(playerAndSectNames[0], defaultPlayerCharisma,
+                defaultPlayerArgSkills);
         // Sect attributes: name, expenses, member fee
-        this.sect = new Sect(playerAndSectNames[1], 1000, 10);
+        this.sect = new Sect(playerAndSectNames[1], defaultSectExpenses,
+        defaultSectMemberFee);
     }
 
     public boolean conversion(Villager villager, String option) {
         // Player attempts to convert a villager. Future expansion allows
         // a Villager (Sect member) to convert other villagers.
         // (a) Persuasion:  charisma vs. selfAwareness
-        // (b) Sermon:      charisma + argSkills vs. argSkills vs. scepticism
+        // (b) Sermon:      charisma + argSkills vs. scepticism + argSkills
         // (c) Accusation:  charisma + argSkills vs. selfEsteem + argSkills
         if (option.equals("a")) {
             if (!conversion.checkIfAllowedToProceed('a', villager)) {
