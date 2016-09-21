@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2016</copyright>
     <item>
-      <title>File: 7,
+      <title>File: 8,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.Sect.java">fi/sewsiaica/uusiaika/logic/Sect.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Villager.java">fi/sewsiaica/uusiaika/domain/Villager.java</a>
                 </td>
                 <td>
                   0
@@ -74,7 +74,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Player.java">fi/sewsiaica/uusiaika/domain/Player.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.CreateVillagers.java">fi/sewsiaica/uusiaika/logic/CreateVillagers.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.Conversion.java">fi/sewsiaica/uusiaika/logic/Conversion.java</a>
                 </td>
                 <td>
                   0
@@ -102,35 +130,21 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.Player.java">fi/sewsiaica/uusiaika/logic/Player.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.Villager.java">fi/sewsiaica/uusiaika/logic/Villager.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.TextbasedUI.java">fi/sewsiaica/uusiaika/ui/TextbasedUI.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Sect.java">fi/sewsiaica/uusiaika/domain/Sect.java</a>
                 </td>
                 <td>
                   0

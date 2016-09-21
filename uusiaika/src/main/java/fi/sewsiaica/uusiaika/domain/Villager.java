@@ -17,7 +17,8 @@ public class Villager {
     private int numberOfSermons;
     private int numberOfAccusations;
 
-    public Villager(String name, boolean inSect, int scepticism, int selfEsteem, int selfAwareness, int argSkills, String profession) {
+    public Villager(String name, boolean inSect, int scepticism, int selfEsteem,
+            int selfAwareness, int argSkills, String profession) {
         this.inSect = inSect;
         this.name = name;
         this.scepticism = scepticism;

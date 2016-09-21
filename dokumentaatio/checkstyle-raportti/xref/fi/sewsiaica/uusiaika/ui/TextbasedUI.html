@@ -8,35 +8,35 @@
 <div id="overview"><a href="../../../../../apidocs/fi/sewsiaica/uusiaika/ui/TextbasedUI.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> fi.sewsiaica.uusiaika.ui;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.util.Scanner;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> fi.sewsiaica.uusiaika.logic.*;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.util.HashSet;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> * @author iah1016</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../fi/sewsiaica/uusiaika/ui/TextbasedUI.html">TextbasedUI</a> {
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">private</strong> HashSet&lt;Character&gt; allAllowedChars;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">private</strong> Scanner reader;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../fi/sewsiaica/uusiaika/logic/Game.html">Game</a> game;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../fi/sewsiaica/uusiaika/ui/TextbasedUI.html">TextbasedUI</a>(Scanner reader) {
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>          <strong class="jxr_keyword">this</strong>.reader = reader;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>          String chars = <span class="jxr_string">"abcdefghijklmnopqrstuvwxyzåäöüáéóúàèòù ABCDEFGHIJKLMN"</span>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>                  + <span class="jxr_string">"OPQRSTUVWXYZÅÄÖÜÁÉÓÚÀÈÒÙ0123456789.,:;-_+!?&amp;()/"</span>;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>          <strong class="jxr_keyword">this</strong>.allAllowedChars = createAllowedChars(chars);
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>      }
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> openingView() {
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>          String[] playerAndSectNames = <strong class="jxr_keyword">new</strong> String[2];
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>          System.out.print(<span class="jxr_string">"Se suuri johtaja! Valitse nimesi: "</span>);
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>          playerAndSectNames[0] = readInput(allAllowedChars);
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>          System.out.print(<span class="jxr_string">"Valitse liikkeesi nimi: "</span>);
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>          playerAndSectNames[1] = readInput(allAllowedChars);
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> fi.sewsiaica.uusiaika.domain.Villager;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.util.Scanner;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> fi.sewsiaica.uusiaika.logic.*;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.util.HashSet;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * @author iah1016</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../fi/sewsiaica/uusiaika/ui/TextbasedUI.html">TextbasedUI</a> {
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">private</strong> HashSet&lt;Character&gt; allAllowedChars;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">private</strong> Scanner reader;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../fi/sewsiaica/uusiaika/logic/Game.html">Game</a> game;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../fi/sewsiaica/uusiaika/ui/TextbasedUI.html">TextbasedUI</a>(Scanner reader) {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          <strong class="jxr_keyword">this</strong>.reader = reader;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>          String chars = <span class="jxr_string">"abcdefghijklmnopqrstuvwxyzåäöüáéóúàèòù ABCDEFGHIJKLMN"</span>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>                  + <span class="jxr_string">"OPQRSTUVWXYZÅÄÖÜÁÉÓÚÀÈÒÙ0123456789.,:;-_+!?&amp;()/"</span>;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          <strong class="jxr_keyword">this</strong>.allAllowedChars = createAllowedChars(chars);
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      }
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> openingView() {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          String[] playerAndSectNames = <strong class="jxr_keyword">new</strong> String[2];
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          System.out.print(<span class="jxr_string">"Se suuri johtaja! Valitse nimesi: "</span>);
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          playerAndSectNames[0] = readInput(allAllowedChars);
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          System.out.print(<span class="jxr_string">"Valitse liikkeesi nimi: "</span>);
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          playerAndSectNames[1] = readInput(allAllowedChars);
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          game.initGame(playerAndSectNames);
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      }
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
@@ -54,7 +54,7 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          }
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../fi/sewsiaica/uusiaika/logic/Villager.html">Villager</a> chooseVillagerMenu() {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../fi/sewsiaica/uusiaika/domain/Villager.html">Villager</a> chooseVillagerMenu() {
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">int</strong> index = 0;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">while</strong> (<strong class="jxr_keyword">true</strong>) {
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>              <strong class="jxr_keyword">int</strong> highest = game.getVillagers().size();
@@ -64,7 +64,7 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>              <strong class="jxr_keyword">if</strong> (validNumberGivenAsString(value)) {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>                  index = Integer.parseInt(value) - 1;
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>                  <strong class="jxr_keyword">if</strong> (index &lt; highest) {
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>                      <a href="../../../../fi/sewsiaica/uusiaika/logic/Villager.html">Villager</a> chosenOne = game.getVillagers().get(index);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>                      <a href="../../../../fi/sewsiaica/uusiaika/domain/Villager.html">Villager</a> chosenOne = game.getVillagers().get(index);
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>                      <strong class="jxr_keyword">if</strong> (!game.getVillagers().get(index).isInSect()) {
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>                          System.out.println(<span class="jxr_string">"kyläläinen "</span> + chosenOne.getName()
@@ -78,7 +78,7 @@
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          }
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> conversionMenu(<a href="../../../../fi/sewsiaica/uusiaika/logic/Villager.html">Villager</a> villager) {
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> conversionMenu(<a href="../../../../fi/sewsiaica/uusiaika/domain/Villager.html">Villager</a> villager) {
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">boolean</strong> ongoing = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">while</strong> (ongoing) {

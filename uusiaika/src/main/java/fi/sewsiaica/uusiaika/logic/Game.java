@@ -17,15 +17,15 @@ public class Game {
     private Sect sect;
     private ArrayList<Villager> villagers;
     private Conversion conversion;
-    
-    public Game(Random random, String[] namesForVillagers, 
+
+    public Game(Random random, String[] namesForVillagers,
             String[] professions, int[] maxNumbersForConversion) {
         this.random = random;
-        
+
         CreateVillagers cv = new CreateVillagers(random);
         int quantity = namesForVillagers.length;
         this.villagers = cv.populateVillage(quantity, namesForVillagers, professions);
-        
+
         this.conversion = new Conversion(random, maxNumbersForConversion);
     }
 
@@ -46,13 +46,21 @@ public class Game {
         // (b) Sermon:      charisma + argSkills vs. argSkills vs. scepticism
         // (c) Accusation:  charisma + argSkills vs. selfEsteem + argSkills
         if (option.equals("a")) {
+            if (!conversion.checkIfAllowedToProceed('a', villager)) {
+                return false;
+            }
             return conversion.persuasion(player, villager);
         } else if (option.equals("b")) {
+            if (!conversion.checkIfAllowedToProceed('b', villager)) {
+                return false;
+            }
             return conversion.sermon(player, villager);
         } else if (option.equals("c")) {
+            if (!conversion.checkIfAllowedToProceed('c', villager)) {
+                return false;
+            }
             return conversion.accusation(player, villager);
         }
-
         return false;
     }
 
@@ -70,7 +78,6 @@ public class Game {
     }
 
     // Getters
-
     public Player getPlayer() {
         return player;
     }

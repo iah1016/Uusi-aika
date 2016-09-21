@@ -18,24 +18,14 @@ public class Conversion {
     private final int maxNumberOfPersuasions;
     private final int maxNumberOfSermons;
     private final int maxNumberOfAccusations;
+    private int[] maxNumbers;
 
     public Conversion(Random random, int[] maxNumbers) {
         this.random = random;
+        this.maxNumbers = maxNumbers;
         this.maxNumberOfPersuasions = maxNumbers[0];
         this.maxNumberOfSermons = maxNumbers[1];
         this.maxNumberOfAccusations = maxNumbers[2];
-    }
-
-    public boolean convSucceeds(int plVal, int vilVal, int plIncr,
-            int vilIncr, boolean maxedOut) {
-
-        plVal += random.nextInt(plIncr);
-        vilVal += random.nextInt(vilIncr);
-
-        if (plVal >= vilVal && !maxedOut) {
-            return true;
-        }
-        return false;
     }
 
     public boolean isMaxedOut(int val, int max) {
@@ -46,71 +36,93 @@ public class Conversion {
         return false;
     }
 
+    public boolean checkIfAllowedToProceed(char type, Villager villager) {
+        if (type == 'a') {
+            int persuasions = villager.getNumberOfPersuasions();
+            return !isMaxedOut(persuasions, maxNumbers[0]);
+        } else if (type == 'b') {
+            int sermons = villager.getNumberOfSermons();
+            return !isMaxedOut(sermons, maxNumbers[1]);
+        } else if (type == 'c') {
+            int accusations = villager.getNumberOfAccusations();
+            return !isMaxedOut(accusations, maxNumbers[2]);
+        }
+        return false;
+    }
+
+    public void increaseAmountOfConv(char type, Villager villager) {
+        if (type == 'a') {
+            int persuasions = villager.getNumberOfPersuasions();
+            villager.setNumberOfPersuations(persuasions + 1);
+        } else if (type == 'b') {
+            int sermons = villager.getNumberOfSermons();
+            villager.setNumberOfSermons(sermons + 1);
+        } else if (type == 'c') {
+            int accusations = villager.getNumberOfAccusations();
+            villager.setNumberOfAccusations(accusations + 1);
+        }
+    }
+
+    public boolean convSucceeds(int plVal, int vilVal, int plIncr,
+            int vilIncr) {
+
+        plVal += random.nextInt(plIncr);
+        vilVal += random.nextInt(vilIncr);
+
+        if (plVal >= vilVal) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean persuasion(Player player, Villager villager) {
-        int persuasions = villager.getNumberOfPersuasions();
+        increaseAmountOfConv('a', villager);
         int playerCharisma = player.getCharisma();
         int vilSelfAw = villager.getSelfAwareness();
         int vilScept = villager.getScepticism();
+        boolean successfulConv = convSucceeds(playerCharisma,
+                vilSelfAw, 20, 20);
 
-        boolean maxedOut = isMaxedOut(persuasions, maxNumberOfPersuasions);
-        boolean maxedOut2 = isMaxedOut(persuasions, maxNumberOfPersuasions - 1);
-        boolean successfulConversion = convSucceeds(playerCharisma,
-                vilSelfAw, 20, 20, maxedOut2);
-
-        if (!maxedOut) {
-            if (successfulConversion) {
-                villager.setSelfAwareness(vilSelfAw - 5);
-                villager.setScepticism(vilScept - 5);
-                player.setCharisma(playerCharisma + 2);
-            }
-            villager.setNumberOfPersuations(persuasions + 1);
+        if (successfulConv) {
+            villager.setSelfAwareness(vilSelfAw - 5);
+            villager.setScepticism(vilScept - 5);
+            player.setCharisma(playerCharisma + 2);
             return true;
         }
         return false;
     }
 
     public boolean sermon(Player player, Villager villager) {
-        int sermons = villager.getNumberOfSermons();
+        increaseAmountOfConv('b', villager);
         int playerCharisma = player.getCharisma();
         int vilScept = villager.getScepticism();
         int playerValue = playerCharisma + player.getArgSkills();
         int vilValue = vilScept + villager.getArgSkills();
+        boolean successfulConv = convSucceeds(playerValue,
+                vilValue, 20, 20);
 
-        boolean maxedOut = isMaxedOut(sermons, maxNumberOfSermons);
-        boolean maxedOut2 = isMaxedOut(sermons, maxNumberOfSermons - 1);
-        boolean successfulConversion = convSucceeds(playerValue,
-                vilValue, 20, 20, maxedOut2);
-        
-        if (!maxedOut) {
-            if (successfulConversion) {
-                villager.setInSect(true);
-                player.setCharisma(playerCharisma + 2);
-                villager.setScepticism(vilScept - 5);
-            }
-            villager.setNumberOfSermons(sermons + 1);
+        if (successfulConv) {
+            villager.setInSect(true);
+            player.setCharisma(playerCharisma + 2);
+            villager.setScepticism(vilScept - 5);
+            return true;
         }
         return false;
     }
 
     public boolean accusation(Player player, Villager villager) {
-        int accusations = villager.getNumberOfAccusations();
+        increaseAmountOfConv('c', villager);
         int playerCharisma = player.getCharisma();
         int vilSelfEs = villager.getSelfEsteem();
         int playerValue = playerCharisma + player.getArgSkills();
         int vilValue = vilSelfEs + villager.getArgSkills();
+        boolean successfulConv = convSucceeds(playerValue, vilValue, 20, 20);
 
-        boolean maxedOut = isMaxedOut(accusations, maxNumberOfAccusations);
-        boolean maxedOut2 = isMaxedOut(accusations, maxNumberOfAccusations - 1);
-        boolean successfulConversion = convSucceeds(playerValue,
-                vilValue, 20, 20, maxedOut2);
-
-        if (!maxedOut) {
-            if (successfulConversion) {
-                villager.setInSect(true);
-                player.setCharisma(playerCharisma + 2);
-                villager.setSelfEsteem(vilSelfEs - 5);
-            }
-            villager.setNumberOfAccusations(accusations + 1);
+        if (successfulConv) {
+            villager.setInSect(true);
+            player.setCharisma(playerCharisma + 2);
+            villager.setSelfEsteem(vilSelfEs - 5);
+            return true;
         }
         return false;
     }

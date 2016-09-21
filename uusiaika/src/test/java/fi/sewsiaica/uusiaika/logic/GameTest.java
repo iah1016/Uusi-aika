@@ -77,7 +77,92 @@ public class GameTest {
         String[] names = {"AA", "AB"};
         game2.initGame(names);
         String res = game2.getPlayer().getName() + game2.getSect().getName();
-        String expected = "AAAB";
-        assertEquals(expected, res);
+        assertEquals("AAAB", res);
     }
+    
+    @Test
+    public void conversionWorksWithOptionA() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(0);
+        villager.setNumberOfSermons(20);
+        villager.setNumberOfAccusations(20);
+        villager.setSelfAwareness(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, "a");
+        assertEquals(true, result);
+    }
+    
+    @Test
+    public void conversionDoesNotWorkWithOptionAIfAlreadyMaxedTries() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(3);
+        villager.setNumberOfSermons(0);
+        villager.setNumberOfAccusations(0);
+        villager.setSelfAwareness(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, "a");
+        assertEquals(false, result);
+    }
+    
+    @Test
+    public void conversionWorksWithOptionB() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(20);
+        villager.setNumberOfSermons(0);
+        villager.setNumberOfAccusations(20);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, "b");
+        assertEquals(true, result);
+    }
+    
+    @Test
+    public void conversionDoesNotWorkWithOptionBIfAlreadyMaxedTries() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(0);
+        villager.setNumberOfSermons(2);
+        villager.setNumberOfAccusations(0);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, "b");
+        assertEquals(false, result);
+    }
+    
+    @Test
+    public void conversionWorksWithOptionC() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(20);
+        villager.setNumberOfSermons(20);
+        villager.setNumberOfAccusations(0);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, "c");
+        assertEquals(true, result);
+    }
+    
+    @Test
+    public void conversionDoesNotWorkWithOptionCIfAlreadyMaxedTries() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(0);
+        villager.setNumberOfSermons(0);
+        villager.setNumberOfAccusations(2);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, "c");
+        assertEquals(false, result);
+    }
+    
+    @Test
+    public void conversionReturnsFalseIfOptionOtherThanABC() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(0);
+        villager.setNumberOfSermons(0);
+        villager.setNumberOfAccusations(0);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        String option = "";
+        boolean result = game.conversion(villager, option);
+        assertEquals(false, result);
+    }
+    
 }

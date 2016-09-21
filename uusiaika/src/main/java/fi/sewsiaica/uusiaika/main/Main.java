@@ -20,7 +20,7 @@ public class Main {
             String[] professions = {"Kauppias", "Leipuri", "Opettaja", "Postinjakaja",
                 "Lääkäri", "Radiojuontaja", "Poliisi", "Bussikuski", "Putkimies",
                 "Poliitikko", "Tutkija", "Apteekkari", "AD", "Toimitusjohtaja"};
-            int[] maxNumbersForConversion = {3, 2, 2};
+            int[] maxNumbersForConversion = {4, 2, 2};
             //
 
             // To be used before the implementation of the GUI.
@@ -29,7 +29,7 @@ public class Main {
             TextbasedUI tui = new TextbasedUI(reader);
             Game game = new Game(random, namesForVillagers, professions,
                     maxNumbersForConversion);
-            
+
             tui.setGame(game);
             tui.openingView();
             tui.mainMenu();
