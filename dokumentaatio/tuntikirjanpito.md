@@ -11,3 +11,6 @@ Päivä | Tunnit | Kuvaus
 16.09.2016 | 2h | Teknisen ongelman syynselvitys laitoksen koneella (iltapäivä)
 16.09.2016 | 3h | Ohjelmointia (yöllä); testit kesken
 17.09.2016 | 10h | (Tilapäinen) tekstipohjainen käyttöliittymä, käännytyslogiikka ja testit lisätty
+19.09.2016 | 1h | Projekti siirretty laitoksen koneella CS-kansioon, Luokat Player, Sect ja Villager siirretty domain-pakettiin, ajettava jar-tiedosto luotu
+20.09.2016 | 1h | Yamlin käyttöönoton selvittely, yaml-riippuvuus lisätty pom.xml:ään
+21.09.2016 | 6h | Käännytys siirretty omaksi luokakseen, koodin putsausta, lisätty lisää testejä
