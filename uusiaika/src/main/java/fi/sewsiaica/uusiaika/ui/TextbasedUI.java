@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 /**
  * Temporary text-based UI
+ *
  * @author iah1016
  */
 public class TextbasedUI {
@@ -70,6 +71,16 @@ public class TextbasedUI {
         }
     }
 
+    private char tempMethodForChangingStringOptToChar(String opt) {
+        if (opt == null) {
+            return ' ';
+        }
+        if (opt.equals("")) {
+            return ' ';
+        }
+        return opt.charAt(0);
+    }
+
     public void conversionMenu(Villager villager) {
         boolean ongoing = true;
 
@@ -88,7 +99,9 @@ public class TextbasedUI {
                 //a  persuasion
                 //b  sermon
                 //c  accusation
-                ongoing = game.conversion(villager, option);
+                ongoing = game.conversion(villager,
+                        tempMethodForChangingStringOptToChar(option));
+
                 if (!ongoing && !villager.isInSect()) {
                     System.out.println("eipä onnistanut");
                 } else if (!ongoing && villager.isInSect()) {

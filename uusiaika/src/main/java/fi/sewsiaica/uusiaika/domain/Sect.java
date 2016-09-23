@@ -5,19 +5,26 @@
  */
 package fi.sewsiaica.uusiaika.domain;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author iah1016
  */
 public class Sect {
+
     private String name;
+    private int balance;
     private int expenses;
     private int memberFee;
+    private ArrayList<Villager> congregation;
 
-    public Sect(String name, int expenses, int memberFee) {
+    public Sect(String name, int balance, int expenses, int memberFee) {
         this.name = name;
+        this.balance = balance;
         this.expenses = expenses;
         this.memberFee = memberFee;
+        this.congregation = new ArrayList<Villager>();
     }
 
     public String getName() {
@@ -26,6 +33,14 @@ public class Sect {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public int getExpenses() {
@@ -43,5 +58,13 @@ public class Sect {
     public void setMemberFee(int memberFee) {
         this.memberFee = memberFee;
     }
-    
+
+    public ArrayList<Villager> getCongregation() {
+        return congregation;
+    }
+
+    public void setCongregation(ArrayList<Villager> congregation) {
+        this.congregation = congregation;
+    }
+
 }

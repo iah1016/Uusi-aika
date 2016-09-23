@@ -22,15 +22,17 @@ public class TrainingCentre {
         this.defaultTrainingArgSkillsIncr = defaultTrainingArgSkillsIncr;
     }
 
-    public void applyForCharismaCourse(Player player) {
+    public boolean applyForCharismaCourse(Player player) {
         int playerCharisma = player.getCharisma();
 
         player.setCharisma(playerCharisma + defaultTrainingCharismaIncr);
+        return true;
     }
 
-    public void applyForDebateCourse(Player player) {
+    public boolean applyForDebateCourse(Player player) {
         int playerArgSkills = player.getArgSkills();
 
         player.setArgSkills(playerArgSkills + defaultTrainingArgSkillsIncr);
+        return true;
     }
 }

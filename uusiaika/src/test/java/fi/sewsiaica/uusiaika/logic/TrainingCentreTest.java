@@ -48,13 +48,13 @@ public class TrainingCentreTest {
     }
 
     @Test
-    public void applyForCharismaCourseWorksCorrectly() {
+    public void applyForCharismaIncreasesCharismaCorrectly() {
         tc.applyForCharismaCourse(player);
         assertEquals(28, player.getCharisma());
     }
     
     @Test
-    public void applyForDebateCourseWorksCorrectly() {
+    public void applyForDebateCourseIncreasesArgSkillsCorrectly() {
         tc.applyForDebateCourse(player);
         assertEquals(25, player.getArgSkills());
     }
