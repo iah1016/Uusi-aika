@@ -68,10 +68,7 @@ public class Game {
         if (array == null) {
             return false;
         }
-        if (array.length == length) {
-            return true;
-        }
-        return false;
+        return array.length == length;
     }
 
     public boolean conversion(Villager villager, char option) {
@@ -81,14 +78,15 @@ public class Game {
         // (b) Sermon:      charisma + argSkills vs. scepticism + argSkills
         // (c) Accusation:  charisma + argSkills vs. selfEsteem + argSkills
         if (conversion.checkIfAllowedToProceed(option, villager)) {
-            if (option == 'a') {
-                return conversion.persuasion(player, villager);
-            }
-            if (option == 'b') {
-                return conversion.sermon(player, villager);
-            }
-            if (option == 'c') {
-                return conversion.accusation(player, villager);
+            switch (option) {
+                case 'a':
+                    return conversion.persuasion(player, villager);
+                case 'b':
+                    return conversion.sermon(player, villager);
+                case 'c':
+                    return conversion.accusation(player, villager);
+                default:
+                    return false;
             }
         }
         return false;
@@ -101,42 +99,30 @@ public class Game {
         // (c) Buy a one-way ticket to a paradise island
         // Option (a) will decrease the scepticism of all the sect members.
         // Options (b) and (c) will end the game, if the conditions are met.
-        if (option == 'a') {
-            return temple.preach(player, sect.getCongregation());
+        switch (option) {
+            case 'a':
+                return temple.preach(player, sect.getCongregation());
+            case 'b':
+                return temple.offerSodaToAllMembers(player);
+            case 'c':
+                return temple.buyTicketToParadiseIsland(player, sect);
+            default:
+                return false;
         }
-        if (option == 'b') {
-            return temple.offerSodaToAllMembers(player);
-        }
-        if (option == 'c') {
-            return temple.buyTicketToParadiseIsland(player, sect);
-        }
-        return false;
     }
 
     public boolean trainingCentreActions(char option) {
         // These are the actions that are set in the training centre.
         // (a) apply for a charisma course
         // (b) apply for a debate course
-        if (option == 'a') {
-            return trainingCentre.applyForCharismaCourse(player);
+        switch (option) {
+            case 'a':
+                return trainingCentre.applyForCharismaCourse(player);
+            case 'b':
+                return trainingCentre.applyForDebateCourse(player);
+            default:
+                return false;
         }
-        if (option == 'b') {
-            return trainingCentre.applyForDebateCourse(player);
-        }
-        return false;
-    }
-
-    // Setters
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public void setSect(Sect sect) {
-        this.sect = sect;
-    }
-
-    public void setVillagers(ArrayList<Villager> villagers) {
-        this.villagers = villagers;
     }
 
     // Getters

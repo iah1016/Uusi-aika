@@ -42,37 +42,41 @@ public class Conversion {
     }
 
     public boolean isMaxedOut(int val, int max) {
-        if (val >= max || val < 0) {
-            return true;
-        }
-
-        return false;
+        return val >= max || val < 0;
     }
 
     public boolean checkIfAllowedToProceed(char type, Villager villager) {
-        if (type == 'a') {
-            int persuasions = villager.getNumberOfPersuasions();
-            return !isMaxedOut(persuasions, maxNumberOfPersuasions);
-        } else if (type == 'b') {
-            int sermons = villager.getNumberOfSermons();
-            return !isMaxedOut(sermons, maxNumberOfSermons);
-        } else if (type == 'c') {
-            int accusations = villager.getNumberOfAccusations();
-            return !isMaxedOut(accusations, maxNumberOfAccusations);
+        switch (type) {
+            case 'a':
+                int persuasions = villager.getNumberOfPersuasions();
+                return !isMaxedOut(persuasions, maxNumberOfPersuasions);
+            case 'b':
+                int sermons = villager.getNumberOfSermons();
+                return !isMaxedOut(sermons, maxNumberOfSermons);
+            case 'c':
+                int accusations = villager.getNumberOfAccusations();
+                return !isMaxedOut(accusations, maxNumberOfAccusations);
+            default:
+                return false;
         }
-        return false;
     }
 
     public void increaseAmountOfConv(char type, Villager villager) {
-        if (type == 'a') {
-            int persuasions = villager.getNumberOfPersuasions();
-            villager.setNumberOfPersuations(persuasions + 1);
-        } else if (type == 'b') {
-            int sermons = villager.getNumberOfSermons();
-            villager.setNumberOfSermons(sermons + 1);
-        } else if (type == 'c') {
-            int accusations = villager.getNumberOfAccusations();
-            villager.setNumberOfAccusations(accusations + 1);
+        switch (type) {
+            case 'a':
+                int persuasions = villager.getNumberOfPersuasions();
+                villager.setNumberOfPersuations(persuasions + 1);
+                break;
+            case 'b':
+                int sermons = villager.getNumberOfSermons();
+                villager.setNumberOfSermons(sermons + 1);
+                break;
+            case 'c':
+                int accusations = villager.getNumberOfAccusations();
+                villager.setNumberOfAccusations(accusations + 1);
+                break;
+            default:
+                break;
         }
     }
 
@@ -82,10 +86,7 @@ public class Conversion {
         plVal += random.nextInt(plIncr);
         vilVal += random.nextInt(vilIncr);
 
-        if (plVal >= vilVal) {
-            return true;
-        }
-        return false;
+        return plVal >= vilVal;
     }
 
     public boolean persuasion(Player player, Villager villager) {
@@ -139,17 +140,5 @@ public class Conversion {
             return true;
         }
         return false;
-    }
-
-    public int getMaxNumberOfPersuasions() {
-        return maxNumberOfPersuasions;
-    }
-
-    public int getMaxNumberOfSermons() {
-        return maxNumberOfSermons;
-    }
-
-    public int getMaxNumberOfAccusations() {
-        return maxNumberOfAccusations;
     }
 }

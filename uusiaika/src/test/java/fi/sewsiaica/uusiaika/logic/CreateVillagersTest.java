@@ -6,8 +6,8 @@
 package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.domain.Villager;
+import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.util.ArrayList;
-import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,8 +21,8 @@ import static org.junit.Assert.*;
  */
 public class CreateVillagersTest {
 
-    private Random random;
-    private CreateVillagers testCreate;
+    private MockRandom random;
+    private CreateVillagers createVil;
 
     public CreateVillagersTest() {
     }
@@ -37,8 +37,8 @@ public class CreateVillagersTest {
 
     @Before
     public void setUp() {
-        random = new Random();
-        testCreate = new CreateVillagers(random);
+        random = new MockRandom();
+        createVil = new CreateVillagers(random);
     }
 
     @After
@@ -49,81 +49,76 @@ public class CreateVillagersTest {
     public void pickStringsAddsFewerStringsToArrayThanThereAreInSelectArray() {
         int quantity = 3;
         String[] selection = {"A", "B", "C", "D", "A", "B"};
-        String[] result = testCreate.pickStrings(quantity, selection);
+        String[] result = createVil.pickStrings(quantity, selection);
         String[] expected = {"A", "B", "C"};
-        
+
         assertArrayEquals(expected, result);
     }
-    
+
     @Test
     public void pickStringsAddsMoreStringsToArrayThanThereAreInSelectArray() {
         int quantity = 6;
         String[] selection = {"A", "B", "C", "D"};
-        String[] result = testCreate.pickStrings(quantity, selection);
+        String[] result = createVil.pickStrings(quantity, selection);
         String[] expected = {"A", "B", "C", "D", "A", "B"};
-        
+
         assertArrayEquals(expected, result);
     }
-    
+
     @Test
     public void pickStringsReturnsNullIfQuantityIsZeroOrLess() {
-        int quantity = -1;
+        int quantity = 0;
         String[] selection = {"A", "B", "C", "D", "A", "B"};
-        String[] result = testCreate.pickStrings(quantity, selection);
+        String[] result = createVil.pickStrings(quantity, selection);
         String[] expected = null;
-        
+
         assertArrayEquals(expected, result);
     }
-    
+
     @Test
-    public void pickRandomNumbersUnlikelyToPickSameNumberIn100KTries() {
-        int quantity = 100000;
-        int baseValue = 0;
-        int bound = 2;
-        int[] nums = testCreate.pickRandomNumbers(quantity, baseValue, bound);
-        
-        int zeroes = 0;
-        int ones = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) {
-                zeroes++;
-            }
-            if (nums[i] == 1) {
-                ones++;
+    public void pickRandomNumbersReturnsIntArray() {
+        int quantity = 100;
+        int baseValue = 55;
+        int bound = 20;
+        int[] result = createVil.pickRandomNumbers(quantity, baseValue, bound);
+        boolean equal = true;
+
+        for (int i = 0; i < quantity; i++) {
+            if (result[i] != 57) {
+                equal = false;
             }
         }
-        
-        assertEquals(false, Math.min(zeroes, ones) == 0);
+        assertEquals(true, equal);
     }
-    
+
     @Test
     public void pickRandomNumbersReturnsNullIfQuantityIsZeroOrLess() {
         int quantity = 0;
         int baseValue = 0;
         int bound = 2;
-        int[] nums = testCreate.pickRandomNumbers(quantity, baseValue, bound);
-        
+        int[] nums = createVil.pickRandomNumbers(quantity, baseValue, bound);
+
         assertEquals(null, nums);
     }
-    
+
     @Test
     public void pickRandomNumbersReturnsNullIfBoundIsZeroOrLess() {
         int quantity = 100;
         int baseValue = 0;
-        int bound = -1;
-        int[] nums = testCreate.pickRandomNumbers(quantity, baseValue, bound);
-        
+        int bound = 0;
+        int[] nums = createVil.pickRandomNumbers(quantity, baseValue, bound);
+
         assertEquals(null, nums);
     }
-    
+
     @Test
     public void populateVillageWorksProperly() {
         int quantity = 7;
         String[] names = {"A", "B", "C", "D", "E", "F", "G", "H"};
         String[] profs = {"a", "b", "c", "d", "e", "f", "g", "h", "i",
             "j", "k", "l", "m", "n", "o", "p", "q", "r"};
-        
-        ArrayList<Villager> res = testCreate.populateVillage(quantity, names,
+
+        ArrayList<Villager> res = createVil.populateVillage(quantity, names,
                 profs);
         String expected = "AaBbCcDdEeFfGg";
         StringBuilder sb = new StringBuilder();
@@ -133,5 +128,5 @@ public class CreateVillagersTest {
         }
         assertEquals(expected, sb.toString());
     }
-    
+
 }

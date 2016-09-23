@@ -14,4 +14,4 @@ Päivä | Tunnit | Kuvaus
 19.09.2016 | 1h | Projekti siirretty laitoksen koneella CS-kansioon, Luokat Player, Sect ja Villager siirretty domain-pakettiin, ajettava jar-tiedosto luotu
 20.09.2016 | 1h | Yamlin käyttöönoton selvittely, yaml-riippuvuus lisätty pom.xml:ään
 21.09.2016 | 9h | Käännytys siirretty omaksi luokakseen, koodin putsausta, lisätty lisää testejä, valmennuskeskus lisätty
-23.09.2016 | 5h | Temppeli lisätty, testit kaikille luokille, refaktorointia, tuntikirjanpidon päivitys
+23.09.2016 | 5h | Temppeli lisätty, testit kaikille luokille, refaktorointia, tuntikirjanpidon päivitys, tilapäinen ui poistettu pit-testistä

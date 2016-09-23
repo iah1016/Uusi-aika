@@ -43,11 +43,9 @@
                 <configuration>
                     <targetClasses>
                         <param>fi.sewsiaica.uusiaika.logic.*</param>
-                        <param>fi.sewsiaica.uusiaika.ui.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>fi.sewsiaica.uusiaika.logic.*</param>
-                        <param>fi.sewsiaica.uusiaika.ui.*</param>
                     </targetTests>
                 </configuration>
             </plugin>            

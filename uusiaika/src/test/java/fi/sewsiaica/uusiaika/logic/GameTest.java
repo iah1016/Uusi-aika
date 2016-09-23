@@ -6,8 +6,8 @@
 package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.domain.*;
+import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.util.ArrayList;
-import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  */
 public class GameTest {
 
-    private Random random;
+    private MockRandom random;
     private Game game;
 
     public GameTest() {
@@ -42,7 +42,7 @@ public class GameTest {
         String[] professions = {"a", "b", "c", "d", "e"};
         int[] maxNumbersForConversion = {3, 2, 2};
 
-        random = new Random();
+        random = new MockRandom();
         game = new Game(random, namesForVillagers,
                 professions, maxNumbersForConversion);
         String[] names = {"AA", "AB"};
@@ -190,7 +190,7 @@ public class GameTest {
         villager.setScepticism(7);
         game.getPlayer().setCharisma(100);
 
-        boolean result = game.conversion(villager, ' ');
+        boolean result = game.conversion(villager, 'd');
         assertEquals(false, result);
     }
     

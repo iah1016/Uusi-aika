@@ -42,16 +42,10 @@ public class Temple {
     }
 
     public boolean offerSodaToAllMembers(Player player) {
-        if (player.getCharisma() >= defaultDeathCultCharismaReq) {
-            return true;
-        }
-        return false;
+        return player.getCharisma() >= defaultDeathCultCharismaReq;
     }
 
     public boolean buyTicketToParadiseIsland(Player player, Sect sect) {
-        if (sect.getBalance() >= defaultDivineRightMoneyReq) {
-            return true;
-        }
-        return false;
+        return sect.getBalance() >= defaultDivineRightMoneyReq;
     }
 }

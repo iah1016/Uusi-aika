@@ -29,25 +29,38 @@ public class CreateVillagers {
 
     public ArrayList<Villager> populateVillage(int quantity, String[] names,
             String[] profs) {
-        // Villager(String name, boolean inSect, int scepticism, int selfEsteem,
-        // int selfAwareness, int argSkills, String profession)
-        ArrayList<Villager> vlist = new ArrayList<Villager>();
+        ArrayList<Villager> vlist = new ArrayList<>();
 
         String[] namesForVillagers = pickStrings(quantity, names);
-        int[] sceptValues = pickRandomNumbers(quantity,
-                defaultVilBaseScepticism, defaultVilBoundValue);
-        int[] selfEsValues = pickRandomNumbers(quantity,
-                defaultVilBaseSelfEs, defaultVilBoundValue);
-        int[] selfAwValues = pickRandomNumbers(quantity,
-                defaultVilBaseSelfAw, defaultVilBoundValue);
-        int[] argSkillsValues = pickRandomNumbers(quantity,
-                defaultVilBaseArgSkills, defaultVilBoundValue);
+        ArrayList<int[]> atlists = makeAttribLists(quantity);
         String[] professions = pickStrings(quantity, profs);
 
+        return addVillagersToList(vlist, quantity, namesForVillagers,
+                atlists.get(0), atlists.get(1), atlists.get(2), atlists.get(3),
+                professions);
+    }
+
+    public ArrayList<int[]> makeAttribLists(int quantity) {
+        ArrayList<int[]> attribLists = new ArrayList<>();
+
+        attribLists.add(pickRandomNumbers(quantity, defaultVilBaseScepticism,
+                defaultVilBoundValue));
+        attribLists.add(pickRandomNumbers(quantity, defaultVilBaseSelfEs,
+                defaultVilBoundValue));
+        attribLists.add(pickRandomNumbers(quantity, defaultVilBaseSelfAw,
+                defaultVilBoundValue));
+        attribLists.add(pickRandomNumbers(quantity, defaultVilBaseArgSkills,
+                defaultVilBoundValue));
+        return attribLists;
+    }
+
+    public ArrayList<Villager> addVillagersToList(ArrayList<Villager> vlist,
+            int quantity, String[] names, int[] scept, int[] selfEs,
+            int[] selfAwValues, int[] argSkills, String[] profs) {
+
         for (int i = 0; i < quantity; i++) {
-            vlist.add(new Villager(namesForVillagers[i], false,
-                    sceptValues[i], selfEsValues[i], selfAwValues[i],
-                    argSkillsValues[i], professions[i]));
+            vlist.add(new Villager(names[i], false, scept[i], selfEs[i],
+                    selfAwValues[i], argSkills[i], profs[i]));
         }
         return vlist;
     }
