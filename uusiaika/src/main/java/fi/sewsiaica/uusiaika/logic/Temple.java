@@ -25,7 +25,8 @@ public class Temple {
         this.defaultDivineRightMoneyReq = defaultDivineRightMoneyReq;
     }
 
-    public boolean preach(Player player, ArrayList<Villager> congregation) {
+    public boolean preach(Player player, Sect sect) {
+        ArrayList<Villager> congregation = sect.getCongregation();        
         if (congregation == null) {
             return false;
         }

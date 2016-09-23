@@ -15,26 +15,42 @@ public class Game {
     private Player player;
     private Sect sect;
     private ArrayList<Villager> villagers;
+//    private TurnLogic turnlogic;  // incomplete before Deadline 3
     private Conversion conversion;
     private Temple temple;
     private TrainingCentre trainingCentre;
 
     // Move these to a yaml file
+    // Player
     private final int defaultPlayerCharisma = 10;
     private final int defaultPlayerArgSkills = 10;
+    // Sect
     private final int defaultSectBalance = 5000;
     private final int defaultSectExpenses = 1000;
     private final int defaultSectMemberFee = 100;
+    // CreateVillager
+    private int numberOfVillagers;
+    // TurnLogic
+    private final int numberOfTurns = 0;
+    private final int defaultMaxNumberOfTurns = 100;
+    private final int defaultSceptIncrPerTurn = 10;
+    private final int defaultThresholdForScepticism = 200;
+    // Temple
     private final int defaultTempleSceptDecr = 10;
     private final int defaultDeathCultCharismaReq = 255;
     private final int defaultDivineRightMoneyReq = 100000;
+    // TrainingCentre
     private final int defaultTrainingCharismaIncr = 10;
     private final int defaultTrainingArgSkillsIncr = 10;
-    private int numberOfVillagers;
+    //
 
     public Game(Random random, String[] namesForVillagers,
             String[] professions, int[] maxNumbersForConversion) {
-        // New Conversion, Temple, TrainingCentre
+        // New TurnLogic, Conversion, Temple, TrainingCentre
+        // TurnLogic incomplete before Deadline 3
+
+//        this.turnlogic = new TurnLogic(numberOfTurns, defaultMaxNumberOfTurns,
+//                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
         this.conversion = new Conversion(random, maxNumbersForConversion);
         this.temple = new Temple(defaultTempleSceptDecr,
                 defaultDeathCultCharismaReq, defaultDivineRightMoneyReq);
@@ -43,7 +59,6 @@ public class Game {
 
         // Move this to a yaml file
         numberOfVillagers = namesForVillagers.length;
-
         // Change this so that the values come from a yaml file.
         CreateVillagers cv = new CreateVillagers(random);
         this.villagers = cv.populateVillage(numberOfVillagers,
@@ -53,10 +68,8 @@ public class Game {
     public boolean initGame(String[] playerAndSectNames) {
         // This method creates Player and Sect objects.
         if (givenStringArrayIsCorrectLength(playerAndSectNames, 2)) {
-            // Player attributes: name, charisma, arg.skills
             this.player = new Player(playerAndSectNames[0],
                     defaultPlayerCharisma, defaultPlayerArgSkills);
-            // Sect attributes: name, balance, expenses, member fee
             this.sect = new Sect(playerAndSectNames[1], defaultSectBalance,
                     defaultSectExpenses, defaultSectMemberFee);
             return true;
@@ -80,11 +93,11 @@ public class Game {
         if (conversion.checkIfAllowedToProceed(option, villager)) {
             switch (option) {
                 case 'a':
-                    return conversion.persuasion(player, villager);
+                    return conversion.persuasion(player, villager, sect);
                 case 'b':
-                    return conversion.sermon(player, villager);
+                    return conversion.sermon(player, villager, sect);
                 case 'c':
-                    return conversion.accusation(player, villager);
+                    return conversion.accusation(player, villager, sect);
                 default:
                     return false;
             }
@@ -101,7 +114,7 @@ public class Game {
         // Options (b) and (c) will end the game, if the conditions are met.
         switch (option) {
             case 'a':
-                return temple.preach(player, sect.getCongregation());
+                return temple.preach(player, sect);
             case 'b':
                 return temple.offerSodaToAllMembers(player);
             case 'c':

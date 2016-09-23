@@ -61,14 +61,14 @@ public class TempleTest {
     @Test
     public void preachLowersEveryonesScepticism() {
         boolean result = true;
-        ArrayList<Villager> congregation = new ArrayList<Villager>();
+        ArrayList<Villager> congregation = sect.getCongregation();
         int initScept = 97;
 
         for (int i = 0; i < 10; i++) {
             congregation.add(new Villager("anon", true,
                     initScept, 6, 6, 6, "janari"));
         }
-        temple.preach(player, congregation);
+        temple.preach(player, sect);
 
         for (Villager member : congregation) {
             if (member.getScepticism() != initScept - defaultTempleSceptDecr) {

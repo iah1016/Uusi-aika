@@ -82,6 +82,9 @@ public class Conversion {
 
     public boolean convSucceeds(int plVal, int vilVal, int plIncr,
             int vilIncr) {
+        if (plVal < 0 || vilVal < 0) {
+            return false;
+        }
 
         plVal += random.nextInt(plIncr);
         vilVal += random.nextInt(vilIncr);
@@ -89,7 +92,7 @@ public class Conversion {
         return plVal >= vilVal;
     }
 
-    public boolean persuasion(Player player, Villager villager) {
+    public boolean persuasion(Player player, Villager villager, Sect sect) {
         increaseAmountOfConv('a', villager);
         int playerCharisma = player.getCharisma();
         int vilSelfAw = villager.getSelfAwareness();
@@ -106,7 +109,7 @@ public class Conversion {
         return false;
     }
 
-    public boolean sermon(Player player, Villager villager) {
+    public boolean sermon(Player player, Villager villager, Sect sect) {
         increaseAmountOfConv('b', villager);
         int playerCharisma = player.getCharisma();
         int vilScept = villager.getScepticism();
@@ -117,6 +120,7 @@ public class Conversion {
 
         if (successfulConv) {
             villager.setInSect(true);
+            sect.getCongregation().add(villager);
             player.setCharisma(playerCharisma + defaultConvSermPlayerCharIncr);
             villager.setScepticism(vilScept - defaultConvSermVilSceptDecr);
             return true;
@@ -124,7 +128,7 @@ public class Conversion {
         return false;
     }
 
-    public boolean accusation(Player player, Villager villager) {
+    public boolean accusation(Player player, Villager villager, Sect sect) {
         increaseAmountOfConv('c', villager);
         int playerCharisma = player.getCharisma();
         int vilSelfEs = villager.getSelfEsteem();
@@ -135,6 +139,7 @@ public class Conversion {
 
         if (successfulConv) {
             villager.setInSect(true);
+            sect.getCongregation().add(villager);
             player.setCharisma(playerCharisma + defaultConvAccuPlayerCharIncr);
             villager.setSelfEsteem(vilSelfEs - defaultConvAccuVilSelfEsDecr);
             return true;

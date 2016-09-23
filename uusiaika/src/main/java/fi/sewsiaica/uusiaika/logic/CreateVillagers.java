@@ -35,7 +35,7 @@ public class CreateVillagers {
         ArrayList<int[]> atlists = makeAttribLists(quantity);
         String[] professions = pickStrings(quantity, profs);
 
-        return addVillagersToList(vlist, quantity, namesForVillagers,
+        return addVillagersToVList(vlist, quantity, namesForVillagers,
                 atlists.get(0), atlists.get(1), atlists.get(2), atlists.get(3),
                 professions);
     }
@@ -54,7 +54,7 @@ public class CreateVillagers {
         return attribLists;
     }
 
-    public ArrayList<Villager> addVillagersToList(ArrayList<Villager> vlist,
+    public ArrayList<Villager> addVillagersToVList(ArrayList<Villager> vlist,
             int quantity, String[] names, int[] scept, int[] selfEs,
             int[] selfAwValues, int[] argSkills, String[] profs) {
 
