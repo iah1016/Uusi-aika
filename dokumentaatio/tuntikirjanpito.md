@@ -15,3 +15,5 @@ Päivä | Tunnit | Kuvaus
 20.09.2016 | 1h | Yamlin käyttöönoton selvittely, yaml-riippuvuus lisätty pom.xml:ään
 21.09.2016 | 9h | Käännytys siirretty omaksi luokakseen, koodin putsausta, lisätty lisää testejä, valmennuskeskus lisätty
 23.09.2016 | 11h | Temppeli lisätty, testit kaikille luokille, refaktorointia, tuntikirjanpidon päivitys, tilapäinen ui poistettu pit-testistä, uusi luokkakaavio, TurnLogicia aloiteltu
+24.09.2016 | 1h | Koodikatselmointi 1 alkanut
+25.09.2016 | 6h | Koodikatselmointi 1 päättynyt
