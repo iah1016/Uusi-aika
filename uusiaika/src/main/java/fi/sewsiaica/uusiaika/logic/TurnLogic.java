@@ -46,13 +46,14 @@ public class TurnLogic {
     }
 
     public ArrayList<Villager> membersInNextTurn(ArrayList<Villager> oldList) {
-        // Update this so that the members leaving the sect do not "disappear".
         ArrayList<Villager> congregationInNextTurn = new ArrayList<>();
         if (oldList != null) {
             for (Villager member : oldList) {
                 increaseScepticism(member);
                 if (sceptLessThanThreshold(member.getScepticism())) {
                     congregationInNextTurn.add(member);
+                } else {
+                    member.setInSect(false);
                 }
             }
         }

@@ -59,7 +59,7 @@ public class TurnLogicTest {
                 defaultSceptIncrPerTurn, defaultThresholdForScepticism);
         assertEquals(0, turnLogic.getNumberOfTurns());
     }
-    
+
     @Test
     public void nextTurnIncreasesNumberOfTurns() {
         turnLogic = new TurnLogic(2, defaultMaxNumberOfTurns,
@@ -68,13 +68,13 @@ public class TurnLogicTest {
         turnLogic.nextTurn(player, sect);
         assertEquals(3, turnLogic.getNumberOfTurns());
     }
-    
+
     @Test
     public void nextTurnReturnsTrueIfGameHasNotReachedMaxTurns() {
         Sect sect = new Sect("A", 10000, 1000, 100);
         assertEquals(true, turnLogic.nextTurn(player, sect));
     }
-    
+
     @Test
     public void nextTurnReturnsFalseIfGameHasReachedMaxTurns() {
         turnLogic = new TurnLogic(defaultMaxNumberOfTurns,
@@ -83,7 +83,7 @@ public class TurnLogicTest {
         Sect sect = new Sect("A", 10000, 1000, 100);
         assertEquals(false, turnLogic.nextTurn(player, sect));
     }
-    
+
     @Test
     public void nextTurnUpdatesCongregationCorrectly() {
         Sect sect = new Sect("A", 10000, 1000, 100);
@@ -93,7 +93,7 @@ public class TurnLogicTest {
         turnLogic.nextTurn(player, sect);
         assertEquals(11, sect.getCongregation().size());
     }
-    
+
     @Test
     public void nextTurnUpdatesBalanceCorrectly() {
         Sect sect = new Sect("A", 0, 1666, 82);
@@ -103,7 +103,7 @@ public class TurnLogicTest {
         turnLogic.nextTurn(player, sect);
         assertEquals(-764, sect.getBalance());
     }
-    
+
     @Test
     public void nextTurnReturnsFalseIfBalanceIsNegAfterUpdate() {
         Sect sect = new Sect("A", 0, 1666, 82);
@@ -112,14 +112,14 @@ public class TurnLogicTest {
         sect.setCongregation(congregation);
         assertEquals(false, turnLogic.nextTurn(player, sect));
     }
-    
+
     @Test
     public void nextTurnReturnsTrueIfBalanceIsZeroAfterUpdate() {
         Sect sect = new Sect("A", 0, 1000, 100);
         sect.setCongregation(congregation);
         assertEquals(true, turnLogic.nextTurn(player, sect));
     }
-    
+
     @Test
     public void membersInNextTurnReturnsVillagersThatRemainInSect() {
         for (int i = 0; i < 3; i++) {
@@ -135,7 +135,16 @@ public class TurnLogicTest {
         }
         assertEquals("AAAAAAAAAABCBCBC", resultSB.toString());
     }
-    
+
+    @Test
+    public void membersInNextTurnChangesLeavingMembersInSectStatus() {
+        Villager tom = new Villager("Y", true, 190, 0, 0, 0, "exmember");
+        congregation.add(tom);
+        turnLogic.membersInNextTurn(congregation);
+        
+        assertEquals(false, tom.isInSect());
+    }
+
     @Test
     public void membersInNextTurnReturnsEmptyListIfOldListIsNull() {
         ArrayList<Villager> oldList = null;
