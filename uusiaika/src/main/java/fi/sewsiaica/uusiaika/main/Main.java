@@ -22,15 +22,13 @@ public class Main {
                 "Postinjakaja", "Lääkäri", "Radiojuontaja", "Poliisi",
                 "Bussikuski", "Putkimies", "Poliitikko", "Tutkija",
                 "Apteekkari", "AD", "Toimitusjohtaja"};
-            int[] maxNumbersForConversion = {4, 2, 2}; // three types
             //
 
             // To be used before the implementation of the GUI.
             Scanner reader = new Scanner(System.in, "ISO-8859-1");
             Random random = new Random();
             TextbasedUI tui = new TextbasedUI(reader);
-            Game game = new Game(random, namesForVillagers, professions,
-                    maxNumbersForConversion);
+            Game game = new Game(random, namesForVillagers, professions);
 
             tui.setGame(game);
             tui.openingView();

@@ -48,11 +48,11 @@ public class TextbasedUITest {
         // Later from a file
         String[] namesForVillagers = {"A", "B"};
         String[] professions = {"a", "b"};
-        int[] maxNumbersForConversion = {3, 2, 2};
+        // maxNumbersForConversion = {4, 2, 2};
         
         random = new Random();
         game = new Game(random, namesForVillagers,
-                professions, maxNumbersForConversion);
+                professions);
         reader = new Scanner(System.in, "ISO-8859-1");
         tui = new TextbasedUI(reader);
         tui.setGame(game);
@@ -112,9 +112,8 @@ public class TextbasedUITest {
     public void chooseVillagerMenuChoosesCorrectVillager() {
         String[] names = {"A", "B", "C", "D"};
         String[] profs = {"A", "B", "C", "D"};
-        int[] maxNumbersForConversion = {3, 2, 2};
         
-        Game game2 = new Game(random, names, profs, maxNumbersForConversion);
+        Game game2 = new Game(random, names, profs);
         String data = "3";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         Scanner mockReader = new Scanner(System.in, "ISO-8859-1");

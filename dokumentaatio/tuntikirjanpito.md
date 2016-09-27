@@ -17,3 +17,4 @@ Päivä | Tunnit | Kuvaus
 23.09.2016 | 11h | Temppeli lisätty, testit kaikille luokille, refaktorointia, tuntikirjanpidon päivitys, tilapäinen ui poistettu pit-testistä, uusi luokkakaavio, TurnLogicia aloiteltu
 24.09.2016 | 1h | Koodikatselmointi 1 alkanut
 25.09.2016 | 6h | Koodikatselmointi 1 päättynyt
+27.09.2016 | 3h | TurnLogic-luokka ja testit sille lisätty, kyläläisten ja käännytyksen arvot voidaan nyt siirtää tiedostoon

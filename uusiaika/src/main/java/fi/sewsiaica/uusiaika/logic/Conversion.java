@@ -15,11 +15,11 @@ import java.util.Random;
 public class Conversion {
 
     private Random random;
+    private int convMaxNumberOfPersuasions;
+    private int convMaxNumberOfSermons;
+    private int convMaxNumberOfAccusations;
 
     // Move these to a yaml file
-    private int maxNumberOfPersuasions;
-    private int maxNumberOfSermons;
-    private int maxNumberOfAccusations;
     private final int defaultConvPersPlayerBound = 20;
     private final int defaultConvPersVilBound = 20;
     private final int defaultConvSermPlayerBound = 20;
@@ -34,11 +34,16 @@ public class Conversion {
     private final int defaultConvSermVilSceptDecr = 5;
     private final int defaultConvAccuVilSelfEsDecr = 5;
 
-    public Conversion(Random random, int[] maxNumbers) {
+    public Conversion(Random random, int defaultConvMaxNumberOfPersuasions,
+            int defaultConvMaxNumberOfSermons,
+            int defaultConvMaxNumberOfAccusations) {
         this.random = random;
-        this.maxNumberOfPersuasions = maxNumbers[0];
-        this.maxNumberOfSermons = maxNumbers[1];
-        this.maxNumberOfAccusations = maxNumbers[2];
+        this.convMaxNumberOfPersuasions
+                = defaultConvMaxNumberOfPersuasions;
+        this.convMaxNumberOfSermons
+                = defaultConvMaxNumberOfSermons;
+        this.convMaxNumberOfAccusations
+                = defaultConvMaxNumberOfAccusations;
     }
 
     public boolean isMaxedOut(int val, int max) {
@@ -49,13 +54,13 @@ public class Conversion {
         switch (type) {
             case 'a':
                 int persuasions = villager.getNumberOfPersuasions();
-                return !isMaxedOut(persuasions, maxNumberOfPersuasions);
+                return !isMaxedOut(persuasions, convMaxNumberOfPersuasions);
             case 'b':
                 int sermons = villager.getNumberOfSermons();
-                return !isMaxedOut(sermons, maxNumberOfSermons);
+                return !isMaxedOut(sermons, convMaxNumberOfSermons);
             case 'c':
                 int accusations = villager.getNumberOfAccusations();
-                return !isMaxedOut(accusations, maxNumberOfAccusations);
+                return !isMaxedOut(accusations, convMaxNumberOfAccusations);
             default:
                 return false;
         }
@@ -145,5 +150,30 @@ public class Conversion {
             return true;
         }
         return false;
+    }
+
+    // Getters and Setters
+    public int getConvMaxNumberOfPersuasions() {
+        return convMaxNumberOfPersuasions;
+    }
+
+    public void setConvMaxNumberOfPersuasions(int convMaxNumberOfPersuasions) {
+        this.convMaxNumberOfPersuasions = convMaxNumberOfPersuasions;
+    }
+
+    public int getConvMaxNumberOfSermons() {
+        return convMaxNumberOfSermons;
+    }
+
+    public void setConvMaxNumberOfSermons(int convMaxNumberOfSermons) {
+        this.convMaxNumberOfSermons = convMaxNumberOfSermons;
+    }
+
+    public int getConvMaxNumberOfAccusations() {
+        return convMaxNumberOfAccusations;
+    }
+
+    public void setConvMaxNumberOfAccusations(int convMaxNumberOfAccusations) {
+        this.convMaxNumberOfAccusations = convMaxNumberOfAccusations;
     }
 }

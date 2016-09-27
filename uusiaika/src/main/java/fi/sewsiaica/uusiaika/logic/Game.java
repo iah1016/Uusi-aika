@@ -15,7 +15,7 @@ public class Game {
     private Player player;
     private Sect sect;
     private ArrayList<Villager> villagers;
-//    private TurnLogic turnlogic;  // incomplete before Deadline 3
+    private TurnLogic turnLogic;
     private Conversion conversion;
     private Temple temple;
     private TrainingCentre trainingCentre;
@@ -28,10 +28,14 @@ public class Game {
     private final int defaultSectBalance = 5000;
     private final int defaultSectExpenses = 1000;
     private final int defaultSectMemberFee = 100;
-    // CreateVillager
-    private int numberOfVillagers;
+    // CreateVillagers
+    private final int numberOfVillagers = 10; // can be changed now
+    // Conversion
+    private final int defaultConvMaxNumberOfPersuasions = 3; // can be changed now
+    private final int defaultConvMaxNumberOfSermons = 2; // can be changed now
+    private final int defaultConvMaxNumberOfAccusations = 2; // can be changed now
     // TurnLogic
-    private final int numberOfTurns = 0;
+    private final int initialNumberOfTurns = 0;
     private final int defaultMaxNumberOfTurns = 100;
     private final int defaultSceptIncrPerTurn = 10;
     private final int defaultThresholdForScepticism = 200;
@@ -45,29 +49,28 @@ public class Game {
     //
 
     public Game(Random random, String[] namesForVillagers,
-            String[] professions, int[] maxNumbersForConversion) {
-        // New TurnLogic, Conversion, Temple, TrainingCentre
-        // TurnLogic incomplete before Deadline 3
-
-//        this.turnlogic = new TurnLogic(numberOfTurns, defaultMaxNumberOfTurns,
-//                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
-        this.conversion = new Conversion(random, maxNumbersForConversion);
-        this.temple = new Temple(defaultTempleSceptDecr,
-                defaultDeathCultCharismaReq, defaultDivineRightMoneyReq);
-        this.trainingCentre = new TrainingCentre(defaultTrainingCharismaIncr,
-                defaultTrainingArgSkillsIncr);
-
-        // Move this to a yaml file
-        numberOfVillagers = namesForVillagers.length;
+            String[] professions) {
         // Change this so that the values come from a yaml file.
         CreateVillagers cv = new CreateVillagers(random);
         this.villagers = cv.populateVillage(numberOfVillagers,
                 namesForVillagers, professions);
+        // New TurnLogic, Conversion, Temple, TrainingCentre
+        this.turnLogic = new TurnLogic(initialNumberOfTurns,
+                defaultMaxNumberOfTurns, defaultSceptIncrPerTurn,
+                defaultThresholdForScepticism);
+        this.conversion = new Conversion(random,
+                defaultConvMaxNumberOfPersuasions,
+                defaultConvMaxNumberOfSermons,
+                defaultConvMaxNumberOfAccusations);
+        this.temple = new Temple(defaultTempleSceptDecr,
+                defaultDeathCultCharismaReq, defaultDivineRightMoneyReq);
+        this.trainingCentre = new TrainingCentre(defaultTrainingCharismaIncr,
+                defaultTrainingArgSkillsIncr);
     }
 
     public boolean initGame(String[] playerAndSectNames) {
         // This method creates Player and Sect objects.
-        if (givenStringArrayIsCorrectLength(playerAndSectNames, 2)) {
+        if (playerAndSectNames.length == 2) {
             this.player = new Player(playerAndSectNames[0],
                     defaultPlayerCharisma, defaultPlayerArgSkills);
             this.sect = new Sect(playerAndSectNames[1], defaultSectBalance,
@@ -77,32 +80,25 @@ public class Game {
         return false;
     }
 
-    public boolean givenStringArrayIsCorrectLength(String[] array, int length) {
-        if (array == null) {
-            return false;
-        }
-        return array.length == length;
-    }
-
     public boolean conversion(Villager villager, char option) {
         // Player attempts to convert a villager. Future expansion allows
         // a Villager (Sect member) to convert other villagers.
         // (a) Persuasion:  charisma vs. selfAwareness
         // (b) Sermon:      charisma + argSkills vs. scepticism + argSkills
         // (c) Accusation:  charisma + argSkills vs. selfEsteem + argSkills
-        if (conversion.checkIfAllowedToProceed(option, villager)) {
-            switch (option) {
-                case 'a':
-                    return conversion.persuasion(player, villager, sect);
-                case 'b':
-                    return conversion.sermon(player, villager, sect);
-                case 'c':
-                    return conversion.accusation(player, villager, sect);
-                default:
-                    return false;
-            }
+        if (!conversion.checkIfAllowedToProceed(option, villager)) {
+            return false;
         }
-        return false;
+        switch (option) {
+            case 'a':
+                return conversion.persuasion(player, villager, sect);
+            case 'b':
+                return conversion.sermon(player, villager, sect);
+            case 'c':
+                return conversion.accusation(player, villager, sect);
+            default:
+                return false;
+        }
     }
 
     public boolean templeActions(char option) {
@@ -149,5 +145,9 @@ public class Game {
 
     public ArrayList<Villager> getVillagers() {
         return villagers;
+    }
+
+    public Conversion getConversion() {
+        return conversion;
     }
 }

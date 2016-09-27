@@ -25,7 +25,9 @@ public class ConversionTest {
     private Player player;
     private Villager villager;
     private Sect sect;
-    private int[] maxNumbers;
+    private int maxPersuasions;
+    private int maxSermons;
+    private int maxAccusations;
     private int defaultConvPersPlayerCharIncr;
     private int defaultConvSermPlayerCharIncr;
     private int defaultConvAccuPlayerCharIncr;
@@ -48,10 +50,9 @@ public class ConversionTest {
     @Before
     public void setUp() {
         // Later from a file
-        maxNumbers = new int[3];
-        maxNumbers[0] = 15; // Persuasion
-        maxNumbers[1] = 13; // Sermon
-        maxNumbers[2] = 12; // Accusation
+        maxPersuasions = 15;
+        maxSermons = 13;
+        maxAccusations = 12;
         defaultConvPersPlayerCharIncr = 2;
         defaultConvSermPlayerCharIncr = 2;
         defaultConvAccuPlayerCharIncr = 2;
@@ -61,7 +62,8 @@ public class ConversionTest {
         defaultConvAccuVilSelfEsDecr = 5;
 
         random = new MockRandom();
-        conversion = new Conversion(random, maxNumbers);
+        conversion = new Conversion(random, maxPersuasions, maxSermons,
+                maxAccusations);
 
         // String name, int charisma, int argSkills
         player = new Player("Pekka", 10, 10);
@@ -73,6 +75,22 @@ public class ConversionTest {
 
     @After
     public void tearDown() {
+    }
+
+    @Test
+    public void isMaxedOutIsTrueIfMaxIsZero() {
+        int value = 0;
+        int max = 0;
+        boolean result = conversion.isMaxedOut(value, max);
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void isMaxedOutIsTrueWithNegValues() {
+        int value = -1;
+        int max = 4;
+        boolean result = conversion.isMaxedOut(value, max);
+        assertEquals(true, result);
     }
 
     @Test
@@ -118,7 +136,7 @@ public class ConversionTest {
     @Test
     public void checkIfAllowedToProceedReturnsFalseCorrectlyWithPersuasion() {
         char type = 'a';
-        villager.setNumberOfPersuations(maxNumbers[0]);
+        villager.setNumberOfPersuations(maxPersuasions);
 
         boolean result = conversion.checkIfAllowedToProceed(type, villager);
         assertEquals(false, result);
@@ -136,7 +154,7 @@ public class ConversionTest {
     @Test
     public void checkIfAllowedToProceedReturnsFalseCorrectlyWithSermon() {
         char type = 'b';
-        villager.setNumberOfSermons(maxNumbers[1]);
+        villager.setNumberOfSermons(maxSermons);
 
         boolean result = conversion.checkIfAllowedToProceed(type, villager);
         assertEquals(false, result);
@@ -154,7 +172,7 @@ public class ConversionTest {
     @Test
     public void checkIfAllowedToProceedReturnsFalseCorrectlyWithAccusation() {
         char type = 'c';
-        villager.setNumberOfAccusations(maxNumbers[2]);
+        villager.setNumberOfAccusations(maxAccusations);
 
         boolean result = conversion.checkIfAllowedToProceed(type, villager);
         assertEquals(false, result);
@@ -435,4 +453,18 @@ public class ConversionTest {
         assertEquals(100, villager.getSelfEsteem());
     }
 
+    @Test
+    public void getConvMaxNumberOfPersuasionsWorks() {
+        assertEquals(15, conversion.getConvMaxNumberOfPersuasions());
+    }
+
+    @Test
+    public void getConvMaxNumberOfSermonsWorks() {
+        assertEquals(13, conversion.getConvMaxNumberOfSermons());
+    }
+
+    @Test
+    public void getConvMaxNumberOfAccusationsWorks() {
+        assertEquals(12, conversion.getConvMaxNumberOfAccusations());
+    }
 }
