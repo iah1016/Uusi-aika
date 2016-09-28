@@ -1,5 +1,6 @@
 package fi.sewsiaica.uusiaika.logic;
 
+import fi.sewsiaica.uusiaika.logic.conversion.*;
 import fi.sewsiaica.uusiaika.domain.*;
 import fi.sewsiaica.uusiaika.ui.TextbasedUI;
 import java.util.ArrayList;
@@ -15,8 +16,10 @@ public class Game {
     private Player player;
     private Sect sect;
     private ArrayList<Villager> villagers;
+    private Conversion persuasion;
+    private Conversion sermon;
+    private Conversion accusation;
     private TurnLogic turnLogic;
-    private Conversion conversion;
     private Temple temple;
     private TrainingCentre trainingCentre;
 
@@ -30,10 +33,37 @@ public class Game {
     private final int defaultSectMemberFee = 100;
     // CreateVillagers
     private final int numberOfVillagers = 10; // can be changed now
-    // Conversion
-    private final int defaultConvMaxNumberOfPersuasions = 3; // can be changed now
-    private final int defaultConvMaxNumberOfSermons = 2; // can be changed now
-    private final int defaultConvMaxNumberOfAccusations = 2; // can be changed now
+    // Conversion types are Persuasion, Sermon, Accusation
+    // Persuasion
+    private final int defaultConvMaxNumberOfPersuasions = 3;
+    private final int defaultConvPersPlayerBound = 20;
+    private final int defaultConvPersVilBound = 20;
+    private final int defaultConvPersPlayerCharIncr = 2;
+    private final int defaultConvPersVilSelfAwDecr = 5;
+    private final int defaultConvPersVilSceptDecr = 5;
+    // Sermon
+    private final int defaultConvMaxNumberOfSermons = 2;
+    private final int defaultConvSermPlayerBound = 20;
+    private final int defaultConvSermVilBound = 20;
+    private final int defaultConvSermPlayerCharIncr = 2;
+    private final int defaultConvSermVilSceptDecr = 5;
+    // Accusation
+    private final int defaultConvMaxNumberOfAccusations = 2;
+    private final int defaultConvAccuPlayerBound = 20;
+    private final int defaultConvAccuVilBound = 20;
+    private final int defaultConvAccuPlayerCharIncr = 2;
+    private final int defaultConvAccuVilSelfEsDecr = 5;
+    // temporary arrays for Conversion types
+    private final int[] convPersRandomBounds = {20, 20};
+    private final int[] convSermRandomBounds = {20, 20};
+    private final int[] convAccuRandomBounds = {20, 20};
+    private final int[] convPersPlayerAttribIncr = {2};
+    private final int[] convSermPlayerAttribIncr = {2};
+    private final int[] convAccuPlayerAttribIncr = {2};
+    private final int[] convPersVilAttribDecr = {5, 5};
+    private final int[] convSermVilAttribDecr = {5};
+    private final int[] convAccuVilAttribDecr = {5};
+    //        
     // TurnLogic
     private final int initialNumberOfTurns = 0;
     private final int defaultMaxNumberOfTurns = 100;
@@ -58,10 +88,17 @@ public class Game {
         this.turnLogic = new TurnLogic(initialNumberOfTurns,
                 defaultMaxNumberOfTurns, defaultSceptIncrPerTurn,
                 defaultThresholdForScepticism);
-        this.conversion = new Conversion(random,
-                defaultConvMaxNumberOfPersuasions,
-                defaultConvMaxNumberOfSermons,
-                defaultConvMaxNumberOfAccusations);
+        // 
+        this.persuasion = new Persuasion(random,
+                defaultConvMaxNumberOfPersuasions, convPersRandomBounds,
+                convPersPlayerAttribIncr, convPersVilAttribDecr);
+        this.sermon = new Sermon(random,
+                defaultConvMaxNumberOfSermons, convSermRandomBounds,
+                convSermPlayerAttribIncr, convSermVilAttribDecr);
+        this.accusation = new Accusation(random,
+                defaultConvMaxNumberOfAccusations, convAccuRandomBounds,
+                convAccuPlayerAttribIncr, convAccuVilAttribDecr);
+        //
         this.temple = new Temple(defaultTempleSceptDecr,
                 defaultDeathCultCharismaReq, defaultDivineRightMoneyReq);
         this.trainingCentre = new TrainingCentre(defaultTrainingCharismaIncr,
@@ -86,19 +123,16 @@ public class Game {
         // (a) Persuasion:  charisma vs. selfAwareness
         // (b) Sermon:      charisma + argSkills vs. scepticism + argSkills
         // (c) Accusation:  charisma + argSkills vs. selfEsteem + argSkills
-        if (!conversion.checkIfAllowedToProceed(option, villager)) {
-            return false;
+        if (option == 'a' && !persuasion.checkIfAllowedToProceed(villager)) {
+            return persuasion.convert(player, villager, sect);
         }
-        switch (option) {
-            case 'a':
-                return conversion.persuasion(player, villager, sect);
-            case 'b':
-                return conversion.sermon(player, villager, sect);
-            case 'c':
-                return conversion.accusation(player, villager, sect);
-            default:
-                return false;
+        if (option == 'b' && !sermon.checkIfAllowedToProceed(villager)) {
+            return sermon.convert(player, villager, sect);
         }
+        if (option == 'c' && !accusation.checkIfAllowedToProceed(villager)) {
+            return accusation.convert(player, villager, sect);
+        }
+        return false;
     }
 
     public boolean templeActions(char option) {
@@ -147,7 +181,15 @@ public class Game {
         return villagers;
     }
 
-    public Conversion getConversion() {
-        return conversion;
+    public Conversion getPersuasion() {
+        return persuasion;
+    }
+
+    public Conversion getSermon() {
+        return sermon;
+    }
+
+    public Conversion getAccusation() {
+        return accusation;
     }
 }
