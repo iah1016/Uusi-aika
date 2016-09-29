@@ -50,29 +50,6 @@ public class ConfigTest {
     }
 
     @Test
-    public void intValuesHasCorrectKeysAfterCreation() {
-        StringBuilder sb = new StringBuilder();
-        for (String key : config.getIntValues().keySet()) {
-            sb.append(key);
-        }
-        String keys = "convAccuVilBoundtempleSceptDecrtemple"
-                + "DivineRightMoneyReqturnInitialNumberOfTurnstempleDeathCult"
-                + "CharismaReqturnThresholdForScepticismplayerCharisma"
-                + "convAccuPlayerCharIncrplayerArgSkillsconvMaxNumberOfSermons"
-                + "trainingCharismaIncrsectExpensesconvPersVilSceptDecr"
-                + "sectMemberFeevilBaseScepticismvilBaseArgSkills"
-                + "turnSceptIncrPerTurnconvMaxNumberOfAccusations"
-                + "trainingArgSkillsIncrconvSermVilSceptDecr"
-                + "convPersPlayerCharIncrconvPersPlayerBound"
-                + "convSermPlayerCharIncrconvAccuPlayerBoundconvPersVilBound"
-                + "sectBalancevilBoundValuevilPopulationvilBaseSelfAw"
-                + "convAccuVilSelfEsDecrconvSermVilBoundturnMaxNumberOfTurns"
-                + "convMaxNumberOfPersuasionsconvSermPlayerBound"
-                + "vilBaseSelfEsconvPersVilSelfAwDecr";
-        assertEquals(keys, sb.toString());
-    }
-
-    @Test
     public void intValuesHasCorrectNumberOfValuesAfterCreation() {
         assertEquals(36, config.getIntValues().size());
     }
