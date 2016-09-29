@@ -6,6 +6,7 @@
 package fi.sewsiaica.uusiaika.logic.conversion;
 
 import fi.sewsiaica.uusiaika.domain.*;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -15,17 +16,17 @@ import java.util.Random;
 public class Accusation extends Conversion {
 
     private int convMaxNumberOfAccusations;
-    private int defaultConvAccuPlayerCharIncr;
-    private int defaultConvAccuVilSelfEsDecr;
+    private int convAccuPlayerCharIncr;
+    private int convAccuVilSelfEsDecr;
 
-    public Accusation(Random random, int defaultConvMaxNumber,
-            int[] defaultBounds, int[] defaultPlayerAttribIncr,
-            int[] defaultVilAttribDecr) {
-        super(random, defaultConvMaxNumber, defaultBounds,
-                defaultPlayerAttribIncr, defaultVilAttribDecr);
-        this.convMaxNumberOfAccusations = defaultConvMaxNumber;
-        this.defaultConvAccuPlayerCharIncr = defaultPlayerAttribIncr[0];
-        this.defaultConvAccuVilSelfEsDecr = defaultVilAttribDecr[0];
+    public Accusation(Random random, Map<String, Integer> intValues,
+            int maxNumberOfConversions, int playerRandomBound,
+            int vilRandomBound) {
+        super(random, intValues, maxNumberOfConversions, playerRandomBound,
+                vilRandomBound);
+        this.convMaxNumberOfAccusations = maxNumberOfConversions;
+        this.convAccuPlayerCharIncr = intValues.get("convAccuPlayerCharIncr");
+        this.convAccuVilSelfEsDecr = intValues.get("convAccuVilSelfEsDecr");
 
     }
 
@@ -58,8 +59,13 @@ public class Accusation extends Conversion {
         villager.setInSect(true);
         sect.getCongregation().add(villager);
         player.setCharisma(player.getCharisma()
-                + defaultConvAccuPlayerCharIncr);
+                + convAccuPlayerCharIncr);
         villager.setSelfEsteem(villager.getSelfEsteem()
-                - defaultConvAccuVilSelfEsDecr);
+                - convAccuVilSelfEsDecr);
+    }
+    
+    @Override
+    public void setMaxNumberOfConversions(int maxNumberOfConversions) {
+        this.convMaxNumberOfAccusations = maxNumberOfConversions;
     }
 }

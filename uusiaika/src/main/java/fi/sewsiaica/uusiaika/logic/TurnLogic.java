@@ -7,6 +7,8 @@ package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.domain.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -14,23 +16,18 @@ import java.util.ArrayList;
  */
 public class TurnLogic {
 
+    private Map<String, Integer> intValues;
     private int numberOfTurns;
-    private int defaultMaxNumberOfTurns;
-    private int defaultSceptIncrPerTurn;
-    private int defaultThresholdForScepticism;
+    private int maxNumberOfTurns;
+    private int sceptIncrPerTurn;
+    private int thresholdForScept;
 
-    public TurnLogic(int defaultMaxNumberOfTurns, int defaultSceptIncrPerTurn,
-            int defaultThresholdForScepticism) {
-        this(0, defaultMaxNumberOfTurns, defaultSceptIncrPerTurn,
-                defaultThresholdForScepticism);
-    }
-
-    public TurnLogic(int numberOfTurns, int defaultMaxNumberOfTurns,
-            int defaultSceptIncrPerTurn, int defaultThresholdForScepticism) {
-        this.numberOfTurns = numberOfTurns;
-        this.defaultMaxNumberOfTurns = defaultMaxNumberOfTurns;
-        this.defaultSceptIncrPerTurn = defaultSceptIncrPerTurn;
-        this.defaultThresholdForScepticism = defaultThresholdForScepticism;
+    public TurnLogic(Map<String, Integer> intValues) {
+        this.intValues = intValues;
+        this.numberOfTurns = intValues.get("turnInitialNumberOfTurns");
+        this.maxNumberOfTurns = intValues.get("turnMaxNumberOfTurns");
+        this.sceptIncrPerTurn = intValues.get("turnSceptIncrPerTurn");
+        this.thresholdForScept = intValues.get("turnThresholdForScepticism");
     }
 
     public boolean nextTurn(Player player, Sect sect) {
@@ -45,8 +42,8 @@ public class TurnLogic {
         return false;
     }
 
-    public ArrayList<Villager> membersInNextTurn(ArrayList<Villager> oldList) {
-        ArrayList<Villager> congregationInNextTurn = new ArrayList<>();
+    public List<Villager> membersInNextTurn(List<Villager> oldList) {
+        List<Villager> congregationInNextTurn = new ArrayList<>();
         if (oldList != null) {
             for (Villager member : oldList) {
                 increaseScepticism(member);
@@ -61,7 +58,7 @@ public class TurnLogic {
     }
 
     public void increaseScepticism(Villager member) {
-        int newScept = member.getScepticism() + defaultSceptIncrPerTurn;
+        int newScept = member.getScepticism() + sceptIncrPerTurn;
         member.setScepticism(newScept);
     }
 
@@ -86,11 +83,11 @@ public class TurnLogic {
     }
 
     public boolean sceptLessThanThreshold(int value) {
-        return value < defaultThresholdForScepticism;
+        return value < thresholdForScept;
     }
 
     public boolean gameHasReachedMaxTurns() {
-        return numberOfTurns >= defaultMaxNumberOfTurns;
+        return numberOfTurns >= maxNumberOfTurns;
     }
 
     public int getNumberOfTurns() {

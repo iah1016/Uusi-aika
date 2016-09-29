@@ -6,6 +6,7 @@
 package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.domain.Player;
+import java.util.Map;
 
 /**
  *
@@ -13,26 +14,27 @@ import fi.sewsiaica.uusiaika.domain.Player;
  */
 public class TrainingCentre {
 
-    private int defaultTrainingCharismaIncr;
-    private int defaultTrainingArgSkillsIncr;
+    private Map<String, Integer> intValues;
+    private int trainingCharismaIncr;
+    private int trainingArgSkillsIncr;
 
-    public TrainingCentre(int defaultTrainingCharismaIncr,
-            int defaultTrainingArgSkillsIncr) {
-        this.defaultTrainingCharismaIncr = defaultTrainingCharismaIncr;
-        this.defaultTrainingArgSkillsIncr = defaultTrainingArgSkillsIncr;
+    public TrainingCentre(Map<String, Integer> intValues) {
+        this.intValues = intValues;
+        this.trainingCharismaIncr = intValues.get("trainingCharismaIncr");
+        this.trainingArgSkillsIncr = intValues.get("trainingArgSkillsIncr");
     }
 
     public boolean applyForCharismaCourse(Player player) {
         int playerCharisma = player.getCharisma();
 
-        player.setCharisma(playerCharisma + defaultTrainingCharismaIncr);
+        player.setCharisma(playerCharisma + trainingCharismaIncr);
         return true;
     }
 
     public boolean applyForDebateCourse(Player player) {
         int playerArgSkills = player.getArgSkills();
 
-        player.setArgSkills(playerArgSkills + defaultTrainingArgSkillsIncr);
+        player.setArgSkills(playerArgSkills + trainingArgSkillsIncr);
         return true;
     }
 }

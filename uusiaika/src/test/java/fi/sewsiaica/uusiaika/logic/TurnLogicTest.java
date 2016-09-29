@@ -7,6 +7,9 @@ package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.domain.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,7 +25,8 @@ public class TurnLogicTest {
 
     private TurnLogic turnLogic;
     private Player player;
-    private ArrayList<Villager> congregation;
+    private List<Villager> congregation;
+    private Map<String, Integer> intValues;
     private final int defaultMaxNumberOfTurns = 100;
     private final int defaultSceptIncrPerTurn = 10;
     private final int defaultThresholdForScepticism = 200;
@@ -40,8 +44,12 @@ public class TurnLogicTest {
 
     @Before
     public void setUp() {
-        turnLogic = new TurnLogic(1, defaultMaxNumberOfTurns,
-                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
+        intValues = new HashMap<>();
+        intValues.put("turnInitialNumberOfTurns", 1);
+        intValues.put("turnMaxNumberOfTurns", 100);
+        intValues.put("turnSceptIncrPerTurn", 10);
+        intValues.put("turnThresholdForScepticism", 200);
+        turnLogic = new TurnLogic(intValues);
         player = new Player("A", 100, 100);
         congregation = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -54,19 +62,10 @@ public class TurnLogicTest {
     }
 
     @Test
-    public void initialNumberOfTurnsIsZeroIfNotGiven() {
-        turnLogic = new TurnLogic(defaultMaxNumberOfTurns,
-                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
-        assertEquals(0, turnLogic.getNumberOfTurns());
-    }
-
-    @Test
     public void nextTurnIncreasesNumberOfTurns() {
-        turnLogic = new TurnLogic(2, defaultMaxNumberOfTurns,
-                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
         Sect sect = new Sect("A", 10000, 1000, 100);
         turnLogic.nextTurn(player, sect);
-        assertEquals(3, turnLogic.getNumberOfTurns());
+        assertEquals(2, turnLogic.getNumberOfTurns());
     }
 
     @Test
@@ -77,9 +76,8 @@ public class TurnLogicTest {
 
     @Test
     public void nextTurnReturnsFalseIfGameHasReachedMaxTurns() {
-        turnLogic = new TurnLogic(defaultMaxNumberOfTurns,
-                defaultMaxNumberOfTurns, defaultSceptIncrPerTurn,
-                defaultThresholdForScepticism);
+        intValues.put("turnInitialNumberOfTurns", 100);
+        turnLogic = new TurnLogic(intValues);
         Sect sect = new Sect("A", 10000, 1000, 100);
         assertEquals(false, turnLogic.nextTurn(player, sect));
     }
@@ -128,7 +126,7 @@ public class TurnLogicTest {
             congregation.add(new Villager("B", true, 10, 0, 0, 0, "sbrirro"));
             congregation.add(new Villager("C", true, 189, 0, 0, 0, "foo"));
         }
-        ArrayList<Villager> newList = turnLogic.membersInNextTurn(congregation);
+        List<Villager> newList = turnLogic.membersInNextTurn(congregation);
         StringBuilder resultSB = new StringBuilder();
         for (int i = 0; i < newList.size(); i++) {
             resultSB.append(newList.get(i).getName());
@@ -141,14 +139,14 @@ public class TurnLogicTest {
         Villager tom = new Villager("Y", true, 190, 0, 0, 0, "exmember");
         congregation.add(tom);
         turnLogic.membersInNextTurn(congregation);
-        
+
         assertEquals(false, tom.isInSect());
     }
 
     @Test
     public void membersInNextTurnReturnsEmptyListIfOldListIsNull() {
-        ArrayList<Villager> oldList = null;
-        ArrayList<Villager> newList = turnLogic.membersInNextTurn(oldList);
+        List<Villager> oldList = null;
+        List<Villager> newList = turnLogic.membersInNextTurn(oldList);
         assertEquals(0, newList.size());
     }
 
@@ -210,29 +208,29 @@ public class TurnLogicTest {
 
     @Test
     public void gameHasReachedMaxTurnReturnsFalseIfTurnsLessThanMax() {
-        turnLogic = new TurnLogic(99, defaultMaxNumberOfTurns,
-                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
+        intValues.put("turnInitialNumberOfTurns", 99);
+        turnLogic = new TurnLogic(intValues);
         assertEquals(false, turnLogic.gameHasReachedMaxTurns());
     }
 
     @Test
     public void gameHasReachedMaxTurnReturnsTrueIfTurnsEqualToMax() {
-        turnLogic = new TurnLogic(100, defaultMaxNumberOfTurns,
-                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
+        intValues.put("turnInitialNumberOfTurns", 100);
+        turnLogic = new TurnLogic(intValues);
         assertEquals(true, turnLogic.gameHasReachedMaxTurns());
     }
 
     @Test
     public void gameHasReachedMaxTurnReturnsTrueIfTurnsMoreThanMax() {
-        turnLogic = new TurnLogic(101, defaultMaxNumberOfTurns,
-                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
+        intValues.put("turnInitialNumberOfTurns", 101);
+        turnLogic = new TurnLogic(intValues);
         assertEquals(true, turnLogic.gameHasReachedMaxTurns());
     }
 
     @Test
     public void getNumberOfTurnsWorksCorrectly() {
-        turnLogic = new TurnLogic(11, defaultMaxNumberOfTurns,
-                defaultSceptIncrPerTurn, defaultThresholdForScepticism);
+        intValues.put("turnInitialNumberOfTurns", 11);
+        turnLogic = new TurnLogic(intValues);
         assertEquals(11, turnLogic.getNumberOfTurns());
     }
 }

@@ -6,6 +6,7 @@
 package fi.sewsiaica.uusiaika.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Sect {
     private int balance;
     private int expenses;
     private int memberFee;
-    private ArrayList<Villager> congregation;
+    private List<Villager> congregation;
 
     public Sect(String name, int balance, int expenses, int memberFee) {
         this.name = name;
@@ -59,11 +60,11 @@ public class Sect {
         this.memberFee = memberFee;
     }
 
-    public ArrayList<Villager> getCongregation() {
+    public List<Villager> getCongregation() {
         return congregation;
     }
 
-    public void setCongregation(ArrayList<Villager> congregation) {
+    public void setCongregation(List<Villager> congregation) {
         this.congregation = congregation;
     }
 

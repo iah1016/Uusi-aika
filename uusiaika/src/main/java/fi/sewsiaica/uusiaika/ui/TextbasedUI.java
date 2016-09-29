@@ -30,7 +30,7 @@ public class TextbasedUI {
         playerAndSectNames[0] = readInput(allAllowedChars);
         System.out.print("Valitse liikkeesi nimi: ");
         playerAndSectNames[1] = readInput(allAllowedChars);
-        game.initGame(playerAndSectNames);
+        game.createPlayerAndSect(playerAndSectNames);
     }
 
     public void mainMenu() {

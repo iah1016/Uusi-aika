@@ -8,6 +8,10 @@ package fi.sewsiaica.uusiaika.logic;
 import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,6 +26,9 @@ import static org.junit.Assert.*;
 public class CreateVillagersTest {
 
     private MockRandom random;
+    private Map<String, Integer> intValues;
+    private List<String> names;
+    private List<String> profs;
     private CreateVillagers createVil;
 
     public CreateVillagersTest() {
@@ -38,7 +45,19 @@ public class CreateVillagersTest {
     @Before
     public void setUp() {
         random = new MockRandom();
-        createVil = new CreateVillagers(random);
+        intValues = new HashMap<>();
+        intValues.put("vilPopulation", 10);
+        intValues.put("vilBaseScepticism", 10);
+        intValues.put("vilBaseSelfEs", 10);
+        intValues.put("vilBaseSelfAw", 10);
+        intValues.put("vilBaseArgSkills", 10);
+        intValues.put("vilBoundValue", 51);
+        names = new ArrayList<>();
+        profs = new ArrayList<>();
+        names.addAll(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H"));
+        profs.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h",
+                "i", "j", "k", "l", "m", "n", "o", "p", "q", "r"));
+        createVil = new CreateVillagers(random, intValues, names, profs);
     }
 
     @After
@@ -48,7 +67,9 @@ public class CreateVillagersTest {
     @Test
     public void pickStringsAddsFewerStringsToArrayThanThereAreInSelectArray() {
         int quantity = 3;
-        String[] selection = {"A", "B", "C", "D", "A", "B"};
+        String[] sArray = {"A", "B", "C", "D", "A", "B"};
+        List<String> selection = new ArrayList<>();
+        selection.addAll(Arrays.asList(sArray));
         String[] result = createVil.pickStrings(quantity, selection);
         String[] expected = {"A", "B", "C"};
 
@@ -58,7 +79,9 @@ public class CreateVillagersTest {
     @Test
     public void pickStringsAddsMoreStringsToArrayThanThereAreInSelectArray() {
         int quantity = 6;
-        String[] selection = {"A", "B", "C", "D"};
+        String[] sArray = {"A", "B", "C", "D"};
+        List<String> selection = new ArrayList<>();
+        selection.addAll(Arrays.asList(sArray));
         String[] result = createVil.pickStrings(quantity, selection);
         String[] expected = {"A", "B", "C", "D", "A", "B"};
 
@@ -66,13 +89,36 @@ public class CreateVillagersTest {
     }
 
     @Test
-    public void pickStringsReturnsNullIfQuantityIsZeroOrLess() {
+    public void pickStringsReturnsZeroSizedArrayIfQuantityIsZero() {
         int quantity = 0;
-        String[] selection = {"A", "B", "C", "D", "A", "B"};
+        String[] sArray = {"A", "B", "C", "D", "A", "B"};
+        List<String> selection = new ArrayList<>();
+        selection.addAll(Arrays.asList(sArray));
         String[] result = createVil.pickStrings(quantity, selection);
-        String[] expected = null;
 
-        assertArrayEquals(expected, result);
+        assertArrayEquals(new String[0], result);
+    }
+    
+    @Test
+    public void pickStringsReturnsZeroSizedArrayIfQuantityIsLessThanZero() {
+        int quantity = -1;
+        String[] sArray = {"A", "B", "C", "D", "A", "B"};
+        List<String> selection = new ArrayList<>();
+        selection.addAll(Arrays.asList(sArray));
+        String[] result = createVil.pickStrings(quantity, selection);
+
+        assertArrayEquals(new String[0], result);
+    }
+    
+    @Test
+    public void pickStringsReturnsNonEmptyArrayIfQuantityIsMoreThanZero() {
+        int quantity = 1;
+        String[] sArray = {"A", "B", "C", "D", "A", "B"};
+        List<String> selection = new ArrayList<>();
+        selection.addAll(Arrays.asList(sArray));
+        String[] result = createVil.pickStrings(quantity, selection);
+
+        assertNotEquals(0, result.length);
     }
 
     @Test
@@ -92,34 +138,70 @@ public class CreateVillagersTest {
     }
 
     @Test
-    public void pickRandomNumbersReturnsNullIfQuantityIsZeroOrLess() {
+    public void pickRandomNumbersReturnsEmptyArrayIfQuantityIsZero() {
         int quantity = 0;
         int baseValue = 0;
         int bound = 2;
-        int[] nums = createVil.pickRandomNumbers(quantity, baseValue, bound);
+        int[] result = createVil.pickRandomNumbers(quantity, baseValue, bound);
 
-        assertEquals(null, nums);
+        assertArrayEquals(new int[0], result);
+    }
+    
+    @Test
+    public void pickRandomNumbersReturnsEmptyArrayIfQuantityIsNegInt() {
+        int quantity = -1;
+        int baseValue = 0;
+        int bound = 2;
+        int[] result = createVil.pickRandomNumbers(quantity, baseValue, bound);
+
+        assertArrayEquals(new int[0], result);
+    }
+    
+    @Test
+    public void pickRandomNumbersReturnsNonEmptyArrayIfQuantityIsPosInt() {
+        int quantity = 1;
+        int baseValue = 0;
+        int bound = 2;
+        int[] result = createVil.pickRandomNumbers(quantity, baseValue, bound);
+
+        assertNotEquals(0, result.length);
     }
 
     @Test
-    public void pickRandomNumbersReturnsNullIfBoundIsZeroOrLess() {
+    public void pickRandomNumbersReturnsEmptyArrayIfBoundIsZero() {
         int quantity = 100;
         int baseValue = 0;
         int bound = 0;
-        int[] nums = createVil.pickRandomNumbers(quantity, baseValue, bound);
+        int[] result = createVil.pickRandomNumbers(quantity, baseValue, bound);
 
-        assertEquals(null, nums);
+        assertArrayEquals(new int[0], result);
     }
+    
+    @Test
+    public void pickRandomNumbersReturnsEmptyArrayIfBoundIsNegInt() {
+        int quantity = 100;
+        int baseValue = 0;
+        int bound = -1;
+        int[] result = createVil.pickRandomNumbers(quantity, baseValue, bound);
 
+        assertArrayEquals(new int[0], result);
+    }
+    
+    @Test
+    public void pickRandomNumbersReturnsNonEmptyArrayIfBoundIsPosInt() {
+        int quantity = 100;
+        int baseValue = 0;
+        int bound = 1;
+        int[] result = createVil.pickRandomNumbers(quantity, baseValue, bound);
+
+        assertNotEquals(0, result.length);
+    }
+    
     @Test
     public void populateVillageWorksProperly() {
-        int quantity = 7;
-        String[] names = {"A", "B", "C", "D", "E", "F", "G", "H"};
-        String[] profs = {"a", "b", "c", "d", "e", "f", "g", "h", "i",
-            "j", "k", "l", "m", "n", "o", "p", "q", "r"};
-
-        ArrayList<Villager> res = createVil.populateVillage(quantity, names,
-                profs);
+        intValues.put("vilPopulation", 7);
+        createVil = new CreateVillagers(random, intValues, names, profs);
+        List<Villager> res = createVil.populateVillage();
         String expected = "AaBbCcDdEeFfGg";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < res.size(); i++) {

@@ -6,6 +6,7 @@
 package fi.sewsiaica.uusiaika.logic.conversion;
 
 import fi.sewsiaica.uusiaika.domain.*;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -15,17 +16,17 @@ import java.util.Random;
 public class Sermon extends Conversion {
 
     private int convMaxNumberOfSermons;
-    private int defaultConvSermPlayerCharIncr;
-    private int defaultConvSermVilSceptDecr;
+    private int convSermPlayerCharIncr;
+    private int convSermVilSceptDecr;
 
-    public Sermon(Random random, int defaultConvMaxNumber,
-            int[] defaultBounds, int[] defaultPlayerAttribIncr,
-            int[] defaultVilAttribDecr) {
-        super(random, defaultConvMaxNumber, defaultBounds,
-                defaultPlayerAttribIncr, defaultVilAttribDecr);
-        this.convMaxNumberOfSermons = defaultConvMaxNumber;
-        this.defaultConvSermPlayerCharIncr = defaultPlayerAttribIncr[0];
-        this.defaultConvSermVilSceptDecr = defaultVilAttribDecr[0];
+    public Sermon(Random random, Map<String, Integer> intValues,
+            int maxNumberOfConversions, int playerRandomBound,
+            int vilRandomBound) {
+        super(random, intValues, maxNumberOfConversions, playerRandomBound,
+                vilRandomBound);
+        this.convMaxNumberOfSermons = maxNumberOfConversions;
+        this.convSermPlayerCharIncr = intValues.get("convSermPlayerCharIncr");
+        this.convSermVilSceptDecr = intValues.get("convSermVilSceptDecr");
     }
 
     @Override
@@ -57,8 +58,13 @@ public class Sermon extends Conversion {
         villager.setInSect(true);
         sect.getCongregation().add(villager);
         player.setCharisma(player.getCharisma()
-                + defaultConvSermPlayerCharIncr);
+                + convSermPlayerCharIncr);
         villager.setScepticism(villager.getScepticism()
-                - defaultConvSermVilSceptDecr);
+                - convSermVilSceptDecr);
+    }
+    
+    @Override
+    public void setMaxNumberOfConversions(int maxNumberOfConversions) {
+        this.convMaxNumberOfSermons = maxNumberOfConversions;
     }
 }

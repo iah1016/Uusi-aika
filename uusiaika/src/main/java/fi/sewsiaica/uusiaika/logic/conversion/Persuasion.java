@@ -6,6 +6,7 @@
 package fi.sewsiaica.uusiaika.logic.conversion;
 
 import fi.sewsiaica.uusiaika.domain.*;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -15,19 +16,19 @@ import java.util.Random;
 public class Persuasion extends Conversion {
 
     private int convMaxNumberOfPersuasions;
-    private int defaultConvPersPlayerCharIncr;
-    private int defaultConvPersVilSelfAwDecr;
-    private int defaultConvPersVilSceptDecr;
+    private int convPersPlayerCharIncr;
+    private int convPersVilSelfAwDecr;
+    private int convPersVilSceptDecr;
 
-    public Persuasion(Random random, int defaultConvMaxNumber,
-            int[] defaultBounds, int[] defaultPlayerAttribIncr,
-            int[] defaultVilAttribDecr) {
-        super(random, defaultConvMaxNumber, defaultBounds,
-                defaultPlayerAttribIncr, defaultVilAttribDecr);
-        this.convMaxNumberOfPersuasions = defaultConvMaxNumber;
-        this.defaultConvPersPlayerCharIncr = defaultPlayerAttribIncr[0];
-        this.defaultConvPersVilSelfAwDecr = defaultVilAttribDecr[0];
-        this.defaultConvPersVilSceptDecr = defaultVilAttribDecr[1];
+    public Persuasion(Random random, Map<String, Integer> intValues,
+            int maxNumberOfConversions, int playerRandomBound,
+            int vilRandomBound) {
+        super(random, intValues, maxNumberOfConversions, playerRandomBound,
+                vilRandomBound);
+        this.convMaxNumberOfPersuasions = maxNumberOfConversions;
+        this.convPersPlayerCharIncr = intValues.get("convPersPlayerCharIncr");
+        this.convPersVilSelfAwDecr = intValues.get("convPersVilSelfAwDecr");
+        this.convPersVilSceptDecr = intValues.get("convPersVilSceptDecr");
     }
 
     @Override
@@ -57,10 +58,15 @@ public class Persuasion extends Conversion {
     @Override
     public void winningActions(Player player, Villager villager, Sect sect) {
         villager.setSelfAwareness(villager.getSelfAwareness()
-                - defaultConvPersVilSelfAwDecr);
+                - convPersVilSelfAwDecr);
         villager.setScepticism(villager.getScepticism()
-                - defaultConvPersVilSceptDecr);
+                - convPersVilSceptDecr);
         player.setCharisma(player.getCharisma()
-                + defaultConvPersPlayerCharIncr);
+                + convPersPlayerCharIncr);
+    }
+    
+    @Override
+    public void setMaxNumberOfConversions(int maxNumberOfConversions) {
+        this.convMaxNumberOfPersuasions = maxNumberOfConversions;
     }
 }

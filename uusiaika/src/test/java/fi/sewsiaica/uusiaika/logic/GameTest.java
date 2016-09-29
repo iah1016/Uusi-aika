@@ -5,10 +5,16 @@
  */
 package fi.sewsiaica.uusiaika.logic;
 
+import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.conversion.Conversion;
 import fi.sewsiaica.uusiaika.domain.*;
+import fi.sewsiaica.uusiaika.toolsfortests.MockConfig;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,8 +29,8 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     private MockRandom random;
+    private MockConfig config;
     private Game game;
-    private Conversion conv;
 
     public GameTest() {
     }
@@ -39,15 +45,18 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        // Later from a file
+        random = new MockRandom();
+        config = new MockConfig();
+        Map<String, Integer> intValues = new HashMap<>();
         String[] namesForVillagers = {"A", "B", "C", "D"};
         String[] professions = {"a", "b", "c", "d"};
-
-        random = new MockRandom();
-        game = new Game(random, namesForVillagers,
-                professions);
+        config.setIntValues(intValues);
+        config.setVilNames(Arrays.asList(namesForVillagers));
+        config.setProfessions(Arrays.asList(professions));
+        
+        game = new Game(random, config);
         String[] names = {"AA", "AB"};
-        game.initGame(names);
+        game.createPlayerAndSect(names);
         game.getPersuasion().setMaxNumberOfConversions(17);
         game.getSermon().setMaxNumberOfConversions(11);
         game.getAccusation().setMaxNumberOfConversions(19);
@@ -59,7 +68,7 @@ public class GameTest {
 
     @Test
     public void villagersAreProperlyInitiated() {
-        ArrayList<Villager> villagers = game.getVillagers();
+        List<Villager> villagers = game.getVillagers();
         int quantity = villagers.size();
 
         StringBuilder resultSB = new StringBuilder();
@@ -74,112 +83,105 @@ public class GameTest {
         }
         int ceiling = villagers.size() * 2;
         String expected = expectedSB.toString().substring(0, ceiling);
-
         assertEquals(expected, resultSB.toString());
     }
 
     @Test
-    public void initGameCreatesPlayerAndSectCorrectly() {
-        String[] namesForVillagers = {"A", "B", "C", "D"};
-        String[] professions = {"a", "b", "c", "d", "e"};
-
-        Game game2 = new Game(random, namesForVillagers,
-                professions);
+    public void createPlayerAndSectCreatesPlayerAndSectCorrectly() {
         String[] names = {"AR", "BX"};
-        game2.initGame(names);
-        String res = game2.getPlayer().getName() + game2.getSect().getName();
+        game.createPlayerAndSect(names);
+        String res = game.getPlayer().getName() + game.getSect().getName();
         assertEquals("ARBX", res);
     }
-    
+
     @Test
-    public void initGameReturnsTrueIfArrayLengthIsTwo() {
+    public void createPlayerAndSectReturnsTrueIfArrayLengthIsTwo() {
         String[] fooArray = {"one", "two"};
-        assertEquals(true, game.initGame(fooArray));
+        assertEquals(true, game.createPlayerAndSect(fooArray));
     }
     
     @Test
-    public void initGameReturnsFalseIfArrayLengthIsNotTwo() {
+    public void createPlayerAndSectReturnsFalseIfArrayLengthIsNotTwo() {
         String[] fooArray = {"one"};
-        assertEquals(false, game.initGame(fooArray));
+        assertEquals(false, game.createPlayerAndSect(fooArray));
+    }
+    
+    @Test
+    public void conversionDoesNotWorkWithOptionAIfAlreadyMaxedTries() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(17);
+        villager.setNumberOfSermons(0);
+        villager.setNumberOfAccusations(0);
+        villager.setSelfAwareness(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, 'a');
+        assertEquals(false, result);
     }
 
-//    @Test
-//    public void conversionDoesNotWorkWithOptionAIfAlreadyMaxedTries() {
-//        Villager villager = game.getVillagers().get(0);
-//        villager.setNumberOfPersuations(17);
-//        villager.setNumberOfSermons(0);
-//        villager.setNumberOfAccusations(0);
-//        villager.setSelfAwareness(7);
-//        game.getPlayer().setCharisma(100);
-//        boolean result = game.conversion(villager, 'a');
-//        assertEquals(false, result);
-//    }
-//
-//    @Test
-//    public void conversionDoesNotWorkWithOptionBIfAlreadyMaxedTries() {
-//        Villager villager = game.getVillagers().get(0);
-//        villager.setNumberOfPersuations(0);
-//        villager.setNumberOfSermons(11);
-//        villager.setNumberOfAccusations(0);
-//        villager.setScepticism(7);
-//        game.getPlayer().setCharisma(100);
-//        boolean result = game.conversion(villager, 'b');
-//        assertEquals(false, result);
-//    }
-//
-//    @Test
-//    public void conversionDoesNotWorkWithOptionCIfAlreadyMaxedTries() {
-//        Villager villager = game.getVillagers().get(0);
-//        villager.setNumberOfPersuations(0);
-//        villager.setNumberOfSermons(0);
-//        villager.setNumberOfAccusations(19);
-//        villager.setScepticism(7);
-//        game.getPlayer().setCharisma(100);
-//        boolean result = game.conversion(villager, 'c');
-//        assertEquals(false, result);
-//    }
-//
-//    @Test
-//    public void conversionWorksWithOptionA() {
-//        Villager villager = game.getVillagers().get(0);
-//        villager.setNumberOfPersuations(0);
-//        villager.setNumberOfSermons(100);
-//        villager.setNumberOfAccusations(100);
-//        villager.setSelfAwareness(7);
-//        game.getPlayer().setCharisma(100);
-//        boolean result = game.conversion(villager, 'a');
-//        assertEquals(true, result);
-//    }
-//
-//    @Test
-//    public void conversionWorksWithOptionB() {
-//        Villager villager = game.getVillagers().get(0);
-//        villager.setNumberOfPersuations(100);
-//        villager.setNumberOfSermons(0);
-//        villager.setNumberOfAccusations(100);
-//        villager.setScepticism(7);
-//        game.getPlayer().setCharisma(100);
-//        boolean result = game.conversion(villager, 'b');
-//        assertEquals(true, result);
-//    }
-//
-//    @Test
-//    public void conversionWorksWithOptionC() {
-//        Villager villager = game.getVillagers().get(0);
-//        villager.setNumberOfPersuations(100);
-//        villager.setNumberOfSermons(100);
-//        villager.setNumberOfAccusations(0);
-//        villager.setScepticism(7);
-//        game.getPlayer().setCharisma(100);
-//        boolean result = game.conversion(villager, 'c');
-//        assertEquals(true, result);
-//    }
+    @Test
+    public void conversionDoesNotWorkWithOptionBIfAlreadyMaxedTries() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(0);
+        villager.setNumberOfSermons(11);
+        villager.setNumberOfAccusations(0);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, 'b');
+        assertEquals(false, result);
+    }
 
+    @Test
+    public void conversionDoesNotWorkWithOptionCIfAlreadyMaxedTries() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(0);
+        villager.setNumberOfSermons(0);
+        villager.setNumberOfAccusations(19);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, 'c');
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void conversionWorksWithOptionA() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(0);
+        villager.setNumberOfSermons(100);
+        villager.setNumberOfAccusations(100);
+        villager.setSelfAwareness(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, 'a');
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void conversionWorksWithOptionB() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(100);
+        villager.setNumberOfSermons(0);
+        villager.setNumberOfAccusations(100);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, 'b');
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void conversionWorksWithOptionC() {
+        Villager villager = game.getVillagers().get(0);
+        villager.setNumberOfPersuations(100);
+        villager.setNumberOfSermons(100);
+        villager.setNumberOfAccusations(0);
+        villager.setScepticism(7);
+        game.getPlayer().setCharisma(100);
+        boolean result = game.conversion(villager, 'c');
+        assertEquals(true, result);
+    }
     @Test
     public void conversionDoesNotWorkWithOptionAIfMaxIsZero() {
         Villager villager = game.getVillagers().get(0);
         game.getPersuasion().setMaxNumberOfConversions(0);
-        villager.setNumberOfPersuations(0);
+        villager.setNumberOfPersuations(1);
         villager.setNumberOfSermons(100);
         villager.setNumberOfAccusations(100);
         villager.setSelfAwareness(7);
@@ -228,7 +230,7 @@ public class GameTest {
 
     @Test
     public void templeActionsReturnsTrueWithOptionAIfMemberListIsNotEmpty() {
-        ArrayList<Villager> congregation = new ArrayList<Villager>();
+        List<Villager> congregation = new ArrayList<Villager>();
         congregation.add(new Villager("A", true, 0, 0, 0, 0, "B"));
         game.getSect().setCongregation(congregation);
         boolean result = game.templeActions('a');
@@ -237,7 +239,7 @@ public class GameTest {
 
     @Test
     public void templeActionsReturnsFalseWithOptionAIfMemberListIsEmpty() {
-        ArrayList<Villager> congregation = new ArrayList<Villager>();
+        List<Villager> congregation = new ArrayList<Villager>();
         game.getSect().setCongregation(congregation);
         boolean result = game.templeActions('a');
         assertEquals(false, result);
@@ -305,5 +307,4 @@ public class GameTest {
         boolean result = game.trainingCentreActions('b');
         assertEquals(true, result);
     }
-
 }

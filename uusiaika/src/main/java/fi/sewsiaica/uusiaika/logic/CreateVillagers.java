@@ -7,6 +7,8 @@ package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.domain.Villager;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -16,48 +18,50 @@ import java.util.Random;
 public class CreateVillagers {
 
     private Random random;
-    // Move these to a yaml file
-    private final int defaultVilBaseScepticism = 10;
-    private final int defaultVilBaseSelfEs = 10;
-    private final int defaultVilBaseSelfAw = 10;
-    private final int defaultVilBaseArgSkills = 10;
-    private final int defaultVilBoundValue = 51;
+    private Map<String, Integer> intValues;
+    private List<String> vilNames;
+    private List<String> professions;
+    private int numberOfVillagers;
 
-    public CreateVillagers(Random random) {
+    public CreateVillagers(Random random, Map<String, Integer> intValues,
+            List<String> vilNames, List<String> professions) {
         this.random = random;
+        this.intValues = intValues;
+        this.vilNames = vilNames;
+        this.professions = professions;
+        this.numberOfVillagers = intValues.get("vilPopulation");
     }
 
-    public ArrayList<Villager> populateVillage(int quantity, String[] names,
-            String[] profs) {
-        ArrayList<Villager> vlist = new ArrayList<>();
+    public List<Villager> populateVillage() {
+        String[] namesArray = pickStrings(numberOfVillagers, vilNames);
+        List<int[]> atlists = makeAttribLists(numberOfVillagers);
+        String[] profsArray = pickStrings(numberOfVillagers, professions);
 
-        String[] namesForVillagers = pickStrings(quantity, names);
-        ArrayList<int[]> atlists = makeAttribLists(quantity);
-        String[] professions = pickStrings(quantity, profs);
-
-        return addVillagersToVList(vlist, quantity, namesForVillagers,
+        return addVillagersToVList(numberOfVillagers, namesArray,
                 atlists.get(0), atlists.get(1), atlists.get(2), atlists.get(3),
-                professions);
+                profsArray);
     }
 
-    public ArrayList<int[]> makeAttribLists(int quantity) {
-        ArrayList<int[]> attribLists = new ArrayList<>();
+    public List<int[]> makeAttribLists(int quantity) {
+        List<int[]> attribLists = new ArrayList<>();
+        int bound = intValues.get("vilBoundValue");
 
-        attribLists.add(pickRandomNumbers(quantity, defaultVilBaseScepticism,
-                defaultVilBoundValue));
-        attribLists.add(pickRandomNumbers(quantity, defaultVilBaseSelfEs,
-                defaultVilBoundValue));
-        attribLists.add(pickRandomNumbers(quantity, defaultVilBaseSelfAw,
-                defaultVilBoundValue));
-        attribLists.add(pickRandomNumbers(quantity, defaultVilBaseArgSkills,
-                defaultVilBoundValue));
+        attribLists.add(pickRandomNumbers(quantity,
+                intValues.get("vilBaseScepticism"), bound));
+        attribLists.add(pickRandomNumbers(quantity,
+                intValues.get("vilBaseSelfEs"), bound));
+        attribLists.add(pickRandomNumbers(quantity,
+                intValues.get("vilBaseSelfAw"), bound));
+        attribLists.add(pickRandomNumbers(quantity,
+                intValues.get("vilBaseArgSkills"), bound));
         return attribLists;
     }
 
-    public ArrayList<Villager> addVillagersToVList(ArrayList<Villager> vlist,
-            int quantity, String[] names, int[] scept, int[] selfEs,
-            int[] selfAwValues, int[] argSkills, String[] profs) {
-
+    public List<Villager> addVillagersToVList(int quantity, String[] names,
+            int[] scept, int[] selfEs, int[] selfAwValues, int[] argSkills,
+            String[] profs) {
+        
+        List<Villager> vlist = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
             vlist.add(new Villager(names[i], false, scept[i], selfEs[i],
                     selfAwValues[i], argSkills[i], profs[i]));
@@ -65,25 +69,24 @@ public class CreateVillagers {
         return vlist;
     }
 
-    public String[] pickStrings(int quantity, String[] selection) {
-        if (quantity <= 0) {
-            return null;
+    public String[] pickStrings(int quantity, List<String> selection) {
+        if (quantity < 1) {
+            return new String[0];
         }
-
-        String[] stringArray = new String[quantity];
+        String[] strings = new String[quantity];
 
         for (int i = 0; i < quantity; i++) {
-            stringArray[i] = selection[i % selection.length];
+            strings[i] = (selection.get(i % selection.size()));
         }
 
-        return stringArray;
+        return strings;
     }
 
     public int[] pickRandomNumbers(int quantity, int baseValue, int bound) {
-        if (quantity <= 0 || bound <= 0) {
-            return null;
+        if (quantity < 1 || bound < 1) {
+            return new int[0];
         }
-
+        
         int[] numbers = new int[quantity];
 
         for (int i = 0; i < quantity; i++) {

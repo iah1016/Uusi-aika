@@ -7,6 +7,9 @@ package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.domain.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,14 +23,15 @@ import static org.junit.Assert.*;
  */
 public class TempleTest {
 
-    private final int defaultPlayerCharisma = 10;
-    private final int defaultPlayerArgSkills = 10;
-    private final int defaultSectBalance = 5000;
-    private final int defaultSectExpenses = 1000;
-    private final int defaultSectMemberFee = 100;
-    private final int defaultTempleSceptDecr = 10;
-    private final int defaultDeathCultCharismaReq = 255;
-    private final int defaultDivineRightMoneyReq = 100000;
+    private final int playerCharisma = 10;
+    private final int playerArgSkills = 10;
+    private final int sectBalance = 5000;
+    private final int sectExpenses = 1000;
+    private final int sectMemberFee = 100;
+    private final int templeSceptDecr = 10;
+    private final int deathCultCharismaReq = 255;
+    private final int divineRightMoneyReq = 100000;
+    private Map<String, Integer> intValues;
     private Temple temple;
     private Player player;
     private Sect sect;
@@ -45,13 +49,15 @@ public class TempleTest {
 
     @Before
     public void setUp() {
-        temple = new Temple(defaultTempleSceptDecr,
-                defaultDeathCultCharismaReq,
-                defaultDivineRightMoneyReq);
-        player = new Player("Hessu", defaultPlayerCharisma,
-                defaultPlayerArgSkills);
-        sect = new Sect("Tunneli", defaultSectBalance, defaultSectExpenses,
-                defaultSectMemberFee);
+        intValues = new HashMap<>();
+        intValues.put("templeSceptDecr", templeSceptDecr);
+        intValues.put("templeDeathCultCharismaReq", deathCultCharismaReq);
+        intValues.put("templeDivineRightMoneyReq", divineRightMoneyReq);
+        temple = new Temple(intValues);
+        player = new Player("Hessu", playerCharisma,
+                playerArgSkills);
+        sect = new Sect("Tunneli", sectBalance, sectExpenses,
+                sectMemberFee);
     }
 
     @After
@@ -61,7 +67,7 @@ public class TempleTest {
     @Test
     public void preachLowersEveryonesScepticism() {
         boolean result = true;
-        ArrayList<Villager> congregation = sect.getCongregation();
+        List<Villager> congregation = sect.getCongregation();
         int initScept = 97;
 
         for (int i = 0; i < 10; i++) {
@@ -71,7 +77,7 @@ public class TempleTest {
         temple.preach(player, sect);
 
         for (Villager member : congregation) {
-            if (member.getScepticism() != initScept - defaultTempleSceptDecr) {
+            if (member.getScepticism() != initScept - templeSceptDecr) {
                 result = false;
             }
         }
@@ -80,28 +86,28 @@ public class TempleTest {
 
     @Test
     public void offerSodaToAllMembersReturnsTrueWithReqValue() {
-        player.setCharisma(defaultDeathCultCharismaReq);
+        player.setCharisma(deathCultCharismaReq);
         boolean result = temple.offerSodaToAllMembers(player);
         assertEquals(true, result);
     }
 
     @Test
     public void offerSodaToAllMembersReturnsFalseWithLowCharisma() {
-        player.setCharisma(defaultDeathCultCharismaReq - 1);
+        player.setCharisma(deathCultCharismaReq - 1);
         boolean result = temple.offerSodaToAllMembers(player);
         assertEquals(false, result);
     }
 
     @Test
     public void buyTicketToParadiseIslandReturnsTrueWithReqValue() {
-        sect.setBalance(defaultDivineRightMoneyReq);
+        sect.setBalance(divineRightMoneyReq);
         boolean result = temple.buyTicketToParadiseIsland(player, sect);
         assertEquals(true, result);
     }
 
     @Test
     public void buyTicketToParadiseIslandReturnsFalseWithLowBalance() {
-        sect.setBalance(defaultDivineRightMoneyReq - 1);
+        sect.setBalance(divineRightMoneyReq - 1);
         boolean result = temple.buyTicketToParadiseIsland(player, sect);
         assertEquals(false, result);
     }

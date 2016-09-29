@@ -6,6 +6,7 @@
 package fi.sewsiaica.uusiaika.logic.conversion;
 
 import fi.sewsiaica.uusiaika.domain.*;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -15,15 +16,19 @@ import java.util.Random;
 public abstract class Conversion {
 
     private Random random;
+    Map<String, Integer> intValues;
     private int maxNumberOfConversions;
-    private int[] playerAndVilRandomBounds;
+    private int playerRandomBound;
+    private int vilRandomBound;
 
-    public Conversion(Random random, int defaultConvMaxNumber,
-            int[] defaultBounds, int[] defaultPlayerAttribIncr,
-            int[] defaultVilAttribDecr) {
+    public Conversion(Random random, Map<String, Integer> intValues,
+            int maxNumberOfConversions, int playerRandomBound,
+            int vilRandomBound) {
         this.random = random;
-        this.maxNumberOfConversions = defaultConvMaxNumber;
-        this.playerAndVilRandomBounds = defaultBounds;
+        this.intValues = intValues;
+        this.maxNumberOfConversions = maxNumberOfConversions;
+        this.playerRandomBound = playerRandomBound;
+        this.vilRandomBound = vilRandomBound;
     }
 
     public boolean isMaxedOut(int val, int max) {
@@ -44,7 +49,7 @@ public abstract class Conversion {
         increaseAmountOfConv(villager);
         int[] battleValues = calculatePlayerAndVilValues(player, villager);
         boolean successfulConv = convSucceeds(battleValues[0], battleValues[1],
-                playerAndVilRandomBounds[0], playerAndVilRandomBounds[1]);
+                playerRandomBound, vilRandomBound);
 
         if (successfulConv) {
             winningActions(player, villager, sect);
@@ -57,9 +62,7 @@ public abstract class Conversion {
         return maxNumberOfConversions;
     }
 
-    public void setMaxNumberOfConversions(int maxNumberOfConversions) {
-        this.maxNumberOfConversions = maxNumberOfConversions;
-    }
+    public abstract void setMaxNumberOfConversions(int maxNumberOfConversions);
 
     public abstract boolean checkIfAllowedToProceed(Villager villager);
 

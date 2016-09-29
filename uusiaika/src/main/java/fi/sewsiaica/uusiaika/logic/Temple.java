@@ -7,6 +7,8 @@ package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.domain.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -14,19 +16,20 @@ import java.util.ArrayList;
  */
 public class Temple {
 
-    private int defaultTempleSceptDecr;
-    private int defaultDeathCultCharismaReq;
-    private int defaultDivineRightMoneyReq;
+    private Map<String, Integer> intValues;
+    private int templeSceptDecr;
+    private int deathCultCharismaReq;
+    private int divineRightMoneyReq;
 
-    public Temple(int defaultTempleCharismaDecr,
-            int defaultDeathCultCharismaReq, int defaultDivineRightMoneyReq) {
-        this.defaultTempleSceptDecr = defaultTempleCharismaDecr;
-        this.defaultDeathCultCharismaReq = defaultDeathCultCharismaReq;
-        this.defaultDivineRightMoneyReq = defaultDivineRightMoneyReq;
+    public Temple(Map<String, Integer> intValues) {
+        this.intValues = intValues;
+        this.templeSceptDecr = intValues.get("templeSceptDecr");
+        this.deathCultCharismaReq = intValues.get("templeDeathCultCharismaReq");
+        this.divineRightMoneyReq = intValues.get("templeDivineRightMoneyReq");
     }
 
     public boolean preach(Player player, Sect sect) {
-        ArrayList<Villager> congregation = sect.getCongregation();        
+        List<Villager> congregation = sect.getCongregation();        
         if (congregation == null) {
             return false;
         }
@@ -35,7 +38,7 @@ public class Temple {
             for (int i = 0; i < congregation.size(); i++) {
                 Villager member = congregation.get(i);
                 int scept = member.getScepticism();
-                member.setScepticism(scept - defaultTempleSceptDecr);
+                member.setScepticism(scept - templeSceptDecr);
             }
             return true;
         }
@@ -43,10 +46,10 @@ public class Temple {
     }
 
     public boolean offerSodaToAllMembers(Player player) {
-        return player.getCharisma() >= defaultDeathCultCharismaReq;
+        return player.getCharisma() >= deathCultCharismaReq;
     }
 
     public boolean buyTicketToParadiseIsland(Player player, Sect sect) {
-        return sect.getBalance() >= defaultDivineRightMoneyReq;
+        return sect.getBalance() >= divineRightMoneyReq;
     }
 }
