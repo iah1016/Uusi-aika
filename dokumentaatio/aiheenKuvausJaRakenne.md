@@ -7,8 +7,9 @@
     - Itsemurhakultti. Johtajalta edellytetään erittäin paljon karismaa. Pisteytyksessä painotetaan erityisesti jäsenten lukumäärää.
   - Jumalallinen oikeutus
     - Johtaja karkaa rahojen kanssa paratiisisaarelle. Pisteytyksessä painotetaan erityisesti liikkeen tilin saldoa pelin lopussa.
-  - TBD
-    - TBD
+**Tavat hävitä:** Pelissä voi käydä kalpaten seuraavin tavoin:
+  - Kierrosten lukumäärä saavuttaa asetetun maksimimäärän.
+  - Kierroksen vaihdettua lahkon tili menee negatiiviseksi.
 
 **Käyttäjät:** 1 pelaaja
 
@@ -21,7 +22,6 @@
 
 **Uuden pelin aloitus:**
   - Aseta nimet pelaajalle ja liikkeelle
-  - Valitse attribuutit liikkeelle
 
 **Pelin toiminnot:**
   - Karttanäkymä
