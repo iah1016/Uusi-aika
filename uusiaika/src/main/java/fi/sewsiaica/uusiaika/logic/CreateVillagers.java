@@ -42,7 +42,7 @@ public class CreateVillagers {
                 profsArray);
     }
 
-    public List<int[]> makeAttribLists(int quantity) {
+    private List<int[]> makeAttribLists(int quantity) {
         List<int[]> attribLists = new ArrayList<>();
         int bound = intValues.get("vilBoundValue");
 
@@ -57,7 +57,7 @@ public class CreateVillagers {
         return attribLists;
     }
 
-    public List<Villager> addVillagersToVList(int quantity, String[] names,
+    private List<Villager> addVillagersToVList(int quantity, String[] names,
             int[] scept, int[] selfEs, int[] selfAwValues, int[] argSkills,
             String[] profs) {
         

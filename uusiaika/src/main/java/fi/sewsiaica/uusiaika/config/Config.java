@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
@@ -36,7 +37,7 @@ public class Config {
     public void loadIntValues() {
         Map<String, Integer> newValues = new HashMap<>();
 //        check if a config file exists
-//        if (loadFromFile.load("fileName")) {
+//        if (loadFromTextFile.load("fileName")) {
 //        } else {
         for (int i = 0; i < variableNames.length; i++) {
             newValues.put(variableNames[i], defaultValues[i]);

@@ -6,6 +6,7 @@
 package fi.sewsiaica.uusiaika.config;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -1,0 +1,32 @@
+# Agricolan Abckiriasta
+# Somen luku .
+Yxi: 1
+Caxi: 2
+Colme: 3
+Nelie: 4
+Wisi: 5
+Cusi: 6
+Seitzeme: 7
+Cadexen: 8
+Ydexen: 9
+Kymenen: 10
+Yxitoista: 11 .
+Caxitoista: 12
+Colmetoista: 13
+Nelietoist: 14
+Wisitoista: 15
+Cusitoista: 16
+Seitzementoista: 17
+Cadexentoista: 18
+
+Ydexentoista: 19
+Caxikymen: 20
+Colmekymen: 30
+Neliekymen: 40
+Visikymen: 50
+Cusikymen: 60
+Seitzemenkymen: 70
+Cadexenkymen: 80
+Ydexenkymen: 90
+Sata: 100
+Tuhanen: 1000

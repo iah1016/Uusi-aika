@@ -38,13 +38,13 @@ public class Game {
         this.villagers = createVillagers.populateVillage();
     }
 
-    public void updateGamesConfigValues() {
+    private void updateGamesConfigValues() {
         this.configIntValues = config.getIntValues();
         this.vilNamesForCreation = config.getVilNames();
         this.professionsForCreation = config.getProfessions();
     }
     
-    public final void createLogicModules(Random random) {
+    private void createLogicModules(Random random) {
         this.createVillagers = new CreateVillagers(random, configIntValues,
                 vilNamesForCreation, professionsForCreation);
         this.turnLogic = new TurnLogic(configIntValues);
@@ -114,6 +114,10 @@ public class Game {
                 return false;
         }
     }
+    
+    public boolean endTurn() {
+        return turnLogic.nextTurn(player, sect);
+    }
 
     public Player getPlayer() {
         return player;
@@ -137,5 +141,9 @@ public class Game {
 
     public Conversion getAccusation() {
         return accusation;
+    }
+    
+    public int getNumberOfTurns() {
+        return turnLogic.getNumberOfTurns();
     }
 }

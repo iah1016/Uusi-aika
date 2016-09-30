@@ -22,10 +22,12 @@
           <targetClasses>
             <param>fi.sewsiaica.uusiaika.logic.*</param>
             <param>fi.sewsiaica.uusiaika.config.*</param>
+            <param>fi.sewsiaica.uusiaika.io.*</param>
           </targetClasses>
           <targetTests>
             <param>fi.sewsiaica.uusiaika.logic.*</param>
             <param>fi.sewsiaica.uusiaika.config.*</param>
+            <param>fi.sewsiaica.uusiaika.io.*</param>
           </targetTests>
         </configuration>
       </plugin>

@@ -307,4 +307,12 @@ public class GameTest {
         boolean result = game.trainingCentreActions('b');
         assertEquals(true, result);
     }
+    
+    @Test
+    public void endTurnReturnsTrueWhenTurnHasChanged() {
+        int turnsBefore = game.getNumberOfTurns();
+        assertEquals(true, game.endTurn());
+        int turnsAfter = game.getNumberOfTurns();
+        assertEquals(turnsAfter, turnsBefore + 1);
+    }
 }
