@@ -18,3 +18,5 @@ Päivä | Tunnit | Kuvaus
 24.09.2016 | 1h | Koodikatselmointi 1 alkanut
 25.09.2016 | 6h | Koodikatselmointi 1 päättynyt
 27.09.2016 | 3h | TurnLogic-luokka ja testit sille lisätty, kyläläisten ja käännytyksen arvot voidaan nyt siirtää tiedostoon
+28.09.2016 | 7h | Conversion-luokka abstraktiksi luokaksi: Persuasion, Sermon ja Accusation aliluokkina
+30.09.2016 | 11h | Config-paketti luotu, jolla vastuu muuttujista; ReadFromTextFile-luokka toteutettu; JavaDocien luonti; uusi luokkakaavio

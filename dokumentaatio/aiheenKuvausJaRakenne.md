@@ -50,4 +50,4 @@
     - Paluu karttanäkymään
 
 ##Luokkakaavio
-![dokumentaatio/Luokkakaavio 2.png](Luokkakaavio 2.png)
+![dokumentaatio/Luokkakaavio 3.png](Luokkakaavio 3.png)
