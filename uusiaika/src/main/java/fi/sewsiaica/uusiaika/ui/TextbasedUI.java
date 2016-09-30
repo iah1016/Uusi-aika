@@ -6,7 +6,7 @@ import fi.sewsiaica.uusiaika.logic.*;
 import java.util.HashSet;
 
 /**
- * Temporary text-based UI
+ * Temporary text-based UI – soon to be dumped away.
  *
  * @author iah1016
  */

@@ -1,6 +1,9 @@
 package fi.sewsiaica.uusiaika.domain;
 
 /**
+ * The village is a home to a miscellaneous group of people that are all
+ * rational individuals with vibrant and joyful lives and not just a set of
+ * random numbers.
  *
  * @author iah1016
  */
@@ -17,6 +20,17 @@ public class Villager {
     private int numberOfSermons;
     private int numberOfAccusations;
 
+    /**
+     *
+     * @param name CreateVillagers picks a name from the list created by Config.
+     * @param inSect Initial value is false, ie. the villager is not a member.
+     * @param scepticism CreateVillagers picks a number that is base+random.
+     * @param selfEsteem CreateVillagers picks a number that is base+random.
+     * @param selfAwareness CreateVillagers picks a number that is base+random.
+     * @param argSkills CreateVillagers picks a number that is base+random.
+     * @param profession CreateVillagers picks a name from the list created by
+     * Config.
+     */
     public Villager(String name, boolean inSect, int scepticism, int selfEsteem,
             int selfAwareness, int argSkills, String profession) {
         this.inSect = inSect;

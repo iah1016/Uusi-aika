@@ -6,7 +6,7 @@
 package fi.sewsiaica.uusiaika.config;
 
 /**
- *
+ * This enum class contains all the default values of the game's variables.
  * @author iah1016
  */
 public enum DefaultValues {

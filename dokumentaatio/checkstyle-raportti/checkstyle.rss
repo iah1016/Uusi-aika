@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2016</copyright>
     <item>
-      <title>File: 11,
+      <title>File: 22,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Villager.java">fi/sewsiaica/uusiaika/domain/Villager.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.TurnLogic.java">fi/sewsiaica/uusiaika/logic/TurnLogic.java</a>
                 </td>
                 <td>
                   0
@@ -74,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Player.java">fi/sewsiaica/uusiaika/domain/Player.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.conversion.Accusation.java">fi/sewsiaica/uusiaika/logic/conversion/Accusation.java</a>
                 </td>
                 <td>
                   0
@@ -116,20 +116,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.Conversion.java">fi/sewsiaica/uusiaika/logic/Conversion.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.Game.java">fi/sewsiaica/uusiaika/logic/Game.java</a>
                 </td>
                 <td>
@@ -144,7 +130,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.TextbasedUI.java">fi/sewsiaica/uusiaika/ui/TextbasedUI.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.conversion.Persuasion.java">fi/sewsiaica/uusiaika/logic/conversion/Persuasion.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.config.VariableNames.java">fi/sewsiaica/uusiaika/config/VariableNames.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.config.DefaultValues.java">fi/sewsiaica/uusiaika/config/DefaultValues.java</a>
                 </td>
                 <td>
                   0
@@ -159,6 +173,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Sect.java">fi/sewsiaica/uusiaika/domain/Sect.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.conversion.Conversion.java">fi/sewsiaica/uusiaika/logic/conversion/Conversion.java</a>
                 </td>
                 <td>
                   0
@@ -187,6 +215,132 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.Temple.java">fi/sewsiaica/uusiaika/logic/Temple.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.config.DefaultVilNames.java">fi/sewsiaica/uusiaika/config/DefaultVilNames.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.conversion.Sermon.java">fi/sewsiaica/uusiaika/logic/conversion/Sermon.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.io.ReadFromTextFile.java">fi/sewsiaica/uusiaika/io/ReadFromTextFile.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Villager.java">fi/sewsiaica/uusiaika/domain/Villager.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Player.java">fi/sewsiaica/uusiaika/domain/Player.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.config.DefaultProfessions.java">fi/sewsiaica/uusiaika/config/DefaultProfessions.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.toolsfortests.MockConfig.java">fi/sewsiaica/uusiaika/toolsfortests/MockConfig.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.TextbasedUI.java">fi/sewsiaica/uusiaika/ui/TextbasedUI.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.config.Config.java">fi/sewsiaica/uusiaika/config/Config.java</a>
                 </td>
                 <td>
                   0

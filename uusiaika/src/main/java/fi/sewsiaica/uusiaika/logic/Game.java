@@ -8,21 +8,20 @@ import java.util.Map;
 import java.util.Random;
 
 /**
+ * The core logic of the game. It acquires all the game's variable values from
+ * Config. All the other logic parts are permanently attached to this class.
  *
  * @author iah1016
  */
 public class Game {
 
-    // Config
     private final Config config;
     private Map<String, Integer> configIntValues;
     private List<String> vilNamesForCreation;
     private List<String> professionsForCreation;
-    // Domain
     private Player player;
     private Sect sect;
     private List<Villager> villagers;
-    // Logic modules
     private CreateVillagers createVillagers;
     private Conversion persuasion;
     private Conversion sermon;
@@ -31,6 +30,14 @@ public class Game {
     private Temple temple;
     private TrainingCentre trainingCentre;
 
+    /**
+     * The constructor pulls all the values from Config and, with them, creates
+     * the Logic objects.
+     *
+     * @param random Random is needed by the CreateVillagers and Conversion-type
+     * classes.
+     * @param config Config contains all the variable values.
+     */
     public Game(Random random, Config config) {
         this.config = config;
         updateGamesConfigValues();
@@ -43,7 +50,7 @@ public class Game {
         this.vilNamesForCreation = config.getVilNames();
         this.professionsForCreation = config.getProfessions();
     }
-    
+
     private void createLogicModules(Random random) {
         this.createVillagers = new CreateVillagers(random, configIntValues,
                 vilNamesForCreation, professionsForCreation);
@@ -63,7 +70,15 @@ public class Game {
         this.temple = new Temple(configIntValues);
         this.trainingCentre = new TrainingCentre(configIntValues);
     }
-    
+
+    /**
+     * The method gets the player and sect names in a String array-type
+     * parameter, creates new Player and Sect objects, and sets them to its
+     * variables.
+     *
+     * @param playerAndSectNames Player and Sect names in a String array.
+     * @return The return value is only true if the array size is exactly 2.
+     */
     public boolean createPlayerAndSect(String[] playerAndSectNames) {
         if (playerAndSectNames.length == 2) {
             this.player = new Player(playerAndSectNames[0],
@@ -78,6 +93,14 @@ public class Game {
         return false;
     }
 
+    /**
+     * Player attempts to convert a villager.
+     *
+     * @param villager The Player has chosen the target villager beforehand.
+     * @param option (a) Persuasion, (b) Sermon, (c) Accusation.
+     * @return If the conversion is allowed (ie. the maximum amount of attempts
+     * has not been reached) and it is successful, then the method returns true.
+     */
     public boolean conversion(Villager villager, char option) {
         if (option == 'a' && persuasion.checkIfAllowedToProceed(villager)) {
             return persuasion.convert(player, villager, sect);
@@ -91,6 +114,16 @@ public class Game {
         return false;
     }
 
+    /**
+     * The actions that are set in the sect's temple. (a) will decrease the
+     * scepticism of the members. Options (b) and (c) will end the game (yet to
+     * be implemented), if the conditions are met.
+     *
+     * @param option (a) Preach, (b) Offer soda to the congregation, (c) Buy a
+     * one-way ticket to a paradise island Option.
+     * @return The option a is currently always returns true. Option (b)
+     * requires a high playerCharisma and option (c) a high balance.
+     */
     public boolean templeActions(char option) {
         switch (option) {
             case 'a':
@@ -104,6 +137,13 @@ public class Game {
         }
     }
 
+    /**
+     * These are the actions that are set in the training centre.
+     *
+     * @param option (a) apply for a charisma course (increases playerCharisma),
+     * (b) apply for a debate course (increases playerArgSkills).
+     * @return Both options (a) and (b) always return true.
+     */
     public boolean trainingCentreActions(char option) {
         switch (option) {
             case 'a':
@@ -114,7 +154,12 @@ public class Game {
                 return false;
         }
     }
-    
+
+    /**
+     * This method executes the TurnLogic's nextTurn-method.
+     *
+     * @return
+     */
     public boolean endTurn() {
         return turnLogic.nextTurn(player, sect);
     }
@@ -142,7 +187,7 @@ public class Game {
     public Conversion getAccusation() {
         return accusation;
     }
-    
+
     public int getNumberOfTurns() {
         return turnLogic.getNumberOfTurns();
     }

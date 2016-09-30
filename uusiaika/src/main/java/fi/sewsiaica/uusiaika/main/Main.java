@@ -7,11 +7,20 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- *
+ * The Main class creates Game and GUI classes and starts the game.
+ * Random and Config classes are also created and given as parameters
+ * to the Game class.
+ * 
  * @author iah1016
  */
 public class Main {
 
+    /**
+     * Currently, any exception will end the game with the message
+     * "Ei natsaa".
+     * 
+     * @param args 
+     */
     public static void main(String[] args) {
 
         try {

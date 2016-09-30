@@ -52,7 +52,12 @@
                         <param>fi.sewsiaica.uusiaika.io.*</param>
                     </targetTests>
                 </configuration>
-            </plugin>            
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>

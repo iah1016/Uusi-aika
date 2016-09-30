@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
+ * This is used in tests, instead of the real Config, due to easier setting of
+ * values.
  *
  * @author iah1016
  */
@@ -21,21 +23,21 @@ public class MockConfig extends Config {
     private Map<String, Integer> intValues;
     private List<String> vilNames;
     private List<String> professions;
-    
+
     public MockConfig() {
         super();
     }
-    
+
     @Override
     public List<String> getVilNames() {
         return this.vilNames;
     }
-    
+
     @Override
     public List<String> getProfessions() {
         return this.professions;
     }
-    
+
     public void setIntValues(Map<String, Integer> intValues) {
         this.intValues = intValues;
     }

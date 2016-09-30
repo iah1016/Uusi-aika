@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
+ * This class handles the configuration of the game. It will first try to load
+ * the values from configuration files through a file handler class. If a file
+ * is not present, the values will be loaded from the enum classes.
  *
  * @author iah1016
  */

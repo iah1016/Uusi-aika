@@ -6,6 +6,8 @@
 package fi.sewsiaica.uusiaika.config;
 
 /**
+ * This enum class contains all the variable names. These should not be changed
+ * under any circumstances.
  *
  * @author iah1016
  */

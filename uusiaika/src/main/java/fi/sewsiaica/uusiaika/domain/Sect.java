@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This is you precious gift to the World. Find id... like-minded friends in the
+ * village and lead them to the Next Level.
  *
  * @author iah1016
  */
@@ -20,6 +22,13 @@ public class Sect {
     private int memberFee;
     private List<Villager> congregation;
 
+    /**
+     *
+     * @param name The name is given by the user via GUI.
+     * @param balance Default value from Config.intValues.
+     * @param expenses Default value from Config.intValues.
+     * @param memberFee Default value from Config.intValues.
+     */
     public Sect(String name, int balance, int expenses, int memberFee) {
         this.name = name;
         this.balance = balance;

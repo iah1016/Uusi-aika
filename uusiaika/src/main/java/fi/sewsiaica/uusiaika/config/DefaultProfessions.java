@@ -6,6 +6,8 @@
 package fi.sewsiaica.uusiaika.config;
 
 /**
+ * This enum class contains the default list of professions. This list will soon
+ * be much greater.
  *
  * @author iah1016
  */
