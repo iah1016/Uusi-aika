@@ -35,8 +35,8 @@ public class ReadFromTextFile {
     }
 
     /**
-     * Yankee, go elsewhere on a ArrayList with the rest of your lot. Hashed or
-     * spaced out (comment) lines are excluded.
+     * The method yanks lines from a text file. The yankees are transferred out
+     * in an ArrayList. Hashed or spaced out (comment) lines are excluded.
      *
      * @param textfile
      * @return
