@@ -13,7 +13,7 @@ import java.util.Random;
 
 /**
  * Your caravan has finally reached land, ahoy, and there seems to be a lovely
- * village near. And on the second day, someone created a set of villagers to
+ * village nearby. And on the second day, someone created a set of villagers to
  * ruin it.
  *
  * @author iah1016

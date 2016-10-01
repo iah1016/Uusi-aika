@@ -23,15 +23,7 @@ import java.util.Scanner;
  */
 public class ReadFromTextFile {
 
-    private Scanner fileReader;
-
-    /**
-     * Scanner object is brought from the outside for easier testing.
-     *
-     * @param reader
-     */
-    public ReadFromTextFile(Scanner reader) {
-        this.fileReader = reader;
+    public ReadFromTextFile() {
     }
 
     /**
@@ -44,7 +36,7 @@ public class ReadFromTextFile {
      */
     public List<String> yankTextFromFile(File textfile) throws
             FileNotFoundException {
-        fileReader = new Scanner(textfile);
+        Scanner fileReader = new Scanner(textfile, "UTF-8");
         List<String> newLines = new ArrayList<>();
 
         while (fileReader.hasNextLine()) {
@@ -54,7 +46,7 @@ public class ReadFromTextFile {
             }
         }
         fileReader.close();
-        return returnNewLineIffReaderIsClosed(newLines);
+        return returnNewLineIffReaderIsClosed(newLines, fileReader);
     }
 
     /**
@@ -81,9 +73,9 @@ public class ReadFromTextFile {
      * is all you get here.
      */
     public List<String> returnNewLineIffReaderIsClosed(
-            List<String> list) {
+            List<String> list, Scanner reader) {
         try {
-            fileReader.hasNext();
+            reader.hasNext();
         } catch (Exception e) {
             return list;
         }

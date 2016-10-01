@@ -23,7 +23,6 @@ import static org.junit.Assert.*;
  */
 public class ReadFromTextFileTest {
 
-    private Scanner fileReader;
     private ReadFromTextFile readFromTextFile;
     private File testFile;
     private final int linesInTestFile = 32;
@@ -43,8 +42,7 @@ public class ReadFromTextFileTest {
     @Before
     public void setUp() {
         testFile = new File("src/main/resources/testfile.txt");
-        fileReader = new Scanner("foo");
-        readFromTextFile = new ReadFromTextFile(fileReader);
+        readFromTextFile = new ReadFromTextFile();
     }
 
     @After
@@ -111,10 +109,13 @@ public class ReadFromTextFileTest {
     }
 
     @Test
-    public void returnNewLineIffReaderIsClosedReturnsNullIfReaderOpen() {
+    public void returnNewLineIffReaderIsClosedReturnsNullIfReaderOpen()
+            throws FileNotFoundException {
         List<String> list = new ArrayList<>();
         list.add("some text");
+        Scanner fooScanner = new Scanner(testFile);
         assertEquals(null,
-                readFromTextFile.returnNewLineIffReaderIsClosed(list));
+                readFromTextFile.returnNewLineIffReaderIsClosed(list,
+                        fooScanner));
     }
 }
