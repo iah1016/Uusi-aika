@@ -14,21 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.config.generaltools;
+package fi.sewsiaica.uusiaika.generaltools;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * This class is a subclass of the abstract class MapStringListInterconversion
+ * that converts a StringList to a a String,String-type Map.
  *
  * @author iah1016
  */
-public class StringListToStringIntMapConversion extends
-        StringListToStringMapConversion {
+public class StrIntMapStringListInterconversion extends
+        MapStringListInterconversion {
 
+    /**
+     * The implementation of convertStringListToMap.
+     *
+     * @param list A List of strings.
+     * @return Returns a String,?-type Map, where ? is a wildcard.
+     */
     @Override
-    public Map<String, ?> readStringListAndReturnKeysAndValues(
+    public Map<String, ?> convertStringListToMap(
             List<String> list) {
         Map<String, Integer> map = new HashMap<>();
 
@@ -45,6 +53,28 @@ public class StringListToStringIntMapConversion extends
         return map;
     }
 
+    /**
+     * This method is the one that is called from the outside. It casts the
+     * String,?-type Map to a String,Integer-type Map.
+     *
+     * @param list A List of strings.
+     * @return Returns a String,Integer-type Map.
+     */
+    public Map<String, Integer> convertStringListToStrIntMap(
+            List<String> list) {
+        Map<String, Integer> newMap
+                = (Map<String, Integer>) convertStringListToMap(list);
+        return newMap;
+    }
+
+    /**
+     * This method attempts to convert a string value to an integer. If the
+     * original value is not an integer, zero is returned.
+     *
+     * @param valueStr The value part of the string from the StringList.
+     * @return Returns the value as an integer or zero if the conversion is
+     * unsuccessful.
+     */
     public int returnValueAsIntOrZeroIfInvalidIntGiven(String valueStr) {
         int value;
         try {
