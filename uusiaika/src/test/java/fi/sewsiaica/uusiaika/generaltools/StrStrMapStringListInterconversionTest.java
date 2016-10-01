@@ -49,10 +49,8 @@ public class StrStrMapStringListInterconversionTest {
     }
 
     @Test
-    public void convertStringListToStrStrMapReturnsMapCorrectly() {
-        boolean allLinesMatch = false;
-        Map<String, String> resMap
-                = conversion.convertStringListToStrStrMap(list);
+    public void convertStringListToMapReturnsMapCorrectly() {
+        Map<String, ?> resMap = conversion.convertStringListToMap(list);
 
         List<String> resList = new ArrayList<>();
         for (String resMapKey : resMap.keySet()) {
@@ -60,6 +58,19 @@ public class StrStrMapStringListInterconversionTest {
         }
         assertEquals(2, resList.size());
         assertEquals(true, list.containsAll(resList));
+    }
+    
+    @Test
+    public void convertStringListToStrStrMapReturnsMapCorrectly() {
+        boolean result = false;
+        try {
+            Map<String, String> resMap
+                = conversion.convertStringListToStrStrMap(list);
+            result = true;
+        } catch(Exception e) {
+            result = false;
+        }
+        assertEquals(true, result);
     }
 
 }

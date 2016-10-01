@@ -45,18 +45,18 @@ public class StrIntMapStringListInterconversionTest {
     }
 
     @Test
-    public void convertStringListToStrStrMapReturnsValidMapCorrectly() {
-        Map<String, Integer> resMap
-                = conversion.convertStringListToStrIntMap(list);
-        int result = resMap.get("key1") + resMap.get("key2")
-                + resMap.get("key3");
+    public void convertStringListToMapReturnsValidMapCorrectly() {
+        Map<String, ?> resMap = conversion.convertStringListToMap(list);
+        
+        int result = (Integer) resMap.get("key1") + (Integer) resMap.get("key2")
+                + (Integer) resMap.get("key3");
 
         assertEquals(581, result);
         assertEquals(3, resMap.size());
     }
 
     @Test
-    public void convertStringListToStrStrMapReturnsInvalidMapCorrectly() {
+    public void convertStringListToMapReturnsInvalidMapCorrectly() {
         list.add(":");
         list.add(": ");
         list.add("uusi1: ");
@@ -67,14 +67,26 @@ public class StrIntMapStringListInterconversionTest {
         list.add("uusi4: foo");
         int result = 0;
 
-        Map<String, Integer> resMap
-                = conversion.convertStringListToStrIntMap(list);
+        Map<String, ?> resMap = conversion.convertStringListToMap(list);
         for (String key : resMap.keySet()) {
-            result += resMap.get(key);
+            result += (Integer) resMap.get(key);
         }
 
         assertEquals(666, result);
         assertEquals(7, resMap.size());
+    }
+    
+    @Test
+    public void convertStringListToStrIntMapReturnsMapCorrectly() {
+        boolean result = false;
+        try {
+            Map<String, Integer> resMap
+                = conversion.convertStringListToStrIntMap(list);
+            result = true;
+        } catch(Exception e) {
+            result = false;
+        }
+        assertEquals(true, result);
     }
     
     @Test
