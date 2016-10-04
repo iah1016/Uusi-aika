@@ -5,7 +5,6 @@
  */
 package fi.sewsiaica.uusiaika.logic.conversion;
 
-import fi.sewsiaica.uusiaika.domain.*;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.util.HashMap;
 import java.util.Map;

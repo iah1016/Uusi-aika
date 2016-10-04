@@ -5,16 +5,12 @@
  */
 package fi.sewsiaica.uusiaika.logic;
 
-import fi.sewsiaica.uusiaika.config.Config;
-import fi.sewsiaica.uusiaika.logic.conversion.Conversion;
 import fi.sewsiaica.uusiaika.domain.*;
 import fi.sewsiaica.uusiaika.toolsfortests.MockConfig;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -26,13 +22,13 @@ import static org.junit.Assert.*;
  *
  * @author iah1016
  */
-public class GameTest {
+public class GameLogicTest {
 
     private MockRandom random;
     private MockConfig config;
-    private Game game;
+    private GameLogic game;
 
-    public GameTest() {
+    public GameLogicTest() {
     }
 
     @BeforeClass
@@ -47,16 +43,14 @@ public class GameTest {
     public void setUp() {
         random = new MockRandom();
         config = new MockConfig();
-        Map<String, Integer> intValues = new HashMap<>();
         String[] namesForVillagers = {"A", "B", "C", "D"};
         String[] professions = {"a", "b", "c", "d"};
-        config.setIntValues(intValues);
         config.setVilNames(Arrays.asList(namesForVillagers));
         config.setProfessions(Arrays.asList(professions));
-        
-        game = new Game(random, config);
+
+        game = new GameLogic(random, config);
         String[] names = {"AA", "AB"};
-        game.createPlayerAndSect(names);
+        game.newGame(names, "");
         game.getPersuasion().setMaxNumberOfConversions(17);
         game.getSermon().setMaxNumberOfConversions(11);
         game.getAccusation().setMaxNumberOfConversions(19);
@@ -67,45 +61,41 @@ public class GameTest {
     }
 
     @Test
-    public void villagersAreProperlyInitiated() {
-        List<Villager> villagers = game.getVillagers();
-        int quantity = villagers.size();
-
-        StringBuilder resultSB = new StringBuilder();
-        for (int i = 0; i < quantity; i++) {
-            resultSB.append(villagers.get(i).getName());
-            resultSB.append(villagers.get(i).getProfession());
+    public void newGameCreatesActiveGameProperly() {
+        assertEquals("AAAB", game.getPlayer().getName()
+                + game.getSect().getName());
+        assertEquals("Dc", game.getVillagers().get(3).getName()
+                + game.getVillagers().get(2).getProfession());
+        
+        // The default max conversion values are: 3, 2, 2.
+        assertEquals(7, game.getPersuasion().getMaxNumberOfConversions()
+                + game.getSermon().getMaxNumberOfConversions()
+                + game.getAccusation().getMaxNumberOfConversions());
+        
+        // The default training charisma increase is 10.
+        int expected = game.getPlayer().getCharisma() + 10;
+        game.trainingCentreActions('a');
+        assertEquals(expected, game.getPlayer().getCharisma());
+        
+        // The default death cult charisma requirement is 255.
+        game.getPlayer().setCharisma(254);
+        assertEquals(false, game.templeActions('b'));
+        game.getPlayer().setCharisma(255);
+        assertEquals(true, game.templeActions('b'));
+        
+        boolean gameOver = false;
+        game.getSect().setBalance(1000000);
+        // The default max number of turns is 100.
+        for (int i = 0; i < 99; i++) {
+            gameOver = !game.endTurn();
         }
-        StringBuilder expectedSB = new StringBuilder();
-        int numberOfAppends = quantity / 4 + 1;
-        for (int i = 0; i < numberOfAppends; i++) {
-            expectedSB.append("AaBbCcDd");
-        }
-        int ceiling = villagers.size() * 2;
-        String expected = expectedSB.toString().substring(0, ceiling);
-        assertEquals(expected, resultSB.toString());
-    }
-
-    @Test
-    public void createPlayerAndSectCreatesPlayerAndSectCorrectly() {
-        String[] names = {"AR", "BX"};
-        game.createPlayerAndSect(names);
-        String res = game.getPlayer().getName() + game.getSect().getName();
-        assertEquals("ARBX", res);
-    }
-
-    @Test
-    public void createPlayerAndSectReturnsTrueIfArrayLengthIsTwo() {
-        String[] fooArray = {"one", "two"};
-        assertEquals(true, game.createPlayerAndSect(fooArray));
+        assertEquals(false, gameOver);
+        gameOver = !game.endTurn();
+        assertEquals(true, gameOver);
     }
     
-    @Test
-    public void createPlayerAndSectReturnsFalseIfArrayLengthIsNotTwo() {
-        String[] fooArray = {"one"};
-        assertEquals(false, game.createPlayerAndSect(fooArray));
-    }
-    
+    // Load game is not yet implemented.
+
     @Test
     public void conversionDoesNotWorkWithOptionAIfAlreadyMaxedTries() {
         Villager villager = game.getVillagers().get(0);
@@ -177,6 +167,7 @@ public class GameTest {
         boolean result = game.conversion(villager, 'c');
         assertEquals(true, result);
     }
+
     @Test
     public void conversionDoesNotWorkWithOptionAIfMaxIsZero() {
         Villager villager = game.getVillagers().get(0);
@@ -215,7 +206,7 @@ public class GameTest {
         boolean result = game.conversion(villager, 'c');
         assertEquals(false, result);
     }
-    
+
     @Test
     public void conversionReturnsFalseIfOptionOtherThanABC() {
         Villager villager = game.getVillagers().get(0);
@@ -307,7 +298,7 @@ public class GameTest {
         boolean result = game.trainingCentreActions('b');
         assertEquals(true, result);
     }
-    
+
     @Test
     public void endTurnReturnsTrueWhenTurnHasChanged() {
         int turnsBefore = game.getNumberOfTurns();

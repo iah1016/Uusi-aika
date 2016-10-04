@@ -1,11 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2016 Ilja Häkkinen
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package fi.sewsiaica.uusiaika.config;
 
-import fi.sewsiaica.uusiaika.config.defaultvalues.VariableNames;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVilNames;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVariableValues;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultProfessions;
@@ -26,47 +36,42 @@ public class Config {
 
     private final String[] variableNames;
     private final int[] defaultValues;
-    private Map<String, Integer> intValues;
-    private List<String> vilNames;
-    private List<String> professions;
+    private String configID;
 
     public Config() {
         variableNames = createArrayOfVariableNames();
         defaultValues = createArrayOfDefaultValues();
-        intValues = new HashMap<>();
-        vilNames = new ArrayList<>();
-        professions = new ArrayList<>();
-        loadIntValues();
-        loadVilNames();
-        loadProfessions();
+        configID = "";
     }
 
-    public void loadIntValues() {
+    public Map<String, Integer> loadIntValues() {
         Map<String, Integer> newValues = new HashMap<>();
-//        check if a config file exists
-//        if (loadFromTextFile.load("fileName")) {
-//        } else {
-        for (int i = 0; i < variableNames.length; i++) {
-            newValues.put(variableNames[i], defaultValues[i]);
+        if (configID.isEmpty()) {
+            for (int i = 0; i < variableNames.length; i++) {
+                newValues.put(variableNames[i], defaultValues[i]);
+            }
         }
-        this.intValues = newValues;
-//        }
+        return newValues;
     }
 
-    public void loadVilNames() {
+    public List<String> loadVilNames() {
         List<String> namesForVillagers = new ArrayList<>();
-        for (DefaultVilNames villager : DefaultVilNames.values()) {
-            namesForVillagers.add(villager.vilName());
+        if (configID.isEmpty()) {
+            for (DefaultVilNames villager : DefaultVilNames.values()) {
+                namesForVillagers.add(villager.vilName());
+            }
         }
-        this.vilNames = namesForVillagers;
+        return namesForVillagers;
     }
 
-    public void loadProfessions() {
-        List<String> profs = new ArrayList<>();
-        for (DefaultProfessions profession : DefaultProfessions.values()) {
-            profs.add(profession.profName());
+    public List<String> loadProfessions() {
+        List<String> professions = new ArrayList<>();
+        if (configID.isEmpty()) {
+            for (DefaultProfessions profession : DefaultProfessions.values()) {
+                professions.add(profession.profName());
+            }
         }
-        this.professions = profs;
+        return professions;
     }
 
     private String[] createArrayOfVariableNames() {
@@ -89,15 +94,7 @@ public class Config {
         return array;
     }
 
-    public Map<String, Integer> getIntValues() {
-        return intValues;
-    }
-
-    public List<String> getVilNames() {
-        return vilNames;
-    }
-
-    public List<String> getProfessions() {
-        return professions;
+    public void setConfigID(String configID) {
+        this.configID = configID;
     }
 }

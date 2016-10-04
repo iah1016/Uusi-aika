@@ -6,6 +6,7 @@
 package fi.sewsiaica.uusiaika.config;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import org.junit.After;
@@ -51,20 +52,41 @@ public class ConfigTest {
     }
 
     @Test
-    public void intValuesHasCorrectNumberOfValuesAfterCreation() {
-        assertEquals(36, config.getIntValues().size());
+    public void loadIntValuesCurrentlyReturnsEmptyMapIfNonemptyConfigID() {
+        config.setConfigID("foo");
+        Map<String, Integer> result = config.loadIntValues();
+        assertEquals(true, result.isEmpty());
+    }
+    
+    @Test
+    public void loadVilNamesCurrentlyReturnsEmptyListIfNonemptyConfigID() {
+        config.setConfigID("foo");
+        List<String> result = config.loadVilNames();
+        assertEquals(true, result.isEmpty());
+    }
+    
+    @Test
+    public void loadProfessionsCurrentlyReturnsEmptyListIfNonemptyConfigID() {
+        config.setConfigID("foo");
+        List<String> result = config.loadProfessions();
+        assertEquals(true, result.isEmpty());
+    }
+    
+    @Test
+    public void defaultIntValuesHasCorrectNumberOfValuesAfterCreation() {
+        assertEquals(36, config.loadIntValues().size());
     }
 
     @Test
     public void defaultTempleDeathCultCharismaReqIs255() {
-        int result = config.getIntValues().get("templeDeathCultCharismaReq");
+        int result = config.loadIntValues().get("templeDeathCultCharismaReq");
         assertEquals(255, result);
     }
 
     @Test
     public void defaultVilNamesAreCorrect() {
         boolean result = true;
-        List<String> vilNames = config.getVilNames();
+        List<String> vilNames = config.loadVilNames();
         for (int i = 0; i < defaultNames.length; i++) {
             if (vilNames.get(i) != defaultNames[i]) {
                 result = false;
@@ -76,7 +98,7 @@ public class ConfigTest {
     @Test
     public void defaultProfessionsAreCorrect() {
         boolean result = true;
-        List<String> profs = config.getProfessions();
+        List<String> profs = config.loadProfessions();
         for (int i = 0; i < defaultProfs.length; i++) {
             if (profs.get(i) != defaultProfs[i]) {
                 result = false;
