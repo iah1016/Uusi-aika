@@ -23,14 +23,14 @@ import java.util.Set;
 
 /**
  * This abstract class contains the implementation for converting a
- * String,Object-type Map to a String-type List and most of the methods for the
- * reverse conversion. The conversions to a String,String-type and a
- * String,Integer-type Map are implemented in the subclasses.
+ * String,?-type Map to a String-type List and most of the methods for the
+ * reverse conversion. The conversions from a List to a String,String-type
+ * or a String,Integer-type Map are implemented in the subclasses.
  *
  * @author iah1016
  */
 public abstract class MapStringListInterconversion {
-    
+
     /**
      * An abstract method for converting a String-type List to String,?-type
      * Map, where ? is a wildcard.

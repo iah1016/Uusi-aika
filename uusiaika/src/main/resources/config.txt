@@ -1,3 +1,6 @@
+# This file contains all the configuration values for the game logic.
+# Use only non-negative integers.
+# 
 # Player
 playerCharisma: 10
 playerArgSkills: 10

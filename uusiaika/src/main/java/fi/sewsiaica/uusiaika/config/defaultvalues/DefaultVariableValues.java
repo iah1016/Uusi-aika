@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.sewsiaica.uusiaika.config;
+package fi.sewsiaica.uusiaika.config.defaultvalues;
 
 /**
  * This enum class contains all the default values of the game's variables.
  * @author iah1016
  */
-public enum DefaultValues {
+public enum DefaultVariableValues {
     DEFAULTPLAYERCHARISMA(10),
     DEFAULTPLAYERARGSKILLS(10),
     DEFAULTSECTBALANCE(5000),
@@ -48,7 +48,7 @@ public enum DefaultValues {
     DEFAULTTRAININGARGSKILLSINCR(10);
     private final int value;
 
-    private DefaultValues(int value) {
+    private DefaultVariableValues(int value) {
         this.value = value;
     }
     

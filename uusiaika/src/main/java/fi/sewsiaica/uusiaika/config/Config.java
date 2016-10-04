@@ -5,6 +5,10 @@
  */
 package fi.sewsiaica.uusiaika.config;
 
+import fi.sewsiaica.uusiaika.config.defaultvalues.VariableNames;
+import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVilNames;
+import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVariableValues;
+import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultProfessions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,8 +81,8 @@ public class Config {
 
     private int[] createArrayOfDefaultValues() {
         int i = 0;
-        int[] array = new int[DefaultValues.values().length];
-        for (DefaultValues variable : DefaultValues.values()) {
+        int[] array = new int[DefaultVariableValues.values().length];
+        for (DefaultVariableValues variable : DefaultVariableValues.values()) {
             array[i] = variable.value();
             i++;
         }

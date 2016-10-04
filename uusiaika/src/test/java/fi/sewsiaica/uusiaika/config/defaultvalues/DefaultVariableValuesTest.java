@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.sewsiaica.uusiaika.config;
+package fi.sewsiaica.uusiaika.config.defaultvalues;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author iah1016
  */
-public class DefaultProfessionsTest {
+public class DefaultVariableValuesTest {
     
-    public DefaultProfessionsTest() {
+    public DefaultVariableValuesTest() {
     }
     
     @BeforeClass
@@ -38,8 +38,10 @@ public class DefaultProfessionsTest {
     }
 
     @Test
-    public void profNameFromDefaultProfessionsFunctionsProperly() {
-        assertEquals("Kauppias", DefaultProfessions.PROF01.profName());
-        assertEquals("Poliitikko", DefaultProfessions.PROF10.profName());
+    public void valueFromDefaultValuesFunctionsProperly() {
+        assertEquals(200,
+                DefaultVariableValues.DEFAULTTURNTHRESHOLDFORSCEPTICISM.value());
+        assertEquals(100000,
+                DefaultVariableValues.DEFAULTTEMPLEDIVINERIGHTMONEYREQ.value());
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.sewsiaica.uusiaika.config;
+package fi.sewsiaica.uusiaika.config.defaultvalues;
 
 /**
  * This enum class contains the default list of names for villagers. This list

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.sewsiaica.uusiaika.config;
+package fi.sewsiaica.uusiaika.config.defaultvalues;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,32 +16,30 @@ import static org.junit.Assert.*;
  *
  * @author iah1016
  */
-public class DefaultValuesTest {
-    
-    public DefaultValuesTest() {
+public class DefaultVilNamesTest {
+
+    public DefaultVilNamesTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
     @Test
-    public void valueFromDefaultValuesFunctionsProperly() {
-        assertEquals(200,
-                DefaultValues.DEFAULTTURNTHRESHOLDFORSCEPTICISM.value());
-        assertEquals(100000,
-                DefaultValues.DEFAULTTEMPLEDIVINERIGHTMONEYREQ.value());
+    public void vilNameFromDefaultVilNamesFunctionsProperly() {
+        assertEquals("Jaakko P", DefaultVilNames.VILLAGER01.vilName());
+        assertEquals("Oleg M", DefaultVilNames.VILLAGER10.vilName());
     }
 }
