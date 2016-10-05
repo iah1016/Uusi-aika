@@ -6,7 +6,7 @@ playerCharisma: 10
 playerArgSkills: 10
 # Sect
 sectBalance: 5000
-sectExpenses: 1000
+sectExpenses: 700
 sectMemberFee: 100
 # CreateVillagers
 vilPopulation: 10

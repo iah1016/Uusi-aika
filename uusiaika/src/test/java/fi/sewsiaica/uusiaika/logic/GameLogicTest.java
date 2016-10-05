@@ -5,12 +5,11 @@
  */
 package fi.sewsiaica.uusiaika.logic;
 
+import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.*;
-import fi.sewsiaica.uusiaika.toolsfortests.MockConfig;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -26,7 +25,7 @@ import static org.junit.Assert.*;
 public class GameLogicTest {
 
     private MockRandom random;
-    private MockConfig config;
+    private Config config;
     private GameLogic gameLogic;
     private String[] names;
 
@@ -44,12 +43,7 @@ public class GameLogicTest {
     @Before
     public void setUp() {
         random = new MockRandom();
-        config = new MockConfig();
-        String[] namesForVillagers = {"A", "B", "C", "D"};
-        String[] professions = {"a", "b", "c", "d"};
-        config.setVilNames(Arrays.asList(namesForVillagers));
-        config.setProfessions(Arrays.asList(professions));
-
+        config = new Config();
         gameLogic = new GameLogic(random, config);
         names = new String[2];
         names[0] = "AA";
@@ -59,10 +53,6 @@ public class GameLogicTest {
         } catch (FileNotFoundException e) {
 
         }
-
-        gameLogic.getPersuasion().setMaxNumberOfConversions(17);
-        gameLogic.getSermon().setMaxNumberOfConversions(11);
-        gameLogic.getAccusation().setMaxNumberOfConversions(19);
     }
 
     @After
@@ -80,36 +70,34 @@ public class GameLogicTest {
         assertEquals(true, epicFail);
     }
 
-// Kysy näistä...
-//    @Test
-//    public void newGameThrowsFileNotFoundExceptionIfVilIDIsInvalid() {
-//        boolean epicFail = false;
-//        try {
-//            gameLogic.newGame(names, "", "foo", "");
-//        } catch (FileNotFoundException e) {
-//            epicFail = true;
-//        }
-//        assertEquals(true, epicFail);
-//    }
-//    
-//    @Test
-//    public void newGameThrowsFileNotFoundExceptionIfProfsIDIsInvalid() {
-//        boolean epicFail = false;
-//        try {
-//            gameLogic.newGame(names, "", "", "foo");
-//        } catch (FileNotFoundException e) {
-//            epicFail = true;
-//        }
-//        assertEquals(true, epicFail);
-//    }
-    
+    @Test
+    public void newGameThrowsFileNotFoundExceptionIfVilIDIsInvalid() {
+        boolean epicFail = false;
+        try {
+            gameLogic.newGame(names, "", "foo", "");
+        } catch (FileNotFoundException e) {
+            epicFail = true;
+        }
+        assertEquals(true, epicFail);
+    }
+
+    @Test
+    public void newGameThrowsFileNotFoundExceptionIfProfsIDIsInvalid() {
+        boolean epicFail = false;
+        try {
+            gameLogic.newGame(names, "", "", "foo");
+        } catch (FileNotFoundException e) {
+            epicFail = true;
+        }
+        assertEquals(true, epicFail);
+    }
+
     @Test
     public void newGameReturnsTrueIfIDsAreEmpty() throws FileNotFoundException {
         boolean result = gameLogic.newGame(names, "", "", "");
         assertEquals(true, result);
     }
-    
-    // ... ja tästä.
+
     @Test
     public void newGameReturnsTrueIfValidFilesAreUsed()
             throws FileNotFoundException {
@@ -119,7 +107,7 @@ public class GameLogicTest {
         boolean result = gameLogic.newGame(names, confID, vilID, profsID);
         assertEquals(true, result);
     }
-    
+
     @Test
     public void newGameReturnsFalseIfInvalidIntValues()
             throws FileNotFoundException {
@@ -132,7 +120,8 @@ public class GameLogicTest {
     public void newGameCreatesActiveGameProperlyWithDefaults() {
         assertEquals("AAAB", gameLogic.getPlayer().getName()
                 + gameLogic.getSect().getName());
-        assertEquals("Dc", gameLogic.getVillagers().get(3).getName()
+        assertEquals("Teemu P, Opettaja",
+                gameLogic.getVillagers().get(3).getName() + ", "
                 + gameLogic.getVillagers().get(2).getProfession());
 
         // The default max conversion values are: 3, 2, 2.
@@ -160,6 +149,23 @@ public class GameLogicTest {
         assertEquals(false, gameOver);
         gameOver = !gameLogic.endTurn();
         assertEquals(true, gameOver);
+    }
+
+    @Test
+    public void intValuesAreCorrectAfterCreatingNewGameWithValidFiles()
+            throws FileNotFoundException {
+        String confID = "src/main/resources/default_values.txt";
+        String vilID = "src/main/resources/default_villagers.txt";
+        String profsID = "src/main/resources/default_professions.txt";
+        gameLogic.newGame(names, confID, vilID, profsID);
+        int expenses = gameLogic.getSect().getExpenses();
+        assertEquals(700, expenses);
+        String villagerName = gameLogic.getVillagers().get(0).getName();
+        assertEquals("Heikki K", villagerName);
+        gameLogic.getPlayer().setCharisma(665);
+        assertEquals(false, gameLogic.templeActions('b'));
+        gameLogic.getPlayer().setCharisma(666);
+        assertEquals(true, gameLogic.templeActions('b'));
     }
 
     // Load game is not yet implemented.
