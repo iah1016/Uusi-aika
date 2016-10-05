@@ -40,12 +40,12 @@ public class MockConfig extends Config {
     }
     
     @Override
-    public List<String> loadVilNames() {
+    public List<String> loadVilNames(String configID) {
         return this.vilNames;
     }
 
     @Override
-    public List<String> loadProfessions() {
+    public List<String> loadProfessions(String configID) {
         return this.professions;
     }
 

@@ -17,6 +17,7 @@
 package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.config.Config;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -30,12 +31,16 @@ public class ActiveGameChanger {
 
     private final Random random;
     private final Config config;
+    private final CreateVillagers createVillagers;
+    private final PlayerAndSectHandler playerAndSectHandler;
     private Map<String, Integer> configIntValues;
     private List<String> vilNamesForCreation;
     private List<String> professionsForCreation;
 
     /**
-     * Both object variables are immutable and given to the constructor.
+     * Random and Config objects are given to the constructor, CreateVillagers
+     * and PlayerAndSecHandler objects are created by the constructor. All of
+     * them are immutable object variables.
      *
      * @param random Random is needed by CreateVillagers and the Conversion
      * classes.
@@ -45,29 +50,23 @@ public class ActiveGameChanger {
     public ActiveGameChanger(Random random, Config config) {
         this.random = random;
         this.config = config;
+        createVillagers = new CreateVillagers(random);
+        playerAndSectHandler = new PlayerAndSectHandler();
     }
 
     /**
      * This method creates a new active game from the selected Config files.
      *
      * @param playerAndSectNames Player and Sect names from the user's input.
-     * @param configID If empty, the default values are used, as given in the
-     * appropriate enum classes.
      * @return Returns a new active game.
      */
-    public ActiveGame createNewActiveGame(String[] playerAndSectNames,
-            String configID) {
-        config.setConfigID(configID);
-        updateConfigValues();
-
-        CreateVillagers createVillagers = new CreateVillagers(random,
-                configIntValues, vilNamesForCreation, professionsForCreation);
-        PlayerAndSectHandler playerAndSectHandler = new PlayerAndSectHandler();
+    public ActiveGame createNewActiveGame(String[] playerAndSectNames) {
         playerAndSectHandler.createPlayerAndSect(playerAndSectNames,
                 configIntValues);
 
         return new ActiveGame(random, configIntValues,
-                createVillagers.populateVillage(),
+                createVillagers.populateVillage(configIntValues,
+                        vilNamesForCreation, professionsForCreation),
                 playerAndSectHandler.getPlayer(),
                 playerAndSectHandler.getSect());
     }
@@ -83,10 +82,31 @@ public class ActiveGameChanger {
         return null;
     }
 
-    private void updateConfigValues() {
-        configIntValues = config.loadIntValues();
-        vilNamesForCreation = config.loadVilNames();
-        professionsForCreation = config.loadProfessions();
+    /**
+     * Config variable values, villager names and professions are updated before
+     * creating a new active game.
+     *
+     * @param confID The name of the configuration file.
+     * @param vilID The name of the file that contains villager names.
+     * @param profsID The name of the file that contains a list of professions.
+     * @return Returns false if at least one of the files is invalid.
+     * @throws FileNotFoundException
+     */
+    public boolean updateConfigValues(String confID,
+            String vilID, String profsID)
+            throws FileNotFoundException {
+        Map<String, Integer> tempIntValues = config.loadIntValues(confID);
+        List<String> tempVilNames = config.loadVilNames(vilID);
+        List<String> tempProfs = config.loadProfessions(profsID);
+
+        if (tempIntValues == null || tempVilNames == null
+                || tempProfs == null) {
+            return false;
+        }
+        configIntValues = tempIntValues;
+        vilNamesForCreation = tempVilNames;
+        professionsForCreation = tempProfs;
+        return true;
     }
 
 }

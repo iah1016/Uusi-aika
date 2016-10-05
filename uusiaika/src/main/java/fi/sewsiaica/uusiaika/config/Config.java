@@ -19,11 +19,11 @@ package fi.sewsiaica.uusiaika.config;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVilNames;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVariableValues;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultProfessions;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * This class handles the configuration of the game. It will first try to load
@@ -34,46 +34,69 @@ import java.util.Scanner;
  */
 public class Config {
 
+    private final LoadConfig loadConfig;
     private final String[] variableNames;
     private final int[] defaultValues;
-    private String configID;
+    private final Map<String, Integer> defaultIntValuesMap;
+    private final List<String> defaultVilNames;
+    private final List<String> defaultProfessions;
 
     public Config() {
         variableNames = createArrayOfVariableNames();
         defaultValues = createArrayOfDefaultValues();
-        configID = "";
+        defaultIntValuesMap = createDefaultIntValuesMap();
+        defaultVilNames = createDefaultVilNames();
+        defaultProfessions = createDefaultProfessions();
+        loadConfig = new LoadConfig(variableNames);
     }
 
-    public Map<String, Integer> loadIntValues() {
-        Map<String, Integer> newValues = new HashMap<>();
+    /**
+     *
+     * @param configID
+     * @return
+     * @throws FileNotFoundException
+     */
+    public Map<String, Integer> loadIntValues(String configID) throws
+            FileNotFoundException {
         if (configID.isEmpty()) {
-            for (int i = 0; i < variableNames.length; i++) {
-                newValues.put(variableNames[i], defaultValues[i]);
-            }
+            return defaultIntValuesMap;
+        } else {
+            return loadConfig.loadIntValuesFromAFile(configID);
         }
-        return newValues;
     }
 
-    public List<String> loadVilNames() {
-        List<String> namesForVillagers = new ArrayList<>();
-        if (configID.isEmpty()) {
-            for (DefaultVilNames villager : DefaultVilNames.values()) {
-                namesForVillagers.add(villager.vilName());
-            }
+    /**
+     *
+     * @param villagersID
+     * @return
+     * @throws FileNotFoundException
+     */
+    public List<String> loadVilNames(String villagersID) throws
+            FileNotFoundException {
+        if (villagersID.isEmpty()) {
+            return defaultVilNames;
         }
-        return namesForVillagers;
+        return loadConfig.loadListFromAFile(villagersID);
     }
 
-    public List<String> loadProfessions() {
-        List<String> professions = new ArrayList<>();
-        if (configID.isEmpty()) {
-            for (DefaultProfessions profession : DefaultProfessions.values()) {
-                professions.add(profession.profName());
-            }
+    /**
+     *
+     * @param professionsID
+     * @return
+     * @throws FileNotFoundException
+     */
+    public List<String> loadProfessions(String professionsID) throws
+            FileNotFoundException {
+        if (professionsID.isEmpty()) {
+            return defaultProfessions;
         }
-        return professions;
+        return loadConfig.loadListFromAFile(professionsID);
     }
 
+    public String[] getVariableNames() {
+        return variableNames;
+    }
+    
     private String[] createArrayOfVariableNames() {
         int i = 0;
         String[] array = new String[VariableNames.values().length];
@@ -94,7 +117,27 @@ public class Config {
         return array;
     }
 
-    public void setConfigID(String configID) {
-        this.configID = configID;
+    private Map<String, Integer> createDefaultIntValuesMap() {
+        Map<String, Integer> valueMap = new HashMap<>();
+        for (int i = 0; i < variableNames.length; i++) {
+            valueMap.put(variableNames[i], defaultValues[i]);
+        }
+        return valueMap;
+    }
+
+    private List<String> createDefaultVilNames() {
+        List<String> namesForVillagers = new ArrayList<>();
+        for (DefaultVilNames villager : DefaultVilNames.values()) {
+            namesForVillagers.add(villager.vilName());
+        }
+        return namesForVillagers;
+    }
+
+    private List<String> createDefaultProfessions() {
+        List<String> professions = new ArrayList<>();
+        for (DefaultProfessions profession : DefaultProfessions.values()) {
+            professions.add(profession.profName());
+        }
+        return professions;
     }
 }

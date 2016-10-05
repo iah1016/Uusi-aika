@@ -1,4 +1,4 @@
-# This file contains all the configuration values for the game logic.
+# This file contains all the configuration values for the active game.
 # Use only non-negative integers.
 # 
 # Player

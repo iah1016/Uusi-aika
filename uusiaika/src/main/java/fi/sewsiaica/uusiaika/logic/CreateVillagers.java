@@ -41,17 +41,9 @@ public class CreateVillagers {
      * The constructor gets the value for numberOfVillagers from intValues.
      *
      * @param random Random is needed to determine the villagers' attributes.
-     * @param intValues Includes all the variable values of the game.
-     * @param vilNames Includes a list of names.
-     * @param professions Includes a list of professions.
      */
-    public CreateVillagers(Random random, Map<String, Integer> intValues,
-            List<String> vilNames, List<String> professions) {
+    public CreateVillagers(Random random) {
         this.random = random;
-        this.intValues = intValues;
-        this.vilNames = vilNames;
-        this.professions = professions;
-        this.numberOfVillagers = intValues.get("vilPopulation");
     }
 
     /**
@@ -60,11 +52,16 @@ public class CreateVillagers {
      * in makeAttribLists, and third professions from professions-list. The
      * ArrayList is formed in addVillagersToVList (private method).
      *
+     * @param intValues Includes all the variable values of the game.
+     * @param vilNames Includes a list of names.
+     * @param professions Includes a list of professions.
      * @return Returns an ArrayList of Villagers.
      */
-    public List<Villager> populateVillage() {
+    public List<Villager> populateVillage(Map<String, Integer> intValues,
+            List<String> vilNames, List<String> professions) {
+        this.numberOfVillagers = intValues.get("vilPopulation");
         String[] namesArray = pickStrings(numberOfVillagers, vilNames);
-        List<int[]> atlists = makeAttribLists(numberOfVillagers);
+        List<int[]> atlists = makeAttribLists(numberOfVillagers, intValues);
         String[] profsArray = pickStrings(numberOfVillagers, professions);
 
         return addVillagersToVList(numberOfVillagers, namesArray,
@@ -79,7 +76,8 @@ public class CreateVillagers {
      * @param quantity The number of villagers.
      * @return returns an ArrayList of integer arrays to populateVillage.
      */
-    private List<int[]> makeAttribLists(int quantity) {
+    private List<int[]> makeAttribLists(int quantity,
+            Map<String, Integer> intValues) {
         List<int[]> attribLists = new ArrayList<>();
         int bound = intValues.get("vilBoundValue");
 

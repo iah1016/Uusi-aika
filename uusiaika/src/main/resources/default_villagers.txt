@@ -1,0 +1,13 @@
+# This file contains all the villager names for a new game.
+# 
+Heikki K
+Jaakko P
+Harri H
+Mikko M
+Teemu P
+Ilona R
+Taina E
+Marika M
+Robert F
+Cecilia C
+Oleg M

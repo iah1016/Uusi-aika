@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.logic;
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.conversion.*;
 import fi.sewsiaica.uusiaika.domain.*;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Random;
 
@@ -56,12 +57,20 @@ public class GameLogic {
      * This method creates a new game.
      *
      * @param playerAndSectNames The names are given by the user.
-     * @param configID The name of the configuration file.
+     * @param confID The name of the configuration file.
+     * @param vilID The name of the file that contains villager names.
+     * @param profsID The name of the file that contains a list of professions.
+     * @return Returns false if at least one of the files is invalid.
+     * @throws java.io.FileNotFoundException
      */
-    public void newGame(String[] playerAndSectNames, String configID) {
-        activeGame = activeGameChanger.createNewActiveGame(playerAndSectNames,
-                configID);
+    public boolean newGame(String[] playerAndSectNames, String confID,
+            String vilID, String profsID) throws FileNotFoundException {
+        if (!activeGameChanger.updateConfigValues(confID, vilID, profsID)) {
+            return false;
+        }
+        activeGame = activeGameChanger.createNewActiveGame(playerAndSectNames);
         getModulesFromActiveGame();
+        return true;
     }
 
     /**
@@ -70,16 +79,12 @@ public class GameLogic {
      * @param saveName The values will be read from a text file.
      * @return Returns false if the file is not found.
      */
-//    public boolean loadGame(String saveName) {
-//        try {
+//    public boolean loadGame(String saveName) throws FileNotFoundException {
 //            activeGame = activeGameChanger.loadActiveGame(saveName);
 //            getModulesFromActiveGame();
 //            return true;
-//        } catch (Exception e) {
-//            return false;
-//        }
 //    }
-
+//
     /**
      * Player attempts to convert a villager.
      *

@@ -1,0 +1,17 @@
+# This file contains all the professions for a new game.
+# 
+Kauppias
+Maanviljelijä
+Leipuri
+Opettaja
+Postinjakaja
+Lääkäri
+Radiojuontaja
+Poliisi
+Bussikuski
+Putkimies
+Poliitikko
+Tutkija
+Apteekkari
+AD
+Toimitusjohtaja

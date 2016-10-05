@@ -19,9 +19,7 @@ package fi.sewsiaica.uusiaika.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -79,6 +77,7 @@ public class ReadFromTextFile {
      * confirm that the scanner has been closed.
      *
      * @param list All them beautiful yankees.
+     * @param reader Scanner that should closed already.
      * @return If everything goes as expected (ie. you are not an evil pit
      * mutant), the method returns the list. If you are an evil pit mutant, null
      * is all you get here.

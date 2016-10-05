@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.logic;
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.Player;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -59,28 +60,16 @@ public class ActiveGameChangerTest {
     }
 
     @Test
-    public void createNewActiveGameWorksAsExpectedWithEmptyConfigID() {
+    public void createNewActiveGameWorksAsExpectedWithEmptyConfigID()
+            throws FileNotFoundException {
         String[] names = {"AA", "AB"};
-        ActiveGame game = activeGameChanger.createNewActiveGame(names, "");
+        activeGameChanger.updateConfigValues("", "", "");
+        ActiveGame game = activeGameChanger.createNewActiveGame(names);
 
         assertEquals("Teemu P, Opettaja", game.getVillagers().get(3).getName()
                 + ", " + game.getVillagers().get(2).getProfession());
     }
 
-    @Test
-    public void createNewActiveGameWillFailWithNonemptyConfigID() {
-        String[] names = {"AA", "AB"};
-        boolean willFail = false;
-
-        try {
-            ActiveGame game
-                    = activeGameChanger.createNewActiveGame(names, "foo");
-        } catch (NullPointerException e) {
-            willFail = true;
-        }
-        assertEquals(true, willFail);
-    }
-    
     @Test
     public void loadActiveGameIsNotImplementedAndReturnsNull() {
         assertEquals(null, activeGameChanger.loadActiveGame(""));

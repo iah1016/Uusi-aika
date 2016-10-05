@@ -57,7 +57,7 @@ public class CreateVillagersTest {
         names.addAll(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H"));
         profs.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h",
                 "i", "j", "k", "l", "m", "n", "o", "p", "q", "r"));
-        createVil = new CreateVillagers(random, intValues, names, profs);
+        createVil = new CreateVillagers(random);
     }
 
     @After
@@ -200,8 +200,8 @@ public class CreateVillagersTest {
     @Test
     public void populateVillageWorksProperly() {
         intValues.put("vilPopulation", 7);
-        createVil = new CreateVillagers(random, intValues, names, profs);
-        List<Villager> res = createVil.populateVillage();
+        createVil = new CreateVillagers(random);
+        List<Villager> res = createVil.populateVillage(intValues, names, profs);
         String expected = "AaBbCcDdEeFfGg";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < res.size(); i++) {
