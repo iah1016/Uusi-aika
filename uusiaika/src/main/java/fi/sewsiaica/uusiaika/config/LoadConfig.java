@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * This class loads the variable values, villager names, and professions from
+ * files.
  *
  * @author iah1016
  */
@@ -33,17 +35,24 @@ public class LoadConfig {
     private final StrIntMapStringListInterconversion listStrIntMapInterConv;
     private final ReadFromTextFile readFromFile;
 
+    /**
+     * The String-array of the variable names is given to the constructor as a
+     * parameter. The array is needed for the validity check.
+     *
+     * @param variableNames The correct keys for the intValues-map.
+     */
     public LoadConfig(String[] variableNames) {
         this.variableNames = variableNames;
         this.listStrIntMapInterConv = new StrIntMapStringListInterconversion();
         readFromFile = new ReadFromTextFile();
     }
-    
+
     /**
+     * This method loads the variable values from a file.
      *
-     * @param fileName
-     * @return
-     * @throws FileNotFoundException
+     * @param fileName The Map of variable values is loaded from this file.
+     * @return Returns the String,Integer-type map.
+     * @throws FileNotFoundException Throws the FileNotFoundException.
      */
     public Map<String, Integer> loadIntValuesFromAFile(String fileName) throws
             FileNotFoundException {
@@ -56,12 +65,13 @@ public class LoadConfig {
             return null;
         }
     }
-    
+
     /**
+     * This method loads a list from a file.
      *
-     * @param fileName
-     * @return
-     * @throws FileNotFoundException
+     * @param fileName The list is loaded from this file.
+     * @return Returns the String-type list.
+     * @throws FileNotFoundException Throws the FileNotFoundException.
      */
     public List<String> loadListFromAFile(String fileName)
             throws FileNotFoundException {

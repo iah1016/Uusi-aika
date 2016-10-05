@@ -39,6 +39,10 @@ public enum DefaultVilNames {
         this.name = name;
     }
 
+    /**
+     * The getter for the default villager names.
+     * @return Returns a villager name.
+     */
     public String vilName() {
         return name;
     }

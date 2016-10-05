@@ -153,7 +153,7 @@ public class TurnLogic {
     }
 
     /**
-     * Checking that there are still turns left
+     * Checking that there are still turns left.
      * @return True, and the game is over.
      */
     public boolean gameHasReachedMaxTurns() {

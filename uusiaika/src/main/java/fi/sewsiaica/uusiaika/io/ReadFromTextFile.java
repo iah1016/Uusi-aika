@@ -32,16 +32,13 @@ import java.util.Scanner;
  */
 public class ReadFromTextFile {
 
-    public ReadFromTextFile() {
-    }
-
     /**
      * The method yanks lines from a text file. The yankees are transferred out
-     * in an ArrayList. Hashed or spaced out (comment) lines are excluded.
+     * in a String-List. Hashed or spaced out (comment) lines are excluded.
      *
-     * @param textfile
-     * @return
-     * @throws FileNotFoundException
+     * @param textfile The yanking target.
+     * @return The yanked lines of goodness.
+     * @throws FileNotFoundException Throws the FileNotFoundException.
      */
     public List<String> yankTextFromFile(File textfile) throws
             FileNotFoundException {

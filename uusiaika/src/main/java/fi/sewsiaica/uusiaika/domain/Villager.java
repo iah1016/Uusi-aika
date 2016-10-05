@@ -37,6 +37,8 @@ public class Villager {
     private int numberOfAccusations;
 
     /**
+     * The constructor is given the name, the profession and the values for the
+     * attributes as parameters.
      *
      * @param name CreateVillagers picks a name from the list created by Config.
      * @param inSect Initial value is false, ie. the villager is not a member.
@@ -93,24 +95,48 @@ public class Villager {
         this.inSect = inSect;
     }
 
+    /**
+     * Sets a new value for Scepticism, unless the given value is less than
+     * zero.
+     *
+     * @param value The given value.
+     */
     public void setScepticism(int value) {
         if (value >= 0) {
             this.scepticism = value;
         }
     }
 
+    /**
+     * Sets a new value for SelfEsteem, unless the given value is less than
+     * zero.
+     *
+     * @param value The given value.
+     */
     public void setSelfEsteem(int value) {
         if (value >= 0) {
             this.selfEsteem = value;
         }
     }
 
+    /**
+     * Sets a new value for SelfAwareness, unless the given value is less than
+     * zero.
+     *
+     * @param value The given value.
+     */
     public void setSelfAwareness(int value) {
         if (value >= 0) {
             this.selfAwareness = value;
         }
     }
 
+    /**
+     * Sets a new value for ArgSkills, unless the given value is less than
+     * zero.
+     *
+     * @param value The given value.
+     */
     public void setArgSkills(int value) {
         if (value >= 0) {
             this.argSkills = value;

@@ -26,6 +26,9 @@ import java.util.Random;
  */
 public class MockRandom extends Random {
 
+    /**
+     * Calling the superclass constructor.
+     */
     public MockRandom() {
         super();
     }

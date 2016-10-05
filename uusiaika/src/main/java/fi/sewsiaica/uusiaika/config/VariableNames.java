@@ -65,6 +65,11 @@ public enum VariableNames {
         this.name = name;
     }
 
+    /**
+     * The getter method for the variable names.
+     *
+     * @return Returns a variable name.
+     */
     public String varName() {
         return name;
     }

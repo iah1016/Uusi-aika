@@ -34,6 +34,8 @@ public class Sect {
     private List<Villager> congregation;
 
     /**
+     * The constructor is given the name, and the values for Balance, Expenses
+     * and MemberFee as parameters.
      *
      * @param name The name is given by the user via GUI.
      * @param balance Default value from Config.intValues.

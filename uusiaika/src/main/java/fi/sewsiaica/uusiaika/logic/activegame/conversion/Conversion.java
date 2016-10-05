@@ -36,6 +36,8 @@ public abstract class Conversion {
     private int vilRandomBound;
 
     /**
+     * The constructor is given random, and Config values as parameters, which
+     * it sets as its object variables.
      *
      * @param random Random is needed for the convSucceeds method.
      * @param intValues Includes all the variable values of the game.
@@ -63,7 +65,7 @@ public abstract class Conversion {
      * Conversion method. It is currently undecided when this value is reset to
      * its initial value.
      * @param max The maximum amount of conversions of this type.
-     * @return
+     * @return Returns true if the value is at least max or less than zero.
      */
     public boolean isMaxedOut(int val, int max) {
         return val >= max || val < 0;
@@ -98,7 +100,7 @@ public abstract class Conversion {
      * @param player Head honcho.
      * @param villager Your opposition.
      * @param sect This is needed for the winningActions method.
-     * @return
+     * @return Returns true if the conversion is successful and false otherwise.
      */
     public boolean convert(Player player, Villager villager, Sect sect) {
         increaseAmountOfConv(villager);
@@ -122,15 +124,48 @@ public abstract class Conversion {
         return maxNumberOfConversions;
     }
 
+    /**
+     * Currently needed for the GameLogicTest tests. The tests will be modified
+     * to get the values from Config.intValues.
+     *
+     * @param maxNumberOfConversions The maximum value of the conversion type.
+     */
     public abstract void setMaxNumberOfConversions(int maxNumberOfConversions);
 
+    /**
+     * The villager's current number of conversions of this type is checked.
+     *
+     * @param villager The target villager.
+     * @return If the current value is not max or more, return true.
+     */
     public abstract boolean checkIfAllowedToProceed(Villager villager);
 
+    /**
+     * The number of conversions of this type for this villager is increased by
+     * one.
+     *
+     * @param villager The target villager.
+     */
     public abstract void increaseAmountOfConv(Villager villager);
 
+    /**
+     * Calculates The player's and the villager's values for the
+     * convSucceeds-method.
+     *
+     * @param player The player.
+     * @param villager The target villager.
+     * @return Returns an integer array of the values.
+     */
     public abstract int[] calculatePlayerAndVilValues(Player player,
             Villager villager);
 
+    /**
+     * The winning actions for each conversion type differ from each other.
+     *
+     * @param player The player.
+     * @param villager The target villager.
+     * @param sect The sect.
+     */
     public abstract void winningActions(Player player, Villager villager,
             Sect sect);
 }

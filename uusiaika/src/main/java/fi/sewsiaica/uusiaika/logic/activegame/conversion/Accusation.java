@@ -32,6 +32,20 @@ public class Accusation extends Conversion {
     private int convAccuPlayerCharIncr;
     private int convAccuVilSelfEsDecr;
 
+    /**
+     * The constructor is given random, and Config values as parameters, which
+     * it sets as its object variables. It uses them for calling the superclass
+     * constructor.
+     *
+     * @param random Random is needed for the convSucceeds method.
+     * @param intValues Includes all the variable values of the game.
+     * @param maxNumberOfConversions This value needs to be given separately so
+     * that a subclass' setMaxNumberOfConversions functions.
+     * @param playerRandomBound Given separately so that Conversion knows which
+     * Random bounds to use.
+     * @param vilRandomBound Given separately so that Conversion knows which
+     * Random bounds to use.
+     */
     public Accusation(Random random, Map<String, Integer> intValues,
             int maxNumberOfConversions, int playerRandomBound,
             int vilRandomBound) {
@@ -103,12 +117,6 @@ public class Accusation extends Conversion {
                 - convAccuVilSelfEsDecr);
     }
 
-    /**
-     * Currently needed for the GameTest tests. The tests will be modified to
-     * get the values from Config.intValues.
-     *
-     * @param maxNumberOfConversions The maximum number of Accusations.
-     */
     @Override
     public void setMaxNumberOfConversions(int maxNumberOfConversions) {
         this.convMaxNumberOfAccusations = maxNumberOfConversions;

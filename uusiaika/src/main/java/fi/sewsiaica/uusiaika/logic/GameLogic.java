@@ -63,7 +63,7 @@ public class GameLogic {
      * @param vilID The name of the file that contains villager names.
      * @param profsID The name of the file that contains a list of professions.
      * @return Returns false if at least one of the files is invalid.
-     * @throws java.io.FileNotFoundException
+     * @throws java.io.FileNotFoundException Throws the FileNotFoundException.
      */
     public boolean newGame(String[] playerAndSectNames, String confID,
             String vilID, String profsID) throws FileNotFoundException {

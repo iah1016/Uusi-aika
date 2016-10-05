@@ -43,6 +43,11 @@ public enum DefaultProfessions {
         this.name = name;
     }
 
+    /**
+     * The getter for the default professions.
+     *
+     * @return Returns a profession.
+     */
     public String profName() {
         return name;
     }

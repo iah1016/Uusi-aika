@@ -20,14 +20,19 @@ import fi.sewsiaica.uusiaika.generaltools.MapStringListInterconversion;
 import fi.sewsiaica.uusiaika.generaltools.StrStrMapStringListInterconversion;
 
 /**
+ * The save feature is yet to be implemented.
  *
  * @author iah1016
  */
 public class SaveConfig {
+
     private final MapStringListInterconversion mapToString;
 
+    /**
+     * The save feature is yet to be implemented.
+     */
     public SaveConfig() {
         this.mapToString = new StrStrMapStringListInterconversion();
     }
-    
+
 }

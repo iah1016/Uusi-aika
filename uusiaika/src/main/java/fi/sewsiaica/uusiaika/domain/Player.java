@@ -30,6 +30,8 @@ public class Player {
     private int argSkills;
 
     /**
+     * The constructor is given the name, and the charisma and argumentation
+     * skills values as parameters.
      *
      * @param name The name is given by the user via GUI.
      * @param charisma Default value from Config.intValues.
@@ -53,6 +55,11 @@ public class Player {
         return charisma;
     }
 
+    /**
+     * Sets a new value for Charisma, unless the given value is less than zero.
+     *
+     * @param value The given value.
+     */
     public void setCharisma(int value) {
         if (value >= 0) {
             this.charisma = value;
@@ -63,6 +70,11 @@ public class Player {
         return argSkills;
     }
 
+    /**
+     * Sets a new value for ArgSkills, unless the given value is less than zero.
+     *
+     * @param value The given value.
+     */
     public void setArgSkills(int value) {
         if (value >= 0) {
             this.argSkills = value;

@@ -18,6 +18,7 @@ package fi.sewsiaica.uusiaika.config.defaultvalues;
 
 /**
  * This enum class contains all the default values of the game's variables.
+ *
  * @author iah1016
  */
 public enum DefaultVariableValues {
@@ -62,7 +63,12 @@ public enum DefaultVariableValues {
     private DefaultVariableValues(int value) {
         this.value = value;
     }
-    
+
+    /**
+     * The getter for the default variable values.
+     *
+     * @return Returns a variable value.
+     */
     public int value() {
         return value;
     }

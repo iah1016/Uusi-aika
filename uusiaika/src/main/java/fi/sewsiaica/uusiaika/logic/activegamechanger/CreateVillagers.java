@@ -31,7 +31,7 @@ import java.util.Random;
  */
 public class CreateVillagers {
 
-    private Random random;
+    private final Random random;
     private Map<String, Integer> intValues;
     private List<String> vilNames;
     private List<String> professions;

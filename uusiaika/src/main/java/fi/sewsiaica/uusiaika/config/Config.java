@@ -41,6 +41,10 @@ public class Config {
     private final List<String> defaultVilNames;
     private final List<String> defaultProfessions;
 
+    /**
+     * This class provides the logic parts with the variable values, and also
+     * the values for villager names and professions.
+     */
     public Config() {
         variableNames = createArrayOfVariableNames();
         defaultValues = createArrayOfDefaultValues();
@@ -51,10 +55,12 @@ public class Config {
     }
 
     /**
+     * This method loads the Config values for the active game.
      *
-     * @param configID
-     * @return
-     * @throws FileNotFoundException
+     * @param configID The Config filename given as String.
+     * @return Returns the values from the enum class if the ID is empty and
+     * from a file otherwise.
+     * @throws FileNotFoundException Throws FileNotFoundException.
      */
     public Map<String, Integer> loadIntValues(String configID) throws
             FileNotFoundException {
@@ -66,10 +72,13 @@ public class Config {
     }
 
     /**
+     * This method loads villager names for the populateVillage-method in
+     * createVillagers.
      *
-     * @param villagersID
-     * @return
-     * @throws FileNotFoundException
+     * @param villagersID The Villager names filename given as String.
+     * @return Returns vilNames from the enum class if the ID is empty and from
+     * a file otherwise.
+     * @throws FileNotFoundException Throws FileNotFoundException.
      */
     public List<String> loadVilNames(String villagersID) throws
             FileNotFoundException {
@@ -80,10 +89,13 @@ public class Config {
     }
 
     /**
+     * This method loads professions for the populateVillage-method in
+     * createVillagers.
      *
-     * @param professionsID
-     * @return
-     * @throws FileNotFoundException
+     * @param professionsID The professions filename given as String.
+     * @return Returns professions from the enum class if the ID is empty and
+     * from a file otherwise.
+     * @throws FileNotFoundException Throws FileNotFoundException.
      */
     public List<String> loadProfessions(String professionsID) throws
             FileNotFoundException {
@@ -96,7 +108,7 @@ public class Config {
     public String[] getVariableNames() {
         return variableNames;
     }
-    
+
     private String[] createArrayOfVariableNames() {
         int i = 0;
         String[] array = new String[VariableNames.values().length];

@@ -41,12 +41,15 @@ public class ActiveGame {
     private TrainingCentre trainingCentre;
 
     /**
+     * All the objects given as parameters will be permanently attached to this
+     * ActiveGame object.
      *
-     * @param random
-     * @param configIntValues
-     * @param villagers
-     * @param player
-     * @param sect
+     * @param random Random is created by the Main class.
+     * @param configIntValues The variable values for all the logic modules
+     * attached to this ActiveGame.
+     * @param villagers The List of villagers.
+     * @param player The player of the active game.
+     * @param sect The player's sect.
      */
     public ActiveGame(Random random, Map<String, Integer> configIntValues,
             List<Villager> villagers, Player player, Sect sect) {

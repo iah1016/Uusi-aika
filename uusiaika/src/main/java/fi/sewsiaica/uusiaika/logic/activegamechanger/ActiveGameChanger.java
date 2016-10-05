@@ -75,8 +75,8 @@ public class ActiveGameChanger {
     /**
      * The LoadGame feature is not yet implemented.
      *
-     * @param saveName
-     * @return
+     * @param saveName The name of the save file.
+     * @return Returns Null, at the moment.
      */
     public ActiveGame loadActiveGame(String saveName) {
         // Do something.
@@ -91,7 +91,7 @@ public class ActiveGameChanger {
      * @param vilID The name of the file that contains villager names.
      * @param profsID The name of the file that contains a list of professions.
      * @return Returns false if at least one of the files is invalid.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException Throws the FileNotFoundException.
      */
     public boolean updateConfigValues(String confID,
             String vilID, String profsID)

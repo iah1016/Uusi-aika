@@ -20,6 +20,8 @@ import fi.sewsiaica.uusiaika.domain.*;
 import java.util.Map;
 
 /**
+ * This class handles the creation or the loading of the Player and Sect
+ * objects.
  *
  * @author iah1016
  */
@@ -45,9 +47,10 @@ public class PlayerAndSectHandler {
                 configIntValues.get("sectExpenses"),
                 configIntValues.get("sectMemberFee"));
     }
-    
+
     /**
      * The LoadGame feature is not yet implemented.
+     *
      * @param fileName The attributes will be read from a text file.
      */
     public void loadPlayerAndSectFromFile(String fileName) {

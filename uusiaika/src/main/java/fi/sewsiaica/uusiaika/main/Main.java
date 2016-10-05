@@ -31,7 +31,7 @@ public class Main {
     /**
      * Currently, any exception will end the game with the message "Ei natsaa".
      *
-     * @param args
+     * @param args Arguments, not yet implemented.
      */
     public static void main(String[] args) {
 
