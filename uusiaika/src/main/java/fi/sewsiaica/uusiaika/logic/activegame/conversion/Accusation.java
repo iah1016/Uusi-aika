@@ -14,64 +14,61 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.logic.conversion;
+package fi.sewsiaica.uusiaika.logic.activegame.conversion;
 
 import fi.sewsiaica.uusiaika.domain.*;
 import java.util.Map;
 import java.util.Random;
 
 /**
- * This is a subclass of the abstract class Conversion. This is supposed to be
- * the easiest of the conversion types to succeed (though is not, as yet).
- * However, the success only changes the player and villager attributes and does
- * not fully convert the villager.
+ * This is a subclass of the abstract class Conversion. A successful conversion
+ * adds the villager to the sect.
  *
  * @author iah1016
  */
-public class Persuasion extends Conversion {
+public class Accusation extends Conversion {
 
-    private int convMaxNumberOfPersuasions;
-    private int convPersPlayerCharIncr;
-    private int convPersVilSelfAwDecr;
-    private int convPersVilSceptDecr;
+    private int convMaxNumberOfAccusations;
+    private int convAccuPlayerCharIncr;
+    private int convAccuVilSelfEsDecr;
 
-    public Persuasion(Random random, Map<String, Integer> intValues,
+    public Accusation(Random random, Map<String, Integer> intValues,
             int maxNumberOfConversions, int playerRandomBound,
             int vilRandomBound) {
         super(random, intValues, maxNumberOfConversions, playerRandomBound,
                 vilRandomBound);
-        this.convMaxNumberOfPersuasions = maxNumberOfConversions;
-        this.convPersPlayerCharIncr = intValues.get("convPersPlayerCharIncr");
-        this.convPersVilSelfAwDecr = intValues.get("convPersVilSelfAwDecr");
-        this.convPersVilSceptDecr = intValues.get("convPersVilSceptDecr");
+        this.convMaxNumberOfAccusations = maxNumberOfConversions;
+        this.convAccuPlayerCharIncr = intValues.get("convAccuPlayerCharIncr");
+        this.convAccuVilSelfEsDecr = intValues.get("convAccuVilSelfEsDecr");
+
     }
 
     /**
-     * The villager's current value of the number of persuasions is checked.
+     * The villager's current value of the number of accusations is checked.
      *
      * @param villager The target villager.
      * @return If the current value is not max or more, return true.
      */
     @Override
     public boolean checkIfAllowedToProceed(Villager villager) {
-        int persuasions = villager.getNumberOfPersuasions();
-        return !super.isMaxedOut(persuasions, convMaxNumberOfPersuasions);
+        int accusations = villager.getNumberOfAccusations();
+        return !super.isMaxedOut(accusations, convMaxNumberOfAccusations);
     }
 
     /**
-     * Increases the villager's amount of persuasions by one.
+     * Increases the villager's amount of accusations by one.
      *
      * @param villager The target villager.
      */
     @Override
     public void increaseAmountOfConv(Villager villager) {
-        int persuasions = villager.getNumberOfPersuasions();
-        villager.setNumberOfPersuations(persuasions + 1);
+        int accusations = villager.getNumberOfAccusations();
+        villager.setNumberOfAccusations(accusations + 1);
     }
 
     /**
-     * The player's value consists solely of Charisma, the villager's of
-     * SelfAwareness.
+     * The player's value consists of Charisma and ArgSkills, and the villager's
+     * of SelfEsteem and ArgSkills.
      *
      * @param player The Enlightened One.
      * @param villager Pogo stick.
@@ -81,17 +78,16 @@ public class Persuasion extends Conversion {
     public int[] calculatePlayerAndVilValues(Player player, Villager villager) {
         int[] values = new int[2];
 
-        int playerValue = player.getCharisma();
+        int playerValue = player.getCharisma() + player.getArgSkills();
         values[0] = playerValue;
-        int vilValue = villager.getSelfAwareness();
+        int vilValue = villager.getSelfEsteem() + villager.getArgSkills();
         values[1] = vilValue;
 
         return values;
     }
 
     /**
-     * The villager's self-awareness and scepticism decreases, and the players
-     * charisma increases.
+     * The villager's self-esteem decreases, and the players charisma increases.
      *
      * @param player The Enlightened One.
      * @param villager Pogo stick.
@@ -99,22 +95,22 @@ public class Persuasion extends Conversion {
      */
     @Override
     public void winningActions(Player player, Villager villager, Sect sect) {
-        villager.setSelfAwareness(villager.getSelfAwareness()
-                - convPersVilSelfAwDecr);
-        villager.setScepticism(villager.getScepticism()
-                - convPersVilSceptDecr);
+        villager.setInSect(true);
+        sect.getCongregation().add(villager);
         player.setCharisma(player.getCharisma()
-                + convPersPlayerCharIncr);
+                + convAccuPlayerCharIncr);
+        villager.setSelfEsteem(villager.getSelfEsteem()
+                - convAccuVilSelfEsDecr);
     }
 
     /**
      * Currently needed for the GameTest tests. The tests will be modified to
      * get the values from Config.intValues.
      *
-     * @param maxNumberOfConversions The maximum number of Persuasions.
+     * @param maxNumberOfConversions The maximum number of Accusations.
      */
     @Override
     public void setMaxNumberOfConversions(int maxNumberOfConversions) {
-        this.convMaxNumberOfPersuasions = maxNumberOfConversions;
+        this.convMaxNumberOfAccusations = maxNumberOfConversions;
     }
 }

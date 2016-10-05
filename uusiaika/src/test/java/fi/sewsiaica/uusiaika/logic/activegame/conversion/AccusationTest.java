@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.sewsiaica.uusiaika.logic.conversion;
+package fi.sewsiaica.uusiaika.logic.activegame.conversion;
 
 import fi.sewsiaica.uusiaika.domain.Player;
 import fi.sewsiaica.uusiaika.domain.Sect;
@@ -22,36 +22,36 @@ import static org.junit.Assert.*;
  *
  * @author iah1016
  */
-public class SermonTest {
-
+public class AccusationTest {
+    
     private MockRandom random;
     private Map<String, Integer> intValues;
-    private Conversion sermon;
+    private Conversion accusation;
     private Player player;
     private Villager villager;
     private Sect sect;
-
-    public SermonTest() {
+    
+    public AccusationTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
         random = new MockRandom();
         intValues = new HashMap<>();
-        intValues.put("convMaxNumberOfSermons", 13);
-        intValues.put("convSermPlayerBound", 20);
-        intValues.put("convSermVilBound", 20);
-        intValues.put("convSermPlayerCharIncr", 2);
-        intValues.put("convSermVilSceptDecr", 5);
-        sermon = new Sermon(random, intValues, 13, 20, 20);
+        intValues.put("convMaxNumberOfAccusations", 12);
+        intValues.put("convAccuPlayerBound", 20);
+        intValues.put("convAccuVilBound", 20);
+        intValues.put("convAccuPlayerCharIncr", 2);
+        intValues.put("convAccuVilSelfEsDecr", 5);
+        accusation = new Accusation(random, intValues, 12, 20, 20);
         // String name, int charisma, int argSkills
         player = new Player("Pekka", 10, 10);
         // String name, boolean inSect, int scepticism, int selfEsteem, 
@@ -59,40 +59,41 @@ public class SermonTest {
         villager = new Villager("Matti", false, 10, 10, 10, 10, "kirkkoherra");
         sect = new Sect("Pekan lahko", 10000, 100, 10);
     }
-
+    
     @After
     public void tearDown() {
     }
 
     @Test
-    public void checkIfAllowedToProceedReturnsTrueCorrectlyWithSermon() {
-        villager.setNumberOfSermons(0);
+    public void checkIfAllowedToProceedReturnsTrueCorrectlyWithAccusation() {
+        villager.setNumberOfAccusations(0);
 
-        boolean result = sermon.checkIfAllowedToProceed(villager);
+        boolean result = accusation.checkIfAllowedToProceed(villager);
         assertEquals(true, result);
     }
 
     @Test
-    public void checkIfAllowedToProceedReturnsFalseCorrectlyWithSermon() {
-        villager.setNumberOfSermons(13);
+    public void checkIfAllowedToProceedReturnsFalseCorrectlyWithAccusation() {
+        villager.setNumberOfAccusations(12);
 
-        boolean result = sermon.checkIfAllowedToProceed(villager);
+        boolean result = accusation.checkIfAllowedToProceed(villager);
         assertEquals(false, result);
     }
 
+
     @Test
-    public void increaseAmountOfConvSucceedsWithSermon() {
-        int expected = villager.getNumberOfSermons() + 1;
-        sermon.increaseAmountOfConv(villager);
-        int result = villager.getNumberOfSermons();
+    public void increaseAmountOfConvSucceedsWithAccusation() {
+        int expected = villager.getNumberOfAccusations() + 1;
+        accusation.increaseAmountOfConv(villager);
+        int result = villager.getNumberOfAccusations();
         assertEquals(expected, result);
     }
 
     @Test
-    public void convertIncreasesNumberOfSermons() {
-        int expected = 1 + villager.getNumberOfSermons();
-        sermon.convert(player, villager, sect);
-        int result = villager.getNumberOfSermons();
+    public void convertIncreasesNumberOfAccusations() {
+        int expected = 1 + villager.getNumberOfAccusations();
+        accusation.convert(player, villager, sect);
+        int result = villager.getNumberOfAccusations();
         assertEquals(expected, result);
     }
 
@@ -100,10 +101,10 @@ public class SermonTest {
     public void convertSucceedsAndVillagerNowInSect() {
         player.setCharisma(10);
         player.setArgSkills(100);
-        villager.setScepticism(10);
+        villager.setSelfEsteem(10);
         villager.setArgSkills(100);
         villager.setInSect(false);
-        sermon.convert(player, villager, sect);
+        accusation.convert(player, villager, sect);
         assertEquals(true, villager.isInSect());
     }
 
@@ -111,51 +112,51 @@ public class SermonTest {
     public void convertSucceedsAndPlaCharismaIncr() {
         player.setCharisma(100);
         player.setArgSkills(100);
-        villager.setScepticism(100);
+        villager.setSelfEsteem(100);
         villager.setArgSkills(100);
-        sermon.convert(player, villager, sect);
-        int expected = 100 + intValues.get("convSermPlayerCharIncr");
+        accusation.convert(player, villager, sect);
+        int expected = 100 + intValues.get("convAccuPlayerCharIncr");
         assertEquals(expected, player.getCharisma());
     }
 
     @Test
-    public void convertSucceedsAndVilSceptDecr() {
+    public void convertSucceedsAndVilSelfEsteemDecr() {
         player.setCharisma(100);
         player.setArgSkills(100);
-        villager.setScepticism(100);
+        villager.setSelfEsteem(100);
         villager.setArgSkills(100);
-        sermon.convert(player, villager, sect);
-        int expected = 100 - intValues.get("convSermVilSceptDecr");
-        assertEquals(expected, villager.getScepticism());
+        accusation.convert(player, villager, sect);
+        int expected = 100 - intValues.get("convAccuVilSelfEsDecr");
+        assertEquals(expected, villager.getSelfEsteem());
     }
 
     @Test
     public void convertNotSuccessfulAndVillagerNotInSect() {
         player.setCharisma(7);
-        villager.setScepticism(100);
+        villager.setSelfEsteem(100);
         villager.setInSect(false);
-        sermon.convert(player, villager, sect);
+        accusation.convert(player, villager, sect);
         assertEquals(false, villager.isInSect());
     }
 
     @Test
     public void convertNotSuccessfulAndPlaCharismaSame() {
         player.setCharisma(7);
-        villager.setScepticism(100);
-        sermon.convert(player, villager, sect);
+        villager.setSelfEsteem(100);
+        accusation.convert(player, villager, sect);
         assertEquals(7, player.getCharisma());
     }
 
     @Test
-    public void convertNotSuccessfulAndVilSceptSame() {
+    public void convertNotSuccessfulAndVilSelfEsteemSame() {
         player.setCharisma(7);
-        villager.setScepticism(100);
-        sermon.convert(player, villager, sect);
-        assertEquals(100, villager.getScepticism());
+        villager.setSelfEsteem(100);
+        accusation.convert(player, villager, sect);
+        assertEquals(100, villager.getSelfEsteem());
     }
 
     @Test
-    public void getMaxNumberOfConversionsWorksWithSermon() {
-        assertEquals(13, sermon.getMaxNumberOfConversions());
+    public void getMaxNumberOfConversionsWorksWithAccusation() {
+        assertEquals(12, accusation.getMaxNumberOfConversions());
     }
 }

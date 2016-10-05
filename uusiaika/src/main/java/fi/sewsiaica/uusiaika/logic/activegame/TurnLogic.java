@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.logic;
+package fi.sewsiaica.uusiaika.logic.activegame;
 
 import fi.sewsiaica.uusiaika.domain.*;
 import java.util.ArrayList;
@@ -32,11 +32,11 @@ import java.util.Map;
  */
 public class TurnLogic {
 
-    private Map<String, Integer> intValues;
+    private final Map<String, Integer> intValues;
     private int numberOfTurns;
-    private int maxNumberOfTurns;
-    private int sceptIncrPerTurn;
-    private int thresholdForScept;
+    private final int maxNumberOfTurns;
+    private final int sceptIncrPerTurn;
+    private final int thresholdForScept;
 
     /**
      * The constructor set the values of numberOfTurns, maxNumberOfTurns,

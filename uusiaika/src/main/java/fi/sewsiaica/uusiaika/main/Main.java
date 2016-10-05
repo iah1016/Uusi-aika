@@ -19,7 +19,6 @@ package fi.sewsiaica.uusiaika.main;
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.*;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * The Main class creates GameLogic and GUI classes and starts the game. Random and

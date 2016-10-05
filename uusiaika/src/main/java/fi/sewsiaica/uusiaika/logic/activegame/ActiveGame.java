@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.logic;
+package fi.sewsiaica.uusiaika.logic.activegame;
 
+import fi.sewsiaica.uusiaika.logic.activegame.conversion.*;
 import fi.sewsiaica.uusiaika.domain.*;
-import fi.sewsiaica.uusiaika.logic.conversion.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;

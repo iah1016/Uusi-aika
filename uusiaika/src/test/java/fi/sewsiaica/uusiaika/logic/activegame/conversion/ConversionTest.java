@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.sewsiaica.uusiaika.logic.conversion;
+package fi.sewsiaica.uusiaika.logic.activegame.conversion;
 
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.util.HashMap;

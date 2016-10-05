@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.logic.conversion;
+package fi.sewsiaica.uusiaika.logic.activegame.conversion;
 
 import fi.sewsiaica.uusiaika.domain.*;
 import java.util.Map;
@@ -26,49 +26,48 @@ import java.util.Random;
  *
  * @author iah1016
  */
-public class Accusation extends Conversion {
+public class Sermon extends Conversion {
 
-    private int convMaxNumberOfAccusations;
-    private int convAccuPlayerCharIncr;
-    private int convAccuVilSelfEsDecr;
+    private int convMaxNumberOfSermons;
+    private int convSermPlayerCharIncr;
+    private int convSermVilSceptDecr;
 
-    public Accusation(Random random, Map<String, Integer> intValues,
+    public Sermon(Random random, Map<String, Integer> intValues,
             int maxNumberOfConversions, int playerRandomBound,
             int vilRandomBound) {
         super(random, intValues, maxNumberOfConversions, playerRandomBound,
                 vilRandomBound);
-        this.convMaxNumberOfAccusations = maxNumberOfConversions;
-        this.convAccuPlayerCharIncr = intValues.get("convAccuPlayerCharIncr");
-        this.convAccuVilSelfEsDecr = intValues.get("convAccuVilSelfEsDecr");
-
+        this.convMaxNumberOfSermons = maxNumberOfConversions;
+        this.convSermPlayerCharIncr = intValues.get("convSermPlayerCharIncr");
+        this.convSermVilSceptDecr = intValues.get("convSermVilSceptDecr");
     }
 
     /**
-     * The villager's current value of the number of accusations is checked.
+     * The villager's current value of the number of sermons is checked.
      *
      * @param villager The target villager.
      * @return If the current value is not max or more, return true.
      */
     @Override
     public boolean checkIfAllowedToProceed(Villager villager) {
-        int accusations = villager.getNumberOfAccusations();
-        return !super.isMaxedOut(accusations, convMaxNumberOfAccusations);
+        int sermons = villager.getNumberOfSermons();
+        return !super.isMaxedOut(sermons, convMaxNumberOfSermons);
     }
 
     /**
-     * Increases the villager's amount of accusations by one.
+     * Increases the villager's amount of sermons by one.
      *
      * @param villager The target villager.
      */
     @Override
     public void increaseAmountOfConv(Villager villager) {
-        int accusations = villager.getNumberOfAccusations();
-        villager.setNumberOfAccusations(accusations + 1);
+        int sermons = villager.getNumberOfSermons();
+        villager.setNumberOfSermons(sermons + 1);
     }
 
     /**
      * The player's value consists of Charisma and ArgSkills, and the villager's
-     * of SelfEsteem and ArgSkills.
+     * of Scepticism and ArgSkills.
      *
      * @param player The Enlightened One.
      * @param villager Pogo stick.
@@ -80,14 +79,14 @@ public class Accusation extends Conversion {
 
         int playerValue = player.getCharisma() + player.getArgSkills();
         values[0] = playerValue;
-        int vilValue = villager.getSelfEsteem() + villager.getArgSkills();
+        int vilValue = villager.getScepticism() + villager.getArgSkills();
         values[1] = vilValue;
 
         return values;
     }
 
     /**
-     * The villager's self-esteem decreases, and the players charisma increases.
+     * The villager's scepticism decreases, and the players charisma increases.
      *
      * @param player The Enlightened One.
      * @param villager Pogo stick.
@@ -98,19 +97,19 @@ public class Accusation extends Conversion {
         villager.setInSect(true);
         sect.getCongregation().add(villager);
         player.setCharisma(player.getCharisma()
-                + convAccuPlayerCharIncr);
-        villager.setSelfEsteem(villager.getSelfEsteem()
-                - convAccuVilSelfEsDecr);
+                + convSermPlayerCharIncr);
+        villager.setScepticism(villager.getScepticism()
+                - convSermVilSceptDecr);
     }
 
     /**
      * Currently needed for the GameTest tests. The tests will be modified to
      * get the values from Config.intValues.
      *
-     * @param maxNumberOfConversions The maximum number of Accusations.
+     * @param maxNumberOfConversions The maximum number of Sermons.
      */
     @Override
     public void setMaxNumberOfConversions(int maxNumberOfConversions) {
-        this.convMaxNumberOfAccusations = maxNumberOfConversions;
+        this.convMaxNumberOfSermons = maxNumberOfConversions;
     }
 }

@@ -14,10 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.logic;
+package fi.sewsiaica.uusiaika.logic.activegame;
 
 import fi.sewsiaica.uusiaika.domain.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,10 +29,10 @@ import java.util.Map;
  */
 public class Temple {
 
-    private Map<String, Integer> intValues;
-    private int templeSceptDecr;
-    private int deathCultCharismaReq;
-    private int divineRightMoneyReq;
+    private final Map<String, Integer> intValues;
+    private final int templeSceptDecr;
+    private final int deathCultCharismaReq;
+    private final int divineRightMoneyReq;
 
     /**
      * The constructor set the values of templeSceptDecr, deathCultCharismaReq,

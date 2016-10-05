@@ -16,9 +16,11 @@
  */
 package fi.sewsiaica.uusiaika.logic;
 
+import fi.sewsiaica.uusiaika.logic.activegame.*;
+import fi.sewsiaica.uusiaika.logic.activegamechanger.ActiveGameChanger;
 import fi.sewsiaica.uusiaika.config.Config;
-import fi.sewsiaica.uusiaika.logic.conversion.*;
 import fi.sewsiaica.uusiaika.domain.*;
+import fi.sewsiaica.uusiaika.logic.activegame.conversion.*;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Random;

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.logic.conversion;
+package fi.sewsiaica.uusiaika.logic.activegame.conversion;
 
 import fi.sewsiaica.uusiaika.domain.*;
 import java.util.Map;
@@ -29,8 +29,8 @@ import java.util.Random;
  */
 public abstract class Conversion {
 
-    private Random random;
-    Map<String, Integer> intValues;
+    private final Random random;
+    private final Map<String, Integer> intValues;
     private int maxNumberOfConversions;
     private int playerRandomBound;
     private int vilRandomBound;

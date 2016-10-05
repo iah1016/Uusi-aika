@@ -14,9 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.logic;
+package fi.sewsiaica.uusiaika.logic.activegamechanger;
 
 import fi.sewsiaica.uusiaika.config.Config;
+import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;

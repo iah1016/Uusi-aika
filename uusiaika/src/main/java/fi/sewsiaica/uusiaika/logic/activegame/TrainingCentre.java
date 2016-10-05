@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.logic;
+package fi.sewsiaica.uusiaika.logic.activegame;
 
 import fi.sewsiaica.uusiaika.domain.Player;
 import java.util.Map;
@@ -27,9 +27,9 @@ import java.util.Map;
  */
 public class TrainingCentre {
 
-    private Map<String, Integer> intValues;
-    private int trainingCharismaIncr;
-    private int trainingArgSkillsIncr;
+    private final Map<String, Integer> intValues;
+    private final int trainingCharismaIncr;
+    private final int trainingArgSkillsIncr;
 
     /**
      * The constructor set the values of trainingCharismaIncr and
