@@ -51,4 +51,8 @@
     - Paluu karttanäkymään
 
 ##Luokkakaavio
-![dokumentaatio/Luokkakaavio 3.png](Luokkakaavio 3.png)
+![dokumentaatio/Logiikan luokkakaavio.png](Logiikan luokkakaavio.png)
+
+##Sekvenssikaavioita (lisää tulossa lähipäivinä)
+![dokumentaatio/Sekvenssikaavio 1.png](Sekvenssikaavio 1.png)
+![dokumentaatio/Sekvenssikaavio 2.png](Sekvenssikaavio 2.png)
