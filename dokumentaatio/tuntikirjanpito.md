@@ -20,3 +20,8 @@ Päivä | Tunnit | Kuvaus
 27.09.2016 | 3h | TurnLogic-luokka ja testit sille lisätty, kyläläisten ja käännytyksen arvot voidaan nyt siirtää tiedostoon
 28.09.2016 | 7h | Conversion-luokka abstraktiksi luokaksi: Persuasion, Sermon ja Accusation aliluokkina
 30.09.2016 | 11h30 | Luotu Config-paketti, jolla vastuu muuttujista; ReadFromTextFile-luokka toteutettu; JavaDocien luonti; uusi luokkakaavio
+01.10.2016 | 7h | Swing-harjoittelua, Merkkijonolistan hajautustauluksi ja toisin päin toteutettu.
+04.10.2016 | 8h | Oletusarvot omaan pakettiinsa, pelilogiikka pilkottu pienempiin osiin
+05.10.2016 | 7h | Pelilogiikka pilkottu pienempiin osiin (jatkoa) ja jaettu eri paketteihin, JavaDocien lisäystä/päivitystä
+06.10.2016 | 1h | Kaikki JavaDocit lisätty
+07.10.2016 | 6h | Swing-harjoittelua, luokkakaavio ajantasalla, pari sekvenssikaaviota lisätty

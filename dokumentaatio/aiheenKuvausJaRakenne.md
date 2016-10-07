@@ -29,7 +29,7 @@
     - Siirry liikkeen tiloihin
     - Käy valmentautumiskeskuksessa
     - Valitse ovelta ovelle -käynnin kohde/kohteet
-    - Valitse kaupan piha kojun pystytykselle
+    - Valitse kaupan piha kojun pystytykselle (kaupan kojun totetutus jäänee tulevaisuuteen)
   
   - Liikenäkymä
     - Tarjoa kaikille limpparia
@@ -37,16 +37,16 @@
     - Paluu karttanäkymään
 
   - Valmentautumiskeskus-näkymä
-    - Käy karismakurssilla (minipeli?)
-    - Käy väittelykurssilla (minipeli?)
+    - Käy karismakurssilla (tässä versiossa karisman kasvattaminen onnistuu joka kerta)
+    - Käy väittelykurssilla (tässä versiossa argumentointitaitojen kasvattaminen onnistuu joka kerta)
     - Paluu karttanäkymään
 
   - Ovelta ovelle -näkymä
     - Graafisen tekstiseikkailun dialogi
     - Paluu karttanäkymään
   
-  - Kojunäkymä
-    - Tyrkytä esitteitä (minipeli?)
+  - Kojunäkymä (ei luultavasti toteutusta tässä versiossa)
+    - Tyrkytä esitteitä
     - Tarjoa kahvia ja rupattele niitä-näitä (karismasta hyötyä)
     - Paluu karttanäkymään
 
