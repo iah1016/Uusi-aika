@@ -56,3 +56,4 @@
 ##Sekvenssikaavioita (lisää tulossa lähipäivinä)
 ![dokumentaatio/Sekvenssikaavio 1.png](Sekvenssikaavio 1.png)
 ![dokumentaatio/Sekvenssikaavio 2.png](Sekvenssikaavio 2.png)
+![dokumentaatio/Sekvenssikaavio 3.png](Sekvenssikaavio 3.png)
