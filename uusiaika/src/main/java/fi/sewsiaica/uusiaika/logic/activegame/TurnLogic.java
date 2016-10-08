@@ -63,15 +63,15 @@ public class TurnLogic {
      * @return Returns false, if the game is over and true otherwise.
      */
     public boolean nextTurn(Player player, Sect sect) {
-        numberOfTurns++;
-        if (!gameHasReachedMaxTurns()) {
-            sect.setCongregation(membersInNextTurn(sect.getCongregation()));
-            membersPayFee(sect);
-            sectPaysExpenses(sect);
-
-            return balanceIsNotNegative(sect);
+        if (gameHasReachedMaxTurns()) {
+            return false;
         }
-        return false;
+        numberOfTurns++;
+        sect.setCongregation(membersInNextTurn(sect.getCongregation()));
+        membersPayFee(sect);
+        sectPaysExpenses(sect);
+
+        return balanceIsNotNegative(sect);
     }
 
     /**
@@ -154,6 +154,7 @@ public class TurnLogic {
 
     /**
      * Checking that there are still turns left.
+     *
      * @return True, and the game is over.
      */
     public boolean gameHasReachedMaxTurns() {

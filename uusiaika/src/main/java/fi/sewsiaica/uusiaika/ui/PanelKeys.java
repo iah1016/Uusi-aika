@@ -16,23 +16,16 @@
  */
 package fi.sewsiaica.uusiaika.ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JPanel;
-
 /**
- * The object of this JPanel subclass displays the opening menu of the game.
- * 
+ * This Enum class contains the keys for the panelMap.
+ *
  * @author iah1016
  */
-public class OpeningMenuPanel extends JPanel {
-
-    public OpeningMenuPanel(Dimension dimension) {
-        super();
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.BLACK);
-    }
-    
-    
-    
+public enum PanelKeys {
+    OPENING_MENU_VIEW,
+    NEW_GAME_VIEW,
+    MAP_VIEW,
+    TEMPLE_VIEW,
+    TRAININGCENTRE_VIEW,
+    DOORTODOOR_VIEW;
 }

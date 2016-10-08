@@ -16,9 +16,13 @@
  */
 package fi.sewsiaica.uusiaika.ui;
 
+import fi.sewsiaica.uusiaika.ui.viewpanels.*;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import java.awt.Dimension;
+import java.util.EnumMap;
+import java.util.Map;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * This class extends the JFrame class and handles the organisation of the GUI.
@@ -27,13 +31,18 @@ import javax.swing.JFrame;
  */
 public class GameFrame extends JFrame {
 
+    private final Map<PanelKeys, JPanel> viewPanelMap;
     private final GameLogic gameLogic;
     private final String[] args;
     private final Dimension dimension;
 
     /**
      * The constructor gets the main logic class and the String array of
-     * arguments as parameters and sets them as its object variables.
+     * arguments as parameters and sets them as its object variables. It also
+     * creates a new instance of the Dimension class and a new EnumMap of all
+     * the main panels in the game. Private method frameSettings contains all of
+     * this frame's settings, other than setVisible(true), which is called from
+     * GUIRunner.
      *
      * @param title The title of the game, shown in the title bar.
      * @param gameLogic The core class of the game logic.
@@ -44,20 +53,50 @@ public class GameFrame extends JFrame {
         this.gameLogic = gameLogic;
         this.args = args;
         this.dimension = new Dimension(800, 600);
-        constructFrame();
+        this.viewPanelMap = createViewPanelMap();
+        frameSettings();
     }
 
-    private void constructFrame() {
-        setPreferredSize(dimension);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
-        openOpeningMenuPanel();
+    private void frameSettings() {
+        this.setPreferredSize(dimension);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.changeViewPanel(PanelKeys.OPENING_MENU_VIEW);
     }
-    
-    private void openOpeningMenuPanel() {
-        OpeningMenuPanel opMP = new OpeningMenuPanel(dimension);
-        add(opMP);
+
+    private Map<PanelKeys, JPanel> createViewPanelMap() {
+        Map<PanelKeys, JPanel> tempMap;
+        tempMap = new EnumMap<>(PanelKeys.class);
+
+        tempMap.put(PanelKeys.OPENING_MENU_VIEW,
+                new OpeningMenuViewPanel(dimension, gameLogic, this));
+        tempMap.put(PanelKeys.NEW_GAME_VIEW,
+                new NewGameViewPanel(dimension, gameLogic, this));
+        tempMap.put(PanelKeys.MAP_VIEW,
+                new MapViewPanel(dimension, gameLogic, this));
+        tempMap.put(PanelKeys.TEMPLE_VIEW,
+                null);
+        tempMap.put(PanelKeys.TRAININGCENTRE_VIEW,
+                null);
+        tempMap.put(PanelKeys.DOORTODOOR_VIEW,
+                null);
+
+        return tempMap;
+    }
+
+    /**
+     * This method changes the visible viewPanel (JPanel subclass).
+     *
+     * @param keyForPanel The key is a String. Enum values are used to prevent
+     * mistyping.
+     */
+    public void changeViewPanel(PanelKeys keyForPanel) {
+        JPanel panel = viewPanelMap.get(keyForPanel);
+        this.getContentPane().removeAll();
+        this.getContentPane().add(panel);
+        this.pack();
+        this.setVisible(true);
     }
 }

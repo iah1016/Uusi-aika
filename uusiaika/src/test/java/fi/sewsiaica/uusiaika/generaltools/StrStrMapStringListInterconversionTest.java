@@ -63,14 +63,15 @@ public class StrStrMapStringListInterconversionTest {
     @Test
     public void convertStringListToStrStrMapReturnsMapCorrectly() {
         boolean result = false;
+        Map<String, String> resMap = null;
         try {
-            Map<String, String> resMap
-                = conversion.convertStringListToStrStrMap(list);
+            resMap = conversion.convertStringListToStrStrMap(list);
             result = true;
         } catch(Exception e) {
             result = false;
         }
         assertEquals(true, result);
+        assertNotEquals(null, resMap);
     }
 
 }
