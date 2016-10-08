@@ -94,9 +94,11 @@ public class GameFrame extends JFrame {
      */
     public void changeViewPanel(PanelKeys keyForPanel) {
         JPanel panel = viewPanelMap.get(keyForPanel);
-        this.getContentPane().removeAll();
-        this.getContentPane().add(panel);
-        this.pack();
-        this.setVisible(true);
+        getContentPane().removeAll();
+        getContentPane().add(panel);
+        panel.revalidate();
+        panel.repaint();
+        pack();
+        setVisible(true);
     }
 }

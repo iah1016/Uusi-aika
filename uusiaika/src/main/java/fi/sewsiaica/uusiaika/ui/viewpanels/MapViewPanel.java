@@ -18,6 +18,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
+import fi.sewsiaica.uusiaika.ui.eventlisteners.MapViewPanelListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JButton;
@@ -33,11 +34,7 @@ public class MapViewPanel extends JPanel {
 
     private final Dimension dimension;
     private final GameLogic gameLogic;
-
-    /**
-     * Temporarily a public object variable.
-     */
-    GameFrame gameFrame;
+    private GameFrame gameFrame;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters. GameFrame is
@@ -59,18 +56,28 @@ public class MapViewPanel extends JPanel {
         this.setBackground(Color.WHITE);
         addComponents();
     }
-
+    
     private void addComponents() {
         JButton templeButton = new JButton("Go to the temple");
-        add(templeButton);
         JButton trCentreButton = new JButton("Go to the training centre");
-        add(trCentreButton);
         JButton conversionButton = new JButton("Door-to-door conversion");
-        add(conversionButton);
         JButton endTurnButton = new JButton("End turn");
-        add(endTurnButton);
-        JButton openingViewButton = new JButton("Go back to main menu"
+        JButton openingMenuViewButton = new JButton("Go back to main menu"
                 + " (ends the game)");
-        add(openingViewButton);
+
+        MapViewPanelListener mapViewPanelListener = new MapViewPanelListener(
+                gameLogic, gameFrame, templeButton, trCentreButton,
+                conversionButton, endTurnButton, openingMenuViewButton);
+
+        templeButton.addActionListener(mapViewPanelListener);
+        trCentreButton.addActionListener(mapViewPanelListener);
+        conversionButton.addActionListener(mapViewPanelListener);
+        endTurnButton.addActionListener(mapViewPanelListener);
+        openingMenuViewButton.addActionListener(mapViewPanelListener);
+        add(templeButton);
+        add(trCentreButton);
+        add(conversionButton);
+        add(endTurnButton);
+        add(openingMenuViewButton);
     }
 }
