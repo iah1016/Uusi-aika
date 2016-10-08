@@ -71,15 +71,15 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * @return Returns false, if the game is over and true otherwise.</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> nextTurn(<a href="../../../../../fi/sewsiaica/uusiaika/domain/Player.html">Player</a> player, <a href="../../../../../fi/sewsiaica/uusiaika/domain/Sect.html">Sect</a> sect) {
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          numberOfTurns++;
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">if</strong> (!gameHasReachedMaxTurns()) {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>              sect.setCongregation(membersInNextTurn(sect.getCongregation()));
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>              membersPayFee(sect);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>              sectPaysExpenses(sect);
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>              <strong class="jxr_keyword">return</strong> balanceIsNotNegative(sect);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          }
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">if</strong> (gameHasReachedMaxTurns()) {
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>              <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          }
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          numberOfTurns++;
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          sect.setCongregation(membersInNextTurn(sect.getCongregation()));
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          membersPayFee(sect);
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          sectPaysExpenses(sect);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">return</strong> balanceIsNotNegative(sect);
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      <em class="jxr_javadoccomment">/**</em>
@@ -162,16 +162,17 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> <em class="jxr_javadoccomment">     * Checking that there are still turns left.</em>
-<a class="jxr_linenumber" name="L157" href="#L157">157</a> <em class="jxr_javadoccomment">     * @return True, and the game is over.</em>
-<a class="jxr_linenumber" name="L158" href="#L158">158</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> gameHasReachedMaxTurns() {
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">return</strong> numberOfTurns &gt;= maxNumberOfTurns;
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>     }
-<a class="jxr_linenumber" name="L162" href="#L162">162</a> 
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getNumberOfTurns() {
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>         <strong class="jxr_keyword">return</strong> numberOfTurns;
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>     }
-<a class="jxr_linenumber" name="L166" href="#L166">166</a> }
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L158" href="#L158">158</a> <em class="jxr_javadoccomment">     * @return True, and the game is over.</em>
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> gameHasReachedMaxTurns() {
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">return</strong> numberOfTurns &gt;= maxNumberOfTurns;
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     }
+<a class="jxr_linenumber" name="L163" href="#L163">163</a> 
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getNumberOfTurns() {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">return</strong> numberOfTurns;
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>     }
+<a class="jxr_linenumber" name="L167" href="#L167">167</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2016. All rights reserved.</div>
