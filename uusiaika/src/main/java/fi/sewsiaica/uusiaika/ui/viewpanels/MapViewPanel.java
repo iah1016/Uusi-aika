@@ -34,11 +34,10 @@ public class MapViewPanel extends JPanel {
 
     private final Dimension dimension;
     private final GameLogic gameLogic;
-    private GameFrame gameFrame;
+    private final GameFrame gameFrame;
 
     /**
-     * Dimension, GameLogic, and GameFrame are given as parameters. GameFrame is
-     * temporarily a public object variable.
+     * Dimension, GameLogic, and GameFrame are given as parameters.
      *
      * @param dimension The dimensions of the panel.
      * @param gameLogic The core logic of the game, through which the other
@@ -56,28 +55,26 @@ public class MapViewPanel extends JPanel {
         this.setBackground(Color.WHITE);
         addComponents();
     }
-    
+
+    private JButton[] createButtons() {
+        JButton[] buttons = new JButton[5];
+        buttons[0] = new JButton("Go to the temple");
+        buttons[1] = new JButton("Go to the training centre");
+        buttons[2] = new JButton("Door-to-door conversion");
+        buttons[3] = new JButton("End turn");
+        buttons[4] = new JButton("Go back to main menu (ends the game)");
+        return buttons;
+    }
+
     private void addComponents() {
-        JButton templeButton = new JButton("Go to the temple");
-        JButton trCentreButton = new JButton("Go to the training centre");
-        JButton conversionButton = new JButton("Door-to-door conversion");
-        JButton endTurnButton = new JButton("End turn");
-        JButton openingMenuViewButton = new JButton("Go back to main menu"
-                + " (ends the game)");
-
+        JButton[] buttons = createButtons();
         MapViewPanelListener mapViewPanelListener = new MapViewPanelListener(
-                gameLogic, gameFrame, templeButton, trCentreButton,
-                conversionButton, endTurnButton, openingMenuViewButton);
+                gameLogic, gameFrame, buttons);
 
-        templeButton.addActionListener(mapViewPanelListener);
-        trCentreButton.addActionListener(mapViewPanelListener);
-        conversionButton.addActionListener(mapViewPanelListener);
-        endTurnButton.addActionListener(mapViewPanelListener);
-        openingMenuViewButton.addActionListener(mapViewPanelListener);
-        add(templeButton);
-        add(trCentreButton);
-        add(conversionButton);
-        add(endTurnButton);
-        add(openingMenuViewButton);
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].addActionListener(mapViewPanelListener);
+            JButton currentButton = buttons[i];
+            add(currentButton);
+        }
     }
 }

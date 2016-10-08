@@ -34,47 +34,42 @@ public class MapViewPanelListener implements ActionListener {
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
     private final JButton templeButton;
-    private final JButton trCentreButton;
-    private final JButton conversionButton;
+    private final JButton trainingCentreButton;
+    private final JButton doorToDoorConversionButton;
     private final JButton endTurnButton;
     private final JButton openingMenuViewButton;
 
     /**
-     * The constructor is given five JButtons, GameFrame, and GameLogic as
-     * parameters.
+     * The constructor is given an array of five JButtons, GameFrame, and
+     * GameLogic as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
-     * @param templeButton The current ViewPanel changes to TEMPLE_VIEW.
-     * @param trCentreButton The current ViewPanel changes to
-     * TRAININGCENTRE_VIEW.
-     * @param conversionButton The current ViewPanel changes to DOORTODOOR_VIEW.
-     * @param endTurnButton Ends the turn via GameLogic.
-     * @param openingMenuViewButton The current ViewPanel changes to
-     * OPENING_MENU_VIEW.
+     * @param buttons The current ViewPanel changes to [0] TEMPLE_VIEW, [1]
+     * TRAININGCENTRE_VIEW, [2] DOORTODOOR_VIEW (conversion), [3] Ends the turn
+     * via GameLogic, [4] openingMenuViewButton The current ViewPanel changes to
+     * OPENING_MENU_VIEW, thus ending the active game.
      */
     public MapViewPanelListener(GameLogic gameLogic, GameFrame frame,
-            JButton templeButton, JButton trCentreButton,
-            JButton conversionButton, JButton endTurnButton,
-            JButton openingMenuViewButton) {
+            JButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.templeButton = templeButton;
-        this.trCentreButton = trCentreButton;
-        this.conversionButton = conversionButton;
-        this.endTurnButton = endTurnButton;
-        this.openingMenuViewButton = openingMenuViewButton;
+        this.templeButton = buttons[0];
+        this.trainingCentreButton = buttons[1];
+        this.doorToDoorConversionButton = buttons[2];
+        this.endTurnButton = buttons[3];
+        this.openingMenuViewButton = buttons[4];
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == templeButton) {
             System.out.println("temppeli");
-        } else if (ae.getSource() == trCentreButton) {
+        } else if (ae.getSource() == trainingCentreButton) {
             System.out.println("tr");
-        } else if (ae.getSource() == conversionButton) {
+        } else if (ae.getSource() == doorToDoorConversionButton) {
             System.out.println("conversion");
         } else if (ae.getSource() == endTurnButton) {
             gameLogic.endTurn();

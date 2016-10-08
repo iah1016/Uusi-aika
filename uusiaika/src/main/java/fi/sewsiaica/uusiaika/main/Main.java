@@ -18,12 +18,12 @@ package fi.sewsiaica.uusiaika.main;
 
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
-import fi.sewsiaica.uusiaika.ui.GUIRunner;
+import fi.sewsiaica.uusiaika.ui.RunnableGUI;
 import java.util.Random;
 import javax.swing.SwingUtilities;
 
 /**
- * The Main class creates GameLogic and GUIRunner classes and starts the game. Random and
+ * The Main class creates GameLogic and RunnableGUI classes and starts the game. Random and
  Config classes are also created and given as parameters to the GameLogic class.
  *
  * @author iah1016
@@ -42,7 +42,7 @@ public class Main {
             Config config = new Config();
             GameLogic gameLogic = new GameLogic(random, config);
             
-            GUIRunner gui = new GUIRunner(gameLogic, args);
+            RunnableGUI gui = new RunnableGUI(gameLogic, args);
             SwingUtilities.invokeLater(gui);
             
         } catch (Exception e) {

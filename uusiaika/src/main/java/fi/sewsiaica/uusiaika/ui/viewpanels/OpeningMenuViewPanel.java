@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelKeys;
+import fi.sewsiaica.uusiaika.ui.eventlisteners.OpeningMenuViewPanelListener;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -60,24 +61,27 @@ public class OpeningMenuViewPanel extends JPanel {
         addComponents();
     }
 
-    private void addComponents() {
-        JButton button1 = new JButton("Start a new Game");
+    private JButton[] createButtons() {
+        JButton[] buttons = new JButton[5];
+        buttons[0] = new JButton("Start a new Game");
+        buttons[1] = new JButton("Load a game");
+        buttons[2] = new JButton("Settings");
+        buttons[3] = new JButton("Hall of fame");
+        buttons[4] = new JButton("Quit");
+        return buttons;
+    }
 
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                gameFrame.changeViewPanel(PanelKeys.NEW_GAME_VIEW);
-            }
-        });
-        add(button1);
-        JButton button2 = new JButton("Load a game");
-        add(button2);
-        JButton button3 = new JButton("Settings");
-        add(button3);
-        JButton button4 = new JButton("Hall of fame");
-        add(button4);
-        JButton button5 = new JButton("Quit");
-        add(button5);
+    private void addComponents() {
+        JButton[] buttons = createButtons();
+        OpeningMenuViewPanelListener openingMenuViewPanelListener
+                = new OpeningMenuViewPanelListener(
+                        gameFrame, gameLogic, buttons);
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].addActionListener(openingMenuViewPanelListener);
+            JButton currentButton = buttons[i];
+            add(currentButton);
+        }
     }
 
 }

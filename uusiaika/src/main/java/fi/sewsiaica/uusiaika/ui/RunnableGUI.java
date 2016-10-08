@@ -24,7 +24,7 @@ import fi.sewsiaica.uusiaika.logic.GameLogic;
  *
  * @author iah1016
  */
-public class GUIRunner implements Runnable {
+public class RunnableGUI implements Runnable {
 
     private final GameLogic gameLogic;
     private final String[] args;
@@ -37,7 +37,7 @@ public class GUIRunner implements Runnable {
      * @param gameLogic The core class of the game logic.
      * @param args Not yet implemented.
      */
-    public GUIRunner(GameLogic gameLogic, String[] args) {
+    public RunnableGUI(GameLogic gameLogic, String[] args) {
         this.gameLogic = gameLogic;
         this.args = args;
     }
