@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelKeys;
+import fi.sewsiaica.uusiaika.ui.eventlisteners.NewGameViewPanelListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -60,38 +61,29 @@ public class NewGameViewPanel extends JPanel {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
         this.setPreferredSize(dimension);
-        this.setBackground(Color.BLUE);
+        this.setBackground(Color.BLACK);
         addComponents();
     }
 
     private void addComponents() {
-        JTextField tf = new JTextField();
-        tf.setText("Player name here");
-        tf.setForeground(Color.BLUE);
-        add(tf);
+        JTextField textFieldPlayerName = new JTextField(16);
+        textFieldPlayerName.setText("Player");
+        textFieldPlayerName.setForeground(Color.BLUE);
+        add(textFieldPlayerName);
 
-        JTextField tf2 = new JTextField();
-        tf2.setText("Sect name here");
-        tf2.setForeground(Color.BLUE);
-        add(tf2);
+        JTextField textFieldSectName = new JTextField(16);
+        textFieldSectName.setText("Sect");
+        textFieldSectName.setForeground(Color.BLUE);
+        add(textFieldSectName);
 
-        String[] names = new String[2];
-
-        JButton button1 = new JButton("Test 1");
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                names[0] = tf.getText();
-                names[1] = tf2.getText();
-                try {
-                    gameLogic.newGame(names, "", "", "");
-                    gameFrame.changeViewPanel(PanelKeys.MAP_VIEW);
-                } catch (FileNotFoundException e) {
-                    System.out.println("ei natsaa");
-                }
-            }
-        });
-        add(button1);
+        JButton createGame = new JButton("Create a new game");
+        
+        NewGameViewPanelListener newGameViewPanelListener
+                = new NewGameViewPanelListener(gameLogic, gameFrame,
+                        textFieldPlayerName, textFieldSectName, createGame);
+        
+        
+        createGame.addActionListener(newGameViewPanelListener);
+        add(createGame);
     }
-
 }
