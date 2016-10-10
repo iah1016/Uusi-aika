@@ -14,13 +14,13 @@ import static org.junit.Assert.*;
  *
  * @author iah1016
  */
-public class StrIntMapStringListInterconversionTest {
+public class StrIntMapAndStringListInterconversionTest {
 
-    private StrIntMapStringListInterconversion conversion;
+    private StrIntMapAndStringListInterconversion conversion;
     private Map<String, Integer> testMap;
     List<String> list;
 
-    public StrIntMapStringListInterconversionTest() {
+    public StrIntMapAndStringListInterconversionTest() {
     }
 
     @BeforeClass
@@ -33,7 +33,7 @@ public class StrIntMapStringListInterconversionTest {
 
     @Before
     public void setUp() {
-        conversion = new StrIntMapStringListInterconversion();
+        conversion = new StrIntMapAndStringListInterconversion();
         list = new ArrayList<>();
         list.add("key1: 570");
         list.add("key2: 2");
@@ -47,7 +47,7 @@ public class StrIntMapStringListInterconversionTest {
     @Test
     public void convertStringListToMapReturnsValidMapCorrectly() {
         Map<String, ?> resMap = conversion.convertStringListToMap(list);
-        
+
         int result = (Integer) resMap.get("key1") + (Integer) resMap.get("key2")
                 + (Integer) resMap.get("key3");
 
@@ -75,20 +75,20 @@ public class StrIntMapStringListInterconversionTest {
         assertEquals(666, result);
         assertEquals(7, resMap.size());
     }
-    
+
     @Test
     public void convertStringListToStrIntMapReturnsMapCorrectly() {
         boolean result = false;
         try {
             Map<String, Integer> resMap
-                = conversion.convertStringListToStrIntMap(list);
+                    = conversion.convertStringListToStrIntMap(list);
             result = true;
-        } catch(Exception e) {
+        } catch (Exception e) {
             result = false;
         }
         assertEquals(true, result);
     }
-    
+
     @Test
     public void returnValueAsIntOrZeroIfInvalidIntGivenFunctionsCorrectly() {
         int res = conversion.returnValueAsIntOrZeroIfInvalidIntGiven("fgdfds");

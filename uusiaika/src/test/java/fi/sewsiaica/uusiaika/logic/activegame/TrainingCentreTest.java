@@ -59,6 +59,6 @@ public class TrainingCentreTest {
     @Test
     public void applyForDebateCourseIncreasesArgSkillsCorrectly() {
         tc.applyForDebateCourse(player);
-        assertEquals(25, player.getArgSkills());
+        assertEquals(25, player.getArgumentationSkills());
     }
 }

@@ -21,13 +21,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class is a subclass of the abstract class MapStringListInterconversion
- * that converts a StringList to a a String,String-type Map.
+ * This class is a subclass of the abstract class
+ * MapAndStringListInterconversion that converts a StringList to a a
+ * String,String-type Map.
  *
  * @author iah1016
  */
-public class StrIntMapStringListInterconversion extends
-        MapStringListInterconversion {
+public class StrIntMapAndStringListInterconversion extends
+        MapAndStringListInterconversion {
 
     /**
      * The implementation of convertStringListToMap.

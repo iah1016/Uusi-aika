@@ -15,13 +15,13 @@ import static org.junit.Assert.*;
  *
  * @author iah1016
  */
-public class StrStrMapStringListInterconversionTest {
+public class StrStrMapAndStringListInterconversionTest {
 
-    private StrStrMapStringListInterconversion conversion;
+    private StrStrMapAndStringListInterconversion conversion;
     private Map<String, String> testMap;
     List<String> list;
 
-    public StrStrMapStringListInterconversionTest() {
+    public StrStrMapAndStringListInterconversionTest() {
     }
 
     @BeforeClass
@@ -34,7 +34,7 @@ public class StrStrMapStringListInterconversionTest {
 
     @Before
     public void setUp() {
-        conversion = new StrStrMapStringListInterconversion();
+        conversion = new StrStrMapAndStringListInterconversion();
         testMap = new HashMap<>();
         testMap.put("key1", "value1");
         testMap.put("key2", "value2");
@@ -59,7 +59,7 @@ public class StrStrMapStringListInterconversionTest {
         assertEquals(2, resList.size());
         assertEquals(true, list.containsAll(resList));
     }
-    
+
     @Test
     public void convertStringListToStrStrMapReturnsMapCorrectly() {
         boolean result = false;
@@ -67,7 +67,7 @@ public class StrStrMapStringListInterconversionTest {
         try {
             resMap = conversion.convertStringListToStrStrMap(list);
             result = true;
-        } catch(Exception e) {
+        } catch (Exception e) {
             result = false;
         }
         assertEquals(true, result);

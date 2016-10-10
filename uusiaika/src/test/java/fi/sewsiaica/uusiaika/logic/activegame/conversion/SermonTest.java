@@ -99,7 +99,7 @@ public class SermonTest {
     @Test
     public void convertSucceedsAndVillagerNowInSect() {
         player.setCharisma(10);
-        player.setArgSkills(100);
+        player.setArgumentationSkills(100);
         villager.setScepticism(10);
         villager.setArgSkills(100);
         villager.setInSect(false);
@@ -110,7 +110,7 @@ public class SermonTest {
     @Test
     public void convertSucceedsAndPlaCharismaIncr() {
         player.setCharisma(100);
-        player.setArgSkills(100);
+        player.setArgumentationSkills(100);
         villager.setScepticism(100);
         villager.setArgSkills(100);
         sermon.convert(player, villager, sect);
@@ -121,7 +121,7 @@ public class SermonTest {
     @Test
     public void convertSucceedsAndVilSceptDecr() {
         player.setCharisma(100);
-        player.setArgSkills(100);
+        player.setArgumentationSkills(100);
         villager.setScepticism(100);
         villager.setArgSkills(100);
         sermon.convert(player, villager, sect);

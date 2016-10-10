@@ -31,9 +31,9 @@ import java.util.Random;
 public class Persuasion extends Conversion {
 
     private int convMaxNumberOfPersuasions;
-    private int convPersPlayerCharIncr;
-    private int convPersVilSelfAwDecr;
-    private int convPersVilSceptDecr;
+    private final int convPersPlayerCharIncr;
+    private final int convPersVilSelfAwDecr;
+    private final int convPersVilSceptDecr;
 
     /**
      * The constructor is given random, and Config values as parameters, which

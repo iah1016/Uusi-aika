@@ -100,7 +100,7 @@ public class AccusationTest {
     @Test
     public void convertSucceedsAndVillagerNowInSect() {
         player.setCharisma(10);
-        player.setArgSkills(100);
+        player.setArgumentationSkills(100);
         villager.setSelfEsteem(10);
         villager.setArgSkills(100);
         villager.setInSect(false);
@@ -111,7 +111,7 @@ public class AccusationTest {
     @Test
     public void convertSucceedsAndPlaCharismaIncr() {
         player.setCharisma(100);
-        player.setArgSkills(100);
+        player.setArgumentationSkills(100);
         villager.setSelfEsteem(100);
         villager.setArgSkills(100);
         accusation.convert(player, villager, sect);
@@ -122,7 +122,7 @@ public class AccusationTest {
     @Test
     public void convertSucceedsAndVilSelfEsteemDecr() {
         player.setCharisma(100);
-        player.setArgSkills(100);
+        player.setArgumentationSkills(100);
         villager.setSelfEsteem(100);
         villager.setArgSkills(100);
         accusation.convert(player, villager, sect);

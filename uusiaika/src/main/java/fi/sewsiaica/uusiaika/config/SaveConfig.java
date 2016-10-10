@@ -16,8 +16,8 @@
  */
 package fi.sewsiaica.uusiaika.config;
 
-import fi.sewsiaica.uusiaika.generaltools.MapStringListInterconversion;
-import fi.sewsiaica.uusiaika.generaltools.StrStrMapStringListInterconversion;
+import fi.sewsiaica.uusiaika.generaltools.MapAndStringListInterconversion;
+import fi.sewsiaica.uusiaika.generaltools.StrStrMapAndStringListInterconversion;
 
 /**
  * The save feature is yet to be implemented.
@@ -26,13 +26,13 @@ import fi.sewsiaica.uusiaika.generaltools.StrStrMapStringListInterconversion;
  */
 public class SaveConfig {
 
-    private final MapStringListInterconversion mapToString;
+    private final MapAndStringListInterconversion mapToString;
 
     /**
      * The save feature is yet to be implemented.
      */
     public SaveConfig() {
-        this.mapToString = new StrStrMapStringListInterconversion();
+        this.mapToString = new StrStrMapAndStringListInterconversion();
     }
 
 }

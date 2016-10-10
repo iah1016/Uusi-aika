@@ -27,7 +27,7 @@ public class Player {
 
     private String name;
     private int charisma;
-    private int argSkills;
+    private int argumentationSkills;
 
     /**
      * The constructor is given the name, and the charisma and argumentation
@@ -35,12 +35,12 @@ public class Player {
      *
      * @param name The name is given by the user via GUI.
      * @param charisma Default value from Config.intValues.
-     * @param argSkills Default value from Config.intValues.
+     * @param argumentationSkills Default value from Config.intValues.
      */
-    public Player(String name, int charisma, int argSkills) {
+    public Player(String name, int charisma, int argumentationSkills) {
         this.name = name;
         this.charisma = charisma;
-        this.argSkills = argSkills;
+        this.argumentationSkills = argumentationSkills;
     }
 
     public String getName() {
@@ -66,18 +66,19 @@ public class Player {
         }
     }
 
-    public int getArgSkills() {
-        return argSkills;
+    public int getArgumentationSkills() {
+        return argumentationSkills;
     }
 
     /**
-     * Sets a new value for ArgSkills, unless the given value is less than zero.
+     * Sets a new value for ArgumentationSkills, unless the given value is less
+     * than zero.
      *
      * @param value The given value.
      */
-    public void setArgSkills(int value) {
+    public void setArgumentationSkills(int value) {
         if (value >= 0) {
-            this.argSkills = value;
+            this.argumentationSkills = value;
         }
     }
 

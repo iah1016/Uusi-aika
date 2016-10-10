@@ -15,15 +15,15 @@ import static org.junit.Assert.*;
  *
  * @author iah1016
  */
-public class MapStringListInterconversionTest {
+public class MapAndStringListInterconversionTest {
 
-    private MapStringListInterconversion conversion;
+    private MapAndStringListInterconversion conversion;
     private Map<String, String> testMap1;
     private Map<String, Integer> testMap2;
     List<String> list1;
     List<String> list2;
 
-    public MapStringListInterconversionTest() {
+    public MapAndStringListInterconversionTest() {
     }
 
     @BeforeClass
@@ -36,7 +36,7 @@ public class MapStringListInterconversionTest {
 
     @Before
     public void setUp() {
-        conversion = new StrStrMapStringListInterconversion();
+        conversion = new StrStrMapAndStringListInterconversion();
         testMap1 = new HashMap<>();
         testMap1.put("key1", "value1");
         testMap1.put("key2", "value2");
@@ -63,7 +63,6 @@ public class MapStringListInterconversionTest {
 
     @Test
     public void convertMapToStringListFunctionsWithStrStrMap() {
-        boolean allStringsMatch = false;
         List<String> resList = conversion.convertMapToStringList(testMap1);
         assertEquals(3, resList.size());
         assertEquals(true, list1.containsAll(resList));
@@ -110,13 +109,13 @@ public class MapStringListInterconversionTest {
         String[] res2 = conversion.processOneStringFromStringList(testString2);
         assertArrayEquals(null, res2);
     }
-    
+
     @Test
     public void currentCharIsColonFunctionsCorrectly() {
         assertEquals(false, conversion.currentCharIsColon(' '));
         assertEquals(true, conversion.currentCharIsColon(':'));
     }
-    
+
     @Test
     public void returnValueOrNullIfValueIsEmptyFunctionsCorrectly() {
         assertEquals("val", conversion.returnValueOrNullIfValueIsEmpty("val"));

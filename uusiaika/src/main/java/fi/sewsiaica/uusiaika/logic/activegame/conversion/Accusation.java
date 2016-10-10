@@ -29,8 +29,8 @@ import java.util.Random;
 public class Accusation extends Conversion {
 
     private int convMaxNumberOfAccusations;
-    private int convAccuPlayerCharIncr;
-    private int convAccuVilSelfEsDecr;
+    private final int convAccuPlayerCharIncr;
+    private final int convAccuVilSelfEsDecr;
 
     /**
      * The constructor is given random, and Config values as parameters, which
@@ -92,7 +92,8 @@ public class Accusation extends Conversion {
     public int[] calculatePlayerAndVilValues(Player player, Villager villager) {
         int[] values = new int[2];
 
-        int playerValue = player.getCharisma() + player.getArgSkills();
+        int playerValue = player.getCharisma()
+                + player.getArgumentationSkills();
         values[0] = playerValue;
         int vilValue = villager.getSelfEsteem() + villager.getArgSkills();
         values[1] = vilValue;

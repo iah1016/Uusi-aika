@@ -63,9 +63,9 @@ public class TrainingCentre {
      * @return The method always returns true.
      */
     public boolean applyForDebateCourse(Player player) {
-        int playerArgSkills = player.getArgSkills();
+        int playerArgSkills = player.getArgumentationSkills();
 
-        player.setArgSkills(playerArgSkills + trainingArgSkillsIncr);
+        player.setArgumentationSkills(playerArgSkills + trainingArgSkillsIncr);
         return true;
     }
 }

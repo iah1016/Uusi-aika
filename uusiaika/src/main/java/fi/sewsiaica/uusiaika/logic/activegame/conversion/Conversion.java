@@ -31,9 +31,9 @@ public abstract class Conversion {
 
     private final Random random;
     private final Map<String, Integer> intValues;
-    private int maxNumberOfConversions;
-    private int playerRandomBound;
-    private int vilRandomBound;
+    private final int maxNumberOfConversions;
+    private final int playerRandomBound;
+    private final int vilRandomBound;
 
     /**
      * The constructor is given random, and Config values as parameters, which

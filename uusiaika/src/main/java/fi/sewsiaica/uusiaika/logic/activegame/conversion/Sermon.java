@@ -29,8 +29,8 @@ import java.util.Random;
 public class Sermon extends Conversion {
 
     private int convMaxNumberOfSermons;
-    private int convSermPlayerCharIncr;
-    private int convSermVilSceptDecr;
+    private final int convSermPlayerCharIncr;
+    private final int convSermVilSceptDecr;
 
     /**
      * The constructor is given random, and Config values as parameters, which
@@ -91,7 +91,8 @@ public class Sermon extends Conversion {
     public int[] calculatePlayerAndVilValues(Player player, Villager villager) {
         int[] values = new int[2];
 
-        int playerValue = player.getCharisma() + player.getArgSkills();
+        int playerValue = player.getCharisma()
+                + player.getArgumentationSkills();
         values[0] = playerValue;
         int vilValue = villager.getScepticism() + villager.getArgSkills();
         values[1] = vilValue;

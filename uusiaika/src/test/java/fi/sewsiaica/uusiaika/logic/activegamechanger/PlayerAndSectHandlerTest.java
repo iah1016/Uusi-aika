@@ -67,16 +67,17 @@ public class PlayerAndSectHandlerTest {
         playerAndSectHandler.createPlayerAndSect(playerAndSectNames, intValues);
         Player player = playerAndSectHandler.getPlayer();
         Sect sect = playerAndSectHandler.getSect();
-        
+
         String expectedNames = player.getName() + sect.getName();
         assertEquals("DolandoMurica", expectedNames);
-        int expectedInt = player.getCharisma() - player.getArgSkills();
+        int expectedInt = player.getCharisma()
+                - player.getArgumentationSkills();
         assertEquals(2, expectedInt);
         expectedInt = sect.getBalance() + sect.getExpenses()
                 - sect.getMemberFee();
         assertEquals(1005, expectedInt);
     }
-    
+
     // Replace this with a proper test, once the method is implemented.
     @Test
     public void loadPlayerAndSectFromFileNotImplementedAndReturnsDummies() {

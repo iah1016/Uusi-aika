@@ -32,7 +32,7 @@ import java.util.Map;
 public class LoadConfig {
 
     private final String[] variableNames;
-    private final StrIntMapStringListInterconversion listStrIntMapInterConv;
+    private final StrIntMapAndStringListInterconversion listStrIntMapInterConv;
     private final ReadFromTextFile readFromFile;
 
     /**
@@ -43,7 +43,8 @@ public class LoadConfig {
      */
     public LoadConfig(String[] variableNames) {
         this.variableNames = variableNames;
-        this.listStrIntMapInterConv = new StrIntMapStringListInterconversion();
+        this.listStrIntMapInterConv
+                = new StrIntMapAndStringListInterconversion();
         readFromFile = new ReadFromTextFile();
     }
 
