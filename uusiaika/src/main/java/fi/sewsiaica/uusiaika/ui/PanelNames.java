@@ -17,11 +17,11 @@
 package fi.sewsiaica.uusiaika.ui;
 
 /**
- * This Enum class contains the keys for the panelMap.
+ * This Enum class contains the keys for the viewPanelMap.
  *
  * @author iah1016
  */
-public enum PanelKeys {
+public enum PanelNames {
     OPENING_MENU_VIEW,
     NEW_GAME_VIEW,
     MAP_VIEW,

@@ -18,7 +18,7 @@ package fi.sewsiaica.uusiaika.ui.eventlisteners;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.PanelKeys;
+import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -63,7 +63,7 @@ public class OpeningMenuViewPanelListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == newGameButton) {
-            gameFrame.changeViewPanel(PanelKeys.NEW_GAME_VIEW);
+            gameFrame.changeViewPanel(PanelNames.NEW_GAME_VIEW);
         } else if (ae.getSource() == loadGameButton) {
             System.out.println("Load game not yet implemented.");
         } else if (ae.getSource() == settingsButton) {

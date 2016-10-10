@@ -18,13 +18,9 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.PanelKeys;
 import fi.sewsiaica.uusiaika.ui.eventlisteners.NewGameViewPanelListener;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;

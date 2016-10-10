@@ -18,7 +18,7 @@ package fi.sewsiaica.uusiaika.ui.eventlisteners;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.PanelKeys;
+import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -41,7 +41,7 @@ public class NewGameViewPanelListener implements ActionListener {
     /**
      * The constructor is given two JTextFields, a JButton, GameFrame, and
      * GameLogic as parameters.
-     * 
+     *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
@@ -59,8 +59,7 @@ public class NewGameViewPanelListener implements ActionListener {
         this.textFieldSectName = textFieldSectName;
         this.button = createGameButton;
     }
-    
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         String[] names = new String[2];
@@ -68,11 +67,10 @@ public class NewGameViewPanelListener implements ActionListener {
         names[0] = textFieldPlayerName.getText();
         names[1] = textFieldSectName.getText();
         try {
-            
+
             // Implement the config file enquiry.
-            
             gameLogic.newGame(names, "", "", "");
-            gameFrame.changeViewPanel(PanelKeys.MAP_VIEW);
+            gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
         } catch (FileNotFoundException e) {
             System.out.println("ei natsaa");
         }

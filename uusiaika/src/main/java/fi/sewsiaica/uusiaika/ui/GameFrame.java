@@ -31,7 +31,7 @@ import javax.swing.JPanel;
  */
 public class GameFrame extends JFrame {
 
-    private final Map<PanelKeys, JPanel> viewPanelMap;
+    private final Map<PanelNames, JPanel> viewPanelMap;
     private final GameLogic gameLogic;
     private final String[] args;
     private final Dimension dimension;
@@ -63,24 +63,24 @@ public class GameFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);
-        this.changeViewPanel(PanelKeys.OPENING_MENU_VIEW);
+        this.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
     }
 
-    private Map<PanelKeys, JPanel> createViewPanelMap() {
-        Map<PanelKeys, JPanel> tempMap;
-        tempMap = new EnumMap<>(PanelKeys.class);
+    private Map<PanelNames, JPanel> createViewPanelMap() {
+        Map<PanelNames, JPanel> tempMap;
+        tempMap = new EnumMap<>(PanelNames.class);
 
-        tempMap.put(PanelKeys.OPENING_MENU_VIEW,
+        tempMap.put(PanelNames.OPENING_MENU_VIEW,
                 new OpeningMenuViewPanel(dimension, gameLogic, this));
-        tempMap.put(PanelKeys.NEW_GAME_VIEW,
+        tempMap.put(PanelNames.NEW_GAME_VIEW,
                 new NewGameViewPanel(dimension, gameLogic, this));
-        tempMap.put(PanelKeys.MAP_VIEW,
+        tempMap.put(PanelNames.MAP_VIEW,
                 new MapViewPanel(dimension, gameLogic, this));
-        tempMap.put(PanelKeys.TEMPLE_VIEW,
+        tempMap.put(PanelNames.TEMPLE_VIEW,
                 null);
-        tempMap.put(PanelKeys.TRAININGCENTRE_VIEW,
+        tempMap.put(PanelNames.TRAININGCENTRE_VIEW,
                 null);
-        tempMap.put(PanelKeys.DOORTODOOR_VIEW,
+        tempMap.put(PanelNames.DOORTODOOR_VIEW,
                 null);
 
         return tempMap;
@@ -92,7 +92,7 @@ public class GameFrame extends JFrame {
      * @param keyForPanel The key is a String. Enum values are used to prevent
      * mistyping.
      */
-    public void changeViewPanel(PanelKeys keyForPanel) {
+    public void changeViewPanel(PanelNames keyForPanel) {
         JPanel panel = viewPanelMap.get(keyForPanel);
         getContentPane().removeAll();
         getContentPane().add(panel);

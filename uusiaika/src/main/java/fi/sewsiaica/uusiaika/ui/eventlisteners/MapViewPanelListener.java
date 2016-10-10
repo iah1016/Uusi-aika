@@ -18,7 +18,7 @@ package fi.sewsiaica.uusiaika.ui.eventlisteners;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.PanelKeys;
+import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -75,7 +75,7 @@ public class MapViewPanelListener implements ActionListener {
             gameLogic.endTurn();
             System.out.println(gameLogic.getNumberOfTurns());
         } else if (ae.getSource() == openingMenuViewButton) {
-            gameFrame.changeViewPanel(PanelKeys.OPENING_MENU_VIEW);
+            gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }
 
