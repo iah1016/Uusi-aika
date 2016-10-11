@@ -18,18 +18,20 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.eventlisteners.OpeningMenuViewPanelListener;
-import java.awt.*;
+import fi.sewsiaica.uusiaika.ui.eventlisteners.DoorToDoorViewPanelListener;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+import javax.swing.AbstractButton;
+import javax.swing.JButton;
 
 /**
- * This class extends AbstractViewPanel; its object displays the opening menu of
- * the game.
+ * This class extends AbstractViewPanel; its object displays the door-to-door
+ * conversion view.
  *
  * @author iah1016
  */
-public class OpeningMenuViewPanel extends AbstractViewPanel {
+public class DoorToDoorViewPanel extends AbstractViewPanel {
 
     private final Dimension dimension;
     private final GameLogic gameLogic;
@@ -44,20 +46,19 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
      * @param frame GameFrame gives itself as parameter, so that the active
      * ViewPanel can be changed.
      */
-    public OpeningMenuViewPanel(Dimension dimension, GameLogic gameLogic,
+    public DoorToDoorViewPanel(Dimension dimension, GameLogic gameLogic,
             GameFrame frame) {
-//        super(new BorderLayout());
         super();
-        this.gameLogic = gameLogic;
-        this.gameFrame = frame;
         this.dimension = dimension;
+        this.gameFrame = frame;
+        this.gameLogic = gameLogic;
         this.setPanelSettings();
     }
 
     @Override
     protected final void setPanelSettings() {
         this.setPreferredSize(dimension);
-        this.setBackground(Color.BLACK);
+        this.setBackground(Color.WHITE);
 
         AbstractButton[] buttons = this.createButtons();
         super.addButtons(buttons, this.createActionListener(buttons));
@@ -66,18 +67,18 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
     @Override
     protected final AbstractButton[] createButtons() {
         AbstractButton[] buttons = new JButton[5];
-        buttons[0] = new JButton("Start a new Game");
-        buttons[1] = new JButton("Load a game");
-        buttons[2] = new JButton("Settings");
-        buttons[3] = new JButton("Hall of fame");
-        buttons[4] = new JButton("Quit");
+        buttons[0] = new JButton("Try persuasion");
+        buttons[1] = new JButton("Try sermon");
+        buttons[2] = new JButton("Try accusation");
+        buttons[3] = new JButton("Go back to the Map view");
+        buttons[4] = new JButton("End turn");
         return buttons;
     }
 
     @Override
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {
-        return new OpeningMenuViewPanelListener(gameFrame, gameLogic, buttons);
+        return new DoorToDoorViewPanelListener(gameLogic, gameFrame, buttons);
     }
 
 }

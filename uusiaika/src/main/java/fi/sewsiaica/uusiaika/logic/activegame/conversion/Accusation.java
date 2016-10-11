@@ -75,7 +75,7 @@ public class Accusation extends Conversion {
      * @param villager The target villager.
      */
     @Override
-    public void increaseAmountOfConv(Villager villager) {
+    protected void increaseAmountOfConv(Villager villager) {
         int accusations = villager.getNumberOfAccusations();
         villager.setNumberOfAccusations(accusations + 1);
     }
@@ -89,7 +89,8 @@ public class Accusation extends Conversion {
      * @return Returns an integer array of the values.
      */
     @Override
-    public int[] calculatePlayerAndVilValues(Player player, Villager villager) {
+    protected int[] calculatePlayerAndVilValues(Player player,
+            Villager villager) {
         int[] values = new int[2];
 
         int playerValue = player.getCharisma()
@@ -109,7 +110,7 @@ public class Accusation extends Conversion {
      * @param sect The Guardians of the Truth
      */
     @Override
-    public void winningActions(Player player, Villager villager, Sect sect) {
+    protected void winningActions(Player player, Villager villager, Sect sect) {
         villager.setInSect(true);
         sect.getCongregation().add(villager);
         player.setCharisma(player.getCharisma()

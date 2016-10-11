@@ -79,6 +79,10 @@ public class ActiveGame {
     }
 
     // Getters
+    public int getNumberOfTurns() {
+        return turnLogic.getNumberOfTurns();
+    }
+    
     public TurnLogic getTurnLogic() {
         return turnLogic;
     }

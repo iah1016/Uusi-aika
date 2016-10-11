@@ -7,6 +7,7 @@ package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.*;
+import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class GameLogicTest {
     private Config config;
     private GameLogic gameLogic;
     private String[] names;
+    private ActiveGame activeGame;
 
     public GameLogicTest() {
     }
@@ -53,6 +55,7 @@ public class GameLogicTest {
         } catch (FileNotFoundException e) {
 
         }
+        activeGame = gameLogic.getActiveGame();
     }
 
     @After
@@ -118,30 +121,31 @@ public class GameLogicTest {
 
     @Test
     public void newGameCreatesActiveGameProperlyWithDefaults() {
-        assertEquals("AAAB", gameLogic.getPlayer().getName()
-                + gameLogic.getSect().getName());
+        assertEquals("AAAB", activeGame.getPlayer().getName()
+                + activeGame.getSect().getName());
         assertEquals("Teemu P, Opettaja",
-                gameLogic.getVillagers().get(3).getName() + ", "
-                + gameLogic.getVillagers().get(2).getProfession());
+                activeGame.getVillagers().get(3).getName() + ", "
+                + activeGame.getVillagers().get(2).getProfession());
 
+        
         // The default max conversion values are: 3, 2, 2.
-        assertEquals(7, gameLogic.getPersuasion().getMaxNumberOfConversions()
-                + gameLogic.getSermon().getMaxNumberOfConversions()
-                + gameLogic.getAccusation().getMaxNumberOfConversions());
+        assertEquals(7, activeGame.getPersuasion().getMaxNumberOfConversions()
+                + activeGame.getSermon().getMaxNumberOfConversions()
+                + activeGame.getAccusation().getMaxNumberOfConversions());
 
         // The default training charisma increase is 10.
-        int expected = gameLogic.getPlayer().getCharisma() + 10;
+        int expected = activeGame.getPlayer().getCharisma() + 10;
         gameLogic.trainingCentreActions('a');
-        assertEquals(expected, gameLogic.getPlayer().getCharisma());
+        assertEquals(expected, activeGame.getPlayer().getCharisma());
 
         // The default death cult charisma requirement is 255.
-        gameLogic.getPlayer().setCharisma(254);
+        activeGame.getPlayer().setCharisma(254);
         assertEquals(false, gameLogic.templeActions('b'));
-        gameLogic.getPlayer().setCharisma(255);
+        activeGame.getPlayer().setCharisma(255);
         assertEquals(true, gameLogic.templeActions('b'));
 
         boolean gameOver = false;
-        gameLogic.getSect().setBalance(1000000);
+        activeGame.getSect().setBalance(1000000);
         // The default max number of turns is 100.
         for (int i = 0; i <= 99; i++) {
             gameOver = !gameLogic.endTurn();
@@ -158,167 +162,169 @@ public class GameLogicTest {
         String vilID = "src/main/resources/default_villagers.txt";
         String profsID = "src/main/resources/default_professions.txt";
         gameLogic.newGame(names, confID, vilID, profsID);
-        int expenses = gameLogic.getSect().getExpenses();
+        activeGame = gameLogic.getActiveGame();
+        
+        int expenses = activeGame.getSect().getExpenses();
         assertEquals(700, expenses);
-        String villagerName = gameLogic.getVillagers().get(0).getName();
+        String villagerName = activeGame.getVillagers().get(0).getName();
         assertEquals("Heikki K", villagerName);
-        gameLogic.getPlayer().setCharisma(665);
+        activeGame.getPlayer().setCharisma(665);
         assertEquals(false, gameLogic.templeActions('b'));
-        gameLogic.getPlayer().setCharisma(666);
+        activeGame.getPlayer().setCharisma(666);
         assertEquals(true, gameLogic.templeActions('b'));
     }
 
     // Load game is not yet implemented.
     @Test
     public void conversionDoesNotWorkWithOptionAIfAlreadyMaxedTries() {
-        Villager villager = gameLogic.getVillagers().get(0);
+        Villager villager = activeGame.getVillagers().get(0);
         villager.setNumberOfPersuations(17);
         villager.setNumberOfSermons(0);
         villager.setNumberOfAccusations(0);
         villager.setSelfAwareness(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'a');
         assertEquals(false, result);
     }
 
     @Test
     public void conversionDoesNotWorkWithOptionBIfAlreadyMaxedTries() {
-        Villager villager = gameLogic.getVillagers().get(0);
+        Villager villager = activeGame.getVillagers().get(0);
         villager.setNumberOfPersuations(0);
         villager.setNumberOfSermons(11);
         villager.setNumberOfAccusations(0);
         villager.setScepticism(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'b');
         assertEquals(false, result);
     }
 
     @Test
     public void conversionDoesNotWorkWithOptionCIfAlreadyMaxedTries() {
-        Villager villager = gameLogic.getVillagers().get(0);
+        Villager villager = activeGame.getVillagers().get(0);
         villager.setNumberOfPersuations(0);
         villager.setNumberOfSermons(0);
         villager.setNumberOfAccusations(19);
         villager.setScepticism(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'c');
         assertEquals(false, result);
     }
 
     @Test
     public void conversionWorksWithOptionA() {
-        Villager villager = gameLogic.getVillagers().get(0);
+        Villager villager = activeGame.getVillagers().get(0);
         villager.setNumberOfPersuations(0);
         villager.setNumberOfSermons(100);
         villager.setNumberOfAccusations(100);
         villager.setSelfAwareness(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'a');
         assertEquals(true, result);
     }
 
     @Test
     public void conversionWorksWithOptionB() {
-        Villager villager = gameLogic.getVillagers().get(0);
+        Villager villager = activeGame.getVillagers().get(0);
         villager.setNumberOfPersuations(100);
         villager.setNumberOfSermons(0);
         villager.setNumberOfAccusations(100);
         villager.setScepticism(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'b');
         assertEquals(true, result);
     }
 
     @Test
     public void conversionWorksWithOptionC() {
-        Villager villager = gameLogic.getVillagers().get(0);
+        Villager villager = activeGame.getVillagers().get(0);
         villager.setNumberOfPersuations(100);
         villager.setNumberOfSermons(100);
         villager.setNumberOfAccusations(0);
         villager.setScepticism(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'c');
         assertEquals(true, result);
     }
 
     @Test
     public void conversionDoesNotWorkWithOptionAIfMaxIsZero() {
-        Villager villager = gameLogic.getVillagers().get(0);
-        gameLogic.getPersuasion().setMaxNumberOfConversions(0);
+        Villager villager = activeGame.getVillagers().get(0);
+        activeGame.getPersuasion().setMaxNumberOfConversions(0);
         villager.setNumberOfPersuations(1);
         villager.setNumberOfSermons(100);
         villager.setNumberOfAccusations(100);
         villager.setSelfAwareness(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'a');
         assertEquals(false, result);
     }
 
     @Test
     public void conversionDoesNotWorkWithOptionBIfMaxIsZero() {
-        Villager villager = gameLogic.getVillagers().get(0);
-        gameLogic.getSermon().setMaxNumberOfConversions(0);
+        Villager villager = activeGame.getVillagers().get(0);
+        activeGame.getSermon().setMaxNumberOfConversions(0);
         villager.setNumberOfPersuations(100);
         villager.setNumberOfSermons(0);
         villager.setNumberOfAccusations(100);
         villager.setScepticism(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'b');
         assertEquals(false, result);
     }
 
     @Test
     public void conversionDoesNotWorkWithOptionCIfMaxIsZero() {
-        Villager villager = gameLogic.getVillagers().get(0);
-        gameLogic.getAccusation().setMaxNumberOfConversions(0);
+        Villager villager = activeGame.getVillagers().get(0);
+        activeGame.getAccusation().setMaxNumberOfConversions(0);
         villager.setNumberOfPersuations(100);
         villager.setNumberOfSermons(100);
         villager.setNumberOfAccusations(0);
         villager.setScepticism(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, 'c');
         assertEquals(false, result);
     }
 
     @Test
     public void conversionReturnsFalseIfOptionOtherThanABC() {
-        Villager villager = gameLogic.getVillagers().get(0);
+        Villager villager = activeGame.getVillagers().get(0);
         villager.setNumberOfPersuations(0);
         villager.setNumberOfSermons(0);
         villager.setNumberOfAccusations(0);
         villager.setScepticism(7);
-        gameLogic.getPlayer().setCharisma(100);
+        activeGame.getPlayer().setCharisma(100);
         boolean result = gameLogic.conversion(villager, ' ');
         assertEquals(false, result);
     }
 
     @Test
     public void templeActionsReturnsTrueWithOptionAIfMemberListIsNotEmpty() {
-        List<Villager> congregation = new ArrayList<Villager>();
+        List<Villager> congregation = new ArrayList<>();
         congregation.add(new Villager("A", true, 0, 0, 0, 0, "B"));
-        gameLogic.getSect().setCongregation(congregation);
+        activeGame.getSect().setCongregation(congregation);
         boolean result = gameLogic.templeActions('a');
         assertEquals(true, result);
     }
 
     @Test
     public void templeActionsReturnsFalseWithOptionAIfMemberListIsEmpty() {
-        List<Villager> congregation = new ArrayList<Villager>();
-        gameLogic.getSect().setCongregation(congregation);
+        List<Villager> congregation = new ArrayList<>();
+        activeGame.getSect().setCongregation(congregation);
         boolean result = gameLogic.templeActions('a');
         assertEquals(false, result);
     }
 
     @Test
     public void templeActionsReturnsFalseWithOptionAIfMemberListIsNull() {
-        gameLogic.getSect().setCongregation(null);
+        activeGame.getSect().setCongregation(null);
         boolean result = gameLogic.templeActions('a');
         assertEquals(false, result);
     }
 
     @Test
     public void templeActionsReturnsTrueWithOptionBAndHighCharisma() {
-        Player player = gameLogic.getPlayer();
+        Player player = activeGame.getPlayer();
         player.setCharisma(1000);
         boolean result = gameLogic.templeActions('b');
         assertEquals(true, result);
@@ -326,7 +332,7 @@ public class GameLogicTest {
 
     @Test
     public void templeActionsReturnsFalseWithOptionBAndLowCharisma() {
-        Player player = gameLogic.getPlayer();
+        Player player = activeGame.getPlayer();
         player.setCharisma(3);
         boolean result = gameLogic.templeActions('b');
         assertEquals(false, result);
@@ -334,7 +340,7 @@ public class GameLogicTest {
 
     @Test
     public void templeActionsReturnsTrueWithOptionCAndHighBalance() {
-        Sect sect = gameLogic.getSect();
+        Sect sect = activeGame.getSect();
         sect.setBalance(10000000);
         boolean result = gameLogic.templeActions('c');
         assertEquals(true, result);
@@ -342,7 +348,7 @@ public class GameLogicTest {
 
     @Test
     public void templeActionsReturnsFalseWithOptionCAndLowBalance() {
-        Sect sect = gameLogic.getSect();
+        Sect sect = activeGame.getSect();
         sect.setBalance(10);
         boolean result = gameLogic.templeActions('c');
         assertEquals(false, result);
@@ -374,9 +380,9 @@ public class GameLogicTest {
 
     @Test
     public void endTurnReturnsTrueWhenTurnHasChanged() {
-        int turnsBefore = gameLogic.getNumberOfTurns();
+        int turnsBefore = activeGame.getNumberOfTurns();
         assertEquals(true, gameLogic.endTurn());
-        int turnsAfter = gameLogic.getNumberOfTurns();
+        int turnsAfter = activeGame.getNumberOfTurns();
         assertEquals(turnsAfter, turnsBefore + 1);
     }
 }

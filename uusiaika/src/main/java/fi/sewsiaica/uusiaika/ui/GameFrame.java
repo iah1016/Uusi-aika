@@ -77,11 +77,11 @@ public class GameFrame extends JFrame {
         tempMap.put(PanelNames.MAP_VIEW,
                 new MapViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.TEMPLE_VIEW,
-                null);
+                new TempleViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.TRAININGCENTRE_VIEW,
-                null);
+                new TrainingCentreViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.DOORTODOOR_VIEW,
-                null);
+                new DoorToDoorViewPanel(dimension, gameLogic, this));
 
         return tempMap;
     }

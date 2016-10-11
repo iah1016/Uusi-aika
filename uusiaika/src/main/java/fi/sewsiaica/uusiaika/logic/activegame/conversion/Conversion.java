@@ -67,7 +67,7 @@ public abstract class Conversion {
      * @param max The maximum amount of conversions of this type.
      * @return Returns true if the value is at least max or less than zero.
      */
-    public boolean isMaxedOut(int val, int max) {
+    protected boolean isMaxedOut(int val, int max) {
         return val >= max || val < 0;
     }
 
@@ -81,7 +81,8 @@ public abstract class Conversion {
      * @param vilIncr This is given as a parameter vilRandomBound.
      * @return Return value true equals a successful conversion.
      */
-    public boolean convSucceeds(int pVal, int vVal, int plIncr, int vilIncr) {
+    protected boolean convSucceeds(int pVal, int vVal, int plIncr,
+            int vilIncr) {
         if (pVal < 0 || vVal < 0) {
             return false;
         }
@@ -146,7 +147,7 @@ public abstract class Conversion {
      *
      * @param villager The target villager.
      */
-    public abstract void increaseAmountOfConv(Villager villager);
+    protected abstract void increaseAmountOfConv(Villager villager);
 
     /**
      * Calculates The player's and the villager's values for the
@@ -156,7 +157,7 @@ public abstract class Conversion {
      * @param villager The target villager.
      * @return Returns an integer array of the values.
      */
-    public abstract int[] calculatePlayerAndVilValues(Player player,
+    protected abstract int[] calculatePlayerAndVilValues(Player player,
             Villager villager);
 
     /**
@@ -166,6 +167,6 @@ public abstract class Conversion {
      * @param villager The target villager.
      * @param sect The sect.
      */
-    public abstract void winningActions(Player player, Villager villager,
+    protected abstract void winningActions(Player player, Villager villager,
             Sect sect);
 }

@@ -22,7 +22,7 @@ import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
 import javax.swing.JTextField;
 
 /**
@@ -36,11 +36,11 @@ public class NewGameViewPanelListener implements ActionListener {
     private final GameFrame gameFrame;
     private final JTextField textFieldPlayerName;
     private final JTextField textFieldSectName;
-    private final JButton button;
+    private final AbstractButton createGameButton;
 
     /**
-     * The constructor is given two JTextFields, a JButton, GameFrame, and
-     * GameLogic as parameters.
+     * The constructor is given two JTextFields, an array of one AbstractButton,
+     * GameFrame, and GameLogic as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
@@ -48,16 +48,16 @@ public class NewGameViewPanelListener implements ActionListener {
      * shown.
      * @param textFieldPlayerName The player name given by the player.
      * @param textFieldSectName The sect name given by the player.
-     * @param createGameButton Creates a new active game.
+     * @param buttons [0] createGameButton creates a new active game.
      */
     public NewGameViewPanelListener(GameLogic gameLogic, GameFrame frame,
             JTextField textFieldPlayerName, JTextField textFieldSectName,
-            JButton createGameButton) {
+            AbstractButton[] buttons) {
         this.gameLogic = gameLogic;
         this.gameFrame = frame;
         this.textFieldPlayerName = textFieldPlayerName;
         this.textFieldSectName = textFieldSectName;
-        this.button = createGameButton;
+        this.createGameButton = buttons[0];
     }
 
     @Override
@@ -66,13 +66,15 @@ public class NewGameViewPanelListener implements ActionListener {
 
         names[0] = textFieldPlayerName.getText();
         names[1] = textFieldSectName.getText();
-        try {
+        // Implement the config file enquiry.
 
-            // Implement the config file enquiry.
-            gameLogic.newGame(names, "", "", "");
-            gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
-        } catch (FileNotFoundException e) {
-            System.out.println("ei natsaa");
+        if (ae.getSource() == createGameButton) {
+            try {
+                gameLogic.newGame(names, "", "", "");
+                gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
+            } catch (FileNotFoundException e) {
+                System.out.println("ei natsaa");
+            }
         }
     }
 

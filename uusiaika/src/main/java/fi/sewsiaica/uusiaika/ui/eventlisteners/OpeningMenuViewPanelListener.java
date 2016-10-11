@@ -21,7 +21,7 @@ import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
 
 /**
  * The object of this class handles the events in the opening menu view.
@@ -32,14 +32,14 @@ public class OpeningMenuViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
-    private final JButton newGameButton;
-    private final JButton loadGameButton;
-    private final JButton settingsButton;
-    private final JButton hallOfFameButton;
-    private final JButton quitButton;
+    private final AbstractButton newGameButton;
+    private final AbstractButton loadGameButton;
+    private final AbstractButton settingsButton;
+    private final AbstractButton hallOfFameButton;
+    private final AbstractButton quitButton;
 
     /**
-     * The constructor is given an array of five JButtons, GameFrame, and
+     * The constructor is given an array of five AbstractButtons, GameFrame, and
      * GameLogic as parameters.
      *
      * @param frame The core class of the GUI. It controls which view panel is
@@ -50,7 +50,7 @@ public class OpeningMenuViewPanelListener implements ActionListener {
      * [2] view settings, [3] view the hall of fame, [4] quit the game.
      */
     public OpeningMenuViewPanelListener(GameFrame frame, GameLogic gameLogic,
-            JButton[] buttons) {
+            AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
         this.newGameButton = buttons[0];

@@ -21,16 +21,17 @@ import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.eventlisteners.MapViewPanelListener;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 /**
- * This class extends JPanel; All the other views of the ActiveGame are
- * reachable from the MapView.
+ * This class extends AbstractViewPanel; All the other views of the ActiveGame
+ * are reachable from the MapView.
  *
  * @author iah1016
  */
-public class MapViewPanel extends JPanel {
+public class MapViewPanel extends AbstractViewPanel {
 
     private final Dimension dimension;
     private final GameLogic gameLogic;
@@ -51,13 +52,21 @@ public class MapViewPanel extends JPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.WHITE);
-        addComponents();
+        this.setPanelSettings();
     }
 
-    private JButton[] createButtons() {
-        JButton[] buttons = new JButton[5];
+    @Override
+    protected final void setPanelSettings() {
+        this.setPreferredSize(dimension);
+        this.setBackground(Color.WHITE);
+
+        AbstractButton[] buttons = this.createButtons();
+        super.addButtons(buttons, this.createActionListener(buttons));
+    }
+
+    @Override
+    protected final AbstractButton[] createButtons() {
+        AbstractButton[] buttons = new JButton[5];
         buttons[0] = new JButton("Go to the temple");
         buttons[1] = new JButton("Go to the training centre");
         buttons[2] = new JButton("Door-to-door conversion");
@@ -66,15 +75,9 @@ public class MapViewPanel extends JPanel {
         return buttons;
     }
 
-    private void addComponents() {
-        JButton[] buttons = createButtons();
-        MapViewPanelListener mapViewPanelListener = new MapViewPanelListener(
-                gameLogic, gameFrame, buttons);
-
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].addActionListener(mapViewPanelListener);
-            JButton currentButton = buttons[i];
-            add(currentButton);
-        }
+    @Override
+    protected final ActionListener createActionListener(
+            AbstractButton[] buttons) {
+        return new MapViewPanelListener(gameLogic, gameFrame, buttons);
     }
 }

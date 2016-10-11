@@ -24,20 +24,20 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 
 /**
- * The object of this class handles the events in the map view. It currently
- * implements the ActionListener interface, though this may change.
+ * The object of this class handles the events in the door-to-door conversion
+ * view. The villager selection is not yet implemented.
  *
  * @author iah1016
  */
-public class MapViewPanelListener implements ActionListener {
+public class DoorToDoorViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
-    private final AbstractButton templeButton;
-    private final AbstractButton trainingCentreButton;
-    private final AbstractButton doorToDoorConversionButton;
+    private final AbstractButton persuasionButton;
+    private final AbstractButton sermonButton;
+    private final AbstractButton accusationButton;
+    private final AbstractButton returnToMapViewButton;
     private final AbstractButton endTurnButton;
-    private final AbstractButton openingMenuViewButton;
 
     /**
      * The constructor is given an array of five AbstractButtons, GameFrame, and
@@ -47,36 +47,44 @@ public class MapViewPanelListener implements ActionListener {
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
-     * @param buttons The current ViewPanel changes to [0] TEMPLE_VIEW, [1]
-     * TRAININGCENTRE_VIEW, [2] DOORTODOOR_VIEW (conversion), [3] Ends the turn
-     * via GameLogic, [4] openingMenuViewButton The current ViewPanel changes to
-     * OPENING_MENU_VIEW, thus ending the active game.
+     * @param buttons Button [0] is for the persuasion, [1] for the sermon, [2]
+     * for the accusation, [3] returns to the map view, and [4] ends the turn.
      */
-    public MapViewPanelListener(GameLogic gameLogic, GameFrame frame,
+    public DoorToDoorViewPanelListener(GameLogic gameLogic, GameFrame frame,
             AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.templeButton = buttons[0];
-        this.trainingCentreButton = buttons[1];
-        this.doorToDoorConversionButton = buttons[2];
-        this.endTurnButton = buttons[3];
-        this.openingMenuViewButton = buttons[4];
+        this.persuasionButton = buttons[0];
+        this.sermonButton = buttons[1];
+        this.accusationButton = buttons[2];
+        this.returnToMapViewButton = buttons[3];
+        this.endTurnButton = buttons[4];
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == templeButton) {
-            gameFrame.changeViewPanel(PanelNames.TEMPLE_VIEW);
-        } else if (ae.getSource() == trainingCentreButton) {
-            gameFrame.changeViewPanel(PanelNames.TRAININGCENTRE_VIEW);
-        } else if (ae.getSource() == doorToDoorConversionButton) {
-            gameFrame.changeViewPanel(PanelNames.DOORTODOOR_VIEW);
+        if (ae.getSource() == persuasionButton) {
+            persuasionSelected();
+        } else if (ae.getSource() == sermonButton) {
+            sermonSelected();
+        } else if (ae.getSource() == accusationButton) {
+            accusationSelected();
+        } else if (ae.getSource() == returnToMapViewButton) {
+            gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
         } else if (ae.getSource() == endTurnButton) {
             gameLogic.endTurn();
-            System.out.println(gameLogic.getActiveGame().getNumberOfTurns());
-        } else if (ae.getSource() == openingMenuViewButton) {
-            gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }
 
+    private void persuasionSelected() {
+        System.out.println("not yet implemented");
+    }
+
+    private void sermonSelected() {
+        System.out.println("not yet implemented");
+    }
+
+    private void accusationSelected() {
+        System.out.println("not yet implemented");
+    }
 }

@@ -21,28 +21,25 @@ import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.eventlisteners.NewGameViewPanelListener;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * This class extends JPanel; its object displays the creation of a new game.
+ * This class extends AbstractViewPanel; its object displays the creation of a
+ * new game.
  *
  * @author iah1016
  */
-public class NewGameViewPanel extends JPanel {
+public class NewGameViewPanel extends AbstractViewPanel {
 
     private final Dimension dimension;
     private final GameLogic gameLogic;
+    private final GameFrame gameFrame;
 
     /**
-     * Temporarily a public object variable.
-     */
-    GameFrame gameFrame;
-
-    /**
-     * Dimension, GameLogic, and GameFrame are given as parameters. GameFrame is
-     * temporarily a public object variable.
+     * Dimension, GameLogic, and GameFrame are given as parameters.
      *
      * @param dimension The dimensions of the panel.
      * @param gameLogic The core logic of the game, through which the other
@@ -56,12 +53,28 @@ public class NewGameViewPanel extends JPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.BLACK);
-        addComponents();
+        this.setPanelSettings();
     }
 
-    private void addComponents() {
+    @Override
+    protected final void setPanelSettings() {
+        this.setPreferredSize(dimension);
+        this.setBackground(Color.BLACK);
+
+        AbstractButton[] buttons = this.createButtons();
+        super.addButtons(buttons, this.createActionListener(buttons));
+    }
+
+    @Override
+    protected final AbstractButton[] createButtons() {
+        AbstractButton[] buttons = new JButton[1];
+        buttons[0] = new JButton("Create a new game");
+
+        return buttons;
+    }
+
+    @Override
+    protected final ActionListener createActionListener(AbstractButton[] buttons) {
         JTextField textFieldPlayerName = new JTextField(16);
         textFieldPlayerName.setText("Player");
         textFieldPlayerName.setForeground(Color.BLUE);
@@ -72,14 +85,8 @@ public class NewGameViewPanel extends JPanel {
         textFieldSectName.setForeground(Color.BLUE);
         add(textFieldSectName);
 
-        JButton createGame = new JButton("Create a new game");
-        
-        NewGameViewPanelListener newGameViewPanelListener
-                = new NewGameViewPanelListener(gameLogic, gameFrame,
-                        textFieldPlayerName, textFieldSectName, createGame);
-        
-        
-        createGame.addActionListener(newGameViewPanelListener);
-        add(createGame);
+        return new NewGameViewPanelListener(gameLogic, gameFrame,
+                textFieldPlayerName, textFieldSectName, buttons);
     }
+
 }

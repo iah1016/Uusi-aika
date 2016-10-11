@@ -110,11 +110,11 @@ public class GameLogic {
 
     /**
      * The actions that are set in the sect's temple. Options (b) and (c) will
-     * end the game (yet to be implemented), if the conditions are met.
+     * end the game, if the conditions are met.
      *
      * @param option (a) Preach, (b) Offer soda (c) Buy a one-way ticket.
-     * @return The option a is currently always returns true. The Option (b)
-     * requires a high playerCharisma and option (c) a high balance.
+     * @return Case (a) is returns true, unless the congregation size is zero,
+     * (b) requires a high playerCharisma and (c) a high balance.
      */
     public boolean templeActions(char option) {
         switch (option) {
@@ -146,7 +146,7 @@ public class GameLogic {
                 return false;
         }
     }
-
+    
     /**
      * This method executes the TurnLogic's nextTurn-method.
      *
@@ -168,31 +168,8 @@ public class GameLogic {
         trainingCentre = activeGame.getTrainingCentre();
     }
 
-    public Player getPlayer() {
-        return player;
+    public ActiveGame getActiveGame() {
+        return activeGame;
     }
-
-    public Sect getSect() {
-        return sect;
-    }
-
-    public List<Villager> getVillagers() {
-        return villagers;
-    }
-
-    public Conversion getPersuasion() {
-        return persuasion;
-    }
-
-    public Conversion getSermon() {
-        return sermon;
-    }
-
-    public Conversion getAccusation() {
-        return accusation;
-    }
-
-    public int getNumberOfTurns() {
-        return turnLogic.getNumberOfTurns();
-    }
+    
 }
