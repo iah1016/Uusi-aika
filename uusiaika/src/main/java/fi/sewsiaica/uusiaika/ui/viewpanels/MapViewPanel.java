@@ -19,11 +19,13 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.eventlisteners.MapViewPanelListener;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  * This class extends AbstractViewPanel; All the other views of the ActiveGame
@@ -36,6 +38,8 @@ public class MapViewPanel extends AbstractViewPanel {
     private final Dimension dimension;
     private final GameLogic gameLogic;
     private final GameFrame gameFrame;
+    private JPanel buttonPanel;
+    private JPanel infoPanel;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters.
@@ -52,16 +56,24 @@ public class MapViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.setPanelSettings();
+        this.setViewPanelSettings();
     }
 
     @Override
-    protected final void setPanelSettings() {
+    public final void setViewPanelSettings() {
         this.setPreferredSize(dimension);
         this.setBackground(Color.WHITE);
 
-        AbstractButton[] buttons = this.createButtons();
-        super.addButtons(buttons, this.createActionListener(buttons));
+        updateComponents();
+    }
+
+    private void updateComponents() {
+        AbstractButton[] buttons = createButtons();
+        ActionListener actionListener = createActionListener(buttons);
+
+        buttonPanel = createButtonPanel(buttons, actionListener);
+        infoPanel = createGameInfoPanel(gameLogic);
+        addSubPanelsToViewPanel();
     }
 
     @Override
@@ -80,4 +92,12 @@ public class MapViewPanel extends AbstractViewPanel {
             AbstractButton[] buttons) {
         return new MapViewPanelListener(gameLogic, gameFrame, buttons);
     }
+
+    @Override
+    protected void addSubPanelsToViewPanel() {
+        setLayout(new BorderLayout());
+        add(infoPanel, BorderLayout.NORTH);
+        add(buttonPanel, BorderLayout.CENTER);
+    }
+
 }

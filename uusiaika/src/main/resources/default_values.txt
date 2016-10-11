@@ -35,7 +35,7 @@ convAccuVilBound: 20
 convAccuPlayerCharIncr: 2
 convAccuVilSelfEsDecr: 5
 # TurnLogic
-turnInitialNumberOfTurns: 0
+turnInitialNumberOfTurns: 1
 turnMaxNumberOfTurns: 100
 turnSceptIncrPerTurn: 10
 turnThresholdForScepticism: 200

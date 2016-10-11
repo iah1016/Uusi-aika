@@ -63,7 +63,7 @@ public class TurnLogic {
      * @return Returns false, if the game is over and true otherwise.
      */
     public boolean nextTurn(Player player, Sect sect) {
-        if (gameHasReachedMaxTurns()) {
+        if (!balanceIsNotNegative(sect) || gameHasReachedMaxTurns()) {
             return false;
         }
         numberOfTurns++;

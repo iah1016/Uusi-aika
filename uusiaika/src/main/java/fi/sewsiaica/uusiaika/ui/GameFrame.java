@@ -31,7 +31,7 @@ import javax.swing.JPanel;
  */
 public class GameFrame extends JFrame {
 
-    private final Map<PanelNames, JPanel> viewPanelMap;
+    private final Map<PanelNames, AbstractViewPanel> viewPanelMap;
     private final GameLogic gameLogic;
     private final String[] args;
     private final Dimension dimension;
@@ -66,8 +66,8 @@ public class GameFrame extends JFrame {
         this.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
     }
 
-    private Map<PanelNames, JPanel> createViewPanelMap() {
-        Map<PanelNames, JPanel> tempMap;
+    private Map<PanelNames, AbstractViewPanel> createViewPanelMap() {
+        Map<PanelNames, AbstractViewPanel> tempMap;
         tempMap = new EnumMap<>(PanelNames.class);
 
         tempMap.put(PanelNames.OPENING_MENU_VIEW,
@@ -93,11 +93,13 @@ public class GameFrame extends JFrame {
      * mistyping.
      */
     public void changeViewPanel(PanelNames keyForPanel) {
-        JPanel panel = viewPanelMap.get(keyForPanel);
+        AbstractViewPanel panel = viewPanelMap.get(keyForPanel);
         getContentPane().removeAll();
         getContentPane().add(panel);
-        panel.revalidate();
+        panel.removeAll();
+        panel.invalidate();
         panel.repaint();
+        panel.setViewPanelSettings();
         pack();
         setVisible(true);
     }

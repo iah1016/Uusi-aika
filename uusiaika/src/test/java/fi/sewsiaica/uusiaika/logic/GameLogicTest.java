@@ -147,7 +147,7 @@ public class GameLogicTest {
         boolean gameOver = false;
         activeGame.getSect().setBalance(1000000);
         // The default max number of turns is 100.
-        for (int i = 0; i <= 99; i++) {
+        for (int i = 1; i <= 99; i++) {
             gameOver = !gameLogic.endTurn();
         }
         assertEquals(false, gameOver);

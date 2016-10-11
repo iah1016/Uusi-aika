@@ -34,6 +34,7 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
     private final Dimension dimension;
     private final GameLogic gameLogic;
     private final GameFrame gameFrame;
+    private JPanel buttonPanel;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters.
@@ -51,16 +52,23 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
         this.gameLogic = gameLogic;
         this.gameFrame = frame;
         this.dimension = dimension;
-        this.setPanelSettings();
+        this.setViewPanelSettings();
     }
 
     @Override
-    protected final void setPanelSettings() {
+    public final void setViewPanelSettings() {
         this.setPreferredSize(dimension);
         this.setBackground(Color.BLACK);
 
+        updateComponents();
+    }
+    
+    private void updateComponents() {
         AbstractButton[] buttons = this.createButtons();
-        super.addButtons(buttons, this.createActionListener(buttons));
+        ActionListener actionListener = this.createActionListener(buttons);
+
+        buttonPanel = super.createButtonPanel(buttons, actionListener);
+        addSubPanelsToViewPanel();
     }
 
     @Override
@@ -78,6 +86,12 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {
         return new OpeningMenuViewPanelListener(gameFrame, gameLogic, buttons);
+    }
+
+    @Override
+    protected void addSubPanelsToViewPanel() {
+        setLayout(new BorderLayout());
+        add(buttonPanel, BorderLayout.CENTER);
     }
 
 }

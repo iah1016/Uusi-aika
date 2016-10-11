@@ -16,13 +16,15 @@
  */
 package fi.sewsiaica.uusiaika.ui.viewpanels;
 
+import fi.sewsiaica.uusiaika.logic.GameLogic;
+import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 
 /**
  * The abstract view panel currently contains the implementation of the
- * addButtons method.
+ * createButtonPanel method.
  *
  * @author iah1016
  */
@@ -37,25 +39,38 @@ public abstract class AbstractViewPanel extends JPanel {
     }
 
     /**
-     * Adds the given buttons to the view panel and to the corresponding
-     * ActionListener object.
+     * This method will create a new InfoPanel instance (JPanel subclass).
      *
-     * @param buttons An array of AbstractButtons.
-     * @param actionListener The ActionListener for the view panel subclass.
+     * @param gameLogic GameLogic is given as a parameter.
+     * @return Returns the info panel.
      */
-    protected void addButtons(AbstractButton[] buttons,
-            ActionListener actionListener) {
-
-        for (AbstractButton button : buttons) {
-            button.addActionListener(actionListener);
-            add(button);
-        }
+    public JPanel createGameInfoPanel(GameLogic gameLogic) {
+        return new InfoPanel(gameLogic);
     }
 
     /**
-     * This method contains the panel settings.
+     * Adds the given buttons to a new JPanel, which it returns, and the
+     * corresponding ActionListener object to the buttons.
+     *
+     * @param buttons An array of AbstractButtons.
+     * @param actionListener The ActionListener for the buttons.
+     * @return Returns the JPanel which contains the buttons.
      */
-    protected abstract void setPanelSettings();
+    protected JPanel createButtonPanel(AbstractButton[] buttons,
+            ActionListener actionListener) {
+        JPanel buttonPanel = new JPanel();
+
+        for (AbstractButton button : buttons) {
+            button.addActionListener(actionListener);
+            buttonPanel.add(button);
+        }
+        return buttonPanel;
+    }
+
+    /**
+     * This method contains the view panel settings.
+     */
+    public abstract void setViewPanelSettings();
 
     /**
      * The method for creating an array of AbstractButtons.
@@ -74,4 +89,9 @@ public abstract class AbstractViewPanel extends JPanel {
     protected abstract ActionListener createActionListener(
             AbstractButton[] buttons);
 
+    /**
+     * This method adds the sub panels to the view panel and makes them visible.
+     *
+     */
+    protected abstract void addSubPanelsToViewPanel();
 }

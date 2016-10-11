@@ -146,7 +146,7 @@ public class GameLogic {
                 return false;
         }
     }
-    
+
     /**
      * This method executes the TurnLogic's nextTurn-method.
      *
@@ -171,5 +171,5 @@ public class GameLogic {
     public ActiveGame getActiveGame() {
         return activeGame;
     }
-    
+
 }

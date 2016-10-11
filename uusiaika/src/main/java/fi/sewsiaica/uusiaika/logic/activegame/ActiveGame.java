@@ -82,7 +82,7 @@ public class ActiveGame {
     public int getNumberOfTurns() {
         return turnLogic.getNumberOfTurns();
     }
-    
+
     public TurnLogic getTurnLogic() {
         return turnLogic;
     }
@@ -117,6 +117,14 @@ public class ActiveGame {
 
     public List<Villager> getVillagers() {
         return villagers;
+    }
+
+    @Override
+    public String toString() {
+        return "Turn: " + getNumberOfTurns()
+                + "  " + player.getName()
+                + "  " + sect.getName() + "  Balance: " + sect.getBalance()
+                + "  Members: " + sect.getCongregation().size();
     }
 
 }
