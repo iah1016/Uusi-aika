@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2016</copyright>
     <item>
-      <title>File: 34,
+      <title>File: 44,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -116,6 +116,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.generaltools.MapAndStringListInterconversion.java">fi/sewsiaica/uusiaika/generaltools/MapAndStringListInterconversion.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.activegame.ActiveGame.java">fi/sewsiaica/uusiaika/logic/activegame/ActiveGame.java</a>
                 </td>
                 <td>
@@ -130,35 +144,21 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.eventlisteners.TrainingCentreViewPanelListener.java">fi/sewsiaica/uusiaika/ui/eventlisteners/TrainingCentreViewPanelListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.toolsfortests.MockRandom.java">fi/sewsiaica/uusiaika/toolsfortests/MockRandom.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.PanelKeys.java">fi/sewsiaica/uusiaika/ui/PanelKeys.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.generaltools.StrIntMapStringListInterconversion.java">fi/sewsiaica/uusiaika/generaltools/StrIntMapStringListInterconversion.java</a>
                 </td>
                 <td>
                   0
@@ -187,6 +187,34 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.config.LoadConfig.java">fi/sewsiaica/uusiaika/config/LoadConfig.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanels.TrainingCentreViewPanel.java">fi/sewsiaica/uusiaika/ui/viewpanels/TrainingCentreViewPanel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.PanelNames.java">fi/sewsiaica/uusiaika/ui/PanelNames.java</a>
                 </td>
                 <td>
                   0
@@ -242,7 +270,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Villager.java">fi/sewsiaica/uusiaika/domain/Villager.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanels.TempleViewPanel.java">fi/sewsiaica/uusiaika/ui/viewpanels/TempleViewPanel.java</a>
                 </td>
                 <td>
                   0
@@ -256,7 +284,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.GUIRunner.java">fi/sewsiaica/uusiaika/ui/GUIRunner.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Villager.java">fi/sewsiaica/uusiaika/domain/Villager.java</a>
                 </td>
                 <td>
                   0
@@ -312,7 +340,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.generaltools.MapStringListInterconversion.java">fi/sewsiaica/uusiaika/generaltools/MapStringListInterconversion.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.eventlisteners.OpeningMenuViewPanelListener.java">fi/sewsiaica/uusiaika/ui/eventlisteners/OpeningMenuViewPanelListener.java</a>
                 </td>
                 <td>
                   0
@@ -354,6 +382,48 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.generaltools.StrStrMapAndStringListInterconversion.java">fi/sewsiaica/uusiaika/generaltools/StrStrMapAndStringListInterconversion.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.eventlisteners.MapViewPanelListener.java">fi/sewsiaica/uusiaika/ui/eventlisteners/MapViewPanelListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanels.AbstractViewPanel.java">fi/sewsiaica/uusiaika/ui/viewpanels/AbstractViewPanel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.activegame.TrainingCentre.java">fi/sewsiaica/uusiaika/logic/activegame/TrainingCentre.java</a>
                 </td>
                 <td>
@@ -368,7 +438,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.main.Main.java">fi/sewsiaica/uusiaika/main/Main.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.eventlisteners.TempleViewPanelListener.java">fi/sewsiaica/uusiaika/ui/eventlisteners/TempleViewPanelListener.java</a>
                 </td>
                 <td>
                   0
@@ -382,7 +452,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.generaltools.StrStrMapStringListInterconversion.java">fi/sewsiaica/uusiaika/generaltools/StrStrMapStringListInterconversion.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.main.Main.java">fi/sewsiaica/uusiaika/main/Main.java</a>
                 </td>
                 <td>
                   0
@@ -438,6 +508,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.eventlisteners.NewGameViewPanelListener.java">fi/sewsiaica/uusiaika/ui/eventlisteners/NewGameViewPanelListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Sect.java">fi/sewsiaica/uusiaika/domain/Sect.java</a>
                 </td>
                 <td>
@@ -480,7 +564,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.eventlisteners.DoorToDoorViewPanelListener.java">fi/sewsiaica/uusiaika/ui/eventlisteners/DoorToDoorViewPanelListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.activegamechanger.PlayerAndSectHandler.java">fi/sewsiaica/uusiaika/logic/activegamechanger/PlayerAndSectHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.generaltools.StrIntMapAndStringListInterconversion.java">fi/sewsiaica/uusiaika/generaltools/StrIntMapAndStringListInterconversion.java</a>
                 </td>
                 <td>
                   0
@@ -509,6 +621,34 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanels.OpeningMenuViewPanel.java">fi/sewsiaica/uusiaika/ui/viewpanels/OpeningMenuViewPanel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.RunnableGUI.java">fi/sewsiaica/uusiaika/ui/RunnableGUI.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanels.DoorToDoorViewPanel.java">fi/sewsiaica/uusiaika/ui/viewpanels/DoorToDoorViewPanel.java</a>
                 </td>
                 <td>
                   0
