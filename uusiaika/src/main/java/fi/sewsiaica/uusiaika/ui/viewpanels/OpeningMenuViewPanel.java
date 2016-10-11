@@ -60,26 +60,15 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
         this.setPreferredSize(dimension);
         this.setBackground(Color.BLACK);
 
-        updateComponents();
+        this.updateComponents();
     }
     
     private void updateComponents() {
-        AbstractButton[] buttons = this.createButtons();
-        ActionListener actionListener = this.createActionListener(buttons);
-
-        buttonPanel = super.createButtonPanel(buttons, actionListener);
-        addSubPanelsToViewPanel();
-    }
-
-    @Override
-    protected final AbstractButton[] createButtons() {
-        AbstractButton[] buttons = new JButton[5];
-        buttons[0] = new JButton("Start a new Game");
-        buttons[1] = new JButton("Load a game");
-        buttons[2] = new JButton("Settings");
-        buttons[3] = new JButton("Hall of fame");
-        buttons[4] = new JButton("Quit");
-        return buttons;
+        String[] textsForButtons = {"Start a new Game", "Load a game",
+            "Settings", "Hall of fame", "Quit"};
+        
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        this.addSubPanelsToViewPanel();
     }
 
     @Override
@@ -90,8 +79,8 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
 
     @Override
     protected void addSubPanelsToViewPanel() {
-        setLayout(new BorderLayout());
-        add(buttonPanel, BorderLayout.CENTER);
+        this.setLayout(new BorderLayout());
+        this.add(buttonPanel, BorderLayout.CENTER);
     }
 
 }

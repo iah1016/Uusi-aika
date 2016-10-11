@@ -24,7 +24,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -67,23 +66,14 @@ public class TempleViewPanel extends AbstractViewPanel {
     }
 
     private void updateComponents() {
-        AbstractButton[] buttons = this.createButtons();
-        ActionListener actionListener = this.createActionListener(buttons);
-
-        buttonPanel = super.createButtonPanel(buttons, actionListener);
-        infoPanel = createGameInfoPanel(gameLogic);
-        addSubPanelsToViewPanel();
-    }
-
-    @Override
-    protected final AbstractButton[] createButtons() {
-        AbstractButton[] buttons = new JButton[5];
-        buttons[0] = new JButton("Preach to the congregation");
-        buttons[1] = new JButton("Offer soda to everyone");
-        buttons[2] = new JButton("Buy a one-way ticket to a paradise island");
-        buttons[3] = new JButton("Go back to the Map view");
-        buttons[4] = new JButton("End turn");
-        return buttons;
+        String[] textsForButtons = {"Preach to the congregation",
+            "Offer soda to everyone",
+            "Buy a one-way ticket to a paradise island",
+            "Go back to the Map view", "End turn"};
+        
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        infoPanel = super.getNewGameInfoPanel(gameLogic);
+        this.addSubPanelsToViewPanel();
     }
 
     @Override
@@ -94,8 +84,8 @@ public class TempleViewPanel extends AbstractViewPanel {
 
     @Override
     protected void addSubPanelsToViewPanel() {
-        setLayout(new BorderLayout());
-        add(infoPanel, BorderLayout.NORTH);
-        add(buttonPanel, BorderLayout.CENTER);
+        this.setLayout(new BorderLayout());
+        this.add(infoPanel, BorderLayout.NORTH);
+        this.add(buttonPanel, BorderLayout.CENTER);
     }
 }

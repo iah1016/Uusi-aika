@@ -20,7 +20,9 @@ import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * The abstract view panel currently contains the implementation of the
@@ -39,24 +41,24 @@ public abstract class AbstractViewPanel extends JPanel {
     }
 
     /**
-     * This method will create a new InfoPanel instance (JPanel subclass).
+     * This method returns a new Button subpanel (JPanel subclass) which
+     * contains AbstractButtons attached to the corresponding ActionListener. It
+     * calls the following methods: createButtons, createActionListener,
+     * createButtonPanel.
      *
-     * @param gameLogic GameLogic is given as a parameter.
-     * @return Returns the info panel.
-     */
-    public JPanel createGameInfoPanel(GameLogic gameLogic) {
-        return new InfoPanel(gameLogic);
-    }
-
-    /**
-     * Adds the given buttons to a new JPanel, which it returns, and the
-     * corresponding ActionListener object to the buttons.
-     *
-     * @param buttons An array of AbstractButtons.
-     * @param actionListener The ActionListener for the buttons.
+     * @param textsForButtons The texts of the Buttons given as a string array.
      * @return Returns the JPanel which contains the buttons.
      */
-    protected JPanel createButtonPanel(AbstractButton[] buttons,
+    protected JPanel getNewButtonPanel(String[] textsForButtons) {
+
+        AbstractButton[] buttons = createButtons(textsForButtons);
+        ActionListener actionListener = createActionListener(buttons);
+        JPanel buttonPanel = createButtonPanel(buttons, actionListener);
+
+        return buttonPanel;
+    }
+
+    private JPanel createButtonPanel(AbstractButton[] buttons,
             ActionListener actionListener) {
         JPanel buttonPanel = new JPanel();
 
@@ -67,17 +69,47 @@ public abstract class AbstractViewPanel extends JPanel {
         return buttonPanel;
     }
 
+    private AbstractButton[] createButtons(String[] textsForButtons) {
+        AbstractButton[] buttons = new JButton[textsForButtons.length];
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i] = new JButton(textsForButtons[i]);
+        }
+        return buttons;
+    }
+
+    /**
+     * This method will create a new InfoPanel instance (JPanel subclass).
+     *
+     * @param gameLogic GameLogic is given as a parameter.
+     * @return Returns the info panel.
+     */
+    public JPanel getNewGameInfoPanel(GameLogic gameLogic) {
+        return new InfoPanel(gameLogic);
+    }
+
+    /**
+     * The method creates a new JTextField and then adds it to the given
+     * textFieldPanel (JPanel subclass).
+     *
+     * @param textFieldPanel A JPanel subclass object.
+     * @param text The default text displayed in the text field.
+     * @param length The length of the text field.
+     * @return Returns a JTextField object.
+     */
+    protected JTextField createJTextField(JPanel textFieldPanel,
+            String text, int length) {
+        JTextField textField = new JTextField(length);
+        textField.setText(text);
+
+        textFieldPanel.add(textField);
+        return textField;
+    }
+
     /**
      * This method contains the view panel settings.
      */
     public abstract void setViewPanelSettings();
-
-    /**
-     * The method for creating an array of AbstractButtons.
-     *
-     * @return returns the array of AbstractButtons.
-     */
-    protected abstract AbstractButton[] createButtons();
 
     /**
      * This method creates the ActionListener for the view panel subclass.

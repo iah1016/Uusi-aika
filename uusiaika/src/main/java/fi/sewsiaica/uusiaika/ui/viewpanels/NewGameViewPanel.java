@@ -24,7 +24,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -65,46 +64,35 @@ public class NewGameViewPanel extends AbstractViewPanel {
         this.setPreferredSize(dimension);
         this.setBackground(Color.BLACK);
 
-        updateComponents();
+        this.updateComponents();
     }
-    
+
     private void updateComponents() {
-        this.textFieldPanel = new JPanel();
+        String[] textsForButtons = {"Create a new game"};
 
-        AbstractButton[] buttons = this.createButtons();
-        ActionListener actionListener = this.createActionListener(buttons);
-
-        buttonPanel = super.createButtonPanel(buttons, actionListener);
-        addSubPanelsToViewPanel();
-    }
-
-    @Override
-    protected final AbstractButton[] createButtons() {
-        AbstractButton[] buttons = new JButton[1];
-        buttons[0] = new JButton("Create a new game");
-        return buttons;
+        textFieldPanel = new JPanel();
+        // The method that creates JTextFields also add them to textFieldPanel.
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        this.addSubPanelsToViewPanel();
     }
 
     @Override
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {
-        return new NewGameViewPanelListener(gameLogic, gameFrame,
-                createJTextField("Player"), createJTextField("Sect"), buttons);
-    }
+        JTextField playerJText
+                = super.createJTextField(textFieldPanel, "Player", 18);
+        JTextField sectJText
+                = super.createJTextField(textFieldPanel, "Sect", 18);
 
-    private JTextField createJTextField(String text) {
-        JTextField textField = new JTextField(18);
-        textField.setText(text);
-        textField.setForeground(Color.BLUE);
-        textFieldPanel.add(textField);
-        return textField;
+        return new NewGameViewPanelListener(gameLogic, gameFrame,
+                playerJText, sectJText, buttons);
     }
 
     @Override
     protected void addSubPanelsToViewPanel() {
-        setLayout(new BorderLayout());
-        add(buttonPanel, BorderLayout.CENTER);
-        add(textFieldPanel, BorderLayout.LINE_START);
+        this.setLayout(new BorderLayout());
+        this.add(buttonPanel, BorderLayout.CENTER);
+        this.add(textFieldPanel, BorderLayout.LINE_START);
     }
 
 }
