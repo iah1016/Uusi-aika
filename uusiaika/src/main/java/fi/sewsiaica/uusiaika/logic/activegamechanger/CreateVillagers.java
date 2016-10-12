@@ -70,6 +70,31 @@ public class CreateVillagers {
     }
 
     /**
+     * Prepare the salvaged villagers for the postdiluvian ventures.
+     *
+     * @param names The names list of the villagers.
+     * @param professions The professions list of the villagers.
+     * @param inSect The boolean array of the villagers' sect membership.
+     * @param attributes The villagers' attributes in a list of arrays.
+     * @return Returns an ArrayList of Villagers.
+     */
+    public List<Villager> populateVillageWithLoadedVillagers(
+            List<String> names, List<String> professions, boolean[] inSect,
+            List<int[]> attributes) {
+        List<Villager> villagers = new ArrayList<>();
+        this.numberOfVillagers = inSect.length;
+
+        for (int i = 0; i < numberOfVillagers; i++) {
+            villagers.add(new Villager(names.get(i), inSect[i],
+                    attributes.get(0)[i], attributes.get(1)[i],
+                    attributes.get(2)[i], attributes.get(3)[i],
+                    professions.get(i)));
+        }
+
+        return villagers;
+    }
+
+    /**
      * Creates an ArrayList of integer arrays, each containing each villager's
      * value for each attribute.
      *
@@ -114,7 +139,7 @@ public class CreateVillagers {
      * @param selection The list of String.
      * @return Returns a String array.
      */
-    public String[] pickStrings(int quantity, List<String> selection) {
+    protected String[] pickStrings(int quantity, List<String> selection) {
         if (quantity < 1) {
             return new String[0];
         }
@@ -135,7 +160,7 @@ public class CreateVillagers {
      * @param bound The upper bound for Random (exclusive).
      * @return Returns the calculated value for the attribute.
      */
-    public int[] pickRandomNumbers(int quantity, int baseValue, int bound) {
+    protected int[] pickRandomNumbers(int quantity, int baseValue, int bound) {
         if (quantity < 1 || bound < 1) {
             return new int[0];
         }

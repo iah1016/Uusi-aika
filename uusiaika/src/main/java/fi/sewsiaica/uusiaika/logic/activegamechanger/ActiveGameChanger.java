@@ -18,6 +18,7 @@ package fi.sewsiaica.uusiaika.logic.activegamechanger;
 
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
+import fi.sewsiaica.uusiaika.logic.activegamechanger.saveloadgamehandlers.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -35,14 +36,16 @@ public class ActiveGameChanger {
     private final Config config;
     private final CreateVillagers createVillagers;
     private final PlayerAndSectHandler playerAndSectHandler;
+    private final SaveGameHandler saveGameHandler;
+    private final LoadGameHandler loadGameHandler;
     private Map<String, Integer> configIntValues;
     private List<String> vilNamesForCreation;
     private List<String> professionsForCreation;
 
     /**
-     * Random and Config objects are given to the constructor, CreateVillagers
-     * and PlayerAndSecHandler objects are created by the constructor. All of
-     * them are immutable object variables.
+     * Random and Config objects are given to the constructor; CreateVillagers,
+     * PlayerAndSecHandler, Save- and LoadGameHandler objects are created by the
+     * constructor. All of them are immutable object variables.
      *
      * @param random Random is needed by CreateVillagers and the Conversion
      * classes.
@@ -54,6 +57,8 @@ public class ActiveGameChanger {
         this.config = config;
         createVillagers = new CreateVillagers(random);
         playerAndSectHandler = new PlayerAndSectHandler();
+        saveGameHandler = new SaveGameHandler();
+        loadGameHandler = new LoadGameHandler(createVillagers);
     }
 
     /**
@@ -74,13 +79,23 @@ public class ActiveGameChanger {
     }
 
     /**
-     * The LoadGame feature is not yet implemented.
+     * This method loads a game from a file and sets it to ActiveGame;
      *
-     * @param saveName The name of the save file.
-     * @return Returns Null, at the moment.
+     * @param saveFile The save file.
+     * @return Returns the ActiveGame or null if loading is unsuccessful.
      */
-    public ActiveGame loadActiveGame(String saveName) {
-        // Do something.
+    public ActiveGame loadActiveGame(File saveFile) {
+        if (loadGameHandler.loadGame(saveFile)) {
+            setConfigIntValues(loadGameHandler.getConfigVariableMap());
+            playerAndSectHandler.createPlayerAndSect(
+                    loadGameHandler.getPlayerAndSectNamesArray(),
+                    configIntValues);
+            
+            return new ActiveGame(random, configIntValues,
+                    loadGameHandler.getVillagers(),
+                    playerAndSectHandler.getPlayer(),
+                    playerAndSectHandler.getSect());
+        }
         return null;
     }
 
@@ -111,4 +126,13 @@ public class ActiveGameChanger {
         return true;
     }
 
+    /**
+     * This method is used for updating Config variables when loaded from a save
+     * file.
+     *
+     * @param configIntValues loaded successfully from a save file.
+     */
+    public void setConfigIntValues(Map<String, Integer> configIntValues) {
+        this.configIntValues = configIntValues;
+    }
 }

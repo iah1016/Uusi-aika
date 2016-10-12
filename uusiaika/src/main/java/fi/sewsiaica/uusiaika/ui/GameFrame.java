@@ -83,6 +83,8 @@ public class GameFrame extends JFrame {
                 new DoorToDoorViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.SETTINGS_VIEW,
                 new SettingsViewPanel(dimension, gameLogic, this));
+        tempMap.put(PanelNames.LOAD_GAME_VIEW,
+                new LoadGameViewPanel(dimension, gameLogic, this));
 
         return tempMap;
     }

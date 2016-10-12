@@ -57,9 +57,10 @@ public class ActiveGame {
             List<Villager> villagers, Player player, Sect sect) {
         this.configIntValues = configIntValues;
         createLogicModules(random);
-        this.villagers = villagers;
+        this.villagers = villagers;        
         this.player = player;
         this.sect = sect;
+        setMembersToCongregation();
         this.targetVillagers = new ArrayList<>();
     }
 
@@ -79,6 +80,14 @@ public class ActiveGame {
                 configIntValues.get("convAccuVilBound"));
         this.temple = new Temple(configIntValues);
         this.trainingCentre = new TrainingCentre(configIntValues);
+    }
+    
+    private void setMembersToCongregation() {
+        for (Villager villager : villagers) {
+            if (villager.isInSect()) {
+                sect.getCongregation().add(villager);
+            }
+        }
     }
 
     // Getters

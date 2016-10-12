@@ -68,9 +68,4 @@ public class ActiveGameChangerTest {
         assertEquals("Teemu P, Opettaja", game.getVillagers().get(3).getName()
                 + ", " + game.getVillagers().get(2).getProfession());
     }
-
-    @Test
-    public void loadActiveGameIsNotImplementedAndReturnsNull() {
-        assertEquals(null, activeGameChanger.loadActiveGame(""));
-    }
 }

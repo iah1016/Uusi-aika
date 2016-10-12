@@ -79,9 +79,15 @@ public class LoadConfig {
         return readFromFile.yankTextFromFile(file);
     }
 
-    private boolean areValidIntValues(Map<String, Integer> intValues) {
+    /**
+     * This method checks that the Map is a valid Config variable value map.
+     *
+     * @param intValuesMap The Map that is being checked for validity.
+     * @return Returns true if valid and false if invalid.
+     */
+    protected boolean areValidIntValues(Map<String, Integer> intValuesMap) {
         for (String variable : variableNames) {
-            if (!intValues.containsKey(variable)) {
+            if (!intValuesMap.containsKey(variable)) {
                 return false;
             }
         }

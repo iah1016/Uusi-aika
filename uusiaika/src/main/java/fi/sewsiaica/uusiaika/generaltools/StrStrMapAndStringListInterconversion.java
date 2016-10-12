@@ -37,7 +37,7 @@ public class StrStrMapAndStringListInterconversion extends
      * @return Returns a String,?-type Map, where ? is a wildcard.
      */
     @Override
-    public Map<String, ?> convertStringListToMap(List<String> list) {
+    protected Map<String, ?> convertStringListToMap(List<String> list) {
 
         Map<String, String> map = new HashMap<>();
 

@@ -55,7 +55,7 @@ public class GameLogic {
      */
     public GameLogic(Random random, Config config) {
         activeGameChanger = new ActiveGameChanger(random, config);
-        configFiles = new File[3];
+        configFiles = new File[4];
     }
 
     /**
@@ -81,15 +81,19 @@ public class GameLogic {
     /**
      * The LoadGame feature is not yet implemented.
      *
-     * @param saveName The values will be read from a text file.
-     * @return Returns false if the file is not found.
+     * @param saveFile The values will be read from a text file.
+     * @return Returns false if the save file is invalid.
      */
-//    public boolean loadGame(String saveName) throws FileNotFoundException {
-//            activeGame = activeGameChanger.loadActiveGame(saveName);
-//            getModulesFromActiveGame();
-//            return true;
-//    }
-//
+    public boolean loadGame(File saveFile) {
+            ActiveGame tempGame = activeGameChanger.loadActiveGame(saveFile);
+            if (tempGame == null) {
+                return false;
+            }
+            activeGame = tempGame;
+            getModulesFromActiveGame();
+            return true;
+    }
+
     /**
      * Player attempts to convert a villager.
      *
@@ -177,8 +181,8 @@ public class GameLogic {
 
     /**
      * The configuration files are: [0] the file containing Config variable
-     * values, [1] The file containing villager names, [2] The file containing
-     * professions, [3] .
+     * values, [1] the file containing villager names, [2] the file containing
+     * professions, [3] the language settings.
      *
      * @return Returns the array of the configuration files.
      */

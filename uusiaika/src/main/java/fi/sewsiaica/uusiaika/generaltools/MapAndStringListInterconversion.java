@@ -38,7 +38,7 @@ public abstract class MapAndStringListInterconversion {
      * @param list A List of Strings.
      * @return Returns a Map of an appropriate type, selected by the subclass.
      */
-    public abstract Map<String, ?> convertStringListToMap(List<String> list);
+    protected abstract Map<String, ?> convertStringListToMap(List<String> list);
 
     /**
      * This method converts any String,?-type map to a String-type List, where ?
@@ -65,7 +65,7 @@ public abstract class MapAndStringListInterconversion {
      * @param string A string is given from the StringList.
      * @return Returns a key and value pair for the Map.
      */
-    public String[] processOneStringFromStringList(String string) {
+    protected String[] processOneStringFromStringList(String string) {
         boolean colonFound = false;
         boolean postColonSpaceIgnored = false;
         StringBuilder keySB = new StringBuilder();
@@ -101,7 +101,7 @@ public abstract class MapAndStringListInterconversion {
      * @param currentChar The character that is being checked from the string.
      * @return True, if the character is a colon and false otherwise.
      */
-    public boolean currentCharIsColon(char currentChar) {
+    protected boolean currentCharIsColon(char currentChar) {
         return currentChar == ':';
     }
 
@@ -112,7 +112,7 @@ public abstract class MapAndStringListInterconversion {
      * @param value The value part of the string.
      * @return Returns null if value is empty and value otherwise.
      */
-    public String returnValueOrNullIfValueIsEmpty(String value) {
+    protected String returnValueOrNullIfValueIsEmpty(String value) {
         if (value.isEmpty()) {
             return null;
         }

@@ -30,6 +30,15 @@ import java.util.Map;
 public class StrIntMapAndStringListInterconversion extends
         MapAndStringListInterconversion {
 
+    private final ObjectTypeConversionChecker typeChecker;
+
+    /**
+     * The constructor creates a new ObjectTypeConversionChecker object.
+     */
+    public StrIntMapAndStringListInterconversion() {
+        this.typeChecker = new ObjectTypeConversionChecker();
+    }
+
     /**
      * The implementation of convertStringListToMap.
      *
@@ -37,7 +46,7 @@ public class StrIntMapAndStringListInterconversion extends
      * @return Returns a String,?-type Map, where ? is a wildcard.
      */
     @Override
-    public Map<String, ?> convertStringListToMap(
+    protected Map<String, ?> convertStringListToMap(
             List<String> list) {
         Map<String, Integer> map = new HashMap<>();
 
@@ -45,12 +54,10 @@ public class StrIntMapAndStringListInterconversion extends
             String string = list.get(strIdx);
             String[] keyAndValue = processOneStringFromStringList(string);
             if (keyAndValue != null) {
-                map.put(keyAndValue[0],
-                        returnValueAsIntOrZeroIfInvalidIntGiven(
-                                keyAndValue[1]));
+                map.put(keyAndValue[0], returnValueAsIntOrZeroIfInvalidIntGiven(
+                        keyAndValue[1]));
             }
         }
-
         return map;
     }
 
@@ -76,14 +83,10 @@ public class StrIntMapAndStringListInterconversion extends
      * @return Returns the value as an integer or zero if the conversion is
      * unsuccessful.
      */
-    public int returnValueAsIntOrZeroIfInvalidIntGiven(String valueStr) {
-        int value;
-        try {
-            value = Integer.parseInt(valueStr);
-        } catch (Exception e) {
-            return 0;
+    protected int returnValueAsIntOrZeroIfInvalidIntGiven(String valueStr) {
+        if (typeChecker.stringCanBeConvertedToInt(valueStr)) {
+            return Integer.parseInt(valueStr);
         }
-
-        return value;
+        return 0;
     }
 }

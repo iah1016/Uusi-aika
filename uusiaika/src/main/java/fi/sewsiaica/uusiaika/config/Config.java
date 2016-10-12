@@ -106,7 +106,19 @@ public class Config {
         return loadConfig.loadListFromAFile(professionsFile);
     }
 
-    public String[] getVariableNames() {
+    /**
+     * This method uses LoadConfig's method to determine the validity of a
+     * configuration variable values Map.
+     *
+     * @param intValuesMap The Map that is being checked for validity.
+     * @return Returns true if valid and false if invalid.
+     */
+    public boolean checkValidityOfConfigVariableMap(
+            Map<String, Integer> intValuesMap) {
+        return loadConfig.areValidIntValues(intValuesMap);
+    }
+    
+    protected String[] getVariableNames() {
         return variableNames;
     }
 

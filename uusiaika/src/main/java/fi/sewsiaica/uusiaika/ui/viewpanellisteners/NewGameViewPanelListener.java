@@ -122,6 +122,8 @@ public class NewGameViewPanelListener implements ActionListener {
 
         if (nameLengthsAreNotOverLimit(names, 25)) {
             tryCreatingNewGame(names);
+        } else {
+            System.out.println("A name can be max 25 characters long.");
         }
     }
 

@@ -14,20 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.ui;
+package fi.sewsiaica.uusiaika.logic.activegamechanger.saveloadgamehandlers;
 
 /**
- * This Enum class contains the keys for the viewPanelMap.
- *
+ * This class handles the saving of the active game to a file.
+ * 
  * @author iah1016
  */
-public enum PanelNames {
-    OPENING_MENU_VIEW,
-    NEW_GAME_VIEW,
-    MAP_VIEW,
-    TEMPLE_VIEW,
-    TRAININGCENTRE_VIEW,
-    DOORTODOOR_VIEW,
-    SETTINGS_VIEW,
-    LOAD_GAME_VIEW;
+public class SaveGameHandler {
+    
 }

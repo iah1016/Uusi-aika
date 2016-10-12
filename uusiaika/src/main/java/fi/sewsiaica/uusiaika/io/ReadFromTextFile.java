@@ -75,7 +75,7 @@ public class ReadFromTextFile {
      *
      * @param list All them beautiful yankees.
      * @param reader Scanner that should closed already.
-     * @return If everything goes as expected (ie. you are not an evil pit
+     * @return If everything goes as expected (ie you are not an evil pit
      * mutant), the method returns the list. If you are an evil pit mutant, null
      * is all you get here.
      */

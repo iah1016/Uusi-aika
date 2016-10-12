@@ -14,20 +14,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.ui;
+package fi.sewsiaica.uusiaika.generaltools;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * This Enum class contains the keys for the viewPanelMap.
  *
  * @author iah1016
  */
-public enum PanelNames {
-    OPENING_MENU_VIEW,
-    NEW_GAME_VIEW,
-    MAP_VIEW,
-    TEMPLE_VIEW,
-    TRAININGCENTRE_VIEW,
-    DOORTODOOR_VIEW,
-    SETTINGS_VIEW,
-    LOAD_GAME_VIEW;
+public class StringAndStringListInterconversionTest {
+    
+    public StringAndStringListInterconversionTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
+
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
 }

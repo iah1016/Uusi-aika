@@ -29,7 +29,7 @@ import javax.swing.AbstractButton;
  * @author iah1016
  */
 public class OpeningMenuViewPanelListener implements ActionListener {
-
+    
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
     private final AbstractButton newGameButton;
@@ -59,13 +59,13 @@ public class OpeningMenuViewPanelListener implements ActionListener {
         this.hallOfFameButton = buttons[3];
         this.quitButton = buttons[4];
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == newGameButton) {
             gameFrame.changeViewPanel(PanelNames.NEW_GAME_VIEW);
         } else if (ae.getSource() == loadGameButton) {
-            System.out.println("Load game not yet implemented.");
+            gameFrame.changeViewPanel(PanelNames.LOAD_GAME_VIEW);
         } else if (ae.getSource() == settingsButton) {
             gameFrame.changeViewPanel(PanelNames.SETTINGS_VIEW);
         } else if (ae.getSource() == hallOfFameButton) {
@@ -74,5 +74,5 @@ public class OpeningMenuViewPanelListener implements ActionListener {
             System.exit(0);
         }
     }
-
+    
 }
