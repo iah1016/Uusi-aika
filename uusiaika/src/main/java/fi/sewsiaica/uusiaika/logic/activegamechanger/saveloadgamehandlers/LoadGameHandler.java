@@ -47,6 +47,15 @@ public class LoadGameHandler {
     private final String[] playerAndSectNamesArray;
     private List<Villager> villagers;
 
+    /**
+     * The constructor gets a CreateVillagers object as a parameter and creates
+     * new instances for ReadFromTextFile,
+     * StrIntMapAndStringListInterconversion,
+     * StringAndStringListInterconversion, StringToArraysConversion, and a
+     * String Array for player and sect names.
+     *
+     * @param createVillagers The CreateVillagers object given by the parent.
+     */
     public LoadGameHandler(CreateVillagers createVillagers) {
         this.createVillagers = createVillagers;
         this.readFromFile = new ReadFromTextFile();
@@ -56,7 +65,14 @@ public class LoadGameHandler {
         this.playerAndSectNamesArray = new String[2];
     }
 
-    public boolean loadGame(File saveFile) {
+    /**
+     * This method checks the validity of the save file through various private
+     * methods and loads the elements for an ActiveGame one by one.
+     *
+     * @param saveFile The save file that will be read by ReadFromTextFile.
+     * @return Returns true if every element is successfully loaded.
+     */
+    public boolean loadingFromSaveFileSuccessful(File saveFile) {
         this.saveFile = saveFile;
         if (!loadListFromFileSucceeds()) {
             return false;

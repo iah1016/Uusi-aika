@@ -79,18 +79,19 @@ public class ActiveGameChanger {
     }
 
     /**
-     * This method loads a game from a file and sets it to ActiveGame;
+     * This method loads a game from a file.
      *
      * @param saveFile The save file.
      * @return Returns the ActiveGame or null if loading is unsuccessful.
      */
     public ActiveGame loadActiveGame(File saveFile) {
-        if (loadGameHandler.loadGame(saveFile)) {
+        if (loadGameHandler.loadingFromSaveFileSuccessful(saveFile)) {
+            
             setConfigIntValues(loadGameHandler.getConfigVariableMap());
             playerAndSectHandler.createPlayerAndSect(
                     loadGameHandler.getPlayerAndSectNamesArray(),
                     configIntValues);
-            
+
             return new ActiveGame(random, configIntValues,
                     loadGameHandler.getVillagers(),
                     playerAndSectHandler.getPlayer(),

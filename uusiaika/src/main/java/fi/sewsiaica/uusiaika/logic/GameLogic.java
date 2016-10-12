@@ -85,13 +85,13 @@ public class GameLogic {
      * @return Returns false if the save file is invalid.
      */
     public boolean loadGame(File saveFile) {
-            ActiveGame tempGame = activeGameChanger.loadActiveGame(saveFile);
-            if (tempGame == null) {
-                return false;
-            }
-            activeGame = tempGame;
-            getModulesFromActiveGame();
-            return true;
+        ActiveGame tempGame = activeGameChanger.loadActiveGame(saveFile);
+        if (tempGame == null) {
+            return false;
+        }
+        activeGame = tempGame;
+        getModulesFromActiveGame();
+        return true;
     }
 
     /**
