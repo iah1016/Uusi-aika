@@ -18,7 +18,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.eventlisteners.NewGameViewPanelListener;
+import fi.sewsiaica.uusiaika.ui.viewpanellisteners.NewGameViewPanelListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

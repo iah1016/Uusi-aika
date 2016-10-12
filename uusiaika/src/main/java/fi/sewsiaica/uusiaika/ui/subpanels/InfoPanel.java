@@ -16,9 +16,10 @@
  */
 package fi.sewsiaica.uusiaika.ui.subpanels;
 
+import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
-import javax.swing.JPanel;
+import java.util.List;
 import javax.swing.JTextPane;
 
 /**
@@ -27,7 +28,7 @@ import javax.swing.JTextPane;
  *
  * @author iah1016
  */
-public class InfoPanel extends JPanel {
+public class InfoPanel extends AbstractSubPanel {
 
     private final GameLogic gameLogic;
 
@@ -39,21 +40,33 @@ public class InfoPanel extends JPanel {
      * logic parts are called.
      */
     public InfoPanel(GameLogic gameLogic) {
-        super();
+        super(gameLogic);
         this.gameLogic = gameLogic;
-        showGameInfo();
+        addContentOnlyIfActiveGameIsNotNull();
     }
 
-    private void showGameInfo() {
+    @Override
+    protected void addContents() {
+        JTextPane text = new JTextPane();
+        text.setText(buildShownString());
+        add(text);
+    }
+
+    private String buildShownString() {
         ActiveGame activeGame = gameLogic.getActiveGame();
+        List<Villager> targetVillagers = activeGame.getTargetVillagers();
 
-        if (activeGame != null) {
-            System.out.println(activeGame.toString());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(activeGame.toString());
 
-            JTextPane text = new JTextPane();
-            text.setText(activeGame.toString());
-            add(text);
+        if (!targetVillagers.isEmpty()) {
+            int totalTargets = targetVillagers.size();
+            String nextTarget = targetVillagers.get(0).toString();
+            stringBuilder.append("  current target: ").append(nextTarget)
+                    .append("  total targets: ").append(totalTargets);
         }
+
+        return stringBuilder.toString();
     }
 
 }

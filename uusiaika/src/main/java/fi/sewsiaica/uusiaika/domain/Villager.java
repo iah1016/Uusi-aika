@@ -171,4 +171,9 @@ public class Villager {
         this.numberOfAccusations = numberOfAccusations;
     }
 
+    @Override
+    public String toString() {
+        return name + ", " + profession;
+    }
+
 }

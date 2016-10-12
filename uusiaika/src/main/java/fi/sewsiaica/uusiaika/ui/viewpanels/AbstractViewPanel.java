@@ -16,8 +16,6 @@
  */
 package fi.sewsiaica.uusiaika.ui.viewpanels;
 
-import fi.sewsiaica.uusiaika.logic.GameLogic;
-import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -41,9 +39,14 @@ public abstract class AbstractViewPanel extends JPanel {
     }
 
     /**
+     * This method contains the view panel settings.
+     */
+    public abstract void setViewPanelSettings();
+
+    /**
      * This method returns a new Button subpanel (JPanel subclass) which
      * contains AbstractButtons attached to the corresponding ActionListener. It
-     * calls the following methods: createButtons, createActionListener,
+     * uses the following methods: createButtons, createActionListener,
      * createButtonPanel.
      *
      * @param textsForButtons The texts of the Buttons given as a string array.
@@ -79,16 +82,6 @@ public abstract class AbstractViewPanel extends JPanel {
     }
 
     /**
-     * This method will create a new InfoPanel instance (JPanel subclass).
-     *
-     * @param gameLogic GameLogic is given as a parameter.
-     * @return Returns the info panel.
-     */
-    public JPanel getNewGameInfoPanel(GameLogic gameLogic) {
-        return new InfoPanel(gameLogic);
-    }
-
-    /**
      * The method creates a new JTextField and then adds it to the given
      * textFieldPanel (JPanel subclass).
      *
@@ -107,12 +100,7 @@ public abstract class AbstractViewPanel extends JPanel {
     }
 
     /**
-     * This method contains the view panel settings.
-     */
-    public abstract void setViewPanelSettings();
-
-    /**
-     * This method creates the ActionListener for the view panel subclass.
+     * This method creates the ActionListener for the getNewButtonPanel method.
      *
      * @param buttons The AbstractButtons are given to the ActionListener's
      * constructor as a parameter.

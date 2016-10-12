@@ -14,13 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.ui.eventlisteners;
+package fi.sewsiaica.uusiaika.ui.viewpanellisteners;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.AbstractButton;
 
 /**
@@ -65,18 +66,37 @@ public class MapViewPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == templeButton) {
+        
+        if (ae.getSource() == doorToDoorConversionButton) {
+            goDoorToDoorIfTargetVillagerListIsNotEmpty();
+        } else if (ae.getSource() == templeButton) {
+            emptyTargetVillagerList();
             gameFrame.changeViewPanel(PanelNames.TEMPLE_VIEW);
         } else if (ae.getSource() == trainingCentreButton) {
+            emptyTargetVillagerList();
             gameFrame.changeViewPanel(PanelNames.TRAININGCENTRE_VIEW);
-        } else if (ae.getSource() == doorToDoorConversionButton) {
-            gameFrame.changeViewPanel(PanelNames.DOORTODOOR_VIEW);
         } else if (ae.getSource() == endTurnButton) {
             gameLogic.endTurn();
-            System.out.println(gameLogic.getActiveGame().getNumberOfTurns());
+            gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
         } else if (ae.getSource() == openingMenuViewButton) {
+            emptyTargetVillagerList();
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
+    }
+
+    private void goDoorToDoorIfTargetVillagerListIsNotEmpty() {
+        int targetVillagerListSize
+                = gameLogic.getActiveGame().getTargetVillagers().size();
+
+        if (targetVillagerListSize != 0) {
+            gameFrame.changeViewPanel(PanelNames.DOORTODOOR_VIEW);
+        } else {
+            System.out.println("no targets selected");
+        }
+    }
+
+    private void emptyTargetVillagerList() {
+        gameLogic.getActiveGame().setTargetVillagers(new ArrayList<>());
     }
 
 }

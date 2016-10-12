@@ -18,7 +18,8 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.eventlisteners.TempleViewPanelListener;
+import fi.sewsiaica.uusiaika.ui.viewpanellisteners.TempleViewPanelListener;
+import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -72,7 +73,7 @@ public class TempleViewPanel extends AbstractViewPanel {
             "Go back to the Map view", "End turn"};
         
         buttonPanel = super.getNewButtonPanel(textsForButtons);
-        infoPanel = super.getNewGameInfoPanel(gameLogic);
+        infoPanel = new InfoPanel(gameLogic);
         this.addSubPanelsToViewPanel();
     }
 

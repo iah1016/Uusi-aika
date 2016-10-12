@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fi.sewsiaica.uusiaika.ui.eventlisteners;
+package fi.sewsiaica.uusiaika.ui.viewpanellisteners;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
@@ -61,15 +61,23 @@ public class TrainingCentreViewPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == applyForCharismaCourseButton) {
-            charismaCourseSelected();
-        } else if (ae.getSource() == applyForDebateCourseButton) {
-            debateCourseSelected();
-        } else if (ae.getSource() == returnToMapViewButton) {
+
+        if (ae.getSource() == returnToMapViewButton) {
             gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
-        } else if (ae.getSource() == endTurnButton) {
-            gameLogic.endTurn();
+        } else {
+            if (ae.getSource() == applyForCharismaCourseButton) {
+                charismaCourseSelected();
+            } else if (ae.getSource() == applyForDebateCourseButton) {
+                debateCourseSelected();
+            } else if (ae.getSource() == endTurnButton) {
+                gameLogic.endTurn();
+            }
+            updateView();
         }
+    }
+
+    private void updateView() {
+        gameFrame.changeViewPanel(PanelNames.TRAININGCENTRE_VIEW);
     }
 
     private void charismaCourseSelected() {

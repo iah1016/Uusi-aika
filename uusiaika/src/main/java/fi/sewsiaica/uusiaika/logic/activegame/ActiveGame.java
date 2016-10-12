@@ -18,6 +18,7 @@ package fi.sewsiaica.uusiaika.logic.activegame;
 
 import fi.sewsiaica.uusiaika.logic.activegame.conversion.*;
 import fi.sewsiaica.uusiaika.domain.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -39,6 +40,7 @@ public class ActiveGame {
     private TurnLogic turnLogic;
     private Temple temple;
     private TrainingCentre trainingCentre;
+    private List<Villager> targetVillagers;
 
     /**
      * All the objects given as parameters will be permanently attached to this
@@ -58,6 +60,7 @@ public class ActiveGame {
         this.villagers = villagers;
         this.player = player;
         this.sect = sect;
+        this.targetVillagers = new ArrayList<>();
     }
 
     private void createLogicModules(Random random) {
@@ -119,6 +122,14 @@ public class ActiveGame {
         return villagers;
     }
 
+    public List<Villager> getTargetVillagers() {
+        return targetVillagers;
+    }
+
+    public void setTargetVillagers(List<Villager> targetVillagers) {
+        this.targetVillagers = targetVillagers;
+    }
+    
     @Override
     public String toString() {
         return "Turn: " + getNumberOfTurns()

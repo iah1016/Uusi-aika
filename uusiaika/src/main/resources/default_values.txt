@@ -7,7 +7,7 @@ playerArgSkills: 10
 # Sect
 sectBalance: 5000
 sectExpenses: 700
-sectMemberFee: 100
+sectMemberFee: 700
 # CreateVillagers
 vilPopulation: 10
 vilBaseScepticism: 10

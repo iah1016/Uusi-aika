@@ -18,7 +18,9 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.eventlisteners.MapViewPanelListener;
+import fi.sewsiaica.uusiaika.ui.viewpanellisteners.MapViewPanelListener;
+import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
+import fi.sewsiaica.uusiaika.ui.subpanels.VillagerListPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,6 +41,7 @@ public class MapViewPanel extends AbstractViewPanel {
     private final GameFrame gameFrame;
     private JPanel buttonPanel;
     private JPanel infoPanel;
+    private JPanel villagerListPanel;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters.
@@ -72,7 +75,8 @@ public class MapViewPanel extends AbstractViewPanel {
             "Go back to main menu (ends the game)"};
         
         buttonPanel = super.getNewButtonPanel(textsForButtons);
-        infoPanel = super.getNewGameInfoPanel(gameLogic);
+        infoPanel = new InfoPanel(gameLogic);
+        villagerListPanel = new VillagerListPanel(gameLogic);
         this.addSubPanelsToViewPanel();
     }
 
@@ -87,6 +91,7 @@ public class MapViewPanel extends AbstractViewPanel {
         this.setLayout(new BorderLayout());
         this.add(infoPanel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.CENTER);
+        this.add(villagerListPanel, BorderLayout.EAST);
     }
 
 }
