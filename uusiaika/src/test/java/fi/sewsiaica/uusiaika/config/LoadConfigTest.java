@@ -71,7 +71,7 @@ public class LoadConfigTest {
     @Test
     public void loadIntValuesFromAFileReturnsNullIfNotValidFile()
             throws FileNotFoundException {
-        String name = "src/main/resources/testfile.txt";
+        String name = "src/test/filesfortests/testfile.txt";
         
         Map<String, Integer> result = loadConfig.loadIntValuesFromAFile(name);
         assertEquals(null, result);
@@ -80,7 +80,7 @@ public class LoadConfigTest {
     @Test
     public void loadIntValuesFromAFileReturnsIntValuesMapCorrectly()
             throws FileNotFoundException {
-        String name = "src/main/resources/default_values.txt";
+        String name = "src/test/filesfortests/test_values.txt";
         
         Map<String, Integer> result = loadConfig.loadIntValuesFromAFile(name);
         assertNotEquals(null, result);
@@ -102,7 +102,7 @@ public class LoadConfigTest {
     @Test
     public void loadListFromAFileFunctionsCorrectly()
             throws FileNotFoundException {
-        String name = "src/main/resources/testfile.txt";
+        String name = "src/test/filesfortests/testfile.txt";
         
         List<String> result = loadConfig.loadListFromAFile(name);
         String expected = "Caxikymen: 20";

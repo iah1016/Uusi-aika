@@ -56,21 +56,14 @@ public class TrainingCentreViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.setViewPanelSettings();
-    }
-
-    @Override
-    public final void setViewPanelSettings() {
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.WHITE);
-
         this.updateComponents();
     }
 
-    private void updateComponents() {
+    @Override
+    public final void updateComponents() {
         String[] textsForButtons = {"Apply for a charisma course",
             "Apply for a debate course", "Go back to the Map view", "End turn"};
-        
+
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         infoPanel = new InfoPanel(gameLogic);
         this.addSubPanelsToViewPanel();

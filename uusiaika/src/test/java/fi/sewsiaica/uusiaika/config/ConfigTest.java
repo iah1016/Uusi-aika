@@ -8,8 +8,6 @@ package fi.sewsiaica.uusiaika.config;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -62,7 +60,7 @@ public class ConfigTest {
         }
         assertEquals(true, epicFail);
     }
-    
+
     @Test
     public void loadVilNamesThrowsFileNotFoundExceptionIfFileNotFound() {
         boolean epicFail = false;
@@ -73,7 +71,7 @@ public class ConfigTest {
         }
         assertEquals(true, epicFail);
     }
-    
+
     @Test
     public void loadProfessionsThrowsFileNotFoundExceptionIfFileNotFound() {
         boolean epicFail = false;
@@ -84,7 +82,7 @@ public class ConfigTest {
         }
         assertEquals(true, epicFail);
     }
-    
+
     @Test
     public void loadIntValuesReturnsDefaultIntValuesMapIfIDEmpty()
             throws FileNotFoundException {
@@ -93,16 +91,16 @@ public class ConfigTest {
         int value = result.get("templeDeathCultCharismaReq");
         assertEquals(255, value);
     }
-    
+
     @Test
     public void loadIntValuesReturnsValuesFromFileCorrectly()
             throws FileNotFoundException {
-        String id = "src/main/resources/default_values.txt";
+        String id = "src/test/filesfortests/test_values.txt";
         Map<String, Integer> result = config.loadIntValues(id);
         int value = result.get("templeDeathCultCharismaReq");
         assertEquals(666, value);
     }
-    
+
     @Test
     public void loadVilNamesReturnsDefaultNamesIfIDEmpty()
             throws FileNotFoundException {
@@ -110,15 +108,15 @@ public class ConfigTest {
         List<String> result = config.loadVilNames(id);
         assertEquals("Jaakko P", result.get(0));
     }
-    
+
     @Test
     public void loadVilNamesReturnsNamesFromFileCorrectly()
             throws FileNotFoundException {
-        String id = "src/main/resources/default_villagers.txt";
+        String id = "src/test/filesfortests/test_villagers.txt";
         List<String> result = config.loadVilNames(id);
         assertEquals("Heikki K", result.get(0));
     }
-    
+
     @Test
     public void loadProfessionsReturnsDefaultProfsIfIDEmpty()
             throws FileNotFoundException {
@@ -126,15 +124,15 @@ public class ConfigTest {
         List<String> result = config.loadProfessions(id);
         assertEquals("Leipuri", result.get(1));
     }
-    
+
     @Test
     public void loadProfessionsReturnsProfsFromFileCorrectly()
             throws FileNotFoundException {
-        String id = "src/main/resources/default_professions.txt";
+        String id = "src/test/filesfortests/test_professions.txt";
         List<String> result = config.loadProfessions(id);
         assertEquals("Maanviljelijä", result.get(1));
     }
-    
+
     @Test
     public void defaultIntValuesHasCorrectNumberOfValuesAfterCreation()
             throws FileNotFoundException {

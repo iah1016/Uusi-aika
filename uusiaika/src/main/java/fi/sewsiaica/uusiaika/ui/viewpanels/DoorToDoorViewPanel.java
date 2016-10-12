@@ -21,7 +21,6 @@ import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.viewpanellisteners.DoorToDoorViewPanelListener;
 import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
@@ -56,18 +55,11 @@ public class DoorToDoorViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.setViewPanelSettings();
+        this.updateComponents();
     }
 
     @Override
-    public final void setViewPanelSettings() {
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.WHITE);
-
-        this.updateComponents();
-    }
-    
-    private void updateComponents() {
+    public final void updateComponents() {
         String[] textsForButtons = {"Try persuasion", "Try sermon",
             "Try accusation", "Next target", "Go back to the Map view",
             "End turn"};

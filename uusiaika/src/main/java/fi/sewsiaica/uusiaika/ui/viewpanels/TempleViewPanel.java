@@ -55,23 +55,16 @@ public class TempleViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.setViewPanelSettings();
+        this.updateComponents();
     }
 
     @Override
-    public final void setViewPanelSettings() {
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.WHITE);
-
-        updateComponents();
-    }
-
-    private void updateComponents() {
+    public final void updateComponents() {
         String[] textsForButtons = {"Preach to the congregation",
             "Offer soda to everyone",
             "Buy a one-way ticket to a paradise island",
             "Go back to the Map view", "End turn"};
-        
+
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         infoPanel = new InfoPanel(gameLogic);
         this.addSubPanelsToViewPanel();

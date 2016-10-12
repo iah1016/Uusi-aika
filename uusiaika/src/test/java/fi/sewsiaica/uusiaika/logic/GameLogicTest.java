@@ -104,9 +104,10 @@ public class GameLogicTest {
     @Test
     public void newGameReturnsTrueIfValidFilesAreUsed()
             throws FileNotFoundException {
-        String confID = "src/main/resources/default_values.txt";
-        String vilID = "src/main/resources/default_villagers.txt";
-        String profsID = "src/main/resources/default_professions.txt";
+        String confID = "src/test/filesfortests/test_values.txt";
+        String vilID = "src/test/filesfortests/test_villagers.txt";
+        String profsID
+                = "src/test/filesfortests/test_professions.txt";
         boolean result = gameLogic.newGame(names, confID, vilID, profsID);
         assertEquals(true, result);
     }
@@ -114,7 +115,7 @@ public class GameLogicTest {
     @Test
     public void newGameReturnsFalseIfInvalidIntValues()
             throws FileNotFoundException {
-        String confID = "src/main/resources/testfile.txt";
+        String confID = "src/test/filesfortests/testfile.txt";
         boolean result = gameLogic.newGame(names, confID, "", "");
         assertEquals(false, result);
     }
@@ -127,7 +128,6 @@ public class GameLogicTest {
                 activeGame.getVillagers().get(3).getName() + ", "
                 + activeGame.getVillagers().get(2).getProfession());
 
-        
         // The default max conversion values are: 3, 2, 2.
         assertEquals(7, activeGame.getPersuasion().getMaxNumberOfConversions()
                 + activeGame.getSermon().getMaxNumberOfConversions()
@@ -158,12 +158,13 @@ public class GameLogicTest {
     @Test
     public void intValuesAreCorrectAfterCreatingNewGameWithValidFiles()
             throws FileNotFoundException {
-        String confID = "src/main/resources/default_values.txt";
-        String vilID = "src/main/resources/default_villagers.txt";
-        String profsID = "src/main/resources/default_professions.txt";
+        String confID = "src/test/filesfortests/test_values.txt";
+        String vilID = "src/test/filesfortests/test_villagers.txt";
+        String profsID
+                = "src/test/filesfortests/test_professions.txt";
         gameLogic.newGame(names, confID, vilID, profsID);
         activeGame = gameLogic.getActiveGame();
-        
+
         int expenses = activeGame.getSect().getExpenses();
         assertEquals(700, expenses);
         String villagerName = activeGame.getVillagers().get(0).getName();

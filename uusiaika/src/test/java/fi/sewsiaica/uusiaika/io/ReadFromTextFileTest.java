@@ -41,7 +41,7 @@ public class ReadFromTextFileTest {
 
     @Before
     public void setUp() {
-        testFile = new File("src/main/resources/testfile.txt");
+        testFile = new File("src/test/filesfortests/testfile.txt");
         readFromTextFile = new ReadFromTextFile();
     }
 

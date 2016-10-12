@@ -22,7 +22,6 @@ import java.awt.Dimension;
 import java.util.EnumMap;
 import java.util.Map;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * This class extends the JFrame class and handles the organisation of the GUI.
@@ -99,7 +98,7 @@ public class GameFrame extends JFrame {
         panel.removeAll();
         panel.invalidate();
         panel.repaint();
-        panel.setViewPanelSettings();
+        panel.updateComponents();
         pack();
         setVisible(true);
     }

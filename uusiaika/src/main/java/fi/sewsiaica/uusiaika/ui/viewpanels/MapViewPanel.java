@@ -58,22 +58,15 @@ public class MapViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.setViewPanelSettings();
-    }
-
-    @Override
-    public final void setViewPanelSettings() {
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.WHITE);
-
         this.updateComponents();
     }
 
-    private void updateComponents() {
+    @Override
+    public final void updateComponents() {
         String[] textsForButtons = {"Go to the temple",
             "Go to the training centre", "Door-to-door conversion", "End turn",
             "Go back to main menu (ends the game)"};
-        
+
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         infoPanel = new InfoPanel(gameLogic);
         villagerListPanel = new VillagerListPanel(gameLogic);

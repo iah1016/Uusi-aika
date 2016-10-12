@@ -52,18 +52,11 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
         this.gameLogic = gameLogic;
         this.gameFrame = frame;
         this.dimension = dimension;
-        this.setViewPanelSettings();
+        this.updateComponents();
     }
 
     @Override
-    public final void setViewPanelSettings() {
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.BLACK);
-
-        this.updateComponents();
-    }
-    
-    private void updateComponents() {
+    public final void updateComponents() {
         String[] textsForButtons = {"Start a new Game", "Load a game",
             "Settings", "Hall of fame", "Quit"};
         

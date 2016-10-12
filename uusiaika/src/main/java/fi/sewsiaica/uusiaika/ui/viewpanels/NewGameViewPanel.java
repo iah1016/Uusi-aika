@@ -56,18 +56,11 @@ public class NewGameViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.setViewPanelSettings();
-    }
-
-    @Override
-    public final void setViewPanelSettings() {
-        this.setPreferredSize(dimension);
-        this.setBackground(Color.BLACK);
-
         this.updateComponents();
     }
 
-    private void updateComponents() {
+    @Override
+    public final void updateComponents() {
         String[] textsForButtons = {"Create a new game"};
 
         textFieldPanel = new JPanel();

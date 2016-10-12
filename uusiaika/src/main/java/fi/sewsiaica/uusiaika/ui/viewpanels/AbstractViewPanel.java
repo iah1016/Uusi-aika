@@ -16,6 +16,7 @@
  */
 package fi.sewsiaica.uusiaika.ui.viewpanels;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -39,11 +40,6 @@ public abstract class AbstractViewPanel extends JPanel {
     }
 
     /**
-     * This method contains the view panel settings.
-     */
-    public abstract void setViewPanelSettings();
-
-    /**
      * This method returns a new Button subpanel (JPanel subclass) which
      * contains AbstractButtons attached to the corresponding ActionListener. It
      * uses the following methods: createButtons, createActionListener,
@@ -56,7 +52,8 @@ public abstract class AbstractViewPanel extends JPanel {
 
         AbstractButton[] buttons = createButtons(textsForButtons);
         ActionListener actionListener = createActionListener(buttons);
-        JPanel buttonPanel = createButtonPanel(buttons, actionListener);
+        JPanel buttonPanel = createButtonPanel(
+                buttons, actionListener);
 
         return buttonPanel;
     }
@@ -108,6 +105,11 @@ public abstract class AbstractViewPanel extends JPanel {
      */
     protected abstract ActionListener createActionListener(
             AbstractButton[] buttons);
+
+    /**
+     * This method updates the components.
+     */
+    public abstract void updateComponents();
 
     /**
      * This method adds the sub panels to the view panel and makes them visible.
