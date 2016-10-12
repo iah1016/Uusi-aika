@@ -33,6 +33,9 @@ public class StringAndStringListInterconversion {
      * @return Returns a List of Strings.
      */
     public List<String> convertStringToStringList(String string) {
+        if (string == null) {
+            return null;
+        }
         StringBuilder stringBuilder = new StringBuilder();
         List<String> list = new ArrayList<>();
 

@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.logic.activegamechanger;
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
+import java.io.File;
 import java.io.FileNotFoundException;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -67,5 +68,77 @@ public class ActiveGameChangerTest {
 
         assertEquals("Teemu P, Opettaja", game.getVillagers().get(3).getName()
                 + ", " + game.getVillagers().get(2).getProfession());
+    }
+
+    @Test
+    public void loadActiveGameReturnsNullIfFileNotFoundOrInvalid() {
+        File file = new File("foo");
+        ActiveGame result = activeGameChanger.loadActiveGame(file);
+        assertNull(result);
+        file = new File("src/test/filesfortests/testfile.txt");
+        result = activeGameChanger.loadActiveGame(file);
+        assertNull(result);
+    }
+
+    @Test
+    public void loadActiveGameReturnsValidActiveFileIfValidSaveFile() {
+        File file = new File("src/test/filesfortests/test_savefile.txt");
+        ActiveGame result = activeGameChanger.loadActiveGame(file);
+        assertNotNull(result);
+        String resString = result.getVillagers().get(1).getName() + " + "
+                + result.getSect().getName();
+        assertEquals("Urpo T + TestSect", resString);
+    }
+
+    @Test
+    public void updateConfigValuesReturnsTrueWithValidFiles()
+            throws FileNotFoundException {
+        File one = null;
+        File two = null;
+        File three = null;
+        boolean result = activeGameChanger.updateConfigValues(one, two, three);
+        assertEquals(true, result);
+        one = new File("src/test/filesfortests/test_values.txt");
+        two = new File("src/test/filesfortests/test_villagers.txt");
+        three = new File("src/test/filesfortests/test_professions.txt");
+        result = activeGameChanger.updateConfigValues(one, two, three);
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void updateConfigValuesReturnsFalseWithInvalidConfigVariables()
+            throws FileNotFoundException {
+        File one = new File("src/test/filesfortests/testfile.txt");
+        File two = null;
+        File three = null;
+        boolean result = activeGameChanger.updateConfigValues(one, two, three);
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void updateConfigValuesThrowFileNotFoundExceptionIfFileNotFound() {
+        boolean fail = false;
+        try {
+            activeGameChanger.updateConfigValues(new File("foo"), null, null);
+        } catch (FileNotFoundException e) {
+            fail = true;
+        }
+        assertEquals(true, fail);
+        
+        fail = false;
+        try {
+            activeGameChanger.updateConfigValues(null, new File("foo"), null);
+        } catch (FileNotFoundException e) {
+            fail = true;
+        }
+        assertEquals(true, fail);
+        
+        fail = false;
+        try {
+            activeGameChanger.updateConfigValues(null, null, new File("foo"));
+        } catch (FileNotFoundException e) {
+            fail = true;
+        }
+        assertEquals(true, fail);
     }
 }

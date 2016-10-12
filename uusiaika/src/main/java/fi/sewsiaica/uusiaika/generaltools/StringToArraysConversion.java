@@ -39,11 +39,12 @@ public class StringToArraysConversion {
     }
 
     /**
-     * This method converts a string to an Integer Array.
+     * This method converts a string, where integers are separated by commas, to
+     * an integer array.
      *
      * @param string String.
-     * @param size The size of the Array.
-     * @return Returns an Array of Integers or null if invalid format.
+     * @param size The size of the array.
+     * @return Returns an array of integers or null if invalid format.
      */
     public int[] stringToIntArray(String string, int size) {
         List<String> stringList
@@ -58,20 +59,27 @@ public class StringToArraysConversion {
             }
             intArray[i] = Integer.parseInt(arrayString);
         }
-
         return intArray;
     }
 
     /**
-     * This method converts a string to an Boolean Array.
+     * This method converts a string, where there are ones and twos separated by
+     * commas, to an Boolean Array.
      *
      * @param string String.
      * @param size The size of the Array.
      * @return Returns an Array of Booleans or null if invalid format.
      */
     public boolean[] stringToBooleanArray(String string, int size) {
+        if (string == null) {
+            return null;
+        }
         List<String> stringList
                 = stringToStringList.convertStringToStringList(string);
+        return createBooleanArray(stringList, size);
+    }
+
+    private boolean[] createBooleanArray(List<String> stringList, int size) {
         boolean[] booleanArray = new boolean[size];
 
         for (int i = 0; i < size; i++) {
@@ -79,15 +87,12 @@ public class StringToArraysConversion {
             if (!typeChecker.stringCanBeConvertedToInt(currentString)) {
                 return null;
             }
-
             int integer = Integer.parseInt(currentString);
-
             if (!typeChecker.intCanBeConvertedToBoolean(integer)) {
                 return null;
             }
             booleanArray[i] = convertIntToBoolean(integer);
         }
-
         return booleanArray;
     }
 

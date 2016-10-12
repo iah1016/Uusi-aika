@@ -98,7 +98,7 @@ public class CreateVillagersTest {
 
         assertArrayEquals(new String[0], result);
     }
-    
+
     @Test
     public void pickStringsReturnsZeroSizedArrayIfQuantityIsLessThanZero() {
         int quantity = -1;
@@ -109,7 +109,7 @@ public class CreateVillagersTest {
 
         assertArrayEquals(new String[0], result);
     }
-    
+
     @Test
     public void pickStringsReturnsNonEmptyArrayIfQuantityIsMoreThanZero() {
         int quantity = 1;
@@ -146,7 +146,7 @@ public class CreateVillagersTest {
 
         assertArrayEquals(new int[0], result);
     }
-    
+
     @Test
     public void pickRandomNumbersReturnsEmptyArrayIfQuantityIsNegInt() {
         int quantity = -1;
@@ -156,7 +156,7 @@ public class CreateVillagersTest {
 
         assertArrayEquals(new int[0], result);
     }
-    
+
     @Test
     public void pickRandomNumbersReturnsNonEmptyArrayIfQuantityIsPosInt() {
         int quantity = 1;
@@ -176,7 +176,7 @@ public class CreateVillagersTest {
 
         assertArrayEquals(new int[0], result);
     }
-    
+
     @Test
     public void pickRandomNumbersReturnsEmptyArrayIfBoundIsNegInt() {
         int quantity = 100;
@@ -186,7 +186,7 @@ public class CreateVillagersTest {
 
         assertArrayEquals(new int[0], result);
     }
-    
+
     @Test
     public void pickRandomNumbersReturnsNonEmptyArrayIfBoundIsPosInt() {
         int quantity = 100;
@@ -196,7 +196,7 @@ public class CreateVillagersTest {
 
         assertNotEquals(0, result.length);
     }
-    
+
     @Test
     public void populateVillageWorksProperly() {
         intValues.put("vilPopulation", 7);
@@ -211,4 +211,30 @@ public class CreateVillagersTest {
         assertEquals(expected, sb.toString());
     }
 
+    @Test
+    public void populateVillageWithLoadedVillagersWorksProperly() {
+        List<String> names = new ArrayList<>();
+        names.addAll(Arrays.asList("Z", "X", "C", "V", "B", "N"));
+        List<String> professions = new ArrayList<>();
+        professions.addAll(Arrays.asList("z", "x", "c", "v", "b", "n"));
+        boolean[] inSect = {false, true, true, false, true, true};
+        List<int[]> attributes = new ArrayList<>();
+        
+        int[] attrib = {0, 0, 1, 0, 0, 0};
+        for (int i = 0; i < 4; i++) {
+            attributes.add(attrib);
+        }
+        List<Villager> resultList
+                = createVil.populateVillageWithLoadedVillagers(names,
+                professions, inSect, attributes);
+        
+        StringBuilder sb = new StringBuilder();
+        for (Villager vil : resultList) {
+            sb.append(vil.getName()).append(vil.getProfession())
+                    .append(vil.getScepticism()).append(vil.getSelfEsteem())
+                    .append(vil.getSelfAwareness()).append(vil.getArgSkills());
+        }
+        String expected = "Zz0000Xx0000Cc1111Vv0000Bb0000Nn0000";
+        assertEquals(expected, sb.toString());
+    }
 }

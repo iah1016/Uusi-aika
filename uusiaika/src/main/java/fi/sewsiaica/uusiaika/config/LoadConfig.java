@@ -86,6 +86,10 @@ public class LoadConfig {
      * @return Returns true if valid and false if invalid.
      */
     protected boolean areValidIntValues(Map<String, Integer> intValuesMap) {
+        if (intValuesMap == null) {
+            return false;
+        }
+
         for (String variable : variableNames) {
             if (!intValuesMap.containsKey(variable)) {
                 return false;

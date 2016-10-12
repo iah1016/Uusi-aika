@@ -20,6 +20,7 @@ import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.logic.activegamechanger.ActiveGameChanger;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ import static org.junit.Assert.*;
 public class ActiveGameTest {
 
     private ActiveGame activeGame;
+    private ActiveGameChanger agc;
 
     public ActiveGameTest() {
     }
@@ -53,7 +55,7 @@ public class ActiveGameTest {
     public void setUp() {
         MockRandom random = new MockRandom();
         Config config = new Config();
-        ActiveGameChanger agc = new ActiveGameChanger(random, config);
+        agc = new ActiveGameChanger(random, config);
         try {
             agc.updateConfigValues(null, null, null);
         } catch (FileNotFoundException e) {
@@ -66,6 +68,16 @@ public class ActiveGameTest {
     public void tearDown() {
     }
 
+    @Test
+    public void setMembersToCongregationFunctionAsExpected() {
+        int result = activeGame.getSect().getCongregation().size();
+        assertEquals(0, result);
+        File file = new File("src/test/filesfortests/test_savefile.txt");
+        activeGame = agc.loadActiveGame(file);
+        result = activeGame.getSect().getCongregation().size();
+        assertEquals(2, result);
+    }
+    
     @Test
     public void getAndSetTargetVillagersFunctionAsExpected() {
         List<Villager> result = activeGame.getTargetVillagers();

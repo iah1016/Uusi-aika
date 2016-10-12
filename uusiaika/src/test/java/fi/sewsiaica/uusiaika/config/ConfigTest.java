@@ -169,4 +169,19 @@ public class ConfigTest {
         }
         assertEquals(true, result);
     }
+
+    @Test
+    public void checkValidityOfConfigVariableMapFunctionsAsExpected()
+            throws FileNotFoundException {
+        boolean result = config.checkValidityOfConfigVariableMap(null);
+        assertEquals(false, result);
+
+        Map<String, Integer> map = config.loadIntValues(null);
+        result = config.checkValidityOfConfigVariableMap(map);
+        assertEquals(true, result);
+
+        map.remove("convMaxNumberOfSermons");
+        result = config.checkValidityOfConfigVariableMap(map);
+        assertEquals(false, result);
+    }
 }

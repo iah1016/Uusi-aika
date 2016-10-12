@@ -25,12 +25,12 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Ilja Häkkinen
+ * @author iah1016
  */
 public class ObjectTypeConversionCheckerTest {
 
-    private ObjectTypeConversionChecker objTypeChecker;
-
+    private ObjectTypeConversionChecker otcc;
+    
     public ObjectTypeConversionCheckerTest() {
     }
 
@@ -44,12 +44,56 @@ public class ObjectTypeConversionCheckerTest {
 
     @Before
     public void setUp() {
-        objTypeChecker = new ObjectTypeConversionChecker();
+        otcc = new ObjectTypeConversionChecker();
     }
 
     @After
     public void tearDown() {
     }
 
+    @Test
+    public void stringCanBeConvertedToIntFunctionsProperly() {
+        String string = "";
+        boolean result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(false, result);
+        string = " ";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(false, result);
+        string = "20'";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(false, result);
+        string = "2.0";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(false, result);
+        string = "0.2";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(false, result);
+        string = ".2";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(false, result);
+        string = "0";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(true, result);
+        string = "-2";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(true, result);
+        string = "+2";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(true, result);
+        string = "200000000";
+        result = otcc.stringCanBeConvertedToInt(string);
+        assertEquals(true, result);
+    }
     
+    @Test
+    public void intCanBeConvertedToBooleanFunctionsProperly() {
+        int one = 1;
+        int zero = 0;
+        int two = 2;
+        int minusOne = -1;
+        assertEquals(true, otcc.intCanBeConvertedToBoolean(one));
+        assertEquals(true, otcc.intCanBeConvertedToBoolean(zero));
+        assertEquals(false, otcc.intCanBeConvertedToBoolean(two));
+        assertEquals(false, otcc.intCanBeConvertedToBoolean(minusOne));
+    }
 }

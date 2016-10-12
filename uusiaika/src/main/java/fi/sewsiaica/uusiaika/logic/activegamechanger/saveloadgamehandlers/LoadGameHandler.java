@@ -75,6 +75,7 @@ public class LoadGameHandler {
     public boolean loadingFromSaveFileSuccessful(File saveFile) {
         this.saveFile = saveFile;
         if (!loadListFromFileSucceeds()) {
+            // Also returns false if the number of lines is not 45.
             return false;
         }
         if (!processConfigVariableMapSucceeds(getLines(0, 36))) {
@@ -87,11 +88,19 @@ public class LoadGameHandler {
         return true;
     }
 
-    private List<String> getLines(int init, int limitExclusive) {
-        List<String> newStringList
-                = allTheLinesList.subList(init, limitExclusive);
-
-        return newStringList;
+    /**
+     * Get a subList from all the (non-comment or whitespace) lines.
+     *
+     * @param init The inclusive lower limit.
+     * @param limitExclusive The exclusive upper limit.
+     * @return Returns a String list, or null if the limits are out of bounds.
+     */
+    protected List<String> getLines(int init, int limitExclusive) {
+        try {
+            return allTheLinesList.subList(init, limitExclusive);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private boolean loadListFromFileSucceeds() {
@@ -103,10 +112,9 @@ public class LoadGameHandler {
         return allTheLinesList.size() == 45;
     }
 
-    private boolean processConfigVariableMapSucceeds(
-            List<String> variableList) {
+    private boolean processConfigVariableMapSucceeds(List<String> varList) {
         configVariableMap
-                = listToStringIntMap.convertStringListToStrIntMap(variableList);
+                = listToStringIntMap.convertStringListToStrIntMap(varList);
         Config config = new Config();
         return config.checkValidityOfConfigVariableMap(configVariableMap);
     }
@@ -135,9 +143,6 @@ public class LoadGameHandler {
             List<String> profs, boolean[] inSect, List<int[]> attributes) {
         if (names == null || profs == null || inSect == null
                 || attributes == null) {
-            return false;
-        }
-        if (names.isEmpty() || profs.isEmpty() || attributes.isEmpty()) {
             return false;
         }
         villagers = createVillagers.populateVillageWithLoadedVillagers(names,

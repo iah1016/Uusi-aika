@@ -123,13 +123,12 @@ public class GameLogicTest {
         String confID = "src/test/filesfortests/test_values.txt";
         String vilID = "src/test/filesfortests/test_villagers.txt";
         String profsID = "src/test/filesfortests/test_professions.txt";
-        
+
         File[] configFiles = gameLogic.getConfigFiles();
         configFiles[0] = new File(confID);
         configFiles[1] = new File(vilID);
         configFiles[2] = new File(profsID);
-        
-        
+
         boolean result = gameLogic.newGame(names);
         assertEquals(true, result);
     }
@@ -185,12 +184,12 @@ public class GameLogicTest {
         String vilID = "src/test/filesfortests/test_villagers.txt";
         String profsID
                 = "src/test/filesfortests/test_professions.txt";
-        
+
         File[] configFiles = gameLogic.getConfigFiles();
         configFiles[0] = new File(confID);
         configFiles[1] = new File(vilID);
         configFiles[2] = new File(profsID);
-        
+
         gameLogic.newGame(names);
         activeGame = gameLogic.getActiveGame();
 
@@ -204,7 +203,31 @@ public class GameLogicTest {
         assertEquals(true, gameLogic.templeActions('b'));
     }
 
-    // Load game is not yet implemented.
+    @Test
+    public void loadGameReturnsFalseIfLoadingUnsuccessful() {
+        ActiveGame oldAG = gameLogic.getActiveGame();
+        assertEquals(false, gameLogic.loadGame(new File("foo")));
+        assertEquals(oldAG, gameLogic.getActiveGame());
+    }
+
+    @Test
+    public void loadGameNormalOperation() {
+        ActiveGame oldAG = gameLogic.getActiveGame();
+        gameLogic.endTurn();
+        int oldNextTurn = oldAG.getNumberOfTurns() + 1;
+        int oldBalance = oldAG.getSect().getBalance();
+        
+        File file = new File("src/test/filesfortests/test_savefile.txt");
+        assertEquals(true, gameLogic.loadGame(file));
+        assertNotEquals(oldBalance, gameLogic.getActiveGame()
+                .getSect().getBalance());
+        assertNotEquals(oldAG, gameLogic.getActiveGame());
+        
+        gameLogic.endTurn();
+        assertNotEquals(28, oldNextTurn);
+        assertEquals(28, gameLogic.getActiveGame().getNumberOfTurns());
+    }
+
     @Test
     public void conversionDoesNotWorkWithOptionAIfAlreadyMaxedTries() {
         Villager villager = activeGame.getVillagers().get(0);

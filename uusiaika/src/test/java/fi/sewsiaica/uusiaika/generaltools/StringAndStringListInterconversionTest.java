@@ -16,6 +16,7 @@
  */
 package fi.sewsiaica.uusiaika.generaltools;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,29 +29,44 @@ import static org.junit.Assert.*;
  * @author iah1016
  */
 public class StringAndStringListInterconversionTest {
-    
+
+    private StringAndStringListInterconversion sasli;
+
     public StringAndStringListInterconversionTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
+        sasli = new StringAndStringListInterconversion();
     }
-    
+
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void convertStringToStringListFunctionsAsExpected() {
+        List<String> res = sasli.convertStringToStringList("Aa a,bBB,c Cc,d D");
+        StringBuilder resultSB = new StringBuilder();
+        for (String string : res) {
+            resultSB.append(string);
+        }
+        String expected = "Aa abBBc Ccd D";
+
+        assertEquals(expected, resultSB.toString());
+    }
+    
+    @Test
+    public void convertStringToStringListReturnsNullIfStringNull() {
+        List<String> res = sasli.convertStringToStringList(null);
+        assertNull(res);
+    }
 }
