@@ -16,10 +16,63 @@
  */
 package fi.sewsiaica.uusiaika.ui.viewpanels;
 
+import fi.sewsiaica.uusiaika.logic.GameLogic;
+import fi.sewsiaica.uusiaika.ui.GameFrame;
+import fi.sewsiaica.uusiaika.ui.viewpanellisteners.SettingsViewPanelListener;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import javax.swing.AbstractButton;
+import javax.swing.JPanel;
+
 /**
+ * This class extends AbstractViewPanel; its object displays the settings menu
+ * view.
  *
  * @author iah1016
  */
-public class SettingsViewPanel {
-    
+public class SettingsViewPanel extends AbstractViewPanel {
+
+    private final Dimension dimension;
+    private final GameLogic gameLogic;
+    private final GameFrame gameFrame;
+    private JPanel buttonPanel;
+
+    /**
+     * Dimension, GameLogic, and GameFrame are given as parameters.
+     *
+     * @param dimension The dimensions of the panel.
+     * @param gameLogic The core logic of the game, through which the other
+     * logic parts are called.
+     * @param frame GameFrame gives itself as parameter, so that the active
+     * ViewPanel can be changed.
+     */
+    public SettingsViewPanel(Dimension dimension, GameLogic gameLogic,
+            GameFrame frame) {
+        super();
+        this.dimension = dimension;
+        this.gameFrame = frame;
+        this.gameLogic = gameLogic;
+        this.updateComponents();
+    }
+
+    @Override
+    public void updateComponents() {
+        String[] textsForButtons = {"Change language", "Go back to main menu"};
+
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        this.addSubPanelsToViewPanel();
+    }
+
+    @Override
+    protected ActionListener createActionListener(AbstractButton[] buttons) {
+        return new SettingsViewPanelListener(gameFrame, gameLogic, buttons);
+    }
+
+    @Override
+    protected void addSubPanelsToViewPanel() {
+        this.setLayout(new BorderLayout());
+        this.add(buttonPanel, BorderLayout.CENTER);
+    }
+
 }

@@ -51,13 +51,13 @@ public class LoadConfig {
     /**
      * This method loads the variable values from a file.
      *
-     * @param fileName The Map of variable values is loaded from this file.
+     * @param file The Map of variable values is loaded from this file.
      * @return Returns the String,Integer-type map.
      * @throws FileNotFoundException Throws the FileNotFoundException.
      */
-    public Map<String, Integer> loadIntValuesFromAFile(String fileName) throws
+    public Map<String, Integer> loadIntValuesFromAFile(File file) throws
             FileNotFoundException {
-        List<String> lines = readFromFile.yankTextFromFile(new File(fileName));
+        List<String> lines = readFromFile.yankTextFromFile(file);
         Map<String, Integer> intValues
                 = listStrIntMapInterConv.convertStringListToStrIntMap(lines);
         if (areValidIntValues(intValues)) {
@@ -70,13 +70,13 @@ public class LoadConfig {
     /**
      * This method loads a list from a file.
      *
-     * @param fileName The list is loaded from this file.
+     * @param file The list is loaded from this file.
      * @return Returns the String-type list.
      * @throws FileNotFoundException Throws the FileNotFoundException.
      */
-    public List<String> loadListFromAFile(String fileName)
+    public List<String> loadListFromAFile(File file)
             throws FileNotFoundException {
-        return readFromFile.yankTextFromFile(new File(fileName));
+        return readFromFile.yankTextFromFile(file);
     }
 
     private boolean areValidIntValues(Map<String, Integer> intValues) {

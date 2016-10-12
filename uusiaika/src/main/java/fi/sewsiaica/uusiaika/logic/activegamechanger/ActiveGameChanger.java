@@ -18,6 +18,7 @@ package fi.sewsiaica.uusiaika.logic.activegamechanger;
 
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class ActiveGameChanger {
     }
 
     /**
-     * This method creates a new active game from the selected Config files.
+     * This method creates a new active game.
      *
      * @param playerAndSectNames Player and Sect names from the user's input.
      * @return Returns a new active game.
@@ -87,18 +88,18 @@ public class ActiveGameChanger {
      * Config variable values, villager names and professions are updated before
      * creating a new active game.
      *
-     * @param confID The name of the configuration file.
-     * @param vilID The name of the file that contains villager names.
-     * @param profsID The name of the file that contains a list of professions.
+     * @param configFile The configuration variable values file.
+     * @param villagerNamesFile The villager names file.
+     * @param professionsFile The professions file.
      * @return Returns false if at least one of the files is invalid.
      * @throws FileNotFoundException Throws the FileNotFoundException.
      */
-    public boolean updateConfigValues(String confID,
-            String vilID, String profsID)
+    public boolean updateConfigValues(File configFile,
+            File villagerNamesFile, File professionsFile)
             throws FileNotFoundException {
-        Map<String, Integer> tempIntValues = config.loadIntValues(confID);
-        List<String> tempVilNames = config.loadVilNames(vilID);
-        List<String> tempProfs = config.loadProfessions(profsID);
+        Map<String, Integer> tempIntValues = config.loadIntValues(configFile);
+        List<String> tempVilNames = config.loadVilNames(villagerNamesFile);
+        List<String> tempProfs = config.loadProfessions(professionsFile);
 
         if (tempIntValues == null || tempVilNames == null
                 || tempProfs == null) {

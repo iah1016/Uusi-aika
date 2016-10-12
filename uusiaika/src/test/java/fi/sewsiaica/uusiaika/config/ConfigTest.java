@@ -5,6 +5,7 @@
  */
 package fi.sewsiaica.uusiaika.config;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class ConfigTest {
     public void loadIntValuesThrowsFileNotFoundExceptionIfFileNotFound() {
         boolean epicFail = false;
         try {
-            config.loadIntValues("foo");
+            config.loadIntValues(new File("foo"));
         } catch (FileNotFoundException e) {
             epicFail = true;
         }
@@ -65,7 +66,7 @@ public class ConfigTest {
     public void loadVilNamesThrowsFileNotFoundExceptionIfFileNotFound() {
         boolean epicFail = false;
         try {
-            config.loadVilNames("foo");
+            config.loadVilNames(new File("foo"));
         } catch (FileNotFoundException e) {
             epicFail = true;
         }
@@ -76,7 +77,7 @@ public class ConfigTest {
     public void loadProfessionsThrowsFileNotFoundExceptionIfFileNotFound() {
         boolean epicFail = false;
         try {
-            config.loadProfessions("foo");
+            config.loadProfessions(new File("foo"));
         } catch (FileNotFoundException e) {
             epicFail = true;
         }
@@ -84,10 +85,10 @@ public class ConfigTest {
     }
 
     @Test
-    public void loadIntValuesReturnsDefaultIntValuesMapIfIDEmpty()
+    public void loadIntValuesReturnsDefaultIntValuesMapIfNullFile()
             throws FileNotFoundException {
-        String id = "";
-        Map<String, Integer> result = config.loadIntValues(id);
+        File file = null;
+        Map<String, Integer> result = config.loadIntValues(file);
         int value = result.get("templeDeathCultCharismaReq");
         assertEquals(255, value);
     }
@@ -96,16 +97,15 @@ public class ConfigTest {
     public void loadIntValuesReturnsValuesFromFileCorrectly()
             throws FileNotFoundException {
         String id = "src/test/filesfortests/test_values.txt";
-        Map<String, Integer> result = config.loadIntValues(id);
+        Map<String, Integer> result = config.loadIntValues(new File(id));
         int value = result.get("templeDeathCultCharismaReq");
         assertEquals(666, value);
     }
 
     @Test
-    public void loadVilNamesReturnsDefaultNamesIfIDEmpty()
+    public void loadVilNamesReturnsDefaultNamesIfNullFile()
             throws FileNotFoundException {
-        String id = "";
-        List<String> result = config.loadVilNames(id);
+        List<String> result = config.loadVilNames(null);
         assertEquals("Jaakko P", result.get(0));
     }
 
@@ -113,15 +113,14 @@ public class ConfigTest {
     public void loadVilNamesReturnsNamesFromFileCorrectly()
             throws FileNotFoundException {
         String id = "src/test/filesfortests/test_villagers.txt";
-        List<String> result = config.loadVilNames(id);
+        List<String> result = config.loadVilNames(new File(id));
         assertEquals("Heikki K", result.get(0));
     }
 
     @Test
-    public void loadProfessionsReturnsDefaultProfsIfIDEmpty()
+    public void loadProfessionsReturnsDefaultProfsIfNullFile()
             throws FileNotFoundException {
-        String id = "";
-        List<String> result = config.loadProfessions(id);
+        List<String> result = config.loadProfessions(null);
         assertEquals("Leipuri", result.get(1));
     }
 
@@ -129,27 +128,28 @@ public class ConfigTest {
     public void loadProfessionsReturnsProfsFromFileCorrectly()
             throws FileNotFoundException {
         String id = "src/test/filesfortests/test_professions.txt";
-        List<String> result = config.loadProfessions(id);
+        List<String> result = config.loadProfessions(new File(id));
         assertEquals("Maanviljelijä", result.get(1));
     }
 
     @Test
     public void defaultIntValuesHasCorrectNumberOfValuesAfterCreation()
             throws FileNotFoundException {
-        assertEquals(36, config.loadIntValues("").size());
+        assertEquals(36, config.loadIntValues(null).size());
     }
 
     @Test
     public void defaultTempleDeathCultCharismaReqIs255()
             throws FileNotFoundException {
-        int result = config.loadIntValues("").get("templeDeathCultCharismaReq");
+        int result = config.loadIntValues(null)
+                .get("templeDeathCultCharismaReq");
         assertEquals(255, result);
     }
 
     @Test
     public void defaultVilNamesAreCorrect() throws FileNotFoundException {
         boolean result = true;
-        List<String> vilNames = config.loadVilNames("");
+        List<String> vilNames = config.loadVilNames(null);
         for (int i = 0; i < defaultNames.length; i++) {
             if (vilNames.get(i) != defaultNames[i]) {
                 result = false;
@@ -161,7 +161,7 @@ public class ConfigTest {
     @Test
     public void defaultProfessionsAreCorrect() throws FileNotFoundException {
         boolean result = true;
-        List<String> profs = config.loadProfessions("");
+        List<String> profs = config.loadProfessions(null);
         for (int i = 0; i < defaultProfs.length; i++) {
             if (profs.get(i) != defaultProfs[i]) {
                 result = false;

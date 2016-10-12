@@ -21,6 +21,7 @@ import fi.sewsiaica.uusiaika.logic.activegamechanger.ActiveGameChanger;
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.*;
 import fi.sewsiaica.uusiaika.logic.activegame.conversion.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Random;
@@ -34,6 +35,7 @@ import java.util.Random;
 public class GameLogic {
 
     private final ActiveGameChanger activeGameChanger;
+    private final File[] configFiles;
     private ActiveGame activeGame;
     private Player player;
     private Sect sect;
@@ -53,21 +55,22 @@ public class GameLogic {
      */
     public GameLogic(Random random, Config config) {
         activeGameChanger = new ActiveGameChanger(random, config);
+        configFiles = new File[3];
     }
 
     /**
-     * This method creates a new game.
+     * This method creates a new game. It uses the Config files 0-2: [0] the
+     * file containing Config variable values, [1] The file containing villager
+     * names, [2] The file containing professions.
      *
      * @param playerAndSectNames The names are given by the user.
-     * @param confID The name of the configuration file.
-     * @param vilID The name of the file that contains villager names.
-     * @param profsID The name of the file that contains a list of professions.
      * @return Returns false if at least one of the files is invalid.
      * @throws java.io.FileNotFoundException Throws the FileNotFoundException.
      */
-    public boolean newGame(String[] playerAndSectNames, String confID,
-            String vilID, String profsID) throws FileNotFoundException {
-        if (!activeGameChanger.updateConfigValues(confID, vilID, profsID)) {
+    public boolean newGame(String[] playerAndSectNames)
+            throws FileNotFoundException {
+        if (!activeGameChanger.updateConfigValues(configFiles[0],
+                configFiles[1], configFiles[2])) {
             return false;
         }
         activeGame = activeGameChanger.createNewActiveGame(playerAndSectNames);
@@ -172,4 +175,14 @@ public class GameLogic {
         return activeGame;
     }
 
+    /**
+     * The configuration files are: [0] the file containing Config variable
+     * values, [1] The file containing villager names, [2] The file containing
+     * professions, [3] .
+     *
+     * @return Returns the array of the configuration files.
+     */
+    public File[] getConfigFiles() {
+        return configFiles;
+    }
 }

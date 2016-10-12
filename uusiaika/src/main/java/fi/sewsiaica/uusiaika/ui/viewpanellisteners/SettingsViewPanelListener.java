@@ -24,54 +24,44 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 
 /**
- * The object of this class handles the events in the opening menu view.
+ * The object of this class handles the events in the settings menu view.
  *
  * @author iah1016
  */
-public class OpeningMenuViewPanelListener implements ActionListener {
+public class SettingsViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
-    private final AbstractButton newGameButton;
-    private final AbstractButton loadGameButton;
-    private final AbstractButton settingsButton;
-    private final AbstractButton hallOfFameButton;
-    private final AbstractButton quitButton;
+    private final AbstractButton changeLanguageButton;
+    private final AbstractButton openingMenuViewButton;
 
     /**
-     * The constructor is given an array of five AbstractButtons, GameFrame, and
+     * The constructor is given an array of two AbstractButtons, GameFrame, and
      * GameLogic as parameters.
      *
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
-     * @param buttons The buttons are as follows: [0] new game, [1] load a game,
-     * [2] view settings, [3] view the hall of fame, [4] quit the game.
+     * @param buttons The buttons are as follows: [0] change the language, [1]
+     * go back to the opening menu.
      */
-    public OpeningMenuViewPanelListener(GameFrame frame, GameLogic gameLogic,
+    public SettingsViewPanelListener(GameFrame frame, GameLogic gameLogic,
             AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.newGameButton = buttons[0];
-        this.loadGameButton = buttons[1];
-        this.settingsButton = buttons[2];
-        this.hallOfFameButton = buttons[3];
-        this.quitButton = buttons[4];
+        this.changeLanguageButton = buttons[0];
+        this.openingMenuViewButton = buttons[1];
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == newGameButton) {
-            gameFrame.changeViewPanel(PanelNames.NEW_GAME_VIEW);
-        } else if (ae.getSource() == loadGameButton) {
-            System.out.println("Load game not yet implemented.");
-        } else if (ae.getSource() == settingsButton) {
+
+        if (ae.getSource() == changeLanguageButton) {
+            System.out.println("Change the language not yet implemented.");
             gameFrame.changeViewPanel(PanelNames.SETTINGS_VIEW);
-        } else if (ae.getSource() == hallOfFameButton) {
-            System.out.println("Hall of Fame not yet implemented.");
-        } else if (ae.getSource() == quitButton) {
-            System.exit(0);
+        } else if (ae.getSource() == openingMenuViewButton) {
+            gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }
 

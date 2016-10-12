@@ -21,9 +21,12 @@ import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import javax.swing.AbstractButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * The object of this class handles the events in the new game creation view.
@@ -37,10 +40,15 @@ public class NewGameViewPanelListener implements ActionListener {
     private final JTextField textFieldPlayerName;
     private final JTextField textFieldSectName;
     private final AbstractButton createGameButton;
+    private final AbstractButton configValuesFileButton;
+    private final AbstractButton villagerNamesFileButton;
+    private final AbstractButton villagerProfsFileButton;
+    private final JFileChooser fileChooser;
+    private final File[] configFiles;
 
     /**
-     * The constructor is given two JTextFields, an array of one AbstractButton,
-     * GameFrame, and GameLogic as parameters.
+     * The constructor is given four JTextFields, an array of one
+     * AbstractButton, GameFrame, and GameLogic as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
@@ -58,23 +66,81 @@ public class NewGameViewPanelListener implements ActionListener {
         this.textFieldPlayerName = textFieldPlayerName;
         this.textFieldSectName = textFieldSectName;
         this.createGameButton = buttons[0];
+        this.configValuesFileButton = buttons[1];
+        this.villagerNamesFileButton = buttons[2];
+        this.villagerProfsFileButton = buttons[3];
+        this.configFiles = new File[3];
+        this.fileChooser = new JFileChooser();
+        fileChooserSettings();
+    }
+
+    private void fileChooserSettings() {
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                ".txt files", "txt");
+        fileChooser.setFileFilter(filter);
+
+        String gameDir = System.getProperty("user.dir");
+        fileChooser.setCurrentDirectory(new File(gameDir));
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        String[] names = new String[2];
-
-        names[0] = textFieldPlayerName.getText();
-        names[1] = textFieldSectName.getText();
-        // Implement the config file enquiry.
 
         if (ae.getSource() == createGameButton) {
-            try {
-                gameLogic.newGame(names, "", "", "");
+            createGameSelected();
+        } else if (ae.getSource() == configValuesFileButton) {
+            fileChooserDialog(0);
+        } else if (ae.getSource() == villagerNamesFileButton) {
+            fileChooserDialog(1);
+        } else if (ae.getSource() == villagerProfsFileButton) {
+            fileChooserDialog(2);
+        }
+    }
+
+    private void fileChooserDialog(int configFileID) {
+        int returnVal = fileChooser.showOpenDialog(gameFrame);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            configFiles[configFileID] = fileChooser.getSelectedFile();
+            System.out.println(configFiles[configFileID].getName());
+        } else {
+            System.out.println("Cancelled.");
+        }
+    }
+
+    private void updateConfigFilesInGameLogic() {
+        File[] gameLogicConfigFiles = gameLogic.getConfigFiles();
+        for (int i = 0; i < configFiles.length; i++) {
+            gameLogicConfigFiles[i] = configFiles[i];
+        }
+    }
+
+    private void createGameSelected() {
+        String[] names = new String[2];
+        names[0] = textFieldPlayerName.getText();
+        names[1] = textFieldSectName.getText();
+
+        if (nameLengthsAreNotOverLimit(names, 25)) {
+            tryCreatingNewGame(names);
+        }
+    }
+
+    private boolean nameLengthsAreNotOverLimit(String[] names, int limit) {
+        return names[0].length() <= limit && names[1].length() <= limit;
+    }
+
+    private void tryCreatingNewGame(String[] names) {
+        try {
+            updateConfigFilesInGameLogic();
+            if (gameLogic.newGame(names)) {
                 gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
-            } catch (FileNotFoundException e) {
-                System.out.println("ei natsaa");
+            } else {
+                System.out.println("Invalid Config file");
+                gameFrame.changeViewPanel(PanelNames.NEW_GAME_VIEW);
             }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
         }
     }
 

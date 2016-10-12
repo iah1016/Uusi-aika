@@ -9,6 +9,7 @@ import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.*;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class GameLogicTest {
         names[0] = "AA";
         names[1] = "AB";
         try {
-            gameLogic.newGame(names, "", "", "");
+            gameLogic.newGame(names);
         } catch (FileNotFoundException e) {
 
         }
@@ -63,10 +64,13 @@ public class GameLogicTest {
     }
 
     @Test
-    public void newGameThrowsFileNotFoundExceptionIfConfIDIsInvalid() {
+    public void newGameThrowsFileNotFoundExceptionIfConfigFileIsInvalid() {
         boolean epicFail = false;
+        File[] configFiles = gameLogic.getConfigFiles();
+        configFiles[0] = new File("foo");
+
         try {
-            gameLogic.newGame(names, "foo", "", "");
+            gameLogic.newGame(names);
         } catch (FileNotFoundException e) {
             epicFail = true;
         }
@@ -74,10 +78,13 @@ public class GameLogicTest {
     }
 
     @Test
-    public void newGameThrowsFileNotFoundExceptionIfVilIDIsInvalid() {
+    public void newGameThrowsFileNotFoundExceptionIfVilNamesFileIsInvalid() {
         boolean epicFail = false;
+        File[] configFiles = gameLogic.getConfigFiles();
+        configFiles[1] = new File("foo");
+
         try {
-            gameLogic.newGame(names, "", "foo", "");
+            gameLogic.newGame(names);
         } catch (FileNotFoundException e) {
             epicFail = true;
         }
@@ -85,10 +92,13 @@ public class GameLogicTest {
     }
 
     @Test
-    public void newGameThrowsFileNotFoundExceptionIfProfsIDIsInvalid() {
+    public void newGameThrowsFileNotFoundExceptionIfProfsFileIsInvalid() {
         boolean epicFail = false;
+        File[] configFiles = gameLogic.getConfigFiles();
+        configFiles[2] = new File("foo");
+
         try {
-            gameLogic.newGame(names, "", "", "foo");
+            gameLogic.newGame(names);
         } catch (FileNotFoundException e) {
             epicFail = true;
         }
@@ -96,8 +106,14 @@ public class GameLogicTest {
     }
 
     @Test
-    public void newGameReturnsTrueIfIDsAreEmpty() throws FileNotFoundException {
-        boolean result = gameLogic.newGame(names, "", "", "");
+    public void newGameReturnsTrueIfConfigFilesAreNull()
+            throws FileNotFoundException {
+        File[] configFiles = gameLogic.getConfigFiles();
+        configFiles[0] = null;
+        configFiles[1] = null;
+        configFiles[2] = null;
+
+        boolean result = gameLogic.newGame(names);
         assertEquals(true, result);
     }
 
@@ -106,9 +122,15 @@ public class GameLogicTest {
             throws FileNotFoundException {
         String confID = "src/test/filesfortests/test_values.txt";
         String vilID = "src/test/filesfortests/test_villagers.txt";
-        String profsID
-                = "src/test/filesfortests/test_professions.txt";
-        boolean result = gameLogic.newGame(names, confID, vilID, profsID);
+        String profsID = "src/test/filesfortests/test_professions.txt";
+        
+        File[] configFiles = gameLogic.getConfigFiles();
+        configFiles[0] = new File(confID);
+        configFiles[1] = new File(vilID);
+        configFiles[2] = new File(profsID);
+        
+        
+        boolean result = gameLogic.newGame(names);
         assertEquals(true, result);
     }
 
@@ -116,7 +138,8 @@ public class GameLogicTest {
     public void newGameReturnsFalseIfInvalidIntValues()
             throws FileNotFoundException {
         String confID = "src/test/filesfortests/testfile.txt";
-        boolean result = gameLogic.newGame(names, confID, "", "");
+        gameLogic.getConfigFiles()[0] = new File(confID);
+        boolean result = gameLogic.newGame(names);
         assertEquals(false, result);
     }
 
@@ -162,7 +185,13 @@ public class GameLogicTest {
         String vilID = "src/test/filesfortests/test_villagers.txt";
         String profsID
                 = "src/test/filesfortests/test_professions.txt";
-        gameLogic.newGame(names, confID, vilID, profsID);
+        
+        File[] configFiles = gameLogic.getConfigFiles();
+        configFiles[0] = new File(confID);
+        configFiles[1] = new File(vilID);
+        configFiles[2] = new File(profsID);
+        
+        gameLogic.newGame(names);
         activeGame = gameLogic.getActiveGame();
 
         int expenses = activeGame.getSect().getExpenses();
@@ -385,5 +414,21 @@ public class GameLogicTest {
         assertEquals(true, gameLogic.endTurn());
         int turnsAfter = activeGame.getNumberOfTurns();
         assertEquals(turnsAfter, turnsBefore + 1);
+    }
+
+    @Test
+    public void getConfigFilesFunctionsAsExpected() {
+        File[] result = gameLogic.getConfigFiles();
+        assertNotNull(result);
+        for (int i = 0; i < result.length; i++) {
+            File resultFile = result[i];
+            assertNull(resultFile);
+        }
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new File("src/test/filesfortests/testfile.txt");
+            File resultFile = result[i];
+            assertNotNull(resultFile);
+        }
     }
 }

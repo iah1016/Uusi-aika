@@ -16,6 +16,7 @@
  */
 package fi.sewsiaica.uusiaika.config;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class LoadConfigTest {
     public void loadIntValuesFromAFileThrowsExceptionIfFileNotFound() {
         boolean epicFail = false;
         try {
-            loadConfig.loadIntValuesFromAFile("foo");
+            loadConfig.loadIntValuesFromAFile(new File("foo"));
         } catch (FileNotFoundException e) {
             epicFail = true;
         }
@@ -73,7 +74,8 @@ public class LoadConfigTest {
             throws FileNotFoundException {
         String name = "src/test/filesfortests/testfile.txt";
         
-        Map<String, Integer> result = loadConfig.loadIntValuesFromAFile(name);
+        Map<String, Integer> result = loadConfig.loadIntValuesFromAFile(
+                new File(name));
         assertEquals(null, result);
     }
     
@@ -82,7 +84,8 @@ public class LoadConfigTest {
             throws FileNotFoundException {
         String name = "src/test/filesfortests/test_values.txt";
         
-        Map<String, Integer> result = loadConfig.loadIntValuesFromAFile(name);
+        Map<String, Integer> result = loadConfig.loadIntValuesFromAFile(
+                new File(name));
         assertNotEquals(null, result);
         int value = result.get("templeDivineRightMoneyReq");
         assertEquals(100000, value);
@@ -92,7 +95,7 @@ public class LoadConfigTest {
     public void loadListFromAFileThrowsExceptionIfFileNotFound() {
         boolean epicFail = false;
         try {
-            loadConfig.loadListFromAFile("foo");
+            loadConfig.loadListFromAFile(new File("foo"));
         } catch (FileNotFoundException e) {
             epicFail = true;
         }
@@ -104,7 +107,7 @@ public class LoadConfigTest {
             throws FileNotFoundException {
         String name = "src/test/filesfortests/testfile.txt";
         
-        List<String> result = loadConfig.loadListFromAFile(name);
+        List<String> result = loadConfig.loadListFromAFile(new File(name));
         String expected = "Caxikymen: 20";
         assertEquals(expected, result.get(19));
     }

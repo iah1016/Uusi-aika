@@ -61,7 +61,10 @@ public class NewGameViewPanel extends AbstractViewPanel {
 
     @Override
     public final void updateComponents() {
-        String[] textsForButtons = {"Create a new game"};
+        String[] textsForButtons = {"Create a new game",
+            "Change the configuration values file",
+            "Change the villager names file",
+            "Change the villager professions file"};
 
         textFieldPanel = new JPanel();
         // The method that creates JTextFields also add them to textFieldPanel.

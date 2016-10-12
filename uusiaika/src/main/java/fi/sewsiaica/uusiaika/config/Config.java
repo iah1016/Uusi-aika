@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.config;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVilNames;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVariableValues;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultProfessions;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,19 +56,19 @@ public class Config {
     }
 
     /**
-     * This method loads the Config values for the active game.
+     * This method loads the Config variable values for the active game.
      *
-     * @param configID The Config filename given as String.
+     * @param configVariablesFile The Config variable values file.
      * @return Returns the values from the enum class if the ID is empty and
      * from a file otherwise.
      * @throws FileNotFoundException Throws FileNotFoundException.
      */
-    public Map<String, Integer> loadIntValues(String configID) throws
+    public Map<String, Integer> loadIntValues(File configVariablesFile) throws
             FileNotFoundException {
-        if (configID.isEmpty()) {
+        if (configVariablesFile == null) {
             return defaultIntValuesMap;
         } else {
-            return loadConfig.loadIntValuesFromAFile(configID);
+            return loadConfig.loadIntValuesFromAFile(configVariablesFile);
         }
     }
 
@@ -75,34 +76,34 @@ public class Config {
      * This method loads villager names for the populateVillage-method in
      * createVillagers.
      *
-     * @param villagersID The Villager names filename given as String.
+     * @param villagerNamesFile The Villager names file.
      * @return Returns vilNames from the enum class if the ID is empty and from
      * a file otherwise.
      * @throws FileNotFoundException Throws FileNotFoundException.
      */
-    public List<String> loadVilNames(String villagersID) throws
+    public List<String> loadVilNames(File villagerNamesFile) throws
             FileNotFoundException {
-        if (villagersID.isEmpty()) {
+        if (villagerNamesFile == null) {
             return defaultVilNames;
         }
-        return loadConfig.loadListFromAFile(villagersID);
+        return loadConfig.loadListFromAFile(villagerNamesFile);
     }
 
     /**
      * This method loads professions for the populateVillage-method in
      * createVillagers.
      *
-     * @param professionsID The professions filename given as String.
+     * @param professionsFile The professions file.
      * @return Returns professions from the enum class if the ID is empty and
      * from a file otherwise.
      * @throws FileNotFoundException Throws FileNotFoundException.
      */
-    public List<String> loadProfessions(String professionsID) throws
+    public List<String> loadProfessions(File professionsFile) throws
             FileNotFoundException {
-        if (professionsID.isEmpty()) {
+        if (professionsFile == null) {
             return defaultProfessions;
         }
-        return loadConfig.loadListFromAFile(professionsID);
+        return loadConfig.loadListFromAFile(professionsFile);
     }
 
     public String[] getVariableNames() {

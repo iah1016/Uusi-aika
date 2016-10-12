@@ -27,5 +27,6 @@ public enum PanelNames {
     MAP_VIEW,
     TEMPLE_VIEW,
     TRAININGCENTRE_VIEW,
-    DOORTODOOR_VIEW;
+    DOORTODOOR_VIEW,
+    SETTINGS_VIEW;
 }

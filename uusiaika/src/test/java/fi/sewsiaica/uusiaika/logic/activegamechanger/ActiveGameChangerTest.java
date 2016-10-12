@@ -62,7 +62,7 @@ public class ActiveGameChangerTest {
     public void createNewActiveGameWorksAsExpectedWithEmptyConfigID()
             throws FileNotFoundException {
         String[] names = {"AA", "AB"};
-        activeGameChanger.updateConfigValues("", "", "");
+        activeGameChanger.updateConfigValues(null, null, null);
         ActiveGame game = activeGameChanger.createNewActiveGame(names);
 
         assertEquals("Teemu P, Opettaja", game.getVillagers().get(3).getName()

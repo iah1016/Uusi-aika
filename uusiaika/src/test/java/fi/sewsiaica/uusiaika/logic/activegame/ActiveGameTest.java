@@ -55,7 +55,7 @@ public class ActiveGameTest {
         Config config = new Config();
         ActiveGameChanger agc = new ActiveGameChanger(random, config);
         try {
-            agc.updateConfigValues("", "", "");
+            agc.updateConfigValues(null, null, null);
         } catch (FileNotFoundException e) {
         }
         String[] playerAndSectNames = {"AA", "BB"};
