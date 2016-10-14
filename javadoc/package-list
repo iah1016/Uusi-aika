@@ -1,0 +1,17 @@
+fi.sewsiaica.uusiaika.config
+fi.sewsiaica.uusiaika.config.defaultvalues
+fi.sewsiaica.uusiaika.domain
+fi.sewsiaica.uusiaika.generaltools
+fi.sewsiaica.uusiaika.io
+fi.sewsiaica.uusiaika.logic
+fi.sewsiaica.uusiaika.logic.activegame
+fi.sewsiaica.uusiaika.logic.activegame.conversion
+fi.sewsiaica.uusiaika.logic.activegamechanger
+fi.sewsiaica.uusiaika.logic.activegamechanger.saveloadgamehandlers
+fi.sewsiaica.uusiaika.main
+fi.sewsiaica.uusiaika.toolsfortests
+fi.sewsiaica.uusiaika.ui
+fi.sewsiaica.uusiaika.ui.subpanellisteners
+fi.sewsiaica.uusiaika.ui.subpanels
+fi.sewsiaica.uusiaika.ui.viewpanellisteners
+fi.sewsiaica.uusiaika.ui.viewpanels
