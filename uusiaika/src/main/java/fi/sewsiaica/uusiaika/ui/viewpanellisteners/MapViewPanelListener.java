@@ -80,13 +80,6 @@ public class MapViewPanelListener implements ActionListener {
                 gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
             } else {
                 gameLogic.getActiveGame().setGameEndingCondition(1);
-                
-                //
-                System.out.println("Game ending condition "
-                        + "(MapViewPanelListener): "
-                        + gameLogic.getActiveGame().getGameEndingCondition());
-                //
-                
                 gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
             }
         } else if (ae.getSource() == openingMenuViewButton) {

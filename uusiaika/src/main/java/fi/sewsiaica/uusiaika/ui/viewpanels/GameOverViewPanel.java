@@ -20,6 +20,7 @@ import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.viewpanellisteners.GameOverViewPanelListener;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
@@ -38,27 +39,27 @@ public class GameOverViewPanel extends AbstractViewPanel {
     private final GameFrame gameFrame;
     private JPanel endMessagePanel;
     private JPanel buttonPanel;
-    private int endCondition;
+    private final int endCondition;
 
     /**
-     * Dimension, GameLogic, and GameFrame are given as parameters. The end
-     * condition are: [0] the game has not ended, [1] the maximum amount of
-     * turns has been reached, [2] the death cult ending, [3] the paradise
-     * island ending.
+     * Dimension, GameLogic, and GameFrame are given as parameters.
      *
      * @param dimension The dimensions of the panel.
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame GameFrame gives itself as parameter, so that the active
      * ViewPanel can be changed.
+     * @param endCondition The end condition are: [0] the game has not ended,
+     * [1] the maximum amount of turns has been reached, [2] the death cult
+     * ending, [3] the paradise island ending.
      */
     public GameOverViewPanel(Dimension dimension, GameLogic gameLogic,
-            GameFrame frame) {
+            GameFrame frame, int endCondition) {
         super();
         this.dimension = dimension;
         this.gameLogic = gameLogic;
         this.gameFrame = frame;
-        this.endCondition = 0;
+        this.endCondition = endCondition;
         this.updateComponents();
     }
 
@@ -69,7 +70,6 @@ public class GameOverViewPanel extends AbstractViewPanel {
         endMessagePanel = createEndMessageTextPanePanel();
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         this.addSubPanelsToViewPanel();
-        getEndCondition();
     }
 
     @Override
@@ -90,16 +90,15 @@ public class GameOverViewPanel extends AbstractViewPanel {
         JEditorPane endMessageTextPane = new JEditorPane();
         endMessageTextPane.setEditable(false);
         endMessageTextPane.setText(pickEndMessage());
+        endMessageTextPane.setPreferredSize(new Dimension(600, 400));
+        endMessageTextPane.setBackground(Color.decode("#ebebe0"));
 
+        endMsgPanel.setBackground(Color.decode("#a3c2c2"));
         endMsgPanel.add(endMessageTextPane);
         return endMsgPanel;
     }
 
     private String pickEndMessage() {
-        //
-        System.out.println("Game ending condition (GameOverViewPanel): "
-                + endCondition);
-        //
         switch (endCondition) {
             case 1:
                 return "You have reached the end without success.";
@@ -117,18 +116,5 @@ public class GameOverViewPanel extends AbstractViewPanel {
             default:
                 return "Game over";
         }
-    }
-
-    /**
-     * This should update the ending condition but is not currently functioning.
-     *
-     * @return Returns the value from the active game or 0 if the active game is
-     * null.
-     */
-    public int getEndCondition() {
-        if (gameLogic.getActiveGame() != null) {
-            return gameLogic.getActiveGame().getGameEndingCondition();
-        }
-        return 0;
     }
 }
