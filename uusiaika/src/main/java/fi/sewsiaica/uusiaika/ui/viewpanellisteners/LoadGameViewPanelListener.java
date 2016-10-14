@@ -36,6 +36,7 @@ public class LoadGameViewPanelListener implements ActionListener {
     private final GameLogic gameLogic;
     private final GameFrame gameFrame;
     private final AbstractButton loadGameButton;
+    private final AbstractButton openingMenuViewButton;
     private final JFileChooser fileChooser;
     private File saveFile;
 
@@ -54,6 +55,7 @@ public class LoadGameViewPanelListener implements ActionListener {
         this.gameLogic = gameLogic;
         this.gameFrame = frame;
         this.loadGameButton = buttons[0];
+        this.openingMenuViewButton = buttons[1];
         this.fileChooser = new JFileChooser();
         fileChooserSettings();
     }
@@ -71,6 +73,8 @@ public class LoadGameViewPanelListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == loadGameButton) {
             loadGameSelected();
+        } else if (ae.getSource() == openingMenuViewButton) {
+            gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }
     

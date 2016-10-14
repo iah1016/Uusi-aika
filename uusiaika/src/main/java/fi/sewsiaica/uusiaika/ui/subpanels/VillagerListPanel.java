@@ -19,7 +19,9 @@ package fi.sewsiaica.uusiaika.ui.subpanels;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.subpanellisteners.VillagerListPanelListener;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -51,29 +53,45 @@ public class VillagerListPanel extends AbstractSubPanel {
     protected void addContents() {
         Object[] allVillagers
                 = gameLogic.getActiveGame().getVillagers().toArray();
-        
+
         this.setLayout(new BorderLayout());
         this.addListScroller(allVillagers);
         this.addInfoMessage();
     }
-    
+
     private void addListScroller(Object[] allVillagers) {
         JList list = new JList(allVillagers);
-        
+
         list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        list.getSelectionModel().addListSelectionListener(new VillagerListPanelListener(gameLogic));
-        list.setLayoutOrientation(JList.VERTICAL);
+        list.getSelectionModel().addListSelectionListener(
+                new VillagerListPanelListener(gameLogic));
+        applyJListSettings(list);
 
         JScrollPane listScroller = new JScrollPane(list);
+        
         listScroller.setPreferredSize(new Dimension(180, 300));
         add(listScroller, BorderLayout.CENTER);
     }
-    
+
     private void addInfoMessage() {
         JTextArea infoMessage = new JTextArea(10, 1);
         infoMessage.setText("Choose target villagers"
                 + "\nfor door-to-door conversion.");
-        infoMessage.setEditable(false);
+
+        applyInfoMessageSettings(infoMessage);
         add(infoMessage, BorderLayout.SOUTH);
+    }
+
+    private void applyJListSettings(JList list) {
+        list.setLayoutOrientation(JList.VERTICAL);
+        list.setBackground(Color.decode("#d1d1e0"));
+    }
+    
+    private void applyInfoMessageSettings(JTextArea infoMessage) {
+        infoMessage.setEditable(false);
+        infoMessage.setBackground(Color.decode("#a3c2c2"));
+        Font font = infoMessage.getFont();
+        Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
+        infoMessage.setFont(boldFont);
     }
 }

@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -66,6 +67,7 @@ public abstract class AbstractViewPanel extends JPanel {
             button.addActionListener(actionListener);
             buttonPanel.add(button);
         }
+        applyButtonPanelSettings(buttonPanel);
         return buttonPanel;
     }
 
@@ -74,8 +76,20 @@ public abstract class AbstractViewPanel extends JPanel {
 
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new JButton(textsForButtons[i]);
+            applyButtonSettings(buttons[i]);
         }
         return buttons;
+    }
+
+    private void applyButtonPanelSettings(JPanel buttonPanel) {
+        buttonPanel.setBackground(Color.decode("#a3c2c2"));
+    }
+
+    private void applyButtonSettings(AbstractButton button) {
+        button.setBackground(Color.decode("#527a7a"));
+        button.setForeground(Color.WHITE);
+        button.setBorder(BorderFactory.createLineBorder(Color.decode("#527a7a"),
+                7));
     }
 
     /**
@@ -92,8 +106,13 @@ public abstract class AbstractViewPanel extends JPanel {
         JTextField textField = new JTextField(length);
         textField.setText(text);
 
+        applyJTextFieldSettings(textField);
         textFieldPanel.add(textField);
         return textField;
+    }
+
+    private void applyJTextFieldSettings(JTextField textField) {
+        textField.setBackground(Color.decode("#f0f0f5"));
     }
 
     /**

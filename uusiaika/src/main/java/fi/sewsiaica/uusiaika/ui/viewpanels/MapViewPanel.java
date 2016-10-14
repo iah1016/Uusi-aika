@@ -22,7 +22,6 @@ import fi.sewsiaica.uusiaika.ui.viewpanellisteners.MapViewPanelListener;
 import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import fi.sewsiaica.uusiaika.ui.subpanels.VillagerListPanel;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;

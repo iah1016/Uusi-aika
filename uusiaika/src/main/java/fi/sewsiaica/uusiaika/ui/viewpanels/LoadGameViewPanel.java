@@ -58,7 +58,7 @@ public class LoadGameViewPanel extends AbstractViewPanel {
 
     @Override
     public final void updateComponents() {
-        String[] textsForButtons = {"Load a game"};
+        String[] textsForButtons = {"Load a game", "Go back to the Main menu"};
         
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         this.addSubPanelsToViewPanel();

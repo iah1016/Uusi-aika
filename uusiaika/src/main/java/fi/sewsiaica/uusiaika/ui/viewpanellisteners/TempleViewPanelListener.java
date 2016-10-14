@@ -67,46 +67,64 @@ public class TempleViewPanelListener implements ActionListener {
 
         if (ae.getSource() == returnToMapViewButton) {
             gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
-        } else {
-            if (ae.getSource() == preachButton) {
-                preachSelected();
-            } else if (ae.getSource() == offerSodaButton) {
-                offerSodaSelected();
-            } else if (ae.getSource() == buyTicketButton) {
-                buyTicketSelected();
-            } else if (ae.getSource() == endTurnButton) {
-                gameLogic.endTurn();
+        } else if (ae.getSource() == preachButton) {
+            preachSelected();
+        } else if (ae.getSource() == offerSodaButton) {
+            offerSodaSelected();
+        } else if (ae.getSource() == buyTicketButton) {
+            buyTicketSelected();
+        } else if (ae.getSource() == endTurnButton) {
+            if (gameLogic.endTurn()) {
+                updateView();
+            } else {
+                gameLogic.getActiveGame().setGameEndingCondition(1);
+                gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
             }
-            updateView();
         }
     }
-    
+
     private void updateView() {
         gameFrame.changeViewPanel(PanelNames.TEMPLE_VIEW);
     }
 
     private void preachSelected() {
         if (gameLogic.templeActions('a')) {
-            System.out.println("okok!");
+            System.out.println("Praise the Holy Fish! "
+                    + "Your performance was a success. "
+                    + "Everyone is a little less sceptical now.");
         } else {
-            System.out.println("Njet.");
+            System.out.println("A solid perfomance. "
+                    + "Too bad there was no one here to hear it!");
         }
+        updateView();
     }
 
     private void offerSodaSelected() {
         if (gameLogic.templeActions('b')) {
-            System.out.println("Everyone dies.");
+            System.out.println("With you guidance, your flock will "
+                    + "take the daring step to ascend to the next level.");
+            gameLogic.getActiveGame().setGameEndingCondition(2);
+            gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
-            System.out.println("You lack charisma.");
+            System.out.println("You lack charisma to pull this off.");
+            updateView();
         }
     }
 
     private void buyTicketSelected() {
         if (gameLogic.templeActions('c')) {
-            System.out.println("You retire to a paradise island with"
-                    + "all the moolah.");
+            System.out.println("A one-way ticket to Paradise (some obscure "
+                    + "island in the western Pacific) and only you are "
+                    + "going.\n"
+                    + "You have taught your flock well and now they can "
+                    + "manage themselves.\nYou will take a reasonable "
+                    + "reward of 100 percent of the Sect's balance with "
+                    + "you.");
+            gameLogic.getActiveGame().setGameEndingCondition(3);
+            gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
             System.out.println("There's not enough money on the account.");
+            updateView();
         }
     }
 }

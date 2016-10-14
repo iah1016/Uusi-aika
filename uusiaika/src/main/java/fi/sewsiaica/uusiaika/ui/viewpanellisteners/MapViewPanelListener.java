@@ -66,7 +66,7 @@ public class MapViewPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
+
         if (ae.getSource() == doorToDoorConversionButton) {
             goDoorToDoorIfTargetVillagerListIsNotEmpty();
         } else if (ae.getSource() == templeButton) {
@@ -76,8 +76,17 @@ public class MapViewPanelListener implements ActionListener {
             emptyTargetVillagerList();
             gameFrame.changeViewPanel(PanelNames.TRAININGCENTRE_VIEW);
         } else if (ae.getSource() == endTurnButton) {
-            gameLogic.endTurn();
-            gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
+            if (gameLogic.endTurn()) {
+                gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
+            } else {
+                gameLogic.getActiveGame().setGameEndingCondition(1);
+                
+                //
+                System.out.println(
+                        gameLogic.getActiveGame().getGameEndingCondition());
+                
+                gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
+            }
         } else if (ae.getSource() == openingMenuViewButton) {
             emptyTargetVillagerList();
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);

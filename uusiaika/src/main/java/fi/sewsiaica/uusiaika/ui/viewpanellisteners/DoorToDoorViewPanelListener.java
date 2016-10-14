@@ -69,10 +69,16 @@ public class DoorToDoorViewPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-
         if (ae.getSource() == returnToMapViewButton) {
             emptyTargetVillagerList();
             gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
+        } else if (ae.getSource() == endTurnButton) {
+            if (gameLogic.endTurn()) {
+                updateView();
+            } else {
+                gameLogic.getActiveGame().setGameEndingCondition(1);
+                gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
+            }
         } else {
             if (ae.getSource() == persuasionButton) {
                 persuasionSelected();
@@ -82,8 +88,6 @@ public class DoorToDoorViewPanelListener implements ActionListener {
                 accusationSelected();
             } else if (ae.getSource() == nextTargetButton) {
                 removeFirstTargetIfTargetListNotEmpty();
-            } else if (ae.getSource() == endTurnButton) {
-                gameLogic.endTurn();
             }
             updateView();
         }

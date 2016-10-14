@@ -41,6 +41,7 @@ public class ActiveGame {
     private Temple temple;
     private TrainingCentre trainingCentre;
     private List<Villager> targetVillagers;
+    private int gameEndingCondition;
 
     /**
      * All the objects given as parameters will be permanently attached to this
@@ -57,11 +58,12 @@ public class ActiveGame {
             List<Villager> villagers, Player player, Sect sect) {
         this.configIntValues = configIntValues;
         createLogicModules(random);
-        this.villagers = villagers;        
+        this.villagers = villagers;
         this.player = player;
         this.sect = sect;
         setMembersToCongregation();
         this.targetVillagers = new ArrayList<>();
+        this.gameEndingCondition = 0;
     }
 
     private void createLogicModules(Random random) {
@@ -81,7 +83,7 @@ public class ActiveGame {
         this.temple = new Temple(configIntValues);
         this.trainingCentre = new TrainingCentre(configIntValues);
     }
-    
+
     private void setMembersToCongregation() {
         for (Villager villager : villagers) {
             if (villager.isInSect()) {
@@ -138,7 +140,7 @@ public class ActiveGame {
     public void setTargetVillagers(List<Villager> targetVillagers) {
         this.targetVillagers = targetVillagers;
     }
-    
+
     @Override
     public String toString() {
         return "Turn: " + getNumberOfTurns()
@@ -147,4 +149,18 @@ public class ActiveGame {
                 + "  Members: " + sect.getCongregation().size();
     }
 
+    /**
+     * The conditions are: [0] the game has not ended, [1] the maximum amount of
+     * turns has been reached, [2] the death cult ending, [3] the paradise
+     * island ending.
+     *
+     * @return Returns the ending condition.
+     */
+    public int getGameEndingCondition() {
+        return gameEndingCondition;
+    }
+
+    public void setGameEndingCondition(int gameEndingCondition) {
+        this.gameEndingCondition = gameEndingCondition;
+    }
 }

@@ -29,5 +29,6 @@ public enum PanelNames {
     TRAININGCENTRE_VIEW,
     DOORTODOOR_VIEW,
     SETTINGS_VIEW,
-    LOAD_GAME_VIEW;
+    LOAD_GAME_VIEW,
+    GAME_OVER_VIEW;
 }

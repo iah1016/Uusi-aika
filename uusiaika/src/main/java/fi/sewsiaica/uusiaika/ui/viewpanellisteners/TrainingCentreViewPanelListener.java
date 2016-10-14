@@ -70,9 +70,13 @@ public class TrainingCentreViewPanelListener implements ActionListener {
             } else if (ae.getSource() == applyForDebateCourseButton) {
                 debateCourseSelected();
             } else if (ae.getSource() == endTurnButton) {
-                gameLogic.endTurn();
+                if (gameLogic.endTurn()) {
+                    updateView();
+                } else {
+                    gameLogic.getActiveGame().setGameEndingCondition(1);
+                    gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
+                }
             }
-            updateView();
         }
     }
 
@@ -87,6 +91,7 @@ public class TrainingCentreViewPanelListener implements ActionListener {
         } else {
             System.out.println("No success.");
         }
+        updateView();
     }
 
     private void debateCourseSelected() {
@@ -97,6 +102,7 @@ public class TrainingCentreViewPanelListener implements ActionListener {
         } else {
             System.out.println("No success.");
         }
+        updateView();
     }
 
 }

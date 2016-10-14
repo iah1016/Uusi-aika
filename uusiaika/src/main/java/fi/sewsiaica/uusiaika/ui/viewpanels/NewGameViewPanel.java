@@ -67,11 +67,16 @@ public class NewGameViewPanel extends AbstractViewPanel {
             "Change the villager professions file"};
 
         textFieldPanel = new JPanel();
+        applyTextFieldPanelSettings(textFieldPanel);
         // The method that creates JTextFields also add them to textFieldPanel.
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         this.addSubPanelsToViewPanel();
     }
 
+    private void applyTextFieldPanelSettings(JPanel jPanel) {
+        jPanel.setBackground(Color.decode("#a3c2c2"));
+    }
+    
     @Override
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {

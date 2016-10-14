@@ -85,6 +85,8 @@ public class GameFrame extends JFrame {
                 new SettingsViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.LOAD_GAME_VIEW,
                 new LoadGameViewPanel(dimension, gameLogic, this));
+        tempMap.put(PanelNames.GAME_OVER_VIEW,
+                new GameOverViewPanel(dimension, gameLogic, this));
 
         return tempMap;
     }

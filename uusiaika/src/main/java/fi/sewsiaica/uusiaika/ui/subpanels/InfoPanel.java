@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.ui.subpanels;
 import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JTextPane;
 
@@ -50,6 +51,10 @@ public class InfoPanel extends AbstractSubPanel {
         JTextPane text = new JTextPane();
         text.setText(buildShownString());
         add(text);
+        
+        text.setForeground(Color.WHITE);
+        text.setBackground(Color.decode("#52527a"));
+        setBackground(Color.decode("#52527a"));
     }
 
     private String buildShownString() {
