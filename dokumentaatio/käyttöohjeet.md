@@ -18,7 +18,7 @@ Pelin voi voittaa kahdella tavalla:
 ##Kierros vaihtuu...
 Mahdollisia tapoja hävitä peli ovat: vuoron vaihduttua liikkeen tili on miinuksen puolella tai maksimimäärä siirtoja saavutetaan. 
 
-Jokaisen vuoronvaihdon yhteydessä tapahtuu seuraavat asiat:
+Jokaisen vuoronvaihdon yhteydessä tapahtuvat seuraavat asiat:
 - Jokaisen jäsenen skeptisyys kasvaa,
 - Jos jonkun jäsenen skeptisyys on kyllin suuri, tämä jäsen lähtee liikkeestä,
 - Jäljelle jäävät jäsenet maksavat jäsenmaksun verran rahaa liikkeelle,
