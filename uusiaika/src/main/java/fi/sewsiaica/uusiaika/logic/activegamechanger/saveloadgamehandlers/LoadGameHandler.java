@@ -18,9 +18,7 @@ package fi.sewsiaica.uusiaika.logic.activegamechanger.saveloadgamehandlers;
 
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.Villager;
-import fi.sewsiaica.uusiaika.generaltools.StrIntMapAndStringListInterconversion;
-import fi.sewsiaica.uusiaika.generaltools.StringAndStringListInterconversion;
-import fi.sewsiaica.uusiaika.generaltools.StringToArraysConversion;
+import fi.sewsiaica.uusiaika.generaltools.GeneralTools;
 import fi.sewsiaica.uusiaika.io.ReadFromTextFile;
 import fi.sewsiaica.uusiaika.logic.activegamechanger.CreateVillagers;
 import java.io.File;
@@ -37,9 +35,7 @@ import java.util.Map;
 public class LoadGameHandler {
 
     private final ReadFromTextFile readFromFile;
-    private final StrIntMapAndStringListInterconversion listToStringIntMap;
-    private final StringAndStringListInterconversion stringToList;
-    private final StringToArraysConversion stringToArray;
+    private final GeneralTools generalTools;
     private final CreateVillagers createVillagers;
     private File saveFile;
     private List<String> allTheLinesList;
@@ -49,19 +45,14 @@ public class LoadGameHandler {
 
     /**
      * The constructor gets a CreateVillagers object as a parameter and creates
-     * new instances for ReadFromTextFile,
-     * StrIntMapAndStringListInterconversion,
-     * StringAndStringListInterconversion, StringToArraysConversion, and a
-     * String Array for player and sect names.
+     * new instances for ReadFromTextFile and GeneralTools.
      *
      * @param createVillagers The CreateVillagers object given by the parent.
      */
     public LoadGameHandler(CreateVillagers createVillagers) {
         this.createVillagers = createVillagers;
         this.readFromFile = new ReadFromTextFile();
-        this.listToStringIntMap = new StrIntMapAndStringListInterconversion();
-        this.stringToList = new StringAndStringListInterconversion();
-        this.stringToArray = new StringToArraysConversion();
+        this.generalTools = new GeneralTools();
         this.playerAndSectNamesArray = new String[2];
     }
 
@@ -114,7 +105,8 @@ public class LoadGameHandler {
 
     private boolean processConfigVariableMapSucceeds(List<String> varList) {
         configVariableMap
-                = listToStringIntMap.convertStringListToStrIntMap(varList);
+                = generalTools.getStrIntMapAndStringListInterconversion()
+                        .convertStringListToStrIntMap(varList);
         Config config = new Config();
         return config.checkValidityOfConfigVariableMap(configVariableMap);
     }
@@ -129,10 +121,14 @@ public class LoadGameHandler {
         String profsLine = allTheLinesList.get(39);
         String boolLine = allTheLinesList.get(40);
 
-        List<String> names = stringToList.convertStringToStringList(nameLine);
-        List<String> profs = stringToList.convertStringToStringList(profsLine);
-        boolean[] inSect = stringToArray.stringToBooleanArray(boolLine,
-                names.size());
+        List<String> names = generalTools
+                .getStringAndStringListInterconversion()
+                .convertStringToStringList(nameLine);
+        List<String> profs = generalTools
+                .getStringAndStringListInterconversion()
+                .convertStringToStringList(profsLine);
+        boolean[] inSect = generalTools.getStringToArraysConversion()
+                .stringToBooleanArray(boolLine, names.size());
         List<int[]> attributes = createListOfVillagerAttributeArrays(
                 names.size());
         return noElementInVillageCreationIsNullOrEmpty(names, profs, inSect,
@@ -154,7 +150,8 @@ public class LoadGameHandler {
         List<int[]> attributes = new ArrayList<>();
         List<String> lines = getLines(41, 45);
         for (int i = 0; i < lines.size(); i++) {
-            int[] intArray = stringToArray.stringToIntArray(lines.get(i), size);
+            int[] intArray = generalTools.getStringToArraysConversion()
+                    .stringToIntArray(lines.get(i), size);
             if (intArray == null) {
                 return null;
             }

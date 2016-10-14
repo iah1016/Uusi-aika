@@ -32,7 +32,7 @@ import java.util.Map;
 public class LoadConfig {
 
     private final String[] variableNames;
-    private final StrIntMapAndStringListInterconversion listStrIntMapInterConv;
+    private final GeneralTools generalTools;
     private final ReadFromTextFile readFromFile;
 
     /**
@@ -43,8 +43,7 @@ public class LoadConfig {
      */
     public LoadConfig(String[] variableNames) {
         this.variableNames = variableNames;
-        this.listStrIntMapInterConv
-                = new StrIntMapAndStringListInterconversion();
+        this.generalTools = new GeneralTools();
         readFromFile = new ReadFromTextFile();
     }
 
@@ -59,7 +58,8 @@ public class LoadConfig {
             FileNotFoundException {
         List<String> lines = readFromFile.yankTextFromFile(file);
         Map<String, Integer> intValues
-                = listStrIntMapInterConv.convertStringListToStrIntMap(lines);
+                = generalTools.getStrIntMapAndStringListInterconversion()
+                        .convertStringListToStrIntMap(lines);
         if (areValidIntValues(intValues)) {
             return intValues;
         } else {

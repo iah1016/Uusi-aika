@@ -51,7 +51,12 @@
     - Paluu karttanäkymään
 
 ##Luokkakaavio
-![dokumentaatio/Logiikan luokkakaavio.png](Logiikan luokkakaavio.png)
+**Luokkakaavio – logiikka**
+![dokumentaatio/Luokkakaavio - logiikka.png](Luokkakaavio - logiikka.png)
+**Luokkakaavio – käyttöliittymä (ei Enum-luokkia)**
+![dokumentaatio/Luokkakaavio - kayttoliittyma.png](Luokkakaavio - kayttoliittyma.png)
+**Luokkakaavio – muut paketit (ei Enum-luokkia)**
+![dokumentaatio/Luokkakaavio - loput.png](Luokkakaavio - loput.png)
 
 ##Sekvenssikaavioita (lisää tulossa lähipäivinä)
 ![dokumentaatio/Sekvenssikaavio 1.png](Sekvenssikaavio 1.png)
