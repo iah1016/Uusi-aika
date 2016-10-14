@@ -101,4 +101,14 @@ public class ActiveGameTest {
         String expected = "Turn: 1  AA  BB  Balance: 5000  Members: 0";
         assertEquals(expected, result);
     }
+    
+    @Test
+    public void getAndSetGameEndingConditionFunctionAsExpected() {
+        int value = 0;
+        activeGame.setGameEndingCondition(value);
+        assertEquals(0, activeGame.getGameEndingCondition());
+        value = 2;
+        activeGame.setGameEndingCondition(value);
+        assertEquals(2, activeGame.getGameEndingCondition());
+    }
 }

@@ -96,7 +96,10 @@ public class GameOverViewPanel extends AbstractViewPanel {
     }
 
     private String pickEndMessage() {
-        System.out.println(endCondition);
+        //
+        System.out.println("Game ending condition (GameOverViewPanel): "
+                + endCondition);
+        //
         switch (endCondition) {
             case 1:
                 return "You have reached the end without success.";
