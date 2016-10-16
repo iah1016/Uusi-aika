@@ -20,48 +20,45 @@ import fi.sewsiaica.uusiaika.logic.activegame.*;
 import fi.sewsiaica.uusiaika.logic.activegamechanger.ActiveGameChanger;
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.*;
-import fi.sewsiaica.uusiaika.logic.activegame.conversion.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Random;
 
 /**
  * The core logic of the game. It controls the other logic modules through an
- * ActiveGame object created by the ActiveGameChanger object.
+ * ActiveGame object created by the ActiveGameChanger object. The
+ * implementations of the actions for an active game are now moved to the
+ * GameLogicActionsForActiveGame object, which is part of the composition with
+ * GameLogic.
  *
  * @author iah1016
  */
 public class GameLogic {
 
     private final ActiveGameChanger activeGameChanger;
+    private final GameLogicActionsForActiveGame gameLogicActionsForActiveGame;
     private final File[] configFiles;
     private ActiveGame activeGame;
-    private Player player;
-    private Sect sect;
-    private List<Villager> villagers;
-    private Conversion persuasion;
-    private Conversion sermon;
-    private Conversion accusation;
-    private TurnLogic turnLogic;
-    private Temple temple;
-    private TrainingCentre trainingCentre;
 
     /**
-     * The ActiveGameChanger object is created by the constructor.
+     * The ActiveGameChanger and GameLogicActionsForActiveGame objects are
+     * created by the constructor. The file array of the configFiles is also
+     * created.
      *
      * @param random Random is created by the Main class.
      * @param config Config is created by the Main class.
      */
     public GameLogic(Random random, Config config) {
         activeGameChanger = new ActiveGameChanger(random, config);
+        gameLogicActionsForActiveGame = new GameLogicActionsForActiveGame();
         configFiles = new File[4];
     }
 
     /**
-     * This method creates a new game. It uses the Config files 0-2: [0] the
-     * file containing Config variable values, [1] The file containing villager
-     * names, [2] The file containing professions.
+     * This method creates a new game and sets it to the
+     * GameLogicActionsForActiveGame object. It uses the Config files 0-2: [0]
+     * the file containing Config variable values, [1] The file containing
+     * villager names, [2] The file containing professions.
      *
      * @param playerAndSectNames The names are given by the user.
      * @return Returns false if at least one of the files is invalid.
@@ -74,12 +71,13 @@ public class GameLogic {
             return false;
         }
         activeGame = activeGameChanger.createNewActiveGame(playerAndSectNames);
-        getModulesFromActiveGame();
+        gameLogicActionsForActiveGame.updateActiveGame(activeGame);
         return true;
     }
 
     /**
-     * The LoadGame feature is not yet implemented.
+     * This method will load an active game and sets it to the
+     * GameLogicActionsForActiveGame object.
      *
      * @param saveFile The values will be read from a text file.
      * @return Returns false if the save file is invalid.
@@ -90,12 +88,13 @@ public class GameLogic {
             return false;
         }
         activeGame = tempGame;
-        getModulesFromActiveGame();
+        gameLogicActionsForActiveGame.updateActiveGame(activeGame);
         return true;
     }
 
     /**
-     * Player attempts to convert a villager.
+     * This method executes the Conversion actions through
+     * GameLogicActionsForActiveGame.
      *
      * @param villager The Player has chosen the target villager beforehand.
      * @param option (a) Persuasion, (b) Sermon, (c) Accusation.
@@ -103,80 +102,41 @@ public class GameLogic {
      * has not been reached) and it is successful, then the method returns true.
      */
     public boolean conversion(Villager villager, char option) {
-        if (option == 'a' && persuasion.checkIfAllowedToProceed(villager)) {
-            return persuasion.convert(player, villager, sect);
-        }
-        if (option == 'b' && sermon.checkIfAllowedToProceed(villager)) {
-            return sermon.convert(player, villager, sect);
-        }
-        if (option == 'c' && accusation.checkIfAllowedToProceed(villager)) {
-            return accusation.convert(player, villager, sect);
-        }
-        return false;
+        return gameLogicActionsForActiveGame.conversion(villager, option);
     }
 
     /**
-     * The actions that are set in the sect's temple. Options (b) and (c) will
-     * end the game, if the conditions are met.
+     * This method executes the Temple actions through
+     * GameLogicActionsForActiveGame.
      *
      * @param option (a) Preach, (b) Offer soda (c) Buy a one-way ticket.
      * @return Case (a) is returns true, unless the congregation size is zero,
      * (b) requires a high playerCharisma and (c) a high balance.
      */
     public boolean templeActions(char option) {
-        switch (option) {
-            case 'a':
-                return temple.preach(player, sect);
-            case 'b':
-                return temple.offerSodaToAllMembers(player);
-            case 'c':
-                return temple.buyTicketToParadiseIsland(player, sect);
-            default:
-                return false;
-        }
+        return gameLogicActionsForActiveGame.templeActions(option);
     }
 
     /**
-     * These are the actions that are set in the training centre.
+     * This method executes the TrainingCentre actions through
+     * GameLogicActionsForActiveGame.
      *
      * @param option (a) apply for a charisma course (increases playerCharisma),
      * (b) apply for a debate course (increases playerArgSkills).
      * @return Both options (a) and (b) always return true.
      */
     public boolean trainingCentreActions(char option) {
-        switch (option) {
-            case 'a':
-                return trainingCentre.applyForCharismaCourse(player);
-            case 'b':
-                return trainingCentre.applyForDebateCourse(player);
-            default:
-                return false;
-        }
+        return gameLogicActionsForActiveGame.trainingCentreActions(option);
     }
 
     /**
-     * This method executes the TurnLogic's nextTurn-method.
+     * This method executes the TurnLogic's nextTurn-method through
+     * GameLogicActionsForActiveGame.
      *
      * @return False equals that the game is finished.
      */
     public boolean endTurn() {
-        return turnLogic.nextTurn(player, sect, villagers);
-    }
-
-    private void getModulesFromActiveGame() {
-        player = activeGame.getPlayer();
-        sect = activeGame.getSect();
-        villagers = activeGame.getVillagers();
-        persuasion = activeGame.getPersuasion();
-        sermon = activeGame.getSermon();
-        accusation = activeGame.getAccusation();
-        turnLogic = activeGame.getTurnLogic();
-        temple = activeGame.getTemple();
-        trainingCentre = activeGame.getTrainingCentre();
-    }
-
-    public ActiveGame getActiveGame() {
-        return activeGame;
+        return gameLogicActionsForActiveGame.endTurn();
     }
 
     /**
@@ -188,5 +148,13 @@ public class GameLogic {
      */
     public File[] getConfigFiles() {
         return configFiles;
+    }
+
+    public ActiveGame getActiveGame() {
+        return activeGame;
+    }
+
+    protected GameLogicActionsForActiveGame getActionsForActiveGame() {
+        return gameLogicActionsForActiveGame;
     }
 }

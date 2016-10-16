@@ -63,8 +63,7 @@ public class Temple {
         }
 
         if (congregation.size() > 0) {
-            for (int i = 0; i < congregation.size(); i++) {
-                Villager member = congregation.get(i);
+            for (Villager member : congregation) {
                 int scept = member.getScepticism();
                 member.setScepticism(scept - templeSceptDecr);
             }
