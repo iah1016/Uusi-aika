@@ -25,3 +25,10 @@ Päivä | Tunnit | Kuvaus
 05.10.2016 | 7h | Pelilogiikka pilkottu pienempiin osiin (jatkoa) ja jaettu eri paketteihin, JavaDocien lisäystä/päivitystä
 06.10.2016 | 1h | Kaikki JavaDocit lisätty
 07.10.2016 | 6h | Swing-harjoittelua, luokkakaavio ajantasalla, pari sekvenssikaaviota lisätty
+08.10.2016 | 6h | GUI:n aloitus
+09.10.2016 | 2h | EventListener-luokkien lisäyksiä
+10.10.2016 | 3h | AbstractViewPanelin tekemistä
+11.10.2016 | 7h | AbstractViewPanelin tekemistä, loput kuuntelijat ja infopalkki lisätty
+12.10.2016 | 19h | Käännytys, konfiguraatioiden ja pelin latauksen toteutusta, testejä
+13.10.2016 | 2h | Pelin latauksen toteutusta, testejä
+14.10.2016 | 9h | Pelin loppuminen toimimaan, uudet luokkakaaviot, rakennekuvaus, käyttöohjeet
