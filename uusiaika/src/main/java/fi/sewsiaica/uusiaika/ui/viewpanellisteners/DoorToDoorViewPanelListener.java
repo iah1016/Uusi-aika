@@ -28,7 +28,7 @@ import javax.swing.AbstractButton;
 
 /**
  * The object of this class handles the events in the door-to-door conversion
- * view. The villager selection is not yet implemented.
+ * view.
  *
  * @author iah1016
  */

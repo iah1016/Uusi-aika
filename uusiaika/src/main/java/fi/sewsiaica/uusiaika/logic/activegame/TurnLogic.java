@@ -32,26 +32,29 @@ import java.util.Map;
  */
 public class TurnLogic {
 
-    private final Map<String, Integer> intValues;
     private int numberOfTurns;
     private final int maxNumberOfTurns;
     private final int sceptIncrPerTurn;
     private final int thresholdForScept;
+    private List<Villager> congregationInNextTurn;
 
     /**
      * The constructor set the values of numberOfTurns, maxNumberOfTurns,
-     * sceptIncrPerTurn, and thresholdForScept to its object variable.
+     * sceptIncrPerTurn, and thresholdForScept to its object variables.
      *
      * @param intValues Includes all the variable values of the game.
      */
     public TurnLogic(Map<String, Integer> intValues) {
-        this.intValues = intValues;
         this.numberOfTurns = intValues.get("turnInitialNumberOfTurns");
         this.maxNumberOfTurns = intValues.get("turnMaxNumberOfTurns");
         this.sceptIncrPerTurn = intValues.get("turnSceptIncrPerTurn");
         this.thresholdForScept = intValues.get("turnThresholdForScepticism");
     }
 
+    protected int getNumberOfTurns() {
+        return numberOfTurns;
+    }
+    
     /**
      * The end is near. numberOfTurns increases by one. If it equals to max
      * turns, it's game over. Members may leave if their scepticism is high
@@ -60,57 +63,54 @@ public class TurnLogic {
      *
      * @param player You probably should have picked the Marathon game speed.
      * @param sect Doubting Thomases.
+     * @param allVillagers All the villagers.
      * @return Returns false, if the game is over and true otherwise.
      */
-    public boolean nextTurn(Player player, Sect sect) {
+    public boolean nextTurn(Player player, Sect sect,
+            List<Villager> allVillagers) {
         if (!balanceIsNotNegative(sect) || gameHasReachedMaxTurns()) {
             return false;
         }
         numberOfTurns++;
-        sect.setCongregation(membersInNextTurn(sect.getCongregation()));
+        congregationInNextTurn = new ArrayList<>();
+        updateVillagersAndCongregation(allVillagers);
+        sect.setCongregation(congregationInNextTurn);
         membersPayFee(sect);
         sectPaysExpenses(sect);
 
         return balanceIsNotNegative(sect);
     }
 
-    /**
-     * This method will remove the members who have decided to leave.
-     *
-     * @param oldList The member list before the turn change.
-     * @return The member list after the turn change.
-     */
-    public List<Villager> membersInNextTurn(List<Villager> oldList) {
-        List<Villager> congregationInNextTurn = new ArrayList<>();
-        if (oldList != null) {
-            for (Villager member : oldList) {
-                increaseScepticism(member);
-                if (sceptLessThanThreshold(member.getScepticism())) {
-                    congregationInNextTurn.add(member);
-                } else {
-                    member.setInSect(false);
-                }
+    private void updateVillagersAndCongregation(List<Villager> allVillagers) {
+        for (Villager villager : allVillagers) {
+            resetVillagersNumberOfConversions(villager);
+            if (villager.isInSect()) {
+                keepMemberIfSceptLessThanThreshold(villager);
             }
         }
-        return congregationInNextTurn;
     }
 
-    /**
-     * The member's scepticism increases by the value of sceptIncrPerTurn.
-     *
-     * @param member Doubting Thomas or Thomalina.
-     */
-    public void increaseScepticism(Villager member) {
+    private void resetVillagersNumberOfConversions(Villager villager) {
+        villager.setNumberOfPersuations(0);
+        villager.setNumberOfSermons(0);
+        villager.setNumberOfAccusations(0);
+    }
+    
+    private void keepMemberIfSceptLessThanThreshold(Villager member) {
+        increaseScepticism(member);
+        if (sceptLessThanThreshold(member.getScepticism())) {
+            congregationInNextTurn.add(member);
+        } else {
+            member.setInSect(false);
+        }
+    }
+
+    private void increaseScepticism(Villager member) {
         int newScept = member.getScepticism() + sceptIncrPerTurn;
         member.setScepticism(newScept);
     }
 
-    /**
-     * Pay up for your sins, brothers and sisters.
-     *
-     * @param sect a source of pesetas.
-     */
-    public void membersPayFee(Sect sect) {
+    private void membersPayFee(Sect sect) {
         int balance = sect.getBalance();
         int fee = sect.getMemberFee();
 
@@ -120,48 +120,22 @@ public class TurnLogic {
         sect.setBalance(balance);
     }
 
-    /**
-     * The rent is too damn high.
-     *
-     * @param sect The piggy bank won't survive.
-     */
-    public void sectPaysExpenses(Sect sect) {
+    private void sectPaysExpenses(Sect sect) {
         int balance = sect.getBalance();
         int expenses = sect.getExpenses();
         sect.setBalance(balance - expenses);
     }
 
-    /**
-     * You go below, you are not coming back.
-     *
-     * @param sect Balancing on a thread.
-     * @return True is boom, game over.
-     */
-    public boolean balanceIsNotNegative(Sect sect) {
+    private boolean balanceIsNotNegative(Sect sect) {
         return sect.getBalance() >= 0;
     }
 
-    /**
-     * Checking that the member's scepticism is below the threshold.
-     *
-     * @param value Member's scepticism.
-     * @return True, the member remains. False, (s)he has found a spoon and dug
-     * him-/herself out.
-     */
-    public boolean sceptLessThanThreshold(int value) {
+    private boolean sceptLessThanThreshold(int value) {
         return value < thresholdForScept;
     }
 
-    /**
-     * Checking that there are still turns left.
-     *
-     * @return True, and the game is over.
-     */
-    public boolean gameHasReachedMaxTurns() {
+    private boolean gameHasReachedMaxTurns() {
         return numberOfTurns >= maxNumberOfTurns;
     }
-
-    public int getNumberOfTurns() {
-        return numberOfTurns;
-    }
+    
 }

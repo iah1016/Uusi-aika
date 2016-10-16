@@ -160,7 +160,7 @@ public class GameLogic {
      * @return False equals that the game is finished.
      */
     public boolean endTurn() {
-        return turnLogic.nextTurn(player, sect);
+        return turnLogic.nextTurn(player, sect, villagers);
     }
 
     private void getModulesFromActiveGame() {

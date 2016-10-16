@@ -57,13 +57,13 @@ public class ActiveGame {
     public ActiveGame(Random random, Map<String, Integer> configIntValues,
             List<Villager> villagers, Player player, Sect sect) {
         this.configIntValues = configIntValues;
-        createLogicModules(random);
         this.villagers = villagers;
         this.player = player;
         this.sect = sect;
-        setMembersToCongregation();
         this.targetVillagers = new ArrayList<>();
         this.gameEndingCondition = 0;
+        createLogicModules(random);
+        setMembersToCongregation();
     }
 
     private void createLogicModules(Random random) {
