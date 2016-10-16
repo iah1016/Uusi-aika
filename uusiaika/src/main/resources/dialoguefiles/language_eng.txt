@@ -1,0 +1,4 @@
+# This file contains all the dialogue text in the following language:
+language: English
+# 
+openingMenu: blabla

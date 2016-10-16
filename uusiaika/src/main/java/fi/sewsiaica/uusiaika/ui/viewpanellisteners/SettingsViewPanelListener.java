@@ -58,6 +58,9 @@ public class SettingsViewPanelListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 
         if (ae.getSource() == changeLanguageButton) {
+            for (String language : gameLogic.getNamesOfLanguages()) {
+                System.out.println(language);
+            }
             System.out.println("Change the language not yet implemented.");
             gameFrame.changeViewPanel(PanelNames.SETTINGS_VIEW);
         } else if (ae.getSource() == openingMenuViewButton) {

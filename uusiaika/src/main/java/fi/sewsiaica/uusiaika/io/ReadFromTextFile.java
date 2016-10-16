@@ -23,10 +23,10 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This is a basic file reader that reads every line from a text file but
- * discards the empty lines and the lines that contain a space or a hash sign as
- * the first character. All the other lines are returned in an ArrayList of
- * Strings.
+ * This class will be replaced by the ReadFromInputStream class. This is a basic
+ * file reader that reads every line from a text file but discards the empty
+ * lines and the lines that contain a space or a hash sign as the first
+ * character. All the other lines are returned in an ArrayList of Strings.
  *
  * @author iah1016
  */
@@ -62,7 +62,7 @@ public class ReadFromTextFile {
      * @param line A line that has been yanked from a text file.
      * @return If one of the mentioned conditions is met, the line is ignored.
      */
-    public boolean isIgnorableLine(String line) {
+    protected boolean isIgnorableLine(String line) {
         if (line.isEmpty()) {
             return true;
         }
@@ -79,7 +79,7 @@ public class ReadFromTextFile {
      * mutant), the method returns the list. If you are an evil pit mutant, null
      * is all you get here.
      */
-    public List<String> returnNewLineIffReaderIsClosed(
+    protected List<String> returnNewLineIffReaderIsClosed(
             List<String> list, Scanner reader) {
         try {
             reader.hasNext();

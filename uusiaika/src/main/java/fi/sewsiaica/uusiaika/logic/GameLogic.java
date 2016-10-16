@@ -22,6 +22,8 @@ import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -37,13 +39,14 @@ public class GameLogic {
 
     private final ActiveGameChanger activeGameChanger;
     private final GameLogicActionsForActiveGame gameLogicActionsForActiveGame;
+    private final LanguageHandler languageHandler;
     private final File[] configFiles;
     private ActiveGame activeGame;
 
     /**
-     * The ActiveGameChanger and GameLogicActionsForActiveGame objects are
-     * created by the constructor. The file array of the configFiles is also
-     * created.
+     * The ActiveGameChanger, GameLogicActionsForActiveGame, and LanguageHandler
+     * objects are created by the constructor. The file array of the configFiles
+     * is also created.
      *
      * @param random Random is created by the Main class.
      * @param config Config is created by the Main class.
@@ -51,6 +54,7 @@ public class GameLogic {
     public GameLogic(Random random, Config config) {
         activeGameChanger = new ActiveGameChanger(random, config);
         gameLogicActionsForActiveGame = new GameLogicActionsForActiveGame();
+        languageHandler = new LanguageHandler();
         configFiles = new File[4];
     }
 
@@ -90,6 +94,30 @@ public class GameLogic {
         activeGame = tempGame;
         gameLogicActionsForActiveGame.updateActiveGame(activeGame);
         return true;
+    }
+
+    // The save feature is not yet implemented.
+    //public boolean saveGame(String nameForSaveFile) {
+    //    return true;
+    //}
+    
+    /**
+     * This method will change the active language if the given name can be
+     * found in the map of all languages.
+     *
+     * @param languageName The language name given as a string.
+     * @return Returns true if the language change is successful.
+     */
+    public boolean changeLanguage(String languageName) {
+        return languageHandler.setActiveLanguage(languageName);
+    }
+
+    public Map<String, String> getActiveLanguage() {
+        return languageHandler.getActiveLanguage();
+    }
+    
+    public List<String> getNamesOfLanguages() {
+        return languageHandler.getNamesOfLanguages();
     }
 
     /**
