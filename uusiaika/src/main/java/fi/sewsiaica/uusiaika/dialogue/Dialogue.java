@@ -18,6 +18,7 @@ package fi.sewsiaica.uusiaika.dialogue;
 
 import fi.sewsiaica.uusiaika.generaltools.GeneralTools;
 import fi.sewsiaica.uusiaika.io.ReadFromInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class Dialogue {
     private final Map<String, Map<String, String>> languages;
     private final List<String> namesOfLanguages;
     private final String[] keysForLangMaps;
+    private final int maxLanguagesAllowed;
 
     /**
      * The constructor creates immutable objects of the following types:
@@ -56,6 +58,7 @@ public class Dialogue {
         this.languages = new HashMap<>();
         this.namesOfLanguages = new ArrayList<>();
         this.keysForLangMaps = createArrayOfKeysForLangMaps();
+        this.maxLanguagesAllowed = 3;
         loadDefaultLanguages();
     }
 
@@ -88,12 +91,13 @@ public class Dialogue {
     /**
      * This method will add a (valid) language to the hash map of languages.
      *
-     * @param language The name of the language file as a string.
+     * @param languageFile The text file that contains all the dialogue in this
+     * language.
      * @return Returns true if the file is valid.
      */
-    public boolean loadNewLanguage(String language) {
+    public boolean loadNewLanguage(File languageFile) {
         try {
-            InputStream inputStream = new FileInputStream(language);
+            InputStream inputStream = new FileInputStream(languageFile);
             return languageLoader(inputStream);
         } catch (FileNotFoundException e) {
             return false;
@@ -136,10 +140,18 @@ public class Dialogue {
         if (!isValidLanguageMap(langMap)) {
             return false;
         }
+        addLanguage(langMap);
+        return true;
+    }
+
+    private void addLanguage(Map<String, String> langMap) {
         String langName = langMap.get("language");
         languages.put(langName, langMap);
-        namesOfLanguages.add(langName);
-        return true;
+        if (namesOfLanguages.size() < maxLanguagesAllowed) {
+            namesOfLanguages.add(langName);
+        } else {
+            namesOfLanguages.set(maxLanguagesAllowed - 1, langName);
+        }
     }
 
     private boolean isValidLanguageMap(Map<String, String> map) {

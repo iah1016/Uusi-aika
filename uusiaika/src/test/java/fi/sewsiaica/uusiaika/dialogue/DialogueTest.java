@@ -16,11 +16,7 @@
  */
 package fi.sewsiaica.uusiaika.dialogue;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import org.junit.After;
@@ -78,26 +74,26 @@ public class DialogueTest {
 
     @Test
     public void loadNewLanguageLoadsNewLanguage() {
-        String file = "src/test/filesfortests/language_vdl.txt";
-        boolean loadingOK = dialogue.loadNewLanguage(file);
+        String fileName = "src/test/filesfortests/language_vdl.txt";
+        boolean loadingOK = dialogue.loadNewLanguage(new File(fileName));
         assertEquals(true, loadingOK);
         assertEquals("Vandalic", dialogue.getNamesOfLanguages().get(2));
         Map<String, String> language = dialogue.getLangMap("Vandalic");
-        assertEquals("scapia matzia ia drincan!", language.get("openingMenu"));
+        assertEquals("Scapia matzia ia drincan!", language.get("openingMenu"));
     }
 
     @Test
     public void languageNotAddedIfLanguageFileNotFound() {
-        String file = "/foofiles/language_foolish.txt";
-        boolean loadingOK = dialogue.loadNewLanguage(file);
+        String fileName = "/foofiles/language_foolish.txt";
+        boolean loadingOK = dialogue.loadNewLanguage(new File(fileName));
         assertEquals(false, loadingOK);
         assertEquals(2, dialogue.getNamesOfLanguages().size());
     }
 
     @Test
     public void languageNotAddedIfLanguageFileIsInvalid() {
-        String file = "src/test/filesfortests/test_professions.txt";
-        boolean loadingOK = dialogue.loadNewLanguage(file);
+        String fileName = "src/test/filesfortests/test_professions.txt";
+        boolean loadingOK = dialogue.loadNewLanguage(new File(fileName));
         assertEquals(false, loadingOK);
         assertEquals(2, dialogue.getNamesOfLanguages().size());
     }
@@ -112,5 +108,35 @@ public class DialogueTest {
     public void languageLoaderReturnsFalseWithNullPointerException() {
         boolean result = dialogue.languageLoader(null);
         assertEquals(false, result);
+    }
+
+    @Test
+    public void addingNewCustomLanguageReplacesOldOne() {
+        int amountOfLanguages = dialogue.getNamesOfLanguages().size();
+        
+        String fileName = "src/test/filesfortests/language_vdl.txt";
+        dialogue.loadNewLanguage(new File(fileName));
+        amountOfLanguages++;
+        
+        List<String> languages = dialogue.getNamesOfLanguages();
+        StringBuilder sb = new StringBuilder();
+        for (String language : languages) {
+            sb.append(language);
+        }
+        
+        assertEquals(amountOfLanguages, languages.size());
+        assertEquals("EnglishsuomiVandalic", sb.toString());
+        
+        fileName = "src/test/filesfortests/language_opr.txt";
+        dialogue.loadNewLanguage(new File(fileName));
+        
+        languages = dialogue.getNamesOfLanguages();
+        sb = new StringBuilder();
+        for (String language : languages) {
+            sb.append(language);
+        }
+        
+        assertEquals(amountOfLanguages, languages.size());
+        assertEquals("EnglishsuomiOld Prussian", sb.toString());
     }
 }

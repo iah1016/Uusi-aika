@@ -109,9 +109,8 @@ public class NewGameViewPanelListener implements ActionListener {
     }
 
     private void updateConfigFilesInGameLogic() {
-        File[] gameLogicConfigFiles = gameLogic.getConfigFiles();
         for (int i = 0; i < configFiles.length; i++) {
-            gameLogicConfigFiles[i] = configFiles[i];
+            gameLogic.getConfigFiles()[i] = configFiles[i];
         }
     }
 

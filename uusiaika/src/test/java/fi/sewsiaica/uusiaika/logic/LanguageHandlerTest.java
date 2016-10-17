@@ -16,6 +16,7 @@
  */
 package fi.sewsiaica.uusiaika.logic;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import org.junit.After;
@@ -85,5 +86,18 @@ public class LanguageHandlerTest {
         assertEquals(true, result);
         assertEquals("English", languageHandler.getActiveLanguage()
                 .get("language"));
+    }
+
+    @Test
+    public void changeCustomLanguageFunctionsProperly() {
+        String name = "src/test/filesfortests/language_opr.txt";
+        boolean result = languageHandler.changeCustomLanguage(new File(name));
+        assertEquals(true, result);
+        name = "src/test/filesfortests/language_vdl.txt";
+        result = languageHandler.changeCustomLanguage(new File(name));
+        assertEquals(true, result);
+        name = "foobar";
+        result = languageHandler.changeCustomLanguage(new File(name));
+        assertEquals(false, result);
     }
 }

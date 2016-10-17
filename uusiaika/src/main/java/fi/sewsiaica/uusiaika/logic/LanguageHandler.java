@@ -17,6 +17,7 @@
 package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.dialogue.Dialogue;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,20 @@ public class LanguageHandler {
     }
 
     /**
+     * This method will add a (valid) language to the hash map of languages and
+     * the name of the language to the custom slot of the language list (only
+     * one custom language is visible to the user). Used by the GameLogic
+     * object.
+     *
+     * @param languageFile The text file that contains all the dialogue in this
+     * language.
+     * @return Returns true if the file is valid.
+     */
+    protected boolean changeCustomLanguage(File languageFile) {
+        return dialogue.loadNewLanguage(languageFile);
+    }
+
+    /**
      * This method returns the active language map to the GameLogic object.
      *
      * @return Returns the active language map.
@@ -67,10 +82,10 @@ public class LanguageHandler {
     protected Map<String, String> getActiveLanguage() {
         return activeLanguage;
     }
-    
+
     /**
      * This method returns the language names to the GameLogic object.
-     * 
+     *
      * @return Returns the list of language names.
      */
     protected List<String> getNamesOfLanguages() {

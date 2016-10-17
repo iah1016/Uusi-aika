@@ -100,7 +100,6 @@ public class GameLogic {
     //public boolean saveGame(String nameForSaveFile) {
     //    return true;
     //}
-    
     /**
      * This method will change the active language if the given name can be
      * found in the map of all languages.
@@ -108,14 +107,25 @@ public class GameLogic {
      * @param languageName The language name given as a string.
      * @return Returns true if the language change is successful.
      */
-    public boolean changeLanguage(String languageName) {
+    public boolean setActiveLanguage(String languageName) {
         return languageHandler.setActiveLanguage(languageName);
+    }
+
+    /**
+     * A valid language is added to the languages map and its name to the custom
+     * slot of the language list.
+     *
+     * @param languageFile The file that contains the dialogue in this language.
+     * @return Returns true if the file is valid.
+     */
+    public boolean changeCustomLanguage(File languageFile) {
+        return languageHandler.changeCustomLanguage(languageFile);
     }
 
     public Map<String, String> getActiveLanguage() {
         return languageHandler.getActiveLanguage();
     }
-    
+
     public List<String> getNamesOfLanguages() {
         return languageHandler.getNamesOfLanguages();
     }

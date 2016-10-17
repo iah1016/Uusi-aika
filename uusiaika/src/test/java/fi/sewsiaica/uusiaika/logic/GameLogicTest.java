@@ -263,10 +263,10 @@ public class GameLogicTest {
     
     @Test
     public void changeLanguageFunctionsProperly() {
-        boolean result = gameLogic.changeLanguage("suomi");
+        boolean result = gameLogic.setActiveLanguage("suomi");
         assertEquals(true, result);
         assertEquals("suomi", gameLogic.getActiveLanguage().get("language"));
-        result = gameLogic.changeLanguage("English");
+        result = gameLogic.setActiveLanguage("English");
         assertEquals(true, result);
         assertEquals("English", gameLogic.getActiveLanguage().get("language"));
     }
@@ -279,5 +279,18 @@ public class GameLogicTest {
             sb.append(name);
         }
         assertEquals("Englishsuomi", sb.toString());
+    }
+    
+    @Test
+    public void changeCustomLanguageFunctionsProperly() {
+        String name = "src/test/filesfortests/language_opr.txt";
+        boolean result = gameLogic.changeCustomLanguage(new File(name));
+        assertEquals(true, result);
+        name = "src/test/filesfortests/language_vdl.txt";
+        result = gameLogic.changeCustomLanguage(new File(name));
+        assertEquals(true, result);
+        name = "foobar";
+        result = gameLogic.changeCustomLanguage(new File(name));
+        assertEquals(false, result);
     }
 }

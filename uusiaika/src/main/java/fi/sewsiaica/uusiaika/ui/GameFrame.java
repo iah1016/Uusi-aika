@@ -81,6 +81,8 @@ public class GameFrame extends JFrame {
                 new TrainingCentreViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.DOORTODOOR_VIEW,
                 new DoorToDoorViewPanel(dimension, gameLogic, this));
+        tempMap.put(PanelNames.LANGUAGESETTINGS_VIEW,
+                new LanguageSettingsViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.SETTINGS_VIEW,
                 new SettingsViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.LOAD_GAME_VIEW,

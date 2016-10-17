@@ -1,4 +1,4 @@
 # This file contains all the dialogue text in the following language:
-language: Vandalic
+language: Old Prussian
 # 
-openingMenu: Scapia matzia ia drincan!
+openingMenu: Kails poskails ains par antres!
