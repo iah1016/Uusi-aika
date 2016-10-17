@@ -38,7 +38,7 @@ public class DefaultVariableValuesTest {
     }
 
     @Test
-    public void valueFromDefaultValuesFunctionsProperly() {
+    public void valueInDefaultValuesFunctionsProperly() {
         assertEquals(200,
                 DefaultVariableValues.DEFAULTTURNTHRESHOLDFORSCEPTICISM.value());
         assertEquals(100000,

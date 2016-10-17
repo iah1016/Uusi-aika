@@ -38,7 +38,7 @@ public class DefaultVilNamesTest {
     }
 
     @Test
-    public void vilNameFromDefaultVilNamesFunctionsProperly() {
+    public void vilNameInDefaultVilNamesFunctionsProperly() {
         assertEquals("Jaakko P", DefaultVilNames.VILLAGER01.vilName());
         assertEquals("Oleg M", DefaultVilNames.VILLAGER10.vilName());
     }

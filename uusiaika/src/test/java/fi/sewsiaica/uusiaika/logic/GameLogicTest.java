@@ -11,7 +11,6 @@ import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -260,5 +259,25 @@ public class GameLogicTest {
         assertEquals(true, gameLogic.trainingCentreActions('a'));
         assertEquals(true, gameLogic.templeActions('a'));
         assertEquals(true, gameLogic.endTurn());
+    }
+    
+    @Test
+    public void changeLanguageFunctionsProperly() {
+        boolean result = gameLogic.changeLanguage("suomi");
+        assertEquals(true, result);
+        assertEquals("suomi", gameLogic.getActiveLanguage().get("language"));
+        result = gameLogic.changeLanguage("English");
+        assertEquals(true, result);
+        assertEquals("English", gameLogic.getActiveLanguage().get("language"));
+    }
+    
+    @Test
+    public void getNamesOfLanguagesFunctionsProperly() {
+        List<String> names = gameLogic.getNamesOfLanguages();
+        StringBuilder sb = new StringBuilder();
+        for (String name : names) {
+            sb.append(name);
+        }
+        assertEquals("Englishsuomi", sb.toString());
     }
 }

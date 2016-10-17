@@ -62,7 +62,7 @@ public class VariableNamesTest {
     }
 
     @Test
-    public void varNameFromVariableNamesFunctionsProperly() {
+    public void varNameInVariableNamesFunctionsProperly() {
         assertEquals("templeSceptDecr",
                 VariableNames.TEMPLESCEPTDECR.varName());
     }

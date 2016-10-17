@@ -38,7 +38,7 @@ public class DefaultProfessionsTest {
     }
 
     @Test
-    public void profNameFromDefaultProfessionsFunctionsProperly() {
+    public void profNameInDefaultProfessionsFunctionsProperly() {
         assertEquals("Kauppias", DefaultProfessions.PROF01.profName());
         assertEquals("Poliitikko", DefaultProfessions.PROF10.profName());
     }

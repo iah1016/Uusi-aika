@@ -18,6 +18,8 @@ package fi.sewsiaica.uusiaika.dialogue;
 
 import fi.sewsiaica.uusiaika.generaltools.GeneralTools;
 import fi.sewsiaica.uusiaika.io.ReadFromInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -71,7 +73,14 @@ public class Dialogue {
         }
         return null;
     }
-    
+
+    /**
+     * The names of each language given as a string. The language name is needed
+     * as a key to retrieve the language map from the larger map that contains
+     * all the languages.
+     *
+     * @return Returns the language names in a String-type List.
+     */
     public List<String> getNamesOfLanguages() {
         return namesOfLanguages;
     }
@@ -84,7 +93,23 @@ public class Dialogue {
      */
     public boolean loadNewLanguage(String language) {
         try {
-            InputStream inputStream = getClass().getResourceAsStream(language);
+            InputStream inputStream = new FileInputStream(language);
+            return languageLoader(inputStream);
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+    }
+
+    /**
+     * This protected method uses the ReadFromInputStream object to get the
+     * String lines from the language file. Not private due to testing.
+     *
+     * @param inputStream The InputStream given.
+     * @return Returns true if loading succeeds, false if there is either an
+     * IOException or a NullPointerException.
+     */
+    protected boolean languageLoader(InputStream inputStream) {
+        try {
             List<String> lines = readFromInputStream
                     .yankTextFromFile(inputStream);
             return createLanguageMap(lines);
@@ -94,15 +119,14 @@ public class Dialogue {
     }
 
     private void loadDefaultLanguages() {
-        boolean firstLanguage
-                = loadNewLanguage("/dialoguefiles/language_eng.txt");
-        boolean secondLanguage
-                = loadNewLanguage("/dialoguefiles/language_fin.txt");
-        if (!firstLanguage && !secondLanguage) {
-            System.out.println("No valid language files found. "
-                    + "The game is unable to proceed.");
-            System.exit(0);
-        }
+        String language = "/dialoguefiles/language_eng.txt";
+        languageLoader(getLanguageResourceAsStream(language));
+        language = "/dialoguefiles/language_fin.txt";
+        languageLoader(getLanguageResourceAsStream(language));
+    }
+
+    private InputStream getLanguageResourceAsStream(String language) {
+        return getClass().getResourceAsStream(language);
     }
 
     private boolean createLanguageMap(List<String> lines) {
@@ -119,9 +143,6 @@ public class Dialogue {
     }
 
     private boolean isValidLanguageMap(Map<String, String> map) {
-        if (map == null) {
-            return false;
-        }
         for (String keysForLangMap : keysForLangMaps) {
             if (!map.containsKey(keysForLangMap)) {
                 return false;

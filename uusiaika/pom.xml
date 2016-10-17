@@ -45,12 +45,14 @@
                     <targetClasses>
                         <param>fi.sewsiaica.uusiaika.logic.*</param>
                         <param>fi.sewsiaica.uusiaika.config.*</param>
+                        <param>fi.sewsiaica.uusiaika.dialogue.*</param>
                         <param>fi.sewsiaica.uusiaika.io.*</param>
                         <param>fi.sewsiaica.uusiaika.generaltools.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>fi.sewsiaica.uusiaika.logic.*</param>
                         <param>fi.sewsiaica.uusiaika.config.*</param>
+                        <param>fi.sewsiaica.uusiaika.dialogue.*</param>
                         <param>fi.sewsiaica.uusiaika.io.*</param>
                         <param>fi.sewsiaica.uusiaika.generaltools.*</param>
                     </targetTests>
