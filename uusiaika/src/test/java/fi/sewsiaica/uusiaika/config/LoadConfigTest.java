@@ -17,7 +17,6 @@
 package fi.sewsiaica.uusiaika.config;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 import org.junit.After;
@@ -63,7 +62,7 @@ public class LoadConfigTest {
         boolean epicFail = false;
         try {
             loadConfig.loadIntValuesFromAFile(new File("foo"));
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             epicFail = true;
         }
         assertEquals(true, epicFail);
@@ -71,7 +70,7 @@ public class LoadConfigTest {
 
     @Test
     public void loadIntValuesFromAFileReturnsNullIfNotValidFile()
-            throws FileNotFoundException {
+            throws Exception {
         String name = "src/test/filesfortests/testfile.txt";
         
         Map<String, Integer> result = loadConfig.loadIntValuesFromAFile(
@@ -81,7 +80,7 @@ public class LoadConfigTest {
     
     @Test
     public void loadIntValuesFromAFileReturnsIntValuesMapCorrectly()
-            throws FileNotFoundException {
+            throws Exception {
         String name = "src/test/filesfortests/test_values.txt";
         
         Map<String, Integer> result = loadConfig.loadIntValuesFromAFile(
@@ -96,7 +95,7 @@ public class LoadConfigTest {
         boolean epicFail = false;
         try {
             loadConfig.loadListFromAFile(new File("foo"));
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             epicFail = true;
         }
         assertEquals(true, epicFail);
@@ -104,7 +103,7 @@ public class LoadConfigTest {
     
     @Test
     public void loadListFromAFileFunctionsCorrectly()
-            throws FileNotFoundException {
+            throws Exception {
         String name = "src/test/filesfortests/testfile.txt";
         
         List<String> result = loadConfig.loadListFromAFile(new File(name));

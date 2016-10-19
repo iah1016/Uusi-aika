@@ -17,9 +17,10 @@
 package fi.sewsiaica.uusiaika.config;
 
 import fi.sewsiaica.uusiaika.generaltools.*;
-import fi.sewsiaica.uusiaika.io.ReadFromTextFile;
+import fi.sewsiaica.uusiaika.io.ReadFromInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class LoadConfig {
 
     private final String[] variableNames;
     private final GeneralTools generalTools;
-    private final ReadFromTextFile readFromFile;
+    private final ReadFromInputStream readFromInputStream;
 
     /**
      * The String-array of the variable names is given to the constructor as a
@@ -44,7 +45,7 @@ public class LoadConfig {
     public LoadConfig(String[] variableNames) {
         this.variableNames = variableNames;
         this.generalTools = new GeneralTools();
-        readFromFile = new ReadFromTextFile();
+        this.readFromInputStream = new ReadFromInputStream();
     }
 
     /**
@@ -52,14 +53,13 @@ public class LoadConfig {
      *
      * @param file The Map of variable values is loaded from this file.
      * @return Returns the String,Integer-type map.
-     * @throws FileNotFoundException Throws the FileNotFoundException.
+     * @throws Exception Throws the generic exception.
      */
     public Map<String, Integer> loadIntValuesFromAFile(File file) throws
-            FileNotFoundException {
-        List<String> lines = readFromFile.yankTextFromFile(file);
+            Exception {
+        List<String> lines = getLinesFromInputStream(file);
         Map<String, Integer> intValues
-                = generalTools.getStrIntMapAndStringListInterconversion()
-                        .convertStringListToStrIntMap(lines);
+                = generalTools.convertStringListToStrIntMap(lines);
         if (areValidIntValues(intValues)) {
             return intValues;
         } else {
@@ -67,16 +67,25 @@ public class LoadConfig {
         }
     }
 
+    private List<String> getLinesFromInputStream(File file)
+            throws Exception {
+        List<String> lines;
+        InputStream inputStream = new FileInputStream(file);
+        lines = readFromInputStream.yankTextFromFile(inputStream);
+
+        return lines;
+    }
+
     /**
      * This method loads a list from a file.
      *
      * @param file The list is loaded from this file.
      * @return Returns the String-type list.
-     * @throws FileNotFoundException Throws the FileNotFoundException.
+     * @throws Exception Throws the generic exception.
      */
     public List<String> loadListFromAFile(File file)
-            throws FileNotFoundException {
-        return readFromFile.yankTextFromFile(file);
+            throws Exception {
+        return getLinesFromInputStream(file);
     }
 
     /**

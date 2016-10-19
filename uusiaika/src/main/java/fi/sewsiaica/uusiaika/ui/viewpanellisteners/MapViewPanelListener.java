@@ -21,8 +21,11 @@ import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.AbstractButton;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * The object of this class handles the events in the map view. It currently
@@ -38,10 +41,13 @@ public class MapViewPanelListener implements ActionListener {
     private final AbstractButton trainingCentreButton;
     private final AbstractButton doorToDoorConversionButton;
     private final AbstractButton endTurnButton;
+    private final AbstractButton saveGameButton;
     private final AbstractButton openingMenuViewButton;
+    private final JFileChooser fileChooser;
+    private File saveFile;
 
     /**
-     * The constructor is given an array of five AbstractButtons, GameFrame, and
+     * The constructor is given an array of six AbstractButtons, GameFrame, and
      * GameLogic as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
@@ -50,8 +56,9 @@ public class MapViewPanelListener implements ActionListener {
      * shown.
      * @param buttons The current ViewPanel changes to [0] TEMPLE_VIEW, [1]
      * TRAININGCENTRE_VIEW, [2] DOORTODOOR_VIEW (conversion), [3] Ends the turn
-     * via GameLogic, [4] openingMenuViewButton The current ViewPanel changes to
-     * OPENING_MENU_VIEW, thus ending the active game.
+     * via GameLogic, [4] Saves the game via GameLogic, [5]
+     * openingMenuViewButton The current ViewPanel changes to OPENING_MENU_VIEW,
+     * thus ending the active game.
      */
     public MapViewPanelListener(GameLogic gameLogic, GameFrame frame,
             AbstractButton[] buttons) {
@@ -61,9 +68,22 @@ public class MapViewPanelListener implements ActionListener {
         this.trainingCentreButton = buttons[1];
         this.doorToDoorConversionButton = buttons[2];
         this.endTurnButton = buttons[3];
-        this.openingMenuViewButton = buttons[4];
+        this.saveGameButton = buttons[4];
+        this.openingMenuViewButton = buttons[5];
+        this.fileChooser = new JFileChooser();
+        fileChooserSettings();
     }
 
+    private void fileChooserSettings() {
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                ".txt files", "txt");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("Choose the save location");
+
+        String gameDir = System.getProperty("user.dir");
+        fileChooser.setCurrentDirectory(new File(gameDir));
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
 
@@ -79,13 +99,42 @@ public class MapViewPanelListener implements ActionListener {
             if (gameLogic.endTurn()) {
                 gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
             } else {
-                gameLogic.getActiveGame().setGameEndingCondition(1);
+                gameLogic.endGame(1);
                 gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
             }
+        } else if (ae.getSource() == saveGameButton) {
+            saveGameSelected();
         } else if (ae.getSource() == openingMenuViewButton) {
             emptyTargetVillagerList();
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
+    }
+
+    private void saveGameSelected() {
+        if (fileChosenWithFileChooser()) {
+            if (savingGameSucceeds()) {
+                System.out.println("Saved as " + saveFile.getName() + ".");
+            } else {
+                System.out.println("Unable to save to the selected location.");
+            }
+        }
+        gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
+    }
+    
+    private boolean fileChosenWithFileChooser() {
+        int returnVal = fileChooser.showSaveDialog(gameFrame);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            saveFile = fileChooser.getSelectedFile();
+            System.out.println(saveFile.getName());
+            return true;
+        }
+        System.out.println("Cancelled.");
+        return false;
+    }
+    
+    private boolean savingGameSucceeds() {
+        return gameLogic.saveGame(saveFile);
     }
 
     private void goDoorToDoorIfTargetVillagerListIsNotEmpty() {
@@ -95,7 +144,7 @@ public class MapViewPanelListener implements ActionListener {
         if (targetVillagerListSize != 0) {
             gameFrame.changeViewPanel(PanelNames.DOORTODOOR_VIEW);
         } else {
-            System.out.println("no targets selected");
+            System.out.println("No targets selected.");
         }
     }
 

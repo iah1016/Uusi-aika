@@ -64,6 +64,7 @@ public class LoadGameViewPanelListener implements ActionListener {
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 ".txt files", "txt");
         fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("Open a save file");
 
         String gameDir = System.getProperty("user.dir");
         fileChooser.setCurrentDirectory(new File(gameDir));

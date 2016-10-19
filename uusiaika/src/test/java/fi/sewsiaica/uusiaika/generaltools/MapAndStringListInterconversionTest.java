@@ -80,6 +80,26 @@ public class MapAndStringListInterconversionTest {
     }
 
     @Test
+    public void convertMapToOrderedStringListFunctionsAsExpected() {
+        String[] keys = {"kek", "key1", "key2", "keyfoo", "key3"};
+        testMap1.put("keyfoo", "valuefff");
+        testMap1.put("kek", "valueff");
+        List<String> orderedList
+                = conversion.convertMapToOrderedStringList(testMap1, keys);
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("kek: valueff");
+        expectedList.add("key1: value1");
+        expectedList.add("key2: value2");
+        expectedList.add("keyfoo: valuefff");
+        expectedList.add("key3: value3");
+
+        assertEquals(expectedList.size(), orderedList.size());
+        for (int i = 0; i < orderedList.size(); i++) {
+            assertEquals(expectedList.get(i), orderedList.get(i));
+        }
+    }
+
+    @Test
     public void processOneStringFromStringListReturnsKeyValuePairCorrectly() {
         String testString = "defaultValue: 666";
         String[] res = conversion.processOneStringFromStringList(testString);

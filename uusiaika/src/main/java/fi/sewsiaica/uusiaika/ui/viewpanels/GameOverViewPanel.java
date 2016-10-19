@@ -40,6 +40,7 @@ public class GameOverViewPanel extends AbstractViewPanel {
     private JPanel endMessagePanel;
     private JPanel buttonPanel;
     private final int endCondition;
+    private final int finalScore;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters.
@@ -52,20 +53,23 @@ public class GameOverViewPanel extends AbstractViewPanel {
      * @param endCondition The end condition are: [0] the game has not ended,
      * [1] the maximum amount of turns has been reached, [2] the death cult
      * ending, [3] the paradise island ending.
+     * @param finalScore The final score.
      */
     public GameOverViewPanel(Dimension dimension, GameLogic gameLogic,
-            GameFrame frame, int endCondition) {
+            GameFrame frame, int endCondition, int finalScore) {
         super();
         this.dimension = dimension;
         this.gameLogic = gameLogic;
         this.gameFrame = frame;
         this.endCondition = endCondition;
+        this.finalScore = finalScore;
         this.updateComponents();
     }
 
     @Override
     public void updateComponents() {
-        String[] textsForButtons = {"Go back to the Main menu"};
+        String[] textsForButtons = {"Show the Hall of Fame",
+            "Go back to the Main menu"};
 
         endMessagePanel = createEndMessageTextPanePanel();
         buttonPanel = super.getNewButtonPanel(textsForButtons);
@@ -99,12 +103,15 @@ public class GameOverViewPanel extends AbstractViewPanel {
     }
 
     private String pickEndMessage() {
+        String scoreString = "Your final score is: " + finalScore + ".";
         switch (endCondition) {
             case 1:
-                return "You have reached the end without success.";
+                return "You have reached the end without success. "
+                        + scoreString;
             case 2:
                 return "With you guidance, your flock will "
-                        + "take the daring step to ascend to the next level.";
+                        + "take the daring step to ascend to the next level. "
+                        + scoreString;
             case 3:
                 return "A one-way ticket to Paradise (some obscure "
                         + "island in the western Pacific) and only you are "
@@ -112,9 +119,9 @@ public class GameOverViewPanel extends AbstractViewPanel {
                         + "You have taught your flock well and now they can "
                         + "manage themselves.\nYou will take a reasonable "
                         + "reward of 100 percent of the Sect's balance with "
-                        + "you.";
+                        + "you. " + scoreString;
             default:
-                return "Game over";
+                return "Game over " + scoreString;
         }
     }
 }

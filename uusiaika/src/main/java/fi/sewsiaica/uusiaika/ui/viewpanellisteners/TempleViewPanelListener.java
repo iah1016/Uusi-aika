@@ -77,7 +77,7 @@ public class TempleViewPanelListener implements ActionListener {
             if (gameLogic.endTurn()) {
                 updateView();
             } else {
-                gameLogic.getActiveGame().setGameEndingCondition(1);
+                gameLogic.endGame(1);
                 gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
             }
         }
@@ -103,7 +103,7 @@ public class TempleViewPanelListener implements ActionListener {
         if (gameLogic.templeActions('b')) {
             System.out.println("With you guidance, your flock will "
                     + "take the daring step to ascend to the next level.");
-            gameLogic.getActiveGame().setGameEndingCondition(2);
+            gameLogic.endGame(2);
             gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
             System.out.println("You lack charisma to pull this off.");
@@ -120,7 +120,7 @@ public class TempleViewPanelListener implements ActionListener {
                     + "manage themselves.\nYou will take a reasonable "
                     + "reward of 100 percent of the Sect's balance with "
                     + "you.");
-            gameLogic.getActiveGame().setGameEndingCondition(3);
+            gameLogic.endGame(3);
             gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
             System.out.println("There's not enough money on the account.");

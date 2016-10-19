@@ -10,7 +10,6 @@ import fi.sewsiaica.uusiaika.domain.*;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -52,7 +51,7 @@ public class GameLogicTest {
         names[1] = "AB";
         try {
             gameLogic.newGame(names);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
 
         }
         activeGame = gameLogic.getActiveGame();
@@ -63,42 +62,42 @@ public class GameLogicTest {
     }
 
     @Test
-    public void newGameThrowsFileNotFoundExceptionIfConfigFileIsInvalid() {
+    public void newGameThrowsExceptionIfConfigFileIsInvalid() {
         boolean epicFail = false;
         File[] configFiles = gameLogic.getConfigFiles();
         configFiles[0] = new File("foo");
 
         try {
             gameLogic.newGame(names);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             epicFail = true;
         }
         assertEquals(true, epicFail);
     }
 
     @Test
-    public void newGameThrowsFileNotFoundExceptionIfVilNamesFileIsInvalid() {
+    public void newGameThrowsExceptionIfVilNamesFileIsInvalid() {
         boolean epicFail = false;
         File[] configFiles = gameLogic.getConfigFiles();
         configFiles[1] = new File("foo");
 
         try {
             gameLogic.newGame(names);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             epicFail = true;
         }
         assertEquals(true, epicFail);
     }
 
     @Test
-    public void newGameThrowsFileNotFoundExceptionIfProfsFileIsInvalid() {
+    public void newGameThrowsExceptionIfProfsFileIsInvalid() {
         boolean epicFail = false;
         File[] configFiles = gameLogic.getConfigFiles();
         configFiles[2] = new File("foo");
 
         try {
             gameLogic.newGame(names);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             epicFail = true;
         }
         assertEquals(true, epicFail);
@@ -106,7 +105,7 @@ public class GameLogicTest {
 
     @Test
     public void newGameReturnsTrueIfConfigFilesAreNull()
-            throws FileNotFoundException {
+            throws Exception {
         File[] configFiles = gameLogic.getConfigFiles();
         configFiles[0] = null;
         configFiles[1] = null;
@@ -118,7 +117,7 @@ public class GameLogicTest {
 
     @Test
     public void newGameReturnsTrueIfValidFilesAreUsed()
-            throws FileNotFoundException {
+            throws Exception {
         String confID = "src/test/filesfortests/test_values.txt";
         String vilID = "src/test/filesfortests/test_villagers.txt";
         String profsID = "src/test/filesfortests/test_professions.txt";
@@ -134,7 +133,7 @@ public class GameLogicTest {
 
     @Test
     public void newGameReturnsFalseIfInvalidIntValues()
-            throws FileNotFoundException {
+            throws Exception {
         String confID = "src/test/filesfortests/testfile.txt";
         gameLogic.getConfigFiles()[0] = new File(confID);
         boolean result = gameLogic.newGame(names);
@@ -178,7 +177,7 @@ public class GameLogicTest {
 
     @Test
     public void intValuesAreCorrectAfterCreatingNewGameWithValidFiles()
-            throws FileNotFoundException {
+            throws Exception {
         String confID = "src/test/filesfortests/test_values.txt";
         String vilID = "src/test/filesfortests/test_villagers.txt";
         String profsID
@@ -245,7 +244,7 @@ public class GameLogicTest {
 
     @Test
     public void GameLogicActionsFunctionProperlyWhenActiveGameNotNull()
-            throws FileNotFoundException {
+            throws Exception {
         gameLogic = new GameLogic(random, config);
         Villager dummy = new Villager("foo", true, 0, 0, 0, 0, "foo");
         
@@ -291,6 +290,16 @@ public class GameLogicTest {
         assertEquals(true, result);
         name = "foobar";
         result = gameLogic.changeCustomLanguage(new File(name));
+        assertEquals(false, result);
+    }
+    
+    @Test
+    public void saveActiveGameFunctionsAsExpected() throws Exception {
+        String fileName = "src/test/filesfortests/test_save_active_game.txt";
+        File saveFile = new File(fileName);
+        boolean result = gameLogic.saveGame(saveFile);
+        assertEquals(true, result);
+        result = gameLogic.saveGame(null);
         assertEquals(false, result);
     }
 }

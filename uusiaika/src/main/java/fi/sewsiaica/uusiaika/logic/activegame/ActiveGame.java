@@ -34,6 +34,7 @@ public class ActiveGame {
     private final List<Villager> villagers;
     private final Player player;
     private final Sect sect;
+    private final ScoreHandler scoreHandler;
     private Persuasion persuasion;
     private Sermon sermon;
     private Accusation accusation;
@@ -60,6 +61,7 @@ public class ActiveGame {
         this.villagers = villagers;
         this.player = player;
         this.sect = sect;
+        this.scoreHandler = new ScoreHandler();
         this.targetVillagers = new ArrayList<>();
         this.gameEndingCondition = 0;
         createLogicModules(random);
@@ -160,7 +162,38 @@ public class ActiveGame {
         return gameEndingCondition;
     }
 
-    public void setGameEndingCondition(int gameEndingCondition) {
+    public int getFinalScore() {
+        return scoreHandler.getScore();
+    }
+
+    /**
+     * The active game ends with the given condition. The method calls the
+     * private method calculateEndScore(), which updates the end score with the
+     * aid of the ScoreHandler object.
+     *
+     * @param gameEndingCondition [1] the maximum amount of turns has been
+     * reached, [2] the death cult ending, [3] the paradise island ending.
+     * @return Returns the final score.
+     */
+    public int endThisActiveGame(int gameEndingCondition) {
         this.gameEndingCondition = gameEndingCondition;
+        return calculateEndScore();
+    }
+
+    private int calculateEndScore() {
+        int[] elements = new int[8];
+        elements[0] = this.gameEndingCondition;
+        elements[1] = player.getCharisma();
+        elements[2] = sect.getBalance();
+        elements[3] = sect.getCongregation().size();
+        elements[4] = getNumberOfTurns();
+        elements[5] = configIntValues.get("turnMaxNumberOfTurns");
+        elements[6] = configIntValues.get("templeDeathCultCharismaReq");
+        elements[7] = configIntValues.get("templeDivineRightMoneyReq");
+        return scoreHandler.calculateScore(elements);
+    }
+
+    public Map<String, Integer> getConfigIntValues() {
+        return configIntValues;
     }
 }

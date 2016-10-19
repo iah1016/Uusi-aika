@@ -35,7 +35,7 @@ public class RunnableGUI implements Runnable {
      * arguments as parameters and sets them as its object variables.
      *
      * @param gameLogic The core class of the game logic.
-     * @param args Not yet implemented.
+     * @param args Arguments, they will not be implemented in this version.
      */
     public RunnableGUI(GameLogic gameLogic, String[] args) {
         this.gameLogic = gameLogic;

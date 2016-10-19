@@ -16,6 +16,7 @@
  */
 package fi.sewsiaica.uusiaika.generaltools;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -68,5 +69,25 @@ public class StringAndStringListInterconversionTest {
     public void convertStringToStringListReturnsNullIfStringNull() {
         List<String> res = sasli.convertStringToStringList(null);
         assertNull(res);
+    }
+    
+    @Test
+    public void convertStringListToStringFunctionsAsExpected() {
+        List<String> list = new ArrayList<>();
+        list.add("aaa aa");
+        list.add("bb bbb");
+        list.add("c");
+        String result = sasli.convertStringListToString(list);
+        String expected = "aaa aa\nbb bbb\nc";
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void convertStringListToStringReturnsNullIfNullOrEmptyListGiven() {
+        String result = sasli.convertStringListToString(null);
+        assertNull(result);
+        List<String> list = new ArrayList<>();
+        result = sasli.convertStringListToString(list);
+        assertNull(result);
     }
 }

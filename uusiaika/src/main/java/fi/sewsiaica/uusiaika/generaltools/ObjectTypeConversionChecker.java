@@ -29,7 +29,7 @@ public class ObjectTypeConversionChecker {
      * @param string String.
      * @return Returns true if the string can be converted, false otherwise.
      */
-    public boolean stringCanBeConvertedToInt(String string) {
+    protected boolean stringCanBeConvertedToInt(String string) {
         try {
             Integer.parseInt(string);
         } catch (NumberFormatException e) {
@@ -45,7 +45,7 @@ public class ObjectTypeConversionChecker {
      * @param i Integer.
      * @return Returns true if the integer can be converted, false otherwise.
      */
-    public boolean intCanBeConvertedToBoolean(int i) {
+    protected boolean intCanBeConvertedToBoolean(int i) {
         return i == 0 || i == 1;
     }
 

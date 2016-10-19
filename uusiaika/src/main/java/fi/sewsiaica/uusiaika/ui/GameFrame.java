@@ -45,7 +45,7 @@ public class GameFrame extends JFrame {
      *
      * @param title The title of the game, shown in the title bar.
      * @param gameLogic The core class of the game logic.
-     * @param args Not yet implemented.
+     * @param args Arguments, they will not be implemented in this version.
      */
     GameFrame(String title, GameLogic gameLogic, String[] args) {
         super(title);
@@ -88,7 +88,7 @@ public class GameFrame extends JFrame {
         tempMap.put(PanelNames.LOAD_GAME_VIEW,
                 new LoadGameViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.GAME_OVER_VIEW,
-                new GameOverViewPanel(dimension, gameLogic, this, 0));
+                new GameOverViewPanel(dimension, gameLogic, this, 0, 0));
 
         return tempMap;
     }
@@ -116,12 +116,14 @@ public class GameFrame extends JFrame {
 
     private void gameOver() {
         int condition = 0;
+        int finalScore = 0;
 
         if (gameLogic.getActiveGame() != null) {
-            condition
-                    = gameLogic.getActiveGame().getGameEndingCondition();
+            condition = gameLogic.getActiveGame().getGameEndingCondition();
+            finalScore = gameLogic.getActiveGame().getFinalScore();
         }
         viewPanelMap.put(PanelNames.GAME_OVER_VIEW,
-                new GameOverViewPanel(dimension, gameLogic, this, condition));
+                new GameOverViewPanel(dimension, gameLogic, this, condition,
+                        finalScore));
     }
 }

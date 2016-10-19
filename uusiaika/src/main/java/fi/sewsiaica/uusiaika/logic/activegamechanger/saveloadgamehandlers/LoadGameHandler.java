@@ -19,10 +19,11 @@ package fi.sewsiaica.uusiaika.logic.activegamechanger.saveloadgamehandlers;
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.generaltools.GeneralTools;
-import fi.sewsiaica.uusiaika.io.ReadFromTextFile;
+import fi.sewsiaica.uusiaika.io.ReadFromInputStream;
 import fi.sewsiaica.uusiaika.logic.activegamechanger.CreateVillagers;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ import java.util.Map;
  */
 public class LoadGameHandler {
 
-    private final ReadFromTextFile readFromFile;
+    private final ReadFromInputStream readFromInputStream;
     private final GeneralTools generalTools;
     private final CreateVillagers createVillagers;
     private File saveFile;
@@ -51,7 +52,7 @@ public class LoadGameHandler {
      */
     public LoadGameHandler(CreateVillagers createVillagers) {
         this.createVillagers = createVillagers;
-        this.readFromFile = new ReadFromTextFile();
+        this.readFromInputStream = new ReadFromInputStream();
         this.generalTools = new GeneralTools();
         this.playerAndSectNamesArray = new String[2];
     }
@@ -96,8 +97,9 @@ public class LoadGameHandler {
 
     private boolean loadListFromFileSucceeds() {
         try {
-            allTheLinesList = readFromFile.yankTextFromFile(saveFile);
-        } catch (FileNotFoundException e) {
+            InputStream inputStream = new FileInputStream(saveFile);
+            allTheLinesList = readFromInputStream.yankTextFromFile(inputStream);
+        } catch (Exception e) {
             return false;
         }
         return allTheLinesList.size() == 45;
@@ -105,8 +107,7 @@ public class LoadGameHandler {
 
     private boolean processConfigVariableMapSucceeds(List<String> varList) {
         configVariableMap
-                = generalTools.getStrIntMapAndStringListInterconversion()
-                        .convertStringListToStrIntMap(varList);
+                = generalTools.convertStringListToStrIntMap(varList);
         Config config = new Config();
         return config.checkValidityOfConfigVariableMap(configVariableMap);
     }
@@ -121,14 +122,10 @@ public class LoadGameHandler {
         String profsLine = allTheLinesList.get(39);
         String boolLine = allTheLinesList.get(40);
 
-        List<String> names = generalTools
-                .getStringAndStringListInterconversion()
-                .convertStringToStringList(nameLine);
-        List<String> profs = generalTools
-                .getStringAndStringListInterconversion()
-                .convertStringToStringList(profsLine);
-        boolean[] inSect = generalTools.getStringToArraysConversion()
-                .stringToBooleanArray(boolLine, names.size());
+        List<String> names = generalTools.convertStringToStringList(nameLine);
+        List<String> profs = generalTools.convertStringToStringList(profsLine);
+        boolean[] inSect = generalTools.stringToBooleanArray(
+                boolLine, names.size());
         List<int[]> attributes = createListOfVillagerAttributeArrays(
                 names.size());
         return noElementInVillageCreationIsNullOrEmpty(names, profs, inSect,
@@ -150,8 +147,7 @@ public class LoadGameHandler {
         List<int[]> attributes = new ArrayList<>();
         List<String> lines = getLines(41, 45);
         for (int i = 0; i < lines.size(); i++) {
-            int[] intArray = generalTools.getStringToArraysConversion()
-                    .stringToIntArray(lines.get(i), size);
+            int[] intArray = generalTools.stringToIntArray(lines.get(i), size);
             if (intArray == null) {
                 return null;
             }

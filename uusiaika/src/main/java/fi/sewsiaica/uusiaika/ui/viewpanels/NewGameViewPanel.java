@@ -64,7 +64,8 @@ public class NewGameViewPanel extends AbstractViewPanel {
         String[] textsForButtons = {"Create a new game",
             "Change the configuration values file",
             "Change the villager names file",
-            "Change the villager professions file"};
+            "Change the villager professions file",
+            "Go back to main menu"};
 
         textFieldPanel = new JPanel();
         applyTextFieldPanelSettings(textFieldPanel);
@@ -76,7 +77,7 @@ public class NewGameViewPanel extends AbstractViewPanel {
     private void applyTextFieldPanelSettings(JPanel jPanel) {
         jPanel.setBackground(Color.decode("#a3c2c2"));
     }
-    
+
     @Override
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {

@@ -23,17 +23,19 @@ import java.util.Random;
 import javax.swing.SwingUtilities;
 
 /**
- * The Main class creates GameLogic and RunnableGUI classes and starts the game. Random and
- Config classes are also created and given as parameters to the GameLogic class.
+ * The Main class creates GameLogic and RunnableGUI classes and starts the game.
+ * Random and Config classes are also created and given as parameters to the
+ * GameLogic class.
  *
  * @author iah1016
  */
 public class Main {
 
     /**
-     * Currently, any exception will end the game with the message "Ei natsaa".
+     * A fatal exception will terminate the game with the following message: A
+     * fatal error has occurred. The game is terminated.
      *
-     * @param args Arguments, not yet implemented.
+     * @param args Arguments, they will not be implemented in this version.
      */
     public static void main(String[] args) {
 
@@ -41,12 +43,13 @@ public class Main {
             Random random = new Random();
             Config config = new Config();
             GameLogic gameLogic = new GameLogic(random, config);
-            
+
             RunnableGUI gui = new RunnableGUI(gameLogic, args);
             SwingUtilities.invokeLater(gui);
-            
+
         } catch (Exception e) {
-            System.out.println("Ei natsaa");
+            System.out.println("A fatal error has occurred. "
+                    + "The game is terminated.");
         }
     }
 

@@ -22,7 +22,6 @@ import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import javax.swing.AbstractButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
@@ -43,11 +42,12 @@ public class NewGameViewPanelListener implements ActionListener {
     private final AbstractButton configValuesFileButton;
     private final AbstractButton villagerNamesFileButton;
     private final AbstractButton villagerProfsFileButton;
+    private final AbstractButton openingMenuViewButton;
     private final JFileChooser fileChooser;
     private final File[] configFiles;
 
     /**
-     * The constructor is given four JTextFields, an array of one
+     * The constructor is given five JTextFields, an array of one
      * AbstractButton, GameFrame, and GameLogic as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
@@ -69,6 +69,7 @@ public class NewGameViewPanelListener implements ActionListener {
         this.configValuesFileButton = buttons[1];
         this.villagerNamesFileButton = buttons[2];
         this.villagerProfsFileButton = buttons[3];
+        this.openingMenuViewButton = buttons[4];
         this.configFiles = new File[3];
         this.fileChooser = new JFileChooser();
         fileChooserSettings();
@@ -89,15 +90,18 @@ public class NewGameViewPanelListener implements ActionListener {
         if (ae.getSource() == createGameButton) {
             createGameSelected();
         } else if (ae.getSource() == configValuesFileButton) {
-            fileChooserDialog(0);
+            fileChooserDialog(0, "Choose the configuration file");
         } else if (ae.getSource() == villagerNamesFileButton) {
-            fileChooserDialog(1);
+            fileChooserDialog(1, "Choose the villager names file");
         } else if (ae.getSource() == villagerProfsFileButton) {
-            fileChooserDialog(2);
+            fileChooserDialog(2, "Choose the villager professions file");
+        } else if (ae.getSource() == openingMenuViewButton) {
+            gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }
 
-    private void fileChooserDialog(int configFileID) {
+    private void fileChooserDialog(int configFileID, String title) {
+        fileChooser.setDialogTitle(title);
         int returnVal = fileChooser.showOpenDialog(gameFrame);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -139,9 +143,8 @@ public class NewGameViewPanelListener implements ActionListener {
                 System.out.println("Invalid Config file");
                 gameFrame.changeViewPanel(PanelNames.NEW_GAME_VIEW);
             }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+        } catch (Exception e) {
+            System.out.println("File(s) cannot be read.");
         }
     }
 

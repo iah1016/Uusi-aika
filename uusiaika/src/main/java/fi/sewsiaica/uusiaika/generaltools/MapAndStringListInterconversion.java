@@ -41,13 +41,13 @@ public abstract class MapAndStringListInterconversion {
     protected abstract Map<String, ?> convertStringListToMap(List<String> list);
 
     /**
-     * This method converts any String,?-type map to a String-type List, where ?
-     * is a wildcard.
+     * This method converts any String,(wildcard)-type map to a String-type
+     * List.
      *
      * @param map Map's keys are of String type and values can be any type.
      * @return A List of Strings is returned.
      */
-    public List<String> convertMapToStringList(Map<String, ?> map) {
+    protected List<String> convertMapToStringList(Map<String, ?> map) {
         List<String> stringList = new ArrayList<>();
         Set<String> keySet = map.keySet();
 
@@ -55,6 +55,24 @@ public abstract class MapAndStringListInterconversion {
             stringList.add(key + ": " + map.get(key).toString());
         }
 
+        return stringList;
+    }
+
+    /**
+     * This method converts any String,(wildcard)-type map to a String-type List
+     * where the elements are in the given order.
+     *
+     * @param map Map's keys are of String type and values can be any type.
+     * @param keys The String array of the map keys.
+     * @return A List of Strings is returned.
+     */
+    protected List<String> convertMapToOrderedStringList(Map<String, ?> map,
+            String[] keys) {
+        List<String> stringList = new ArrayList<>();
+        for (int i = 0; i < keys.length; i++) {
+            String key = keys[i];
+            stringList.add(key + ": " + map.get(key).toString());
+        }
         return stringList;
     }
 

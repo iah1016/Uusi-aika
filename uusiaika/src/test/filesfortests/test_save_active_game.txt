@@ -1,0 +1,45 @@
+playerCharisma: 10
+playerArgSkills: 10
+sectBalance: 5000
+sectExpenses: 1000
+sectMemberFee: 700
+vilPopulation: 10
+vilBaseScepticism: 10
+vilBaseSelfEs: 10
+vilBaseSelfAw: 10
+vilBaseArgSkills: 10
+vilBoundValue: 51
+convMaxNumberOfPersuasions: 3
+convPersPlayerBound: 20
+convPersVilBound: 20
+convPersPlayerCharIncr: 2
+convPersVilSelfAwDecr: 5
+convPersVilSceptDecr: 5
+convMaxNumberOfSermons: 2
+convSermPlayerBound: 20
+convSermVilBound: 20
+convSermPlayerCharIncr: 2
+convSermVilSceptDecr: 5
+convMaxNumberOfAccusations: 2
+convAccuPlayerBound: 20
+convAccuVilBound: 20
+convAccuPlayerCharIncr: 2
+convAccuVilSelfEsDecr: 5
+turnInitialNumberOfTurns: 1
+turnMaxNumberOfTurns: 100
+turnSceptIncrPerTurn: 10
+turnThresholdForScepticism: 200
+templeSceptDecr: 10
+templeDeathCultCharismaReq: 255
+templeDivineRightMoneyReq: 100000
+trainingCharismaIncr: 10
+trainingArgSkillsIncr: 10
+AA
+AB
+Jaakko P,Harri H,Mikko M,Teemu P,Ilona R,Taina E,Marika M,Robert F,Cecilia C,Oleg M
+Kauppias,Leipuri,Opettaja,Postinjakaja,Lääkäri,Radiojuontaja,Poliisi,Bussikuski,Putkimies,Poliitikko
+0,0,0,0,0,0,0,0,0,0
+12,12,12,12,12,12,12,12,12,12
+12,12,12,12,12,12,12,12,12,12
+12,12,12,12,12,12,12,12,12,12
+12,12,12,12,12,12,12,12,12,12

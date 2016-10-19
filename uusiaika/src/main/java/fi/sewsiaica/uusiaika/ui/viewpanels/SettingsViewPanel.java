@@ -57,7 +57,7 @@ public class SettingsViewPanel extends AbstractViewPanel {
     }
 
     @Override
-    public void updateComponents() {
+    public final void updateComponents() {
         String[] textsForButtons = {"Change language", "Go back to main menu"};
 
         buttonPanel = super.getNewButtonPanel(textsForButtons);

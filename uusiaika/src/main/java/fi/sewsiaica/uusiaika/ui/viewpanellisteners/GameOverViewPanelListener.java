@@ -32,28 +32,34 @@ public class GameOverViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
+    private final AbstractButton hallOfFameButton;
     private final AbstractButton openingMenuViewButton;
 
     /**
-     * The constructor is given an array of one AbstractButton, GameFrame, and
+     * The constructor is given an array of two AbstractButtons, GameFrame, and
      * GameLogic as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
-     * @param buttons The button for the Main menu.
+     * @param buttons The buttons: [0] Show the Hall of Fame, [1] Return to the
+     * Main menu.
      */
     public GameOverViewPanelListener(GameLogic gameLogic, GameFrame frame,
             AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.openingMenuViewButton = buttons[0];
+        this.hallOfFameButton = buttons[0];
+        this.openingMenuViewButton = buttons[1];
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == openingMenuViewButton) {
+        if (ae.getSource() == hallOfFameButton) {
+            System.out.println("Hall of Fame not yet implemented.");
+//            gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
+        } else if (ae.getSource() == openingMenuViewButton) {
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }

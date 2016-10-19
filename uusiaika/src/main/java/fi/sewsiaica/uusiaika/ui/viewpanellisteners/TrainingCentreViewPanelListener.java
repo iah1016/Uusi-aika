@@ -73,7 +73,7 @@ public class TrainingCentreViewPanelListener implements ActionListener {
                 if (gameLogic.endTurn()) {
                     updateView();
                 } else {
-                    gameLogic.getActiveGame().setGameEndingCondition(1);
+                    gameLogic.endGame(1);
                     gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
                 }
             }

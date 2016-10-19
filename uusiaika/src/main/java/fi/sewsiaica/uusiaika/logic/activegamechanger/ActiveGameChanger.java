@@ -20,7 +20,6 @@ import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.logic.activegamechanger.saveloadgamehandlers.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -57,7 +56,7 @@ public class ActiveGameChanger {
         this.config = config;
         createVillagers = new CreateVillagers(random);
         playerAndSectHandler = new PlayerAndSectHandler();
-        saveGameHandler = new SaveGameHandler();
+        saveGameHandler = new SaveGameHandler(config.getVariableNames());
         loadGameHandler = new LoadGameHandler(createVillagers);
     }
 
@@ -99,6 +98,16 @@ public class ActiveGameChanger {
         }
         return null;
     }
+    
+    /**
+     * Saves the active game by using SaveGameHandler's method.
+     * @param saveFile The save file.
+     * @param activeGame The active game to be saved.
+     * @return Returns true if the saving succeeds.
+     */
+    public boolean saveActiveGame(File saveFile, ActiveGame activeGame) {
+        return saveGameHandler.saveActiveGame(saveFile, activeGame);
+    }
 
     /**
      * Config variable values, villager names and professions are updated before
@@ -108,11 +117,11 @@ public class ActiveGameChanger {
      * @param villagerNamesFile The villager names file.
      * @param professionsFile The professions file.
      * @return Returns false if at least one of the files is invalid.
-     * @throws FileNotFoundException Throws the FileNotFoundException.
+     * @throws Exception Throws the generic exception.
      */
     public boolean updateConfigValues(File configFile,
             File villagerNamesFile, File professionsFile)
-            throws FileNotFoundException {
+            throws Exception {
         Map<String, Integer> tempIntValues = config.loadIntValues(configFile);
         List<String> tempVilNames = config.loadVilNames(villagerNamesFile);
         List<String> tempProfs = config.loadProfessions(professionsFile);

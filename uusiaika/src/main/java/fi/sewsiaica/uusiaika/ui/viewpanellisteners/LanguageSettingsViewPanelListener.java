@@ -22,6 +22,7 @@ import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -68,6 +69,7 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 ".txt files", "txt");
         fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("Open a language file");
 
         String gameDir = System.getProperty("user.dir");
         fileChooser.setCurrentDirectory(new File(gameDir));
@@ -102,10 +104,15 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
         }
         gameFrame.changeViewPanel(PanelNames.LANGUAGESETTINGS_VIEW);
     }
-    
+
     private void loadCustomLanguage(File file) {
         if (gameLogic.changeCustomLanguage(file)) {
-            System.out.println("success");
+            List<String> languageNameList = gameLogic.getNamesOfLanguages();
+            int customLanguageIndex = languageNameList.size() - 1;
+
+            gameLogic.setActiveLanguage(languageNameList.get(
+                    customLanguageIndex));
+            System.out.println(gameLogic.getActiveLanguage().get("language"));
         } else {
             System.out.println("nope");
         }

@@ -30,6 +30,8 @@ import java.util.List;
  */
 public class ReadFromInputStream {
 
+    private List<String> newLines;
+
     /**
      * The method yanks lines from the inputStream. The yankees are transferred
      * out in a String-List. Hashed or spaced out (comment) lines are excluded.
@@ -41,19 +43,32 @@ public class ReadFromInputStream {
      */
     public List<String> yankTextFromFile(InputStream inputStream)
             throws IOException, NullPointerException {
-        List<String> newLines = new ArrayList<>();
+        this.newLines = new ArrayList<>();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(inputStream));
+            String line = bufferedReader.readLine();
+            goThroughLines(line, bufferedReader);
+        } finally {
+            closeInputStream(inputStream);
+        }
+        return returnNewLinesIffInputStreamIsClosed(newLines, inputStream);
+    }
 
-        BufferedReader bufferedReader = new BufferedReader(
-                new InputStreamReader(inputStream));
-        String line = bufferedReader.readLine();
-
+    private void goThroughLines(String line, BufferedReader bufferedReader)
+            throws IOException {
         while (line != null) {
             if (!isIgnorableLine(line)) {
                 newLines.add(line);
             }
             line = bufferedReader.readLine();
         }
-        return newLines;
+    }
+
+    private void closeInputStream(InputStream inputStream) throws IOException {
+        if (inputStream != null) {
+            inputStream.close();
+        }
     }
 
     /**
@@ -68,5 +83,25 @@ public class ReadFromInputStream {
             return true;
         }
         return line.charAt(0) == ' ' || line.charAt(0) == '#';
+    }
+
+    /**
+     * A fairly superfluous method for an earnest antimutator. Its purpose is to
+     * confirm that the InputStream has been closed.
+     *
+     * @param lines All them beautiful yankees.
+     * @param inputStream InputStream that should be closed already.
+     * @return If everything goes as expected (ie you are not an evil pit
+     * mutant), the method returns the list. If you are an evil pit mutant, null
+     * is all you get here.
+     */
+    protected List<String> returnNewLinesIffInputStreamIsClosed(
+            List<String> lines, InputStream inputStream) {
+        try {
+            inputStream.read();
+        } catch (IOException e) {
+            return lines;
+        }
+        return null;
     }
 }

@@ -22,7 +22,6 @@ import fi.sewsiaica.uusiaika.domain.Sect;
 import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -66,11 +65,12 @@ public class GameLogicActionsForActiveGameTest {
         names[1] = "AB";
         try {
             gameLogic.newGame(names);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
 
         }
         activeGame = gameLogic.getActiveGame();
-        actions = gameLogic.getActionsForActiveGame();
+        actions = new GameLogicActionsForActiveGame();
+        actions.updateActiveGame(activeGame);
     }
     
     @After
@@ -80,7 +80,7 @@ public class GameLogicActionsForActiveGameTest {
     @Test
     public void actionsReturnFalseIfActiveGameIsNull() {
         gameLogic = new GameLogic(random, config);
-        actions = gameLogic.getActionsForActiveGame();
+        actions = new GameLogicActionsForActiveGame();
         
         Villager dummy = new Villager("foo", true, 0, 0, 0, 0, "foo");
         

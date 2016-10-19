@@ -20,7 +20,6 @@ import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.io.File;
-import java.io.FileNotFoundException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -61,7 +60,7 @@ public class ActiveGameChangerTest {
 
     @Test
     public void createNewActiveGameWorksAsExpectedWithEmptyConfigID()
-            throws FileNotFoundException {
+            throws Exception {
         String[] names = {"AA", "AB"};
         activeGameChanger.updateConfigValues(null, null, null);
         ActiveGame game = activeGameChanger.createNewActiveGame(names);
@@ -91,8 +90,7 @@ public class ActiveGameChangerTest {
     }
 
     @Test
-    public void updateConfigValuesReturnsTrueWithValidFiles()
-            throws FileNotFoundException {
+    public void updateConfigValuesReturnsTrueWithValidFiles() throws Exception {
         File one = null;
         File two = null;
         File three = null;
@@ -107,7 +105,7 @@ public class ActiveGameChangerTest {
 
     @Test
     public void updateConfigValuesReturnsFalseWithInvalidConfigVariables()
-            throws FileNotFoundException {
+            throws Exception {
         File one = new File("src/test/filesfortests/testfile.txt");
         File two = null;
         File three = null;
@@ -116,11 +114,11 @@ public class ActiveGameChangerTest {
     }
 
     @Test
-    public void updateConfigValuesThrowFileNotFoundExceptionIfFileNotFound() {
+    public void updateConfigValuesThrowsExceptionIfFileNotFound() {
         boolean fail = false;
         try {
             activeGameChanger.updateConfigValues(new File("foo"), null, null);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             fail = true;
         }
         assertEquals(true, fail);
@@ -128,7 +126,7 @@ public class ActiveGameChangerTest {
         fail = false;
         try {
             activeGameChanger.updateConfigValues(null, new File("foo"), null);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             fail = true;
         }
         assertEquals(true, fail);
@@ -136,9 +134,23 @@ public class ActiveGameChangerTest {
         fail = false;
         try {
             activeGameChanger.updateConfigValues(null, null, new File("foo"));
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             fail = true;
         }
         assertEquals(true, fail);
+    }
+    
+    @Test
+    public void saveActiveGameFunctionsAsExpected() throws Exception {
+        String[] names = {"AA", "AB"};
+        activeGameChanger.updateConfigValues(null, null, null);
+        ActiveGame activeGame = activeGameChanger.createNewActiveGame(names);
+        activeGame.getSect().setBalance(1000000);
+        String fileName = "src/test/filesfortests/test_save_active_game.txt";
+        File saveFile = new File(fileName);
+        boolean result = activeGameChanger.saveActiveGame(saveFile, activeGame);
+        assertEquals(true, result);
+        result = activeGameChanger.saveActiveGame(null, activeGame);
+        assertEquals(false, result);
     }
 }

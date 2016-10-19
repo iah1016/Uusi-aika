@@ -82,7 +82,7 @@ public class ReadFromInputStreamTest {
         }
         assertEquals(true, throwEx);
     }
-    
+
     @Test
     public void yankTextFromFileOpensTestFile() throws IOException {
         boolean throwsEx = false;
@@ -93,7 +93,7 @@ public class ReadFromInputStreamTest {
         }
         assertEquals(false, throwsEx);
     }
-    
+
     @Test
     public void yankTextFromFileReturnsArrayList() throws
             NullPointerException, IOException {
@@ -110,7 +110,7 @@ public class ReadFromInputStreamTest {
                 testInputStream);
         assertEquals(expected, list.size());
     }
-    
+
     @Test
     public void isIgnorableLineReturnsTrueIfLineIsEmpty() {
         String line = "";
@@ -129,5 +129,19 @@ public class ReadFromInputStreamTest {
     public void isIgnorableReturnsFalseWithAnotherChar() {
         String line = "c";
         assertEquals(false, readFromInputStream.isIgnorableLine(line));
+    }
+
+    @Test
+    public void returnNewLinesIffInputStreamIsClosedFunctionsCorrectly()
+            throws IOException {
+        List<String> list = new ArrayList<>();
+        list.add("some text");
+        List<String> resList = readFromInputStream
+                .returnNewLinesIffInputStreamIsClosed(list, testInputStream);
+        assertEquals(null, resList);
+        testInputStream.close();
+        resList = readFromInputStream
+                .returnNewLinesIffInputStreamIsClosed(list, testInputStream);
+        assertEquals("some text", resList.get(0));
     }
 }

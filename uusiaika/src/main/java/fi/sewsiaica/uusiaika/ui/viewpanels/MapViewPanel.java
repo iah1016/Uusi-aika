@@ -64,7 +64,7 @@ public class MapViewPanel extends AbstractViewPanel {
     public final void updateComponents() {
         String[] textsForButtons = {"Go to the temple",
             "Go to the training centre", "Door-to-door conversion", "End turn",
-            "Go back to main menu (ends the game)"};
+            "Save the game", "Go back to main menu (ends the game)"};
 
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         infoPanel = new InfoPanel(gameLogic);

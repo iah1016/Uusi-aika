@@ -20,7 +20,6 @@ import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVilNames;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVariableValues;
 import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultProfessions;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,10 +60,10 @@ public class Config {
      * @param configVariablesFile The Config variable values file.
      * @return Returns the values from the enum class if the ID is empty and
      * from a file otherwise.
-     * @throws FileNotFoundException Throws FileNotFoundException.
+     * @throws Exception Throws the generic exception.
      */
     public Map<String, Integer> loadIntValues(File configVariablesFile) throws
-            FileNotFoundException {
+            Exception {
         if (configVariablesFile == null) {
             return defaultIntValuesMap;
         } else {
@@ -79,10 +78,9 @@ public class Config {
      * @param villagerNamesFile The Villager names file.
      * @return Returns vilNames from the enum class if the ID is empty and from
      * a file otherwise.
-     * @throws FileNotFoundException Throws FileNotFoundException.
+     * @throws Exception Throws the generic exception.
      */
-    public List<String> loadVilNames(File villagerNamesFile) throws
-            FileNotFoundException {
+    public List<String> loadVilNames(File villagerNamesFile) throws Exception {
         if (villagerNamesFile == null) {
             return defaultVilNames;
         }
@@ -96,10 +94,10 @@ public class Config {
      * @param professionsFile The professions file.
      * @return Returns professions from the enum class if the ID is empty and
      * from a file otherwise.
-     * @throws FileNotFoundException Throws FileNotFoundException.
+     * @throws Exception Throws the generic exception.
      */
     public List<String> loadProfessions(File professionsFile) throws
-            FileNotFoundException {
+            Exception {
         if (professionsFile == null) {
             return defaultProfessions;
         }
@@ -117,8 +115,8 @@ public class Config {
             Map<String, Integer> intValuesMap) {
         return loadConfig.areValidIntValues(intValuesMap);
     }
-    
-    protected String[] getVariableNames() {
+
+    public String[] getVariableNames() {
         return variableNames;
     }
 

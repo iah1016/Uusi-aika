@@ -52,4 +52,22 @@ public class StringAndStringListInterconversion {
         return list;
     }
 
+    /**
+     * This method converts a StringList to a String.
+     *
+     * @param list A List of Strings.
+     * @return Returns a String.
+     */
+    public String convertStringListToString(List<String> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(list.get(0));
+        for (int i = 1; i < list.size(); i++) {
+            sb.append("\n").append(list.get(i));
+        }
+        return sb.toString();
+    }
 }

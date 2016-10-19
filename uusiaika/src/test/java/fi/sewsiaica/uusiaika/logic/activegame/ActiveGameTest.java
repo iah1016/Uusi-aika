@@ -21,9 +21,9 @@ import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.logic.activegamechanger.ActiveGameChanger;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -58,7 +58,7 @@ public class ActiveGameTest {
         agc = new ActiveGameChanger(random, config);
         try {
             agc.updateConfigValues(null, null, null);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
         }
         String[] playerAndSectNames = {"AA", "BB"};
         activeGame = agc.createNewActiveGame(playerAndSectNames);
@@ -105,10 +105,17 @@ public class ActiveGameTest {
     @Test
     public void getAndSetGameEndingConditionFunctionAsExpected() {
         int value = 0;
-        activeGame.setGameEndingCondition(value);
+        activeGame.endThisActiveGame(value);
         assertEquals(0, activeGame.getGameEndingCondition());
         value = 2;
-        activeGame.setGameEndingCondition(value);
+        activeGame.endThisActiveGame(value);
         assertEquals(2, activeGame.getGameEndingCondition());
+    }
+    
+    @Test
+    public void getConfigIntValuesFunctionsAsExpected() {
+        Map<String, Integer> configIntValues = activeGame.getConfigIntValues();
+        int result = configIntValues.get("templeDeathCultCharismaReq");
+        assertEquals(255, result);
     }
 }

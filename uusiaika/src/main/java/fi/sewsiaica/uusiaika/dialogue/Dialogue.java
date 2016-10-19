@@ -135,7 +135,6 @@ public class Dialogue {
 
     private boolean createLanguageMap(List<String> lines) {
         Map<String, String> langMap = generalTools
-                .getStrStrMapAndStringListInterconversion()
                 .convertStringListToStrStrMap(lines);
         if (!isValidLanguageMap(langMap)) {
             return false;
