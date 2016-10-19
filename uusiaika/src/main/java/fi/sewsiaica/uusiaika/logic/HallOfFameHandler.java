@@ -41,7 +41,6 @@ public class HallOfFameHandler {
     private final GeneralTools generalTools;
     private final int maxNumberOfHallOfFamers;
     private int currentNumberOfHallOfFamers;
-    private final String fileName;
 
     /**
      * The constructor creates new ReadFromInputStream, WriteFromOutputStream
@@ -52,12 +51,18 @@ public class HallOfFameHandler {
         writeFromOutputStream = new WriteFromOutputStream();
         generalTools = new GeneralTools();
 
+//        createHallOfFameDirectory();
         currentNumberOfHallOfFamers = 0;
-        fileName = "/halloffame/hall_of_fame.txt";
-        InputStream inputStream = getClass().getResourceAsStream(fileName);
+        InputStream inputStream = getClass()
+                .getResourceAsStream("/halloffame/hall_of_fame.txt");
         loadHallOfFameFromFile(inputStream);
         maxNumberOfHallOfFamers = Math.max(currentNumberOfHallOfFamers, 15);
     }
+    
+//    private void createHallOfFameDirectory() {
+//        File hofDir = new File("halloffame");
+//        hofDir.mkdir();
+//    }
 
     /**
      * This method loads the Hall of Fame from the file and sets it to an
