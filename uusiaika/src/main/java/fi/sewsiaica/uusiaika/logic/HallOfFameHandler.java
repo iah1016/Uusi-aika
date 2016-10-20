@@ -21,10 +21,13 @@ import fi.sewsiaica.uusiaika.io.ReadFromInputStream;
 import fi.sewsiaica.uusiaika.io.WriteFromOutputStream;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
 /**
@@ -34,60 +37,79 @@ import java.util.TreeMap;
  */
 public class HallOfFameHandler {
 
-    private TreeMap<Integer, List<String>> hallOfFameMap;
-    private List<String> hallOfFameList;
     private final ReadFromInputStream readFromInputStream;
     private final WriteFromOutputStream writeFromOutputStream;
     private final GeneralTools generalTools;
+
+    private TreeMap<Integer, List<String>> hallOfFameMap;
+    private List<String> hallOfFameList;
+    private final File hallOfFameFile;
+
     private final int maxNumberOfHallOfFamers;
     private int currentNumberOfHallOfFamers;
 
     /**
      * The constructor creates new ReadFromInputStream, WriteFromOutputStream
-     * and GeneralTools objects.
+     * and GeneralTools objects. It call the private method
+     * loadOrCreateHallOfFame which either creates new hallOfFameMap and
+     * hallOfFameList objects or loads them from the given file.
      */
-    public HallOfFameHandler() {
+    public HallOfFameHandler(File hofFile) {
         readFromInputStream = new ReadFromInputStream();
         writeFromOutputStream = new WriteFromOutputStream();
         generalTools = new GeneralTools();
-
-//        createHallOfFameDirectory();
+        hallOfFameFile = hofFile;
         currentNumberOfHallOfFamers = 0;
-        InputStream inputStream = getClass()
-                .getResourceAsStream("/halloffame/hall_of_fame.txt");
-        loadHallOfFameFromFile(inputStream);
-        maxNumberOfHallOfFamers = Math.max(currentNumberOfHallOfFamers, 15);
-    }
-    
-//    private void createHallOfFameDirectory() {
-//        File hofDir = new File("halloffame");
-//        hofDir.mkdir();
-//    }
+        maxNumberOfHallOfFamers = 15;
 
-    /**
-     * This method loads the Hall of Fame from the file and sets it to an
-     * Integer,StringList-type TreeMap.
-     *
-     * @param inputStream The file where the Hall of Fame is located.
-     */
-    protected final void loadHallOfFameFromFile(InputStream inputStream) {
-        List<String> lines;
+        loadOrCreateHallOfFame();
+    }
+
+    private void loadOrCreateHallOfFame() {
         try {
-            lines = readFromInputStream.yankTextFromFile(inputStream);
-            currentNumberOfHallOfFamers = lines.size();
-            hallOfFameMap = generalTools.convertStringListToIntStrListTreeMap(
-                    lines);
-        } catch (IOException | NullPointerException e) {
+            InputStream inputStream = new FileInputStream(hallOfFameFile);
+            loadHallOfFameMapFromFile(inputStream);
+        } catch (FileNotFoundException e) {
             hallOfFameMap = new TreeMap<>();
+            hallOfFameList = new ArrayList<>();
         }
     }
 
+    /**
+     * This method loads the Hall of Fame from the file and sets it to an
+     * Integer,StringList-type TreeMap. It calls the updateHallOfFameList()
+     * method. If either IOException or NullPointerException occurs, new
+     * hallOfFameMap and hallOfFameList objects are created.
+     *
+     * @param inputStream The file where the Hall of Fame is located.
+     */
+    protected final void loadHallOfFameMapFromFile(InputStream inputStream) {
+        List<String> lines;
+        try {
+            lines = readFromInputStream.yankTextFromFile(inputStream);
+            hallOfFameMap = generalTools.convertStringListToIntStrListTreeMap(
+                    lines);
+            updateHallOfFameList();
+        } catch (IOException | NullPointerException e) {
+            hallOfFameMap = new TreeMap<>();
+            hallOfFameList = new ArrayList<>();
+        }
+    }
+
+    /**
+     * Updates the Hall of Fame with the given score; the data will be added to
+     * hallOfFameMap regardless of the score but is visible in the Hall of Fame
+     * list only if it is in the Top 15.
+     *
+     * @param score
+     * @param activeGame
+     */
     public void updateHallOfFame(int score, ActiveGame activeGame) {
         updateHallOfFameMap(score, activeGame);
         updateHallOfFameList();
-//        saveHallOfFameToFile(new File(fileName));
+        saveHallOfFameToFile(hallOfFameFile);
     }
-    
+
     private void updateHallOfFameMap(int score, ActiveGame activeGame) {
         String activeGameInfo = activeGame.toString() + "  Ending condition: "
                 + activeGame.getGameEndingCondition();
@@ -102,24 +124,53 @@ public class HallOfFameHandler {
         }
     }
 
-    private void updateHallOfFameList() {
+    /**
+     * Updates the updateHallOfFameList object.
+     *
+     * @return Returns false if hallOfFameMap's lastKey call throws a
+     * NoSuchElementException.
+     */
+    protected boolean updateHallOfFameList() {
+        boolean keysAreNotNull = true;
         List<String> tempList = new ArrayList<>();
-        Integer key = hallOfFameMap.firstKey();
+        Integer key;
+        try {
+            key = hallOfFameMap.lastKey();
+            goThroughKeysFromMap(key, tempList);
+        } catch (NoSuchElementException e) {
+            keysAreNotNull = false;
+        }
+        updateCurrentNumberOfHallOfFamersInt(tempList.size());
+        hallOfFameList = tempList.subList(0, currentNumberOfHallOfFamers);
+        return keysAreNotNull;
+    }
 
+    private void updateCurrentNumberOfHallOfFamersInt(int listSize) {
+        currentNumberOfHallOfFamers
+                = Math.min(maxNumberOfHallOfFamers, listSize);
+    }
+
+    private void goThroughKeysFromMap(Integer key, List<String> tempList) {
         while (key != null) {
             List<String> valueList = hallOfFameMap.get(key);
-            for (String value : valueList) {
-                hallOfFameList.add(key + "  " + value);
+            for (int i = 0; i < valueList.size(); i++) {
+                String hofLine = key + ": " + valueList.get(i);
+                tempList.add(hofLine);
             }
-            key = hallOfFameMap.higherKey(key);
+            key = hallOfFameMap.lowerKey(key);
         }
-        hallOfFameList = tempList.subList(0, maxNumberOfHallOfFamers);
     }
-    
-//    public boolean saveHallOfFameToFile(File file) {
-//        String content = generalTools.convertStringListToString(hallOfFameList);
-//        return writeFromOutputStream.dumpStringToTextFile(file, content);
-//    }
+
+    /**
+     * Saves the Hall of Fame data (Top 15) to the given file.
+     * 
+     * @param file The Hall of Fame file.
+     * @return Returns true if the writing has been successful.
+     */
+    protected boolean saveHallOfFameToFile(File file) {
+        String content = generalTools.convertStringListToString(hallOfFameList);
+        return writeFromOutputStream.dumpStringToTextFile(file, content);
+    }
 
     public List<String> getHallOfFameList() {
         return hallOfFameList;

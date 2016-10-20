@@ -7,9 +7,12 @@ package fi.sewsiaica.uusiaika.logic;
 
 import fi.sewsiaica.uusiaika.config.Config;
 import fi.sewsiaica.uusiaika.domain.*;
+import fi.sewsiaica.uusiaika.generaltools.GeneralTools;
+import fi.sewsiaica.uusiaika.io.*;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import fi.sewsiaica.uusiaika.toolsfortests.MockRandom;
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -247,19 +250,19 @@ public class GameLogicTest {
             throws Exception {
         gameLogic = new GameLogic(random, config);
         Villager dummy = new Villager("foo", true, 0, 0, 0, 0, "foo");
-        
+
         assertEquals(false, gameLogic.conversion(dummy, 'b'));
         assertEquals(false, gameLogic.trainingCentreActions('a'));
         assertEquals(false, gameLogic.templeActions('a'));
         assertEquals(false, gameLogic.endTurn());
-        
+
         gameLogic.newGame(names);
         assertEquals(true, gameLogic.conversion(dummy, 'b'));
         assertEquals(true, gameLogic.trainingCentreActions('a'));
         assertEquals(true, gameLogic.templeActions('a'));
         assertEquals(true, gameLogic.endTurn());
     }
-    
+
     @Test
     public void changeLanguageFunctionsProperly() {
         boolean result = gameLogic.setActiveLanguage("suomi");
@@ -269,7 +272,7 @@ public class GameLogicTest {
         assertEquals(true, result);
         assertEquals("English", gameLogic.getActiveLanguage().get("language"));
     }
-    
+
     @Test
     public void getNamesOfLanguagesFunctionsProperly() {
         List<String> names = gameLogic.getNamesOfLanguages();
@@ -279,7 +282,7 @@ public class GameLogicTest {
         }
         assertEquals("Englishsuomi", sb.toString());
     }
-    
+
     @Test
     public void changeCustomLanguageFunctionsProperly() {
         String name = "src/test/filesfortests/language_opr.txt";
@@ -292,7 +295,7 @@ public class GameLogicTest {
         result = gameLogic.changeCustomLanguage(new File(name));
         assertEquals(false, result);
     }
-    
+
     @Test
     public void saveActiveGameFunctionsAsExpected() throws Exception {
         String fileName = "src/test/filesfortests/test_save_active_game.txt";
@@ -301,5 +304,56 @@ public class GameLogicTest {
         assertEquals(true, result);
         result = gameLogic.saveGame(null);
         assertEquals(false, result);
+    }
+
+    @Test
+    public void endGameFunctionsAsExpected() throws Exception {
+        ReadFromInputStream rfis = new ReadFromInputStream();
+        WriteFromOutputStream wfos = new WriteFromOutputStream();
+        File hofFile = new File("hall_of_fame.txt");
+        hofFile.createNewFile();
+
+        // Backup the data on the file.
+        GeneralTools genTools = new GeneralTools();
+        List<String> dataBackupList = rfis.yankTextFromFile(
+                new FileInputStream(hofFile));
+        // Rewrite the file.
+        String tempContent = "74445: second place\n"
+                + "444: test444-1\n"
+                + "444444: highscore\n"
+                + "444: test444-2\n"
+                + "13213: third\n"
+                + "999: huu\n"
+                + "999: huu2\n"
+                + "999: huu3\n"
+                + "999: huu4\n"
+                + "999: huu5\n"
+                + "999: huu6\n"
+                + "999: huu7\n"
+                + "999: huu8\n"
+                + "9: noob";
+        wfos.dumpStringToTextFile(hofFile, tempContent);
+        gameLogic = new GameLogic(random, config);
+        gameLogic.newGame(names);
+        activeGame = gameLogic.getActiveGame();
+        
+        // The test.
+        List<String> hallOfFameListBefore = gameLogic.getHallOfFameList();
+        int index = hallOfFameListBefore.size() - 1;
+        String lastLine = hallOfFameListBefore.get(index);
+        assertEquals("9: noob", lastLine);
+        
+        gameLogic.endTurn();
+        gameLogic.endGame(4);
+        List<String> hallOfFameList = gameLogic.getHallOfFameList();
+        index = hallOfFameList.size() - 1;
+        lastLine = hallOfFameList.get(index);
+        assertEquals("0: Turn: 2  AA  AB  Balance: 4000  "
+                + "Members: 0  Ending condition: 4", lastLine);
+        assertEquals(4, activeGame.getGameEndingCondition());
+        
+        // Restore the backup data to the file.
+        String original = genTools.convertStringListToString(dataBackupList);
+        wfos.dumpStringToTextFile(hofFile, original);
     }
 }

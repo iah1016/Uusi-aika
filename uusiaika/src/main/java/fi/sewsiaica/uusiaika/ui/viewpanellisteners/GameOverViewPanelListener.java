@@ -57,8 +57,7 @@ public class GameOverViewPanelListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == hallOfFameButton) {
-            System.out.println("Hall of Fame not yet implemented.");
-//            gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
+            gameFrame.changeViewPanel(PanelNames.HALL_OF_FAME_VIEW);
         } else if (ae.getSource() == openingMenuViewButton) {
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }

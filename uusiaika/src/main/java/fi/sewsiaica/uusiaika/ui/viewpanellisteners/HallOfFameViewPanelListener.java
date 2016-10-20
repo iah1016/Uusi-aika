@@ -24,55 +24,38 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 
 /**
- * The object of this class handles the events in the opening menu view.
+ * The object of this class handles the events in the Hall of Fame view.
  *
  * @author iah1016
  */
-public class OpeningMenuViewPanelListener implements ActionListener {
-    
+public class HallOfFameViewPanelListener implements ActionListener {
+
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
-    private final AbstractButton newGameButton;
-    private final AbstractButton loadGameButton;
-    private final AbstractButton settingsButton;
-    private final AbstractButton hallOfFameButton;
-    private final AbstractButton quitButton;
+    private final AbstractButton openingMenuViewButton;
 
     /**
-     * The constructor is given an array of five AbstractButtons, GameFrame, and
+     * The constructor is given an array of one AbstractButton, GameFrame, and
      * GameLogic as parameters.
      *
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
-     * @param buttons The buttons are as follows: [0] new game, [1] load a game,
-     * [2] view settings, [3] view the hall of fame, [4] quit the game.
+     * @param buttons The button: [0] go back to the opening menu.
      */
-    public OpeningMenuViewPanelListener(GameFrame frame, GameLogic gameLogic,
+    public HallOfFameViewPanelListener(GameFrame frame, GameLogic gameLogic,
             AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.newGameButton = buttons[0];
-        this.loadGameButton = buttons[1];
-        this.settingsButton = buttons[2];
-        this.hallOfFameButton = buttons[3];
-        this.quitButton = buttons[4];
+        this.openingMenuViewButton = buttons[0];
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == newGameButton) {
-            gameFrame.changeViewPanel(PanelNames.NEW_GAME_VIEW);
-        } else if (ae.getSource() == loadGameButton) {
-            gameFrame.changeViewPanel(PanelNames.LOAD_GAME_VIEW);
-        } else if (ae.getSource() == settingsButton) {
-            gameFrame.changeViewPanel(PanelNames.SETTINGS_VIEW);
-        } else if (ae.getSource() == hallOfFameButton) {
-            gameFrame.changeViewPanel(PanelNames.HALL_OF_FAME_VIEW);
-        } else if (ae.getSource() == quitButton) {
-            System.exit(0);
+        if (ae.getSource() == openingMenuViewButton) {
+            gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }
-    
+
 }

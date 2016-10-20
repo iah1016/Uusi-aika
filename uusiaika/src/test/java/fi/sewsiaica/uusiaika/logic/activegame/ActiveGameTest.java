@@ -118,4 +118,20 @@ public class ActiveGameTest {
         int result = configIntValues.get("templeDeathCultCharismaReq");
         assertEquals(255, result);
     }
+    
+    @Test
+    public void endThisActiveGameReturnsFinalScore() {
+        int result = activeGame.endThisActiveGame(4);
+        int expected = activeGame.getFinalScore();
+        assertEquals(expected, result);
+        result = activeGame.endThisActiveGame(3);
+        expected = activeGame.getFinalScore();
+        assertEquals(expected, result);
+        result = activeGame.endThisActiveGame(2);
+        expected = activeGame.getFinalScore();
+        assertEquals(expected, result);
+        result = activeGame.endThisActiveGame(1);
+        expected = activeGame.getFinalScore();
+        assertEquals(expected, result);
+    }
 }

@@ -24,7 +24,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.TreeMap;
 
 /**
  * The core logic of the game. It controls the other logic modules through an
@@ -54,7 +53,7 @@ public class GameLogic {
         activeGameChanger = new ActiveGameChanger(random, config);
         gameLogicActionsForActiveGame = new GameLogicActionsForActiveGame();
         languageHandler = new LanguageHandler();
-        hallOfFameHandler = new HallOfFameHandler();
+        hallOfFameHandler = new HallOfFameHandler(new File("hall_of_fame.txt"));
         configFiles = new File[3];
     }
 

@@ -87,8 +87,6 @@ public class GameFrame extends JFrame {
                 new SettingsViewPanel(dimension, gameLogic, this));
         tempMap.put(PanelNames.LOAD_GAME_VIEW,
                 new LoadGameViewPanel(dimension, gameLogic, this));
-        tempMap.put(PanelNames.GAME_OVER_VIEW,
-                new GameOverViewPanel(dimension, gameLogic, this, 0, 0));
 
         return tempMap;
     }
@@ -102,6 +100,8 @@ public class GameFrame extends JFrame {
     public void changeViewPanel(PanelNames keyForPanel) {
         if (keyForPanel == PanelNames.GAME_OVER_VIEW) {
             gameOver();
+        } else if (keyForPanel == PanelNames.HALL_OF_FAME_VIEW) {
+            hallOfFame();
         }
         AbstractViewPanel panel = viewPanelMap.get(keyForPanel);
         getContentPane().removeAll();
@@ -112,6 +112,11 @@ public class GameFrame extends JFrame {
         panel.updateComponents();
         pack();
         setVisible(true);
+    }
+
+    private void hallOfFame() {
+        viewPanelMap.put(PanelNames.HALL_OF_FAME_VIEW,
+                new HallOfFameViewPanel(dimension, gameLogic, this));
     }
 
     private void gameOver() {

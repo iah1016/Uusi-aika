@@ -47,7 +47,8 @@ public class ScoreHandler {
      */
     public int calculateScore(int[] elements) {
         if (elements.length != 8) {
-            return 0;
+            score = 0;
+            return score;
         }
         int condition = elements[0];
         switch (condition) {
@@ -58,7 +59,8 @@ public class ScoreHandler {
             case 3:
                 return paradiseIslandCondition(elements);
             default:
-                return 0;
+                score = 0;
+                return score;
         }
     }
 
