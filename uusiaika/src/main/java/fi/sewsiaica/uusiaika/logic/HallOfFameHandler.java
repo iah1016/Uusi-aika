@@ -53,6 +53,8 @@ public class HallOfFameHandler {
      * and GeneralTools objects. It call the private method
      * loadOrCreateHallOfFame which either creates new hallOfFameMap and
      * hallOfFameList objects or loads them from the given file.
+     *
+     * @param hofFile The file that contains the Hall of Fame data.
      */
     public HallOfFameHandler(File hofFile) {
         readFromInputStream = new ReadFromInputStream();
@@ -101,8 +103,9 @@ public class HallOfFameHandler {
      * hallOfFameMap regardless of the score but is visible in the Hall of Fame
      * list only if it is in the Top 15.
      *
-     * @param score
-     * @param activeGame
+     * @param score The end score of the active game.
+     * @param activeGame ActiveGame given so that a Hall-of-Fame entry can be
+     * made.
      */
     public void updateHallOfFame(int score, ActiveGame activeGame) {
         updateHallOfFameMap(score, activeGame);
@@ -163,7 +166,7 @@ public class HallOfFameHandler {
 
     /**
      * Saves the Hall of Fame data (Top 15) to the given file.
-     * 
+     *
      * @param file The Hall of Fame file.
      * @return Returns true if the writing has been successful.
      */

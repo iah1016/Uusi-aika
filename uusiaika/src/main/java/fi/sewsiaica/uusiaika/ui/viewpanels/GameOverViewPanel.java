@@ -103,7 +103,7 @@ public class GameOverViewPanel extends AbstractViewPanel {
     }
 
     private String pickEndMessage() {
-        String scoreString = "Your final score is: " + finalScore + ".";
+        String scoreString = "\nYour final score is: " + finalScore + ".";
         switch (endCondition) {
             case 1:
                 return "You have reached the end without success. "

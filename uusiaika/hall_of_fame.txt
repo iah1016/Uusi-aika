@@ -1,5 +1,15 @@
-99900: Turn: 78  Jimbo  United Farmers  Balance: 120000  Members: 900  Ending condition: 2
-65000: Turn: 97  Fo  Back Door  Balance: 70000  Members: 39  Ending condition: 2
-40000: Turn: 89  Jeffrey  The Space Bar Observers  Balance: 100000  Members: 44  Ending condition: 3
-1140: Turn: 99  Kenny  The Treehouse Cult  Balance: 14  Members: 3  Ending condition: 3
-364: Turn: 100  Nicolas P  This Thing  Balance: 1400  Members: 7  Ending condition: 1
+444444: highscore
+74445: second place
+13213: third
+999: huu
+999: huu2
+999: huu3
+999: huu4
+999: huu5
+999: huu6
+999: huu7
+999: huu8
+444: test444-1
+444: test444-2
+9: noob
+0: Turn: 2  AA  AB  Balance: 4000  Members: 0  Ending condition: 4

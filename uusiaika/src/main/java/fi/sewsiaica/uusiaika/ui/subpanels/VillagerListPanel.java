@@ -46,7 +46,7 @@ public class VillagerListPanel extends AbstractSubPanel {
     public VillagerListPanel(GameLogic gameLogic) {
         super(gameLogic);
         this.gameLogic = gameLogic;
-        addContentOnlyIfActiveGameIsNotNull();
+        super.addContentOnlyIfActiveGameIsNotNull();
     }
 
     @Override
@@ -61,14 +61,9 @@ public class VillagerListPanel extends AbstractSubPanel {
 
     private void addListScroller(Object[] allVillagers) {
         JList list = new JList(allVillagers);
-
-        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        list.getSelectionModel().addListSelectionListener(
-                new VillagerListPanelListener(gameLogic));
         applyJListSettings(list);
-
-        JScrollPane listScroller = new JScrollPane(list);
         
+        JScrollPane listScroller = new JScrollPane(list);
         listScroller.setPreferredSize(new Dimension(180, 300));
         add(listScroller, BorderLayout.CENTER);
     }
@@ -76,17 +71,24 @@ public class VillagerListPanel extends AbstractSubPanel {
     private void addInfoMessage() {
         JTextArea infoMessage = new JTextArea(10, 1);
         infoMessage.setText("Choose target villagers"
-                + "\nfor door-to-door conversion.");
+                + "\nfor door-to-door conversion."
+                + "\n\nSect members in magenta.");
 
         applyInfoMessageSettings(infoMessage);
         add(infoMessage, BorderLayout.SOUTH);
     }
 
     private void applyJListSettings(JList list) {
+        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        list.setCellRenderer(new CustomCellRendererForVillagerListPanel(
+                gameLogic.getActiveGame().getVillagers()));
+        list.getSelectionModel().addListSelectionListener(
+                new VillagerListPanelListener(gameLogic));
+        
         list.setLayoutOrientation(JList.VERTICAL);
         list.setBackground(Color.decode("#d1d1e0"));
     }
-    
+
     private void applyInfoMessageSettings(JTextArea infoMessage) {
         infoMessage.setEditable(false);
         infoMessage.setBackground(Color.decode("#a3c2c2"));
