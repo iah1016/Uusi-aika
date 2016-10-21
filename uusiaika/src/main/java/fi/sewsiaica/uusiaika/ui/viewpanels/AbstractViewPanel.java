@@ -17,6 +17,7 @@
 package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -83,6 +84,7 @@ public abstract class AbstractViewPanel extends JPanel {
 
     private void applyButtonPanelSettings(JPanel buttonPanel) {
         buttonPanel.setBackground(Color.decode("#a3c2c2"));
+        buttonPanel.setPreferredSize(new Dimension(800, 73));
     }
 
     private void applyButtonSettings(AbstractButton button) {

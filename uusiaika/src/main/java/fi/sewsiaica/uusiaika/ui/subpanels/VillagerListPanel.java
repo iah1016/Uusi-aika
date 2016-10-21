@@ -35,6 +35,8 @@ import javax.swing.ListSelectionModel;
 public class VillagerListPanel extends AbstractSubPanel {
 
     private final GameLogic gameLogic;
+    private final JTextArea infoMessage;
+    private String showInfoMessage;
 
     /**
      * The class gets all the information from ActiveGame via GameLogic. The
@@ -42,10 +44,13 @@ public class VillagerListPanel extends AbstractSubPanel {
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
+     * @param showInfoMessage The info message displayed in the JTextArea.
      */
-    public VillagerListPanel(GameLogic gameLogic) {
+    public VillagerListPanel(GameLogic gameLogic, String showInfoMessage) {
         super(gameLogic);
         this.gameLogic = gameLogic;
+        this.showInfoMessage = showInfoMessage;
+        infoMessage = new JTextArea(10, 1);
         super.addContentOnlyIfActiveGameIsNotNull();
     }
 
@@ -56,26 +61,28 @@ public class VillagerListPanel extends AbstractSubPanel {
 
         this.setLayout(new BorderLayout());
         this.addListScroller(allVillagers);
-        this.addInfoMessage();
+        infoMessage.setText(showInfoMessage);
+        this.applyInfoMessageSettings();
+        add(infoMessage, BorderLayout.SOUTH);
     }
 
     private void addListScroller(Object[] allVillagers) {
         JList list = new JList(allVillagers);
         applyJListSettings(list);
-        
+
         JScrollPane listScroller = new JScrollPane(list);
-        listScroller.setPreferredSize(new Dimension(180, 300));
+        listScroller.setPreferredSize(new Dimension(200, 300));
         add(listScroller, BorderLayout.CENTER);
     }
 
-    private void addInfoMessage() {
-        JTextArea infoMessage = new JTextArea(10, 1);
-        infoMessage.setText("Choose target villagers"
-                + "\nfor door-to-door conversion."
-                + "\n\nSect members in magenta.");
-
-        applyInfoMessageSettings(infoMessage);
-        add(infoMessage, BorderLayout.SOUTH);
+    /**
+     * Displays the output text in the JTextArea.
+     *
+     * @param outputText The output text.
+     */
+    public void showText(String outputText) {
+        showInfoMessage = outputText;
+        infoMessage.setText(showInfoMessage);
     }
 
     private void applyJListSettings(JList list) {
@@ -84,13 +91,15 @@ public class VillagerListPanel extends AbstractSubPanel {
                 gameLogic.getActiveGame().getVillagers()));
         list.getSelectionModel().addListSelectionListener(
                 new VillagerListPanelListener(gameLogic));
-        
+
         list.setLayoutOrientation(JList.VERTICAL);
         list.setBackground(Color.decode("#d1d1e0"));
     }
 
-    private void applyInfoMessageSettings(JTextArea infoMessage) {
+    private void applyInfoMessageSettings() {
         infoMessage.setEditable(false);
+        infoMessage.setWrapStyleWord(true);
+        infoMessage.setLineWrap(true);
         infoMessage.setBackground(Color.decode("#a3c2c2"));
         Font font = infoMessage.getFont();
         Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());

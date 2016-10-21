@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanellisteners;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
+import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
@@ -32,6 +33,7 @@ public class TempleViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
+    private final DialoguePanel dialoguePanel;
     private final AbstractButton preachButton;
     private final AbstractButton offerSodaButton;
     private final AbstractButton buyTicketButton;
@@ -39,22 +41,24 @@ public class TempleViewPanelListener implements ActionListener {
     private final AbstractButton endTurnButton;
 
     /**
-     * The constructor is given an array of five AbstractButtons, GameFrame, and
-     * GameLogic as parameters.
+     * The constructor is given an array of five AbstractButtons, GameFrame,
+     * GameLogic, and DialoguePanel as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
+     * @param dialoguePanel Displays the output and the dialogue of the game.
      * @param buttons Buttons 0-2 call GameLogic's templeActions method with the
      * option to preach, offer soda to everyone, or buy a one-way ticket
      * respectively. The latter two will end the game if the conditions are met.
      * [3] changes the active view to the map view and [4] ends the turn.
      */
     public TempleViewPanelListener(GameLogic gameLogic, GameFrame frame,
-            AbstractButton[] buttons) {
+            DialoguePanel dialoguePanel, AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
+        this.dialoguePanel = dialoguePanel;
         this.preachButton = buttons[0];
         this.offerSodaButton = buttons[1];
         this.buyTicketButton = buttons[2];
@@ -66,6 +70,7 @@ public class TempleViewPanelListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 
         if (ae.getSource() == returnToMapViewButton) {
+            dialoguePanel.resetText();
             gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
         } else if (ae.getSource() == preachButton) {
             preachSelected();
@@ -89,41 +94,36 @@ public class TempleViewPanelListener implements ActionListener {
 
     private void preachSelected() {
         if (gameLogic.templeActions('a')) {
-            System.out.println("Praise the Holy Fish! "
+            dialoguePanel.showText("Praise the Holy Fish! "
                     + "Your performance was a success. "
-                    + "Everyone is a little less sceptical now.");
+                    + "Everyone is a little less sceptical now."
+                    + "\n----");
         } else {
-            System.out.println("A solid perfomance. "
-                    + "Too bad there was no one here to hear it!");
+            dialoguePanel.showText("A solid perfomance.\n"
+                    + "Too bad there was no one here to hear it!"
+                    + "\n----");
         }
         updateView();
     }
 
     private void offerSodaSelected() {
         if (gameLogic.templeActions('b')) {
-            System.out.println("With you guidance, your flock will "
-                    + "take the daring step to ascend to the next level.");
             gameLogic.endGame(2);
             gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
-            System.out.println("You lack charisma to pull this off.");
+            dialoguePanel.showText("You lack charisma to pull this off."
+                    + "\n----");
             updateView();
         }
     }
 
     private void buyTicketSelected() {
         if (gameLogic.templeActions('c')) {
-            System.out.println("A one-way ticket to Paradise (some obscure "
-                    + "island in the western Pacific) and only you are "
-                    + "going.\n"
-                    + "You have taught your flock well and now they can "
-                    + "manage themselves.\nYou will take a reasonable "
-                    + "reward of 100 percent of the Sect's balance with "
-                    + "you.");
             gameLogic.endGame(3);
             gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
-            System.out.println("There's not enough money on the account.");
+            dialoguePanel.showText("There's not enough money on the account."
+                    + "\n----");
             updateView();
         }
     }

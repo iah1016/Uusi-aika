@@ -18,10 +18,10 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
+import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import fi.sewsiaica.uusiaika.ui.viewpanellisteners.TempleViewPanelListener;
 import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
@@ -37,6 +37,7 @@ public class TempleViewPanel extends AbstractViewPanel {
     private final Dimension dimension;
     private final GameLogic gameLogic;
     private final GameFrame gameFrame;
+    private final DialoguePanel dialoguePanel;
     private JPanel buttonPanel;
     private JPanel infoPanel;
 
@@ -55,6 +56,7 @@ public class TempleViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
+        this.dialoguePanel = new DialoguePanel();
         this.updateComponents();
     }
 
@@ -73,13 +75,15 @@ public class TempleViewPanel extends AbstractViewPanel {
     @Override
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {
-        return new TempleViewPanelListener(gameLogic, gameFrame, buttons);
+        return new TempleViewPanelListener(gameLogic, gameFrame,
+                dialoguePanel, buttons);
     }
 
     @Override
     protected void addSubPanelsToViewPanel() {
         this.setLayout(new BorderLayout());
         this.add(infoPanel, BorderLayout.NORTH);
-        this.add(buttonPanel, BorderLayout.CENTER);
+        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(dialoguePanel, BorderLayout.EAST);
     }
 }

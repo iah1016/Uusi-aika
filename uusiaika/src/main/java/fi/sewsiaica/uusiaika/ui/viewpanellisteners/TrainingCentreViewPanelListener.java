@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanellisteners;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
+import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
@@ -32,27 +33,30 @@ public class TrainingCentreViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
+    private final DialoguePanel dialoguePanel;
     private final AbstractButton applyForCharismaCourseButton;
     private final AbstractButton applyForDebateCourseButton;
     private final AbstractButton returnToMapViewButton;
     private final AbstractButton endTurnButton;
 
     /**
-     * The constructor is given an array of four AbstractButtons, GameFrame, and
-     * GameLogic as parameters.
+     * The constructor is given an array of four AbstractButtons, GameFrame,
+     * GameLogic, and DialoguePanel as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
+     * @param dialoguePanel Displays the output and the dialogue of the game.
      * @param buttons Button [0] is for applying for a charisma course, [1] for
      * applying for a debate course, [2] returns to the map view, and [3] ends
      * the turn.
      */
     public TrainingCentreViewPanelListener(GameLogic gameLogic, GameFrame frame,
-            AbstractButton[] buttons) {
+            DialoguePanel dialoguePanel, AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
+        this.dialoguePanel = dialoguePanel;
         this.applyForCharismaCourseButton = buttons[0];
         this.applyForDebateCourseButton = buttons[1];
         this.returnToMapViewButton = buttons[2];
@@ -63,6 +67,7 @@ public class TrainingCentreViewPanelListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 
         if (ae.getSource() == returnToMapViewButton) {
+            dialoguePanel.resetText();
             gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
         } else {
             if (ae.getSource() == applyForCharismaCourseButton) {
@@ -86,21 +91,25 @@ public class TrainingCentreViewPanelListener implements ActionListener {
 
     private void charismaCourseSelected() {
         if (gameLogic.trainingCentreActions('a')) {
-            System.out.println("Your charisma level is now: "
-                    + gameLogic.getActiveGame().getPlayer().getCharisma());
+            dialoguePanel.showText("Your charisma level is now: "
+                    + gameLogic.getActiveGame().getPlayer().getCharisma()
+                    + "\n----");
         } else {
-            System.out.println("No success.");
+            dialoguePanel.showText("No success."
+                    + "\n----");
         }
         updateView();
     }
 
     private void debateCourseSelected() {
         if (gameLogic.trainingCentreActions('b')) {
-            System.out.println("Your argumentation skill level is now: "
+            dialoguePanel.showText("Your argumentation skill level is now: "
                     + gameLogic.getActiveGame()
-                            .getPlayer().getArgumentationSkills());
+                            .getPlayer().getArgumentationSkills()
+                    + "\n----");
         } else {
-            System.out.println("No success.");
+            dialoguePanel.showText("No success."
+                    + "\n----");
         }
         updateView();
     }

@@ -24,6 +24,7 @@ import fi.sewsiaica.uusiaika.ui.subpanels.VillagerListPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 
@@ -40,7 +41,7 @@ public class MapViewPanel extends AbstractViewPanel {
     private final GameFrame gameFrame;
     private JPanel buttonPanel;
     private JPanel infoPanel;
-    private JPanel villagerListPanel;
+    private VillagerListPanel villagerListPanel;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters.
@@ -62,27 +63,33 @@ public class MapViewPanel extends AbstractViewPanel {
 
     @Override
     public final void updateComponents() {
+        Map<String, String> activeLanguage = gameLogic.getActiveLanguage();
+        
         String[] textsForButtons = {"Go to the temple",
             "Go to the training centre", "Door-to-door conversion", "End turn",
             "Save the game", "Go back to main menu (ends the game)"};
 
+        String showInfoMessage = "Choose target villagers "
+                + "for door-to-door conversion."
+                + "\n\nSect members in magenta.";
+        villagerListPanel = new VillagerListPanel(gameLogic, showInfoMessage);
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         infoPanel = new InfoPanel(gameLogic);
-        villagerListPanel = new VillagerListPanel(gameLogic);
         this.addSubPanelsToViewPanel();
     }
 
     @Override
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {
-        return new MapViewPanelListener(gameLogic, gameFrame, buttons);
+        return new MapViewPanelListener(gameLogic, gameFrame,
+                villagerListPanel, buttons);
     }
 
     @Override
     protected void addSubPanelsToViewPanel() {
         this.setLayout(new BorderLayout());
         this.add(infoPanel, BorderLayout.NORTH);
-        this.add(buttonPanel, BorderLayout.CENTER);
+        this.add(buttonPanel, BorderLayout.SOUTH);
         this.add(villagerListPanel, BorderLayout.EAST);
     }
 

@@ -20,6 +20,7 @@ import fi.sewsiaica.uusiaika.domain.Villager;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
+import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class DoorToDoorViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
+    private final DialoguePanel dialoguePanel;
     private final AbstractButton persuasionButton;
     private final AbstractButton sermonButton;
     private final AbstractButton accusationButton;
@@ -44,21 +46,23 @@ public class DoorToDoorViewPanelListener implements ActionListener {
     private final AbstractButton endTurnButton;
 
     /**
-     * The constructor is given an array of five AbstractButtons, GameFrame, and
-     * GameLogic as parameters.
+     * The constructor is given an array of five AbstractButtons, GameFrame,
+     * GameLogic, and DialoguePanel as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
+     * @param dialoguePanel Displays the output and the dialogue of the game.
      * @param buttons Button [0] is for the persuasion, [1] for the sermon, [2]
      * for the accusation, [3] changes the target, [4] returns to the map view,
      * and [5] ends the turn.
      */
     public DoorToDoorViewPanelListener(GameLogic gameLogic, GameFrame frame,
-            AbstractButton[] buttons) {
+            DialoguePanel dialoguePanel, AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
+        this.dialoguePanel = dialoguePanel;
         this.persuasionButton = buttons[0];
         this.sermonButton = buttons[1];
         this.accusationButton = buttons[2];
@@ -71,6 +75,7 @@ public class DoorToDoorViewPanelListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == returnToMapViewButton) {
             emptyTargetVillagerList();
+            dialoguePanel.resetText();
             gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
         } else if (ae.getSource() == endTurnButton) {
             if (gameLogic.endTurn()) {
@@ -109,7 +114,7 @@ public class DoorToDoorViewPanelListener implements ActionListener {
 
     private boolean noTargetsLeft() {
         if (getTargetVillagers().isEmpty()) {
-            System.out.println("No targets left!");
+            dialoguePanel.showText("No targets left!");
             return true;
         }
         return false;
@@ -120,10 +125,10 @@ public class DoorToDoorViewPanelListener implements ActionListener {
             Villager currentTarget = getTargetVillagers().get(0);
 
             if (gameLogic.conversion(currentTarget, 'a')) {
-                System.out.println("Persuasion succeeds!");
+                dialoguePanel.showText("Persuasion succeeds!");
                 removeFirstTargetIfTargetListNotEmpty();
             } else {
-                System.out.println("Nope. Not this time.");
+                dialoguePanel.showText("Nope. Not this time.");
             }
         }
     }
@@ -133,10 +138,10 @@ public class DoorToDoorViewPanelListener implements ActionListener {
             Villager currentTarget = getTargetVillagers().get(0);
 
             if (gameLogic.conversion(currentTarget, 'b')) {
-                System.out.println("Sermon succeeds!");
+                dialoguePanel.showText("Sermon succeeds!");
                 removeFirstTargetIfTargetListNotEmpty();
             } else {
-                System.out.println("Nope. Not this time.");
+                dialoguePanel.showText("Nope. Not this time.");
             }
         }
     }
@@ -146,10 +151,10 @@ public class DoorToDoorViewPanelListener implements ActionListener {
             Villager currentTarget = getTargetVillagers().get(0);
 
             if (gameLogic.conversion(currentTarget, 'b')) {
-                System.out.println("Accusation succeeds!");
+                dialoguePanel.showText("Accusation succeeds!");
                 removeFirstTargetIfTargetListNotEmpty();
             } else {
-                System.out.println("Nope. Not this time.");
+                dialoguePanel.showText("Nope. Not this time.");
             }
         }
     }

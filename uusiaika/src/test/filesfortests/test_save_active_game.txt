@@ -1,6 +1,6 @@
 playerCharisma: 10
 playerArgSkills: 10
-sectBalance: 5000
+sectBalance: 1000000
 sectExpenses: 1000
 sectMemberFee: 700
 vilPopulation: 10

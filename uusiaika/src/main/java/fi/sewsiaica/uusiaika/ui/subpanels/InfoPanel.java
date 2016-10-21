@@ -43,7 +43,7 @@ public class InfoPanel extends AbstractSubPanel {
     public InfoPanel(GameLogic gameLogic) {
         super(gameLogic);
         this.gameLogic = gameLogic;
-        addContentOnlyIfActiveGameIsNotNull();
+        super.addContentOnlyIfActiveGameIsNotNull();
     }
 
     @Override

@@ -19,6 +19,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanellisteners;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
+import fi.sewsiaica.uusiaika.ui.subpanels.VillagerListPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -37,6 +38,7 @@ public class MapViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
+    private final VillagerListPanel villagerListPanel;
     private final AbstractButton templeButton;
     private final AbstractButton trainingCentreButton;
     private final AbstractButton doorToDoorConversionButton;
@@ -47,13 +49,15 @@ public class MapViewPanelListener implements ActionListener {
     private File saveFile;
 
     /**
-     * The constructor is given an array of six AbstractButtons, GameFrame, and
-     * GameLogic as parameters.
+     * The constructor is given an array of six AbstractButtons, GameFrame,
+     * GameLogic, and VillagerListPanel as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
+     * @param villagerListPanel The panel that shows the output in this view
+     * panel.
      * @param buttons The current ViewPanel changes to [0] TEMPLE_VIEW, [1]
      * TRAININGCENTRE_VIEW, [2] DOORTODOOR_VIEW (conversion), [3] Ends the turn
      * via GameLogic, [4] Saves the game via GameLogic, [5]
@@ -61,9 +65,10 @@ public class MapViewPanelListener implements ActionListener {
      * thus ending the active game.
      */
     public MapViewPanelListener(GameLogic gameLogic, GameFrame frame,
-            AbstractButton[] buttons) {
+            VillagerListPanel villagerListPanel, AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
+        this.villagerListPanel = villagerListPanel;
         this.templeButton = buttons[0];
         this.trainingCentreButton = buttons[1];
         this.doorToDoorConversionButton = buttons[2];
@@ -83,7 +88,7 @@ public class MapViewPanelListener implements ActionListener {
         String gameDir = System.getProperty("user.dir");
         fileChooser.setCurrentDirectory(new File(gameDir));
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
 
@@ -115,24 +120,25 @@ public class MapViewPanelListener implements ActionListener {
             if (savingGameSucceeds()) {
                 System.out.println("Saved as " + saveFile.getName() + ".");
             } else {
-                System.out.println("Unable to save to the selected location.");
+                System.out.println("Unable to save to the selected "
+                        + "location.");
             }
         }
         gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
     }
-    
+
     private boolean fileChosenWithFileChooser() {
         int returnVal = fileChooser.showSaveDialog(gameFrame);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             saveFile = fileChooser.getSelectedFile();
-            System.out.println(saveFile.getName());
+            villagerListPanel.showText(saveFile.getName());
             return true;
         }
         System.out.println("Cancelled.");
         return false;
     }
-    
+
     private boolean savingGameSucceeds() {
         return gameLogic.saveGame(saveFile);
     }
@@ -144,7 +150,7 @@ public class MapViewPanelListener implements ActionListener {
         if (targetVillagerListSize != 0) {
             gameFrame.changeViewPanel(PanelNames.DOORTODOOR_VIEW);
         } else {
-            System.out.println("No targets selected.");
+            villagerListPanel.showText("No targets selected.");
         }
     }
 

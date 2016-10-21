@@ -18,6 +18,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
+import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import fi.sewsiaica.uusiaika.ui.viewpanellisteners.DoorToDoorViewPanelListener;
 import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.BorderLayout;
@@ -37,6 +38,7 @@ public class DoorToDoorViewPanel extends AbstractViewPanel {
     private final Dimension dimension;
     private final GameLogic gameLogic;
     private final GameFrame gameFrame;
+    private final DialoguePanel dialoguePanel;
     private JPanel buttonPanel;
     private JPanel infoPanel;
 
@@ -55,6 +57,7 @@ public class DoorToDoorViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
+        this.dialoguePanel = new DialoguePanel();
         this.updateComponents();
     }
 
@@ -63,7 +66,7 @@ public class DoorToDoorViewPanel extends AbstractViewPanel {
         String[] textsForButtons = {"Try persuasion", "Try sermon",
             "Try accusation", "Next target", "Go back to the Map view",
             "End turn"};
-        
+
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         infoPanel = new InfoPanel(gameLogic);
         this.addSubPanelsToViewPanel();
@@ -72,14 +75,16 @@ public class DoorToDoorViewPanel extends AbstractViewPanel {
     @Override
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {
-        return new DoorToDoorViewPanelListener(gameLogic, gameFrame, buttons);
+        return new DoorToDoorViewPanelListener(gameLogic, gameFrame,
+                dialoguePanel, buttons);
     }
 
     @Override
     protected void addSubPanelsToViewPanel() {
         this.setLayout(new BorderLayout());
         this.add(infoPanel, BorderLayout.NORTH);
-        this.add(buttonPanel, BorderLayout.CENTER);
+        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(dialoguePanel, BorderLayout.EAST);
     }
 
 }

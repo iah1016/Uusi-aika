@@ -1,7 +1,7 @@
-999999: Turn: 1  pla  sec  Balance: 5000  Members: 0  Ending condition: 3
-999998: Turn: 1  pla  sec  Balance: 5000  Members: 0  Ending condition: 3
-444444: highscore
 74445: second place
+444: test444-1
+444444: highscore
+444: test444-2
 13213: third
 999: huu
 999: huu2
@@ -11,5 +11,5 @@
 999: huu6
 999: huu7
 999: huu8
-444: test444-1
-444: test444-2
+9: noob
+7: noob
