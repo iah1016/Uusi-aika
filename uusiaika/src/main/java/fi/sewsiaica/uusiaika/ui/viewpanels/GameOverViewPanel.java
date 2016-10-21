@@ -95,16 +95,20 @@ public class GameOverViewPanel extends AbstractViewPanel {
     private JPanel createEndMessageTextPanePanel() {
         JPanel endMsgPanel = new JPanel();
         JTextArea endMessageTextArea = new JTextArea();
+        endMessageTextAreaSettings(endMessageTextArea);
+
+        endMsgPanel.setBackground(Color.decode("#a3c2c2"));
+        endMsgPanel.add(endMessageTextArea);
+        return endMsgPanel;
+    }
+    
+    private void endMessageTextAreaSettings(JTextArea endMessageTextArea) {
         endMessageTextArea.setEditable(false);
         endMessageTextArea.setText(pickEndMessage());
         endMessageTextArea.setPreferredSize(new Dimension(600, 400));
         endMessageTextArea.setWrapStyleWord(true);
         endMessageTextArea.setLineWrap(true);
         endMessageTextArea.setBackground(Color.decode("#ebebe0"));
-
-        endMsgPanel.setBackground(Color.decode("#a3c2c2"));
-        endMsgPanel.add(endMessageTextArea);
-        return endMsgPanel;
     }
 
     private String pickEndMessage() {

@@ -22,6 +22,7 @@ import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import fi.sewsiaica.uusiaika.ui.viewpanellisteners.TempleViewPanelListener;
 import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class TempleViewPanel extends AbstractViewPanel {
     private final DialoguePanel dialoguePanel;
     private JPanel buttonPanel;
     private JPanel infoPanel;
+    private JPanel darkPlaceHolderPanel;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters.
@@ -64,16 +66,23 @@ public class TempleViewPanel extends AbstractViewPanel {
     @Override
     public final void updateComponents() {
         Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = createTextsForButtons(language);
+
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        infoPanel = new InfoPanel(gameLogic);
+        darkPlaceHolderPanel = new JPanel();
+        darkPlaceHolderPanel.setBackground(Color.decode("#33001a"));
+        this.addSubPanelsToViewPanel();
+    }
+    
+    private String[] createTextsForButtons(Map<String, String> language) {
         String[] textsForButtons = {
             language.get("preachButton"),
             language.get("offerSodaButton"),
             language.get("buyTicketButton"),
             language.get("returnToMapViewButton"),
             language.get("endTurnButton")};
-
-        buttonPanel = super.getNewButtonPanel(textsForButtons);
-        infoPanel = new InfoPanel(gameLogic);
-        this.addSubPanelsToViewPanel();
+        return textsForButtons;
     }
 
     @Override
@@ -88,6 +97,7 @@ public class TempleViewPanel extends AbstractViewPanel {
         this.setLayout(new BorderLayout());
         this.add(infoPanel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(darkPlaceHolderPanel, BorderLayout.CENTER);
         this.add(dialoguePanel, BorderLayout.EAST);
     }
 }

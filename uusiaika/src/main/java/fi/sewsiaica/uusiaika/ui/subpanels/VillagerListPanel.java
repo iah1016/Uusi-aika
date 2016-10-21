@@ -100,7 +100,8 @@ public class VillagerListPanel extends AbstractSubPanel {
         infoMessage.setEditable(false);
         infoMessage.setWrapStyleWord(true);
         infoMessage.setLineWrap(true);
-        infoMessage.setBackground(Color.decode("#a3c2c2"));
+        infoMessage.setForeground(Color.decode("#c3d5d5"));
+        infoMessage.setBackground(Color.decode("#1f2e2e"));
         Font font = infoMessage.getFont();
         Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
         infoMessage.setFont(boldFont);

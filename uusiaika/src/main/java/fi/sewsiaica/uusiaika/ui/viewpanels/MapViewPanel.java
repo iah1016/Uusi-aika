@@ -22,6 +22,7 @@ import fi.sewsiaica.uusiaika.ui.viewpanellisteners.MapViewPanelListener;
 import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import fi.sewsiaica.uusiaika.ui.subpanels.VillagerListPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class MapViewPanel extends AbstractViewPanel {
     private final GameFrame gameFrame;
     private JPanel buttonPanel;
     private JPanel infoPanel;
+    private JPanel darkPlaceHolderPanel;
     private VillagerListPanel villagerListPanel;
 
     /**
@@ -64,6 +66,19 @@ public class MapViewPanel extends AbstractViewPanel {
     @Override
     public final void updateComponents() {
         Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = createTextsForButtons(language);
+        String showInfoMessage = language.get("mapViewInfo1")
+                + "\n\n" + language.get("mapViewInfo2");
+        
+        villagerListPanel = new VillagerListPanel(gameLogic, showInfoMessage);
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        infoPanel = new InfoPanel(gameLogic);
+        darkPlaceHolderPanel = new JPanel();
+        darkPlaceHolderPanel.setBackground(Color.decode("#33001a"));
+        this.addSubPanelsToViewPanel();
+    }
+
+    private String[] createTextsForButtons(Map<String, String> language) {
         String[] textsForButtons = {
             language.get("templeButton"),
             language.get("trainingCentreButton"),
@@ -71,13 +86,7 @@ public class MapViewPanel extends AbstractViewPanel {
             language.get("endTurnButton"),
             language.get("saveGameButton"),
             language.get("openingMenuViewButton2")};
-
-        String showInfoMessage = language.get("mapViewInfo1")
-                + "\n\n" + language.get("mapViewInfo2");
-        villagerListPanel = new VillagerListPanel(gameLogic, showInfoMessage);
-        buttonPanel = super.getNewButtonPanel(textsForButtons);
-        infoPanel = new InfoPanel(gameLogic);
-        this.addSubPanelsToViewPanel();
+        return textsForButtons;
     }
 
     @Override
@@ -92,6 +101,7 @@ public class MapViewPanel extends AbstractViewPanel {
         this.setLayout(new BorderLayout());
         this.add(infoPanel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(darkPlaceHolderPanel, BorderLayout.CENTER);
         this.add(villagerListPanel, BorderLayout.EAST);
     }
 

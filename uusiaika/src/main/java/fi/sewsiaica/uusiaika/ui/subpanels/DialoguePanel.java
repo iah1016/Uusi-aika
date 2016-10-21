@@ -16,6 +16,7 @@
  */
 package fi.sewsiaica.uusiaika.ui.subpanels;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -31,7 +32,6 @@ import javax.swing.ScrollPaneConstants;
 public class DialoguePanel extends JPanel {
 
     private final JTextArea textPane;
-    private final Dimension dimension;
 
     /**
      * The constructor calls the addContents method.
@@ -42,7 +42,6 @@ public class DialoguePanel extends JPanel {
         this.textPane.setWrapStyleWord(true);
         this.textPane.setLineWrap(true);
         this.textPane.setEditable(false);
-        this.dimension = new Dimension(200, 300);
         this.addContents();
     }
 
@@ -50,12 +49,13 @@ public class DialoguePanel extends JPanel {
         JScrollPane outputPane = new JScrollPane(textPane,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        outputPane.setPreferredSize(dimension);
-        this.setPreferredSize(dimension);
-        add(outputPane);
+        outputPane.setPreferredSize(new Dimension(200, 313));
+        this.setPreferredSize(new Dimension(200, 300));
+        this.setLayout(new BorderLayout());
+        add(outputPane, BorderLayout.NORTH);
 
-        textPane.setBackground(Color.decode("#a3c2c2"));
-        setBackground(Color.decode("#a3c2c2"));
+        textPane.setBackground(Color.decode("#d1d1e0"));
+        setBackground(Color.decode("#1f2e2e"));
     }
 
     /**

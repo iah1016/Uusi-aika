@@ -58,15 +58,20 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
     @Override
     public final void updateComponents() {
         Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = createTextsForButtons(language);
+
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        this.addSubPanelsToViewPanel();
+    }
+
+    private String[] createTextsForButtons(Map<String, String> language) {
         String[] textsForButtons = {
             language.get("newGameButton"),
             language.get("loadGameButton"),
             language.get("settingsButton"),
             language.get("hallOfFameButton"),
             language.get("quitButton")};
-
-        buttonPanel = super.getNewButtonPanel(textsForButtons);
-        this.addSubPanelsToViewPanel();
+        return textsForButtons;
     }
 
     @Override

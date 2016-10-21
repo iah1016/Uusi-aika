@@ -60,8 +60,14 @@ public class LanguageSettingsViewPanel extends AbstractViewPanel {
     @Override
     public void updateComponents() {
         Map<String, String> language = gameLogic.getActiveLanguage();
-        List<String> langNames = gameLogic.getNamesOfLanguages();
+        String[] textsForButtons = createTextsForButtons(language);
 
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        this.addSubPanelsToViewPanel();
+    }
+    
+    private String[] createTextsForButtons(Map<String, String> language) {
+        List<String> langNames = gameLogic.getNamesOfLanguages();
         String[] textsForButtons = new String[langNames.size() + 2];
         for (int i = 0; i < langNames.size(); i++) {
             textsForButtons[i] = langNames.get(i);
@@ -70,9 +76,7 @@ public class LanguageSettingsViewPanel extends AbstractViewPanel {
                 = language.get("loadLangFromFileButton");
         textsForButtons[langNames.size() + 1]
                 = language.get("openingMenuViewButton");
-
-        buttonPanel = super.getNewButtonPanel(textsForButtons);
-        this.addSubPanelsToViewPanel();
+        return textsForButtons;
     }
 
     @Override

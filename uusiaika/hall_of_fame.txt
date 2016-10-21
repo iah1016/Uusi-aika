@@ -1,6 +1,8 @@
 444444: highscore
+102794: Turn: 8  Player  Sect  Balance: 47000  Members: 10  Ending condition: 2
 74445: second place
 13213: third
+9130: Turn: 18  Player  Sect  Balance: 100000  Members: 10  Ending condition: 3
 999: huu
 999: huu2
 999: huu3
@@ -11,5 +13,3 @@
 999: huu8
 444: test444-1
 444: test444-2
-9: noob
-0: Turn: 2  AA  AB  Balance: 4000  Members: 0  Ending condition: 4

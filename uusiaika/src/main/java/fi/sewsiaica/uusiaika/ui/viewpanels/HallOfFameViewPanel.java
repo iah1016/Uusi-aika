@@ -83,16 +83,16 @@ public class HallOfFameViewPanel extends AbstractViewPanel {
     }
 
     private JPanel createHallOfFamePanePanel() {
-        JPanel hallOfFamePanel = new JPanel();
+        JPanel hallOfFameJPanel = new JPanel();
         JEditorPane hallOfFameTextPane = new JEditorPane();
         hallOfFameTextPane.setEditable(false);
         hallOfFameTextPane.setText(constructHallOfFameString());
         hallOfFameTextPane.setPreferredSize(new Dimension(760, 400));
         hallOfFameTextPane.setBackground(Color.decode("#ebebe0"));
 
-        hallOfFamePanel.setBackground(Color.decode("#a3c2c2"));
-        hallOfFamePanel.add(hallOfFameTextPane);
-        return hallOfFamePanel;
+        hallOfFameJPanel.setBackground(Color.decode("#a3c2c2"));
+        hallOfFameJPanel.add(hallOfFameTextPane);
+        return hallOfFameJPanel;
     }
 
     private String constructHallOfFameString() {

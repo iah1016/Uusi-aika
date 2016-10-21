@@ -18,10 +18,10 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
-import fi.sewsiaica.uusiaika.ui.viewpanellisteners.TrainingCentreViewPanelListener;
-import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
+import fi.sewsiaica.uusiaika.ui.subpanels.*;
+import fi.sewsiaica.uusiaika.ui.viewpanellisteners.*;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Map;
@@ -42,6 +42,7 @@ public class TrainingCentreViewPanel extends AbstractViewPanel {
     private final DialoguePanel dialoguePanel;
     private JPanel buttonPanel;
     private JPanel infoPanel;
+    private JPanel darkPlaceHolderPanel;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters.
@@ -65,15 +66,22 @@ public class TrainingCentreViewPanel extends AbstractViewPanel {
     @Override
     public final void updateComponents() {
         Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = createTextsForButtons(language);
+
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        infoPanel = new InfoPanel(gameLogic);
+        darkPlaceHolderPanel = new JPanel();
+        darkPlaceHolderPanel.setBackground(Color.decode("#33001a"));
+        this.addSubPanelsToViewPanel();
+    }
+
+    private String[] createTextsForButtons(Map<String, String> language) {
         String[] textsForButtons = {
             language.get("applyForCharismaCourseButton"),
             language.get("applyForDebateCourseButton"),
             language.get("returnToMapViewButton"),
             language.get("endTurnButton")};
-
-        buttonPanel = super.getNewButtonPanel(textsForButtons);
-        infoPanel = new InfoPanel(gameLogic);
-        this.addSubPanelsToViewPanel();
+        return textsForButtons;
     }
 
     @Override
@@ -88,6 +96,7 @@ public class TrainingCentreViewPanel extends AbstractViewPanel {
         this.setLayout(new BorderLayout());
         this.add(infoPanel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(darkPlaceHolderPanel, BorderLayout.CENTER);
         this.add(dialoguePanel, BorderLayout.EAST);
     }
 

@@ -76,30 +76,38 @@ public class DoorToDoorViewPanelListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         language = gameLogic.getActiveLanguage();
-        
         if (ae.getSource() == returnToMapViewButton) {
             emptyTargetVillagerList();
             dialoguePanel.resetText();
             gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
         } else if (ae.getSource() == endTurnButton) {
-            if (gameLogic.endTurn()) {
-                updateView();
-            } else {
-                gameLogic.endGame(1);
-                gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
-            }
+            endTurnActionPerformed();
         } else {
-            if (ae.getSource() == persuasionButton) {
-                persuasionSelected();
-            } else if (ae.getSource() == sermonButton) {
-                sermonSelected();
-            } else if (ae.getSource() == accusationButton) {
-                accusationSelected();
-            } else if (ae.getSource() == nextTargetButton) {
-                removeFirstTargetIfTargetListNotEmpty();
-            }
-            updateView();
+            conversionActionPerformed(ae);
         }
+    }
+
+    private void endTurnActionPerformed() {
+        if (gameLogic.endTurn()) {
+            updateView();
+        } else {
+            gameLogic.endGame(1);
+            dialoguePanel.resetText();
+            gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
+        }
+    }
+
+    private void conversionActionPerformed(ActionEvent ae) {
+        if (ae.getSource() == persuasionButton) {
+            persuasionSelected();
+        } else if (ae.getSource() == sermonButton) {
+            sermonSelected();
+        } else if (ae.getSource() == accusationButton) {
+            accusationSelected();
+        } else if (ae.getSource() == nextTargetButton) {
+            removeFirstTargetIfTargetListNotEmpty();
+        }
+        updateView();
     }
 
     private void updateView() {

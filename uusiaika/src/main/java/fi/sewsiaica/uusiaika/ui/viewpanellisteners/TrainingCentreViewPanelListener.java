@@ -78,13 +78,18 @@ public class TrainingCentreViewPanelListener implements ActionListener {
             } else if (ae.getSource() == applyForDebateCourseButton) {
                 debateCourseSelected();
             } else if (ae.getSource() == endTurnButton) {
-                if (gameLogic.endTurn()) {
-                    updateView();
-                } else {
-                    gameLogic.endGame(1);
-                    gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
-                }
+                endTurnActionPerformed();
             }
+        }
+    }
+
+    private void endTurnActionPerformed() {
+        if (gameLogic.endTurn()) {
+            updateView();
+        } else {
+            gameLogic.endGame(1);
+            dialoguePanel.resetText();
+            gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         }
     }
 

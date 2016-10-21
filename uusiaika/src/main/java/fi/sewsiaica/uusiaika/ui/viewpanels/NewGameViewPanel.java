@@ -43,6 +43,7 @@ public class NewGameViewPanel extends AbstractViewPanel {
     private final DialoguePanel dialoguePanel;
     private JPanel buttonPanel;
     private JPanel textFieldPanel;
+    private JPanel darkPlaceHolderPanel;
 
     /**
      * Dimension, GameLogic, and GameFrame are given as parameters.
@@ -66,18 +67,25 @@ public class NewGameViewPanel extends AbstractViewPanel {
     @Override
     public final void updateComponents() {
         Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = createTextsForButtons(language);
+
+        textFieldPanel = new JPanel();
+        applyTextFieldPanelSettings(textFieldPanel);
+        // The method that creates JTextFields also add them to textFieldPanel.
+        buttonPanel = super.getNewButtonPanel(textsForButtons);
+        darkPlaceHolderPanel = new JPanel();
+        darkPlaceHolderPanel.setBackground(Color.decode("#33001a"));
+        this.addSubPanelsToViewPanel();
+    }
+
+    private String[] createTextsForButtons(Map<String, String> language) {
         String[] textsForButtons = {
             language.get("createGameButton"),
             language.get("configValuesFileButton"),
             language.get("villagerNamesFileButton"),
             language.get("villagerProfsFileButton"),
             language.get("openingMenuViewButton")};
-
-        textFieldPanel = new JPanel();
-        applyTextFieldPanelSettings(textFieldPanel);
-        // The method that creates JTextFields also add them to textFieldPanel.
-        buttonPanel = super.getNewButtonPanel(textsForButtons);
-        this.addSubPanelsToViewPanel();
+        return textsForButtons;
     }
 
     private void applyTextFieldPanelSettings(JPanel jPanel) {
@@ -100,8 +108,9 @@ public class NewGameViewPanel extends AbstractViewPanel {
     protected void addSubPanelsToViewPanel() {
         this.setLayout(new BorderLayout());
         this.add(buttonPanel, BorderLayout.SOUTH);
-        this.add(textFieldPanel, BorderLayout.WEST);
-        this.add(dialoguePanel, BorderLayout.CENTER);
+        this.add(textFieldPanel, BorderLayout.NORTH);
+        this.add(darkPlaceHolderPanel, BorderLayout.CENTER);
+        this.add(dialoguePanel, BorderLayout.EAST);
     }
 
 }

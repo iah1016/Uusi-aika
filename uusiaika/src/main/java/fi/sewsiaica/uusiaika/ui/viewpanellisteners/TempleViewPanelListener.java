@@ -82,12 +82,17 @@ public class TempleViewPanelListener implements ActionListener {
         } else if (ae.getSource() == buyTicketButton) {
             buyTicketSelected();
         } else if (ae.getSource() == endTurnButton) {
-            if (gameLogic.endTurn()) {
-                updateView();
-            } else {
-                gameLogic.endGame(1);
-                gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
-            }
+            endTurnActionPerformed();
+        }
+    }
+
+    private void endTurnActionPerformed() {
+        if (gameLogic.endTurn()) {
+            updateView();
+        } else {
+            gameLogic.endGame(1);
+            dialoguePanel.resetText();
+            gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         }
     }
 
@@ -109,6 +114,7 @@ public class TempleViewPanelListener implements ActionListener {
     private void offerSodaSelected() {
         if (gameLogic.templeActions('b')) {
             gameLogic.endGame(2);
+            dialoguePanel.resetText();
             gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
             dialoguePanel.showText(language.get("templeOfferSodaFail")
@@ -120,6 +126,7 @@ public class TempleViewPanelListener implements ActionListener {
     private void buyTicketSelected() {
         if (gameLogic.templeActions('c')) {
             gameLogic.endGame(3);
+            dialoguePanel.resetText();
             gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
             dialoguePanel.showText(language.get("templeBuyTicketFail")
