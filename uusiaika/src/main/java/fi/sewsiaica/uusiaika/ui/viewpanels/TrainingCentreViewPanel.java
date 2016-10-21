@@ -24,6 +24,7 @@ import fi.sewsiaica.uusiaika.ui.subpanels.InfoPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 
@@ -63,8 +64,12 @@ public class TrainingCentreViewPanel extends AbstractViewPanel {
 
     @Override
     public final void updateComponents() {
-        String[] textsForButtons = {"Apply for a charisma course",
-            "Apply for a debate course", "Go back to the Map view", "End turn"};
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = {
+            language.get("applyForCharismaCourseButton"),
+            language.get("applyForDebateCourseButton"),
+            language.get("returnToMapViewButton"),
+            language.get("endTurnButton")};
 
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         infoPanel = new InfoPanel(gameLogic);

@@ -22,6 +22,7 @@ import fi.sewsiaica.uusiaika.ui.viewpanellisteners.SettingsViewPanelListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 
@@ -58,7 +59,10 @@ public class SettingsViewPanel extends AbstractViewPanel {
 
     @Override
     public final void updateComponents() {
-        String[] textsForButtons = {"Change language", "Go back to main menu"};
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = {
+            language.get("changeLanguageButton"),
+            language.get("openingMenuViewButton")};
 
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         this.addSubPanelsToViewPanel();

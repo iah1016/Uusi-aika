@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -37,9 +38,10 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
     private final AbstractButton[] languageButtons;
-    private final AbstractButton loadFromFileButton;
+    private final AbstractButton loadLangFromFileButton;
     private final AbstractButton openingMenuViewButton;
     private final JFileChooser fileChooser;
+    private Map<String, String> language;
 
     /**
      * The constructor is given an AbstractButton array, GameFrame, and
@@ -57,7 +59,7 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
             GameLogic gameLogic, AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.loadFromFileButton = buttons[buttons.length - 2];
+        this.loadLangFromFileButton = buttons[buttons.length - 2];
         this.openingMenuViewButton = buttons[buttons.length - 1];
         this.languageButtons = new AbstractButton[buttons.length - 2];
         this.fileChooser = new JFileChooser();
@@ -66,10 +68,11 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
     }
 
     private void fileChooserSettings() {
+        language = gameLogic.getActiveLanguage();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 ".txt files", "txt");
         fileChooser.setFileFilter(filter);
-        fileChooser.setDialogTitle("Open a language file");
+        fileChooser.setDialogTitle(language.get("openLangFileTitle"));
 
         String gameDir = System.getProperty("user.dir");
         fileChooser.setCurrentDirectory(new File(gameDir));
@@ -85,7 +88,7 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == openingMenuViewButton) {
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
-        } else if (ae.getSource() == loadFromFileButton) {
+        } else if (ae.getSource() == loadLangFromFileButton) {
             loadFromFileAction(ae);
         } else {
             goThroughLanguageButtonActions(ae);
@@ -97,10 +100,7 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
         File file;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
-            System.out.println(file.getName());
             loadCustomLanguage(file);
-        } else {
-            System.out.println("Cancelled.");
         }
         gameFrame.changeViewPanel(PanelNames.LANGUAGESETTINGS_VIEW);
     }
@@ -112,9 +112,6 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
 
             gameLogic.setActiveLanguage(languageNameList.get(
                     customLanguageIndex));
-            System.out.println(gameLogic.getActiveLanguage().get("language"));
-        } else {
-            System.out.println("nope");
         }
     }
 
@@ -122,8 +119,6 @@ public class LanguageSettingsViewPanelListener implements ActionListener {
         for (AbstractButton languageButton : languageButtons) {
             if (ae.getSource() == languageButton) {
                 gameLogic.setActiveLanguage(languageButton.getText());
-                System.out.println(
-                        gameLogic.getActiveLanguage().get("language"));
             }
         }
         gameFrame.changeViewPanel(PanelNames.LANGUAGESETTINGS_VIEW);

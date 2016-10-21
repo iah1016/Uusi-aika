@@ -28,10 +28,12 @@
   - Karttanäkymä
     - Siirry liikkeen tiloihin
     - Käy valmentautumiskeskuksessa
-    - Valitse ovelta ovelle -käynnin kohde/kohteet
+    - Ovelta ovelle -kierrokselle
     - Valitse kaupan piha kojun pystytykselle (kaupan kojun totetutus jäänee tulevaisuuteen)
+    - Tallenna peli
   
   - Liikenäkymä
+    - Saarnaa seurakunnalle
     - Tarjoa kaikille limpparia
     - Varaa menolippu paratiisisaarelle
     - Paluu karttanäkymään

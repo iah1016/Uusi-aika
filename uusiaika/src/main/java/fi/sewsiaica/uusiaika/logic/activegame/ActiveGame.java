@@ -145,8 +145,7 @@ public class ActiveGame {
 
     @Override
     public String toString() {
-        return "Turn: " + getNumberOfTurns()
-                + "  " + player.getName()
+        return "Turn: " + getNumberOfTurns() + "  " + player.getName()
                 + "  " + sect.getName() + "  Balance: " + sect.getBalance()
                 + "  Members: " + sect.getCongregation().size();
     }

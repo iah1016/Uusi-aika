@@ -22,6 +22,7 @@ import fi.sewsiaica.uusiaika.ui.PanelNames;
 import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
 
 /**
@@ -39,6 +40,7 @@ public class TempleViewPanelListener implements ActionListener {
     private final AbstractButton buyTicketButton;
     private final AbstractButton returnToMapViewButton;
     private final AbstractButton endTurnButton;
+    private Map<String, String> language;
 
     /**
      * The constructor is given an array of five AbstractButtons, GameFrame,
@@ -68,6 +70,7 @@ public class TempleViewPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        language = gameLogic.getActiveLanguage();
 
         if (ae.getSource() == returnToMapViewButton) {
             dialoguePanel.resetText();
@@ -94,13 +97,10 @@ public class TempleViewPanelListener implements ActionListener {
 
     private void preachSelected() {
         if (gameLogic.templeActions('a')) {
-            dialoguePanel.showText("Praise the Holy Fish! "
-                    + "Your performance was a success. "
-                    + "Everyone is a little less sceptical now."
+            dialoguePanel.showText(language.get("templePreachActionOK")
                     + "\n----");
         } else {
-            dialoguePanel.showText("A solid perfomance.\n"
-                    + "Too bad there was no one here to hear it!"
+            dialoguePanel.showText(language.get("templePreachActionFail")
                     + "\n----");
         }
         updateView();
@@ -111,7 +111,7 @@ public class TempleViewPanelListener implements ActionListener {
             gameLogic.endGame(2);
             gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
-            dialoguePanel.showText("You lack charisma to pull this off."
+            dialoguePanel.showText(language.get("templeOfferSodaFail")
                     + "\n----");
             updateView();
         }
@@ -122,7 +122,7 @@ public class TempleViewPanelListener implements ActionListener {
             gameLogic.endGame(3);
             gameFrame.changeViewPanel(PanelNames.GAME_OVER_VIEW);
         } else {
-            dialoguePanel.showText("There's not enough money on the account."
+            dialoguePanel.showText(language.get("templeBuyTicketFail")
                     + "\n----");
             updateView();
         }

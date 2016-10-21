@@ -32,7 +32,7 @@ public class GameOverViewPanelListener implements ActionListener {
 
     private final GameFrame gameFrame;
     private final GameLogic gameLogic;
-    private final AbstractButton hallOfFameButton;
+    private final AbstractButton showHallOfFameButton;
     private final AbstractButton openingMenuViewButton;
 
     /**
@@ -50,13 +50,13 @@ public class GameOverViewPanelListener implements ActionListener {
             AbstractButton[] buttons) {
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
-        this.hallOfFameButton = buttons[0];
+        this.showHallOfFameButton = buttons[0];
         this.openingMenuViewButton = buttons[1];
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == hallOfFameButton) {
+        if (ae.getSource() == showHallOfFameButton) {
             gameFrame.changeViewPanel(PanelNames.HALL_OF_FAME_VIEW);
         } else if (ae.getSource() == openingMenuViewButton) {
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);

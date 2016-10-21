@@ -1,4 +1,90 @@
 # This file contains all the dialogue text in the following language:
 language: Old Prussian
-# 
-openingMenu: Kails poskails ains par antres!
+# All the buttons in the game.
+# openingMenu: Kails poskails ains par antres!
+# OpeningMenuViewPanel buttons
+newGameButton: Start a new Game
+loadGameButton: Load a game
+settingsButton: Settings
+hallOfFameButton: Hall of fame
+quitButton: Quit
+# NewGameViewPanel buttons
+createGameButton: Create a new game
+configValuesFileButton: Change the configuration values file
+villagerNamesFileButton: Change the villager names file
+villagerProfsFileButton: Change the villager professions file
+# Buttons shown in multiple view panels 
+openingMenuViewButton: Go back to Main menu
+openingMenuViewButton2: Go back to Main menu (ends the game)
+returnToMapViewButton: Go back to Map view
+endTurnButton: End turn
+# MapViewPanel buttons
+templeButton: Go to the temple
+trainingCentreButton: Go to the training centre
+doorToDoorConversionButton: Door-to-door conversion
+saveGameButton: Save the game
+# TempleViewPanel buttons
+preachButton: Preach to the congregation
+offerSodaButton: Offer soda to everyone
+buyTicketButton: Buy a one-way ticket to a paradise island
+# TrainingCentreViewPanel buttons
+applyForCharismaCourseButton: Apply for a charisma course
+applyForDebateCourseButton: Apply for a debate course
+# DoorToDoorViewPanel buttons
+persuasionButton: Try persuasion
+sermonButton: Try sermon
+accusationButton: Try accusation
+nextTargetButton: Next target
+# GameOverViewPanel buttons
+showHallOfFameButton: Show the Hall of Fame
+# SettingsViewPanel buttons
+changeLanguageButton: Change language
+# LanguageSettingsViewPanel buttons
+loadLangFromFileButton: Custom language from a file
+# End game messages
+finalScoreMessage: Your final score is: 
+endMessage1: You have reached the end without success. 
+endMessage2: With you guidance, your flock will take the daring step of ascending to the next level. 
+endMessage3: A one-way ticket to Paradise (some obscure island in the western Pacific) and only you are going.\nYou have taught your flock well and now they can manage themselves.\nYou will take a reasonable reward of 100 percent of the Sect's balance with you. 
+endMessageDefault: Game over 
+# Temple messages
+templePreachActionOK: Praise the Holy Fish! Your performance was a success. Everyone is a little less sceptical now.
+templePreachActionFail: A solid perfomance. Too bad there was no one here to hear it!
+templeOfferSodaFail: You lack charisma to pull this off.
+templeBuyTicketFail: There's not enough money on the account.
+# Training Centre messages
+charismaCourseOK: Your charisma level is now: 
+charismaCourseFail: No success.
+debateCourseOK: Your argumentation skill level is now: 
+debateCourseFail: No success.
+# Door-to-Door messages
+noTargetsLeft: No targets left!
+persuasionOK: Persuasion succeeds!
+persuasionFail: Persuasion unsuccessful.
+sermonOK: Sermon succeeds!
+sermonFail: Sermon unsuccessful.
+accusationOK: Accusation succeeds!
+accusationFail: Accusation unsuccessful.
+# Map view messages
+mapViewInfo1: Choose target villagers for door-to-door conversion.
+mapViewInfo2: Sect members in magenta.
+noTargetsSelected: No targets selected.
+saveFileLocationTitle: Choose the save location
+# New Game view messages
+nameTooLong: A name can be max 25 characters long.
+fileChoosingCancelled: File loading cancelled.
+invalidConfigFile: Invalid Config file.
+filesCannotBeRead: File(s) cannot be read.
+chooseConfigFileTitle: Choose the configuration file
+choosevilNamesTitle: Choose the villager names file
+choosevilProfsTitle: Choose the villager professions file
+# Load Game view messages
+openSaveFileTitle: Open a save file
+# Language settings messages
+openLangFileTitle: Open a language file
+# InfoPanel fields
+turnInfoPanel: Turn: 
+balanceInfoPanel: Balance: 
+membersInfoPanel: Members: 
+currTargetInfoPanel: Current target: 
+totalTargetsInfoPanel: Total targets: 

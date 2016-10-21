@@ -21,6 +21,7 @@ import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.viewpanellisteners.OpeningMenuViewPanelListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.*;
 
 /**
@@ -47,7 +48,6 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
      */
     public OpeningMenuViewPanel(Dimension dimension, GameLogic gameLogic,
             GameFrame frame) {
-//        super(new BorderLayout());
         super();
         this.gameLogic = gameLogic;
         this.gameFrame = frame;
@@ -57,9 +57,14 @@ public class OpeningMenuViewPanel extends AbstractViewPanel {
 
     @Override
     public final void updateComponents() {
-        String[] textsForButtons = {"Start a new Game", "Load a game",
-            "Settings", "Hall of fame", "Quit"};
-        
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = {
+            language.get("newGameButton"),
+            language.get("loadGameButton"),
+            language.get("settingsButton"),
+            language.get("hallOfFameButton"),
+            language.get("quitButton")};
+
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         this.addSubPanelsToViewPanel();
     }

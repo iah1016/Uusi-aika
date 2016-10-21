@@ -22,6 +22,7 @@ import fi.sewsiaica.uusiaika.ui.viewpanellisteners.LoadGameViewPanelListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 
@@ -58,7 +59,10 @@ public class LoadGameViewPanel extends AbstractViewPanel {
 
     @Override
     public final void updateComponents() {
-        String[] textsForButtons = {"Load a game", "Go back to the Main menu"};
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = {
+            language.get("loadGameButton"),
+            language.get("openingMenuViewButton")};
         
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         this.addSubPanelsToViewPanel();

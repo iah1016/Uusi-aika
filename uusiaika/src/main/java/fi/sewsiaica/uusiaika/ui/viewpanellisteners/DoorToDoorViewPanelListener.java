@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.AbstractButton;
 
 /**
@@ -44,6 +45,7 @@ public class DoorToDoorViewPanelListener implements ActionListener {
     private final AbstractButton nextTargetButton;
     private final AbstractButton returnToMapViewButton;
     private final AbstractButton endTurnButton;
+    private Map<String, String> language;
 
     /**
      * The constructor is given an array of five AbstractButtons, GameFrame,
@@ -73,6 +75,8 @@ public class DoorToDoorViewPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        language = gameLogic.getActiveLanguage();
+        
         if (ae.getSource() == returnToMapViewButton) {
             emptyTargetVillagerList();
             dialoguePanel.resetText();
@@ -114,7 +118,7 @@ public class DoorToDoorViewPanelListener implements ActionListener {
 
     private boolean noTargetsLeft() {
         if (getTargetVillagers().isEmpty()) {
-            dialoguePanel.showText("No targets left!");
+            dialoguePanel.showText(language.get("noTargetsLeft"));
             return true;
         }
         return false;
@@ -125,10 +129,10 @@ public class DoorToDoorViewPanelListener implements ActionListener {
             Villager currentTarget = getTargetVillagers().get(0);
 
             if (gameLogic.conversion(currentTarget, 'a')) {
-                dialoguePanel.showText("Persuasion succeeds!");
+                dialoguePanel.showText(language.get("persuasionOK"));
                 removeFirstTargetIfTargetListNotEmpty();
             } else {
-                dialoguePanel.showText("Nope. Not this time.");
+                dialoguePanel.showText(language.get("persuasionFail"));
             }
         }
     }
@@ -138,10 +142,10 @@ public class DoorToDoorViewPanelListener implements ActionListener {
             Villager currentTarget = getTargetVillagers().get(0);
 
             if (gameLogic.conversion(currentTarget, 'b')) {
-                dialoguePanel.showText("Sermon succeeds!");
+                dialoguePanel.showText(language.get("sermonOK"));
                 removeFirstTargetIfTargetListNotEmpty();
             } else {
-                dialoguePanel.showText("Nope. Not this time.");
+                dialoguePanel.showText(language.get("sermonFail"));
             }
         }
     }
@@ -151,10 +155,10 @@ public class DoorToDoorViewPanelListener implements ActionListener {
             Villager currentTarget = getTargetVillagers().get(0);
 
             if (gameLogic.conversion(currentTarget, 'b')) {
-                dialoguePanel.showText("Accusation succeeds!");
+                dialoguePanel.showText(language.get("accusationOK"));
                 removeFirstTargetIfTargetListNotEmpty();
             } else {
-                dialoguePanel.showText("Nope. Not this time.");
+                dialoguePanel.showText(language.get("accusationFail"));
             }
         }
     }

@@ -63,15 +63,17 @@ public class MapViewPanel extends AbstractViewPanel {
 
     @Override
     public final void updateComponents() {
-        Map<String, String> activeLanguage = gameLogic.getActiveLanguage();
-        
-        String[] textsForButtons = {"Go to the temple",
-            "Go to the training centre", "Door-to-door conversion", "End turn",
-            "Save the game", "Go back to main menu (ends the game)"};
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = {
+            language.get("templeButton"),
+            language.get("trainingCentreButton"),
+            language.get("doorToDoorConversionButton"),
+            language.get("endTurnButton"),
+            language.get("saveGameButton"),
+            language.get("openingMenuViewButton2")};
 
-        String showInfoMessage = "Choose target villagers "
-                + "for door-to-door conversion."
-                + "\n\nSect members in magenta.";
+        String showInfoMessage = language.get("mapViewInfo1")
+                + "\n\n" + language.get("mapViewInfo2");
         villagerListPanel = new VillagerListPanel(gameLogic, showInfoMessage);
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         infoPanel = new InfoPanel(gameLogic);

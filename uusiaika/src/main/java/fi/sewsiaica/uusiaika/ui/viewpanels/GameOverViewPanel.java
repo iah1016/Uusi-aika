@@ -23,9 +23,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
-import javax.swing.JEditorPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * This class extends AbstractViewPanel; its object displays the game over view.
@@ -68,8 +69,10 @@ public class GameOverViewPanel extends AbstractViewPanel {
 
     @Override
     public void updateComponents() {
-        String[] textsForButtons = {"Show the Hall of Fame",
-            "Go back to the Main menu"};
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = {
+            language.get("showHallOfFameButton"),
+            language.get("openingMenuViewButton")};
 
         endMessagePanel = createEndMessageTextPanePanel();
         buttonPanel = super.getNewButtonPanel(textsForButtons);
@@ -91,37 +94,32 @@ public class GameOverViewPanel extends AbstractViewPanel {
 
     private JPanel createEndMessageTextPanePanel() {
         JPanel endMsgPanel = new JPanel();
-        JEditorPane endMessageTextPane = new JEditorPane();
-        endMessageTextPane.setEditable(false);
-        endMessageTextPane.setText(pickEndMessage());
-        endMessageTextPane.setPreferredSize(new Dimension(600, 400));
-        endMessageTextPane.setBackground(Color.decode("#ebebe0"));
+        JTextArea endMessageTextArea = new JTextArea();
+        endMessageTextArea.setEditable(false);
+        endMessageTextArea.setText(pickEndMessage());
+        endMessageTextArea.setPreferredSize(new Dimension(600, 400));
+        endMessageTextArea.setWrapStyleWord(true);
+        endMessageTextArea.setLineWrap(true);
+        endMessageTextArea.setBackground(Color.decode("#ebebe0"));
 
         endMsgPanel.setBackground(Color.decode("#a3c2c2"));
-        endMsgPanel.add(endMessageTextPane);
+        endMsgPanel.add(endMessageTextArea);
         return endMsgPanel;
     }
 
     private String pickEndMessage() {
-        String scoreString = "\nYour final score is: " + finalScore + ".";
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String scoreString = language.get("finalScoreMessage") + finalScore
+                + ".";
         switch (endCondition) {
             case 1:
-                return "You have reached the end without success. "
-                        + scoreString;
+                return language.get("endMessage1") + "\n" + scoreString;
             case 2:
-                return "With you guidance, your flock will "
-                        + "take the daring step to ascend to the next level. "
-                        + scoreString;
+                return language.get("endMessage2") + "\n" + scoreString;
             case 3:
-                return "A one-way ticket to Paradise (some obscure "
-                        + "island in the western Pacific) and only you are "
-                        + "going.\n"
-                        + "You have taught your flock well and now they can "
-                        + "manage themselves.\nYou will take a reasonable "
-                        + "reward of 100 percent of the Sect's balance with "
-                        + "you. " + scoreString;
+                return language.get("endMessage3") + "\n" + scoreString;
             default:
-                return "Game over " + scoreString;
+                return language.get("endMessageDefault") + "\n" + scoreString;
         }
     }
 }

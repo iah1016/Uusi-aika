@@ -79,7 +79,6 @@ public class DialogueTest {
         assertEquals(true, loadingOK);
         assertEquals("Vandalic", dialogue.getNamesOfLanguages().get(2));
         Map<String, String> language = dialogue.getLangMap("Vandalic");
-        assertEquals("Scapia matzia ia drincan!", language.get("openingMenu"));
     }
 
     @Test

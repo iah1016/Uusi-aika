@@ -22,6 +22,7 @@ import fi.sewsiaica.uusiaika.ui.PanelNames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -39,6 +40,7 @@ public class LoadGameViewPanelListener implements ActionListener {
     private final AbstractButton openingMenuViewButton;
     private final JFileChooser fileChooser;
     private File saveFile;
+    private Map<String, String> language;
 
     /**
      * The constructor is given one AbstractButton, GameFrame, and GameLogic as
@@ -61,10 +63,11 @@ public class LoadGameViewPanelListener implements ActionListener {
     }
 
     private void fileChooserSettings() {
+        language = gameLogic.getActiveLanguage();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 ".txt files", "txt");
         fileChooser.setFileFilter(filter);
-        fileChooser.setDialogTitle("Open a save file");
+        fileChooser.setDialogTitle(language.get("openSaveFileTitle"));
 
         String gameDir = System.getProperty("user.dir");
         fileChooser.setCurrentDirectory(new File(gameDir));
@@ -78,11 +81,10 @@ public class LoadGameViewPanelListener implements ActionListener {
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }
-    
+
     private void loadGameSelected() {
         if (fileChosenWithFileChooser()) {
             if (loadingGameSucceeds()) {
-                System.out.println(saveFile.getName() + " loaded.");
                 gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
             } else {
                 System.out.println(saveFile.getName()
@@ -97,10 +99,8 @@ public class LoadGameViewPanelListener implements ActionListener {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             saveFile = fileChooser.getSelectedFile();
-            System.out.println(saveFile.getName());
             return true;
         }
-        System.out.println("Cancelled.");
         return false;
     }
 

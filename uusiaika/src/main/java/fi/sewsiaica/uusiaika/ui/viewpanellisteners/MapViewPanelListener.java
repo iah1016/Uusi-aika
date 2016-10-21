@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -46,6 +47,7 @@ public class MapViewPanelListener implements ActionListener {
     private final AbstractButton saveGameButton;
     private final AbstractButton openingMenuViewButton;
     private final JFileChooser fileChooser;
+    private Map<String, String> language;
     private File saveFile;
 
     /**
@@ -76,6 +78,7 @@ public class MapViewPanelListener implements ActionListener {
         this.saveGameButton = buttons[4];
         this.openingMenuViewButton = buttons[5];
         this.fileChooser = new JFileChooser();
+        this.language = gameLogic.getActiveLanguage();
         fileChooserSettings();
     }
 
@@ -83,7 +86,8 @@ public class MapViewPanelListener implements ActionListener {
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 ".txt files", "txt");
         fileChooser.setFileFilter(filter);
-        fileChooser.setDialogTitle("Choose the save location");
+
+        fileChooser.setDialogTitle(language.get("saveFileLocationTitle"));
 
         String gameDir = System.getProperty("user.dir");
         fileChooser.setCurrentDirectory(new File(gameDir));
@@ -135,7 +139,6 @@ public class MapViewPanelListener implements ActionListener {
             villagerListPanel.showText(saveFile.getName());
             return true;
         }
-        System.out.println("Cancelled.");
         return false;
     }
 
@@ -150,7 +153,7 @@ public class MapViewPanelListener implements ActionListener {
         if (targetVillagerListSize != 0) {
             gameFrame.changeViewPanel(PanelNames.DOORTODOOR_VIEW);
         } else {
-            villagerListPanel.showText("No targets selected.");
+            villagerListPanel.showText(language.get("noTargetsSelected"));
         }
     }
 

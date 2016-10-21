@@ -21,6 +21,7 @@ import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.logic.activegame.ActiveGame;
 import java.awt.Color;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JTextPane;
 
 /**
@@ -32,6 +33,7 @@ import javax.swing.JTextPane;
 public class InfoPanel extends AbstractSubPanel {
 
     private final GameLogic gameLogic;
+    private Map<String, String> language;
 
     /**
      * The class gets all the information from ActiveGame via GameLogic. The
@@ -51,27 +53,51 @@ public class InfoPanel extends AbstractSubPanel {
         JTextPane text = new JTextPane();
         text.setText(buildShownString());
         add(text);
-        
+
         text.setForeground(Color.WHITE);
         text.setBackground(Color.decode("#52527a"));
         setBackground(Color.decode("#52527a"));
     }
 
     private String buildShownString() {
+        language = gameLogic.getActiveLanguage();
         ActiveGame activeGame = gameLogic.getActiveGame();
         List<Villager> targetVillagers = activeGame.getTargetVillagers();
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(activeGame.toString());
-
-        if (!targetVillagers.isEmpty()) {
-            int totalTargets = targetVillagers.size();
-            String nextTarget = targetVillagers.get(0).toString();
-            stringBuilder.append("  current target: ").append(nextTarget)
-                    .append("  total targets: ").append(totalTargets);
-        }
+        stringBuilder.append(createActiveGameInfoString(activeGame));
+        stringBuilder.append(createTargetVillagersInfoString(targetVillagers));
 
         return stringBuilder.toString();
     }
 
+    private String createActiveGameInfoString(ActiveGame activeGame) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(language.get("turnInfoPanel"))
+                .append(activeGame.getNumberOfTurns())
+                .append("  ").append(activeGame.getPlayer().getName())
+                .append("  ").append(activeGame.getSect().getName())
+                .append("  ").append(language.get("balanceInfoPanel"))
+                .append(activeGame.getSect().getBalance())
+                .append("  ").append(language.get("membersInfoPanel"))
+                .append(activeGame.getSect().getCongregation().size());
+        
+        return stringBuilder.toString();
+    }
+
+    private String createTargetVillagersInfoString(
+            List<Villager> targetVillagers) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (!targetVillagers.isEmpty()) {
+            int totalTargets = targetVillagers.size();
+            String nextTarget = targetVillagers.get(0).toString();
+            stringBuilder
+                    .append("  ").append(language.get("currTargetInfoPanel"))
+                    .append(nextTarget)
+                    .append("  ").append(language.get("totalTargetsInfoPanel"))
+                    .append(totalTargets);
+        }
+        return stringBuilder.toString();
+    }
 }

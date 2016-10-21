@@ -24,6 +24,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
@@ -61,7 +62,8 @@ public class HallOfFameViewPanel extends AbstractViewPanel {
 
     @Override
     public void updateComponents() {
-        String[] textsForButtons = {"Go back to main menu"};
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = {language.get("openingMenuViewButton")};
 
         hallOfFamePanel = createHallOfFamePanePanel();
         buttonPanel = super.getNewButtonPanel(textsForButtons);

@@ -22,6 +22,7 @@ import fi.sewsiaica.uusiaika.ui.PanelNames;
 import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
 
 /**
@@ -38,6 +39,7 @@ public class TrainingCentreViewPanelListener implements ActionListener {
     private final AbstractButton applyForDebateCourseButton;
     private final AbstractButton returnToMapViewButton;
     private final AbstractButton endTurnButton;
+    private Map<String, String> language;
 
     /**
      * The constructor is given an array of four AbstractButtons, GameFrame,
@@ -65,6 +67,7 @@ public class TrainingCentreViewPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        language = gameLogic.getActiveLanguage();
 
         if (ae.getSource() == returnToMapViewButton) {
             dialoguePanel.resetText();
@@ -91,11 +94,11 @@ public class TrainingCentreViewPanelListener implements ActionListener {
 
     private void charismaCourseSelected() {
         if (gameLogic.trainingCentreActions('a')) {
-            dialoguePanel.showText("Your charisma level is now: "
+            dialoguePanel.showText(language.get("charismaCourseOK")
                     + gameLogic.getActiveGame().getPlayer().getCharisma()
                     + "\n----");
         } else {
-            dialoguePanel.showText("No success."
+            dialoguePanel.showText(language.get("charismaCourseFail")
                     + "\n----");
         }
         updateView();
@@ -103,12 +106,12 @@ public class TrainingCentreViewPanelListener implements ActionListener {
 
     private void debateCourseSelected() {
         if (gameLogic.trainingCentreActions('b')) {
-            dialoguePanel.showText("Your argumentation skill level is now: "
+            dialoguePanel.showText(language.get("debateCourseOK")
                     + gameLogic.getActiveGame()
                             .getPlayer().getArgumentationSkills()
                     + "\n----");
         } else {
-            dialoguePanel.showText("No success."
+            dialoguePanel.showText(language.get("debateCourseFail")
                     + "\n----");
         }
         updateView();

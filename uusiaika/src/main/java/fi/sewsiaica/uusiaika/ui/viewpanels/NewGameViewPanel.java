@@ -18,11 +18,13 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
+import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import fi.sewsiaica.uusiaika.ui.viewpanellisteners.NewGameViewPanelListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -38,6 +40,7 @@ public class NewGameViewPanel extends AbstractViewPanel {
     private final Dimension dimension;
     private final GameLogic gameLogic;
     private final GameFrame gameFrame;
+    private final DialoguePanel dialoguePanel;
     private JPanel buttonPanel;
     private JPanel textFieldPanel;
 
@@ -56,16 +59,19 @@ public class NewGameViewPanel extends AbstractViewPanel {
         this.dimension = dimension;
         this.gameFrame = frame;
         this.gameLogic = gameLogic;
+        this.dialoguePanel = new DialoguePanel();
         this.updateComponents();
     }
 
     @Override
     public final void updateComponents() {
-        String[] textsForButtons = {"Create a new game",
-            "Change the configuration values file",
-            "Change the villager names file",
-            "Change the villager professions file",
-            "Go back to main menu"};
+        Map<String, String> language = gameLogic.getActiveLanguage();
+        String[] textsForButtons = {
+            language.get("createGameButton"),
+            language.get("configValuesFileButton"),
+            language.get("villagerNamesFileButton"),
+            language.get("villagerProfsFileButton"),
+            language.get("openingMenuViewButton")};
 
         textFieldPanel = new JPanel();
         applyTextFieldPanelSettings(textFieldPanel);
@@ -82,19 +88,20 @@ public class NewGameViewPanel extends AbstractViewPanel {
     protected final ActionListener createActionListener(
             AbstractButton[] buttons) {
         JTextField playerJText
-                = super.createJTextField(textFieldPanel, "Player", 18);
+                = super.createJTextField(textFieldPanel, "Player", 22);
         JTextField sectJText
-                = super.createJTextField(textFieldPanel, "Sect", 18);
+                = super.createJTextField(textFieldPanel, "Sect", 25);
 
         return new NewGameViewPanelListener(gameLogic, gameFrame,
-                playerJText, sectJText, buttons);
+                playerJText, sectJText, dialoguePanel, buttons);
     }
 
     @Override
     protected void addSubPanelsToViewPanel() {
         this.setLayout(new BorderLayout());
-        this.add(buttonPanel, BorderLayout.CENTER);
-        this.add(textFieldPanel, BorderLayout.LINE_START);
+        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(textFieldPanel, BorderLayout.WEST);
+        this.add(dialoguePanel, BorderLayout.CENTER);
     }
 
 }

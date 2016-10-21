@@ -23,6 +23,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 
@@ -58,18 +59,22 @@ public class LanguageSettingsViewPanel extends AbstractViewPanel {
 
     @Override
     public void updateComponents() {
+        Map<String, String> language = gameLogic.getActiveLanguage();
         List<String> langNames = gameLogic.getNamesOfLanguages();
+
         String[] textsForButtons = new String[langNames.size() + 2];
         for (int i = 0; i < langNames.size(); i++) {
             textsForButtons[i] = langNames.get(i);
         }
-        textsForButtons[langNames.size()] = "Custom language from a file";
-        textsForButtons[langNames.size() + 1] = "Go back to main menu";
+        textsForButtons[langNames.size()]
+                = language.get("loadLangFromFileButton");
+        textsForButtons[langNames.size() + 1]
+                = language.get("openingMenuViewButton");
 
         buttonPanel = super.getNewButtonPanel(textsForButtons);
         this.addSubPanelsToViewPanel();
     }
-    
+
     @Override
     protected ActionListener createActionListener(AbstractButton[] buttons) {
         return new LanguageSettingsViewPanelListener(gameFrame, gameLogic,

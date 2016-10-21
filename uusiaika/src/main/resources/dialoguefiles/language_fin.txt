@@ -1,4 +1,90 @@
 # This file contains all the dialogue text in the following language:
 language: suomi
-# 
-openingMenu: plapla
+# All the buttons in the game.
+#
+# OpeningMenuViewPanel buttons
+newGameButton: Aloita uusi peli
+loadGameButton: Lataa peli
+settingsButton: Asetukset
+hallOfFameButton: Kunnialista
+quitButton: Lopeta
+# NewGameViewPanel buttons
+createGameButton: Luo uusi peli
+configValuesFileButton: Vaihda konfiguraatiotiedosto
+villagerNamesFileButton: Vaihda kyläläisten nimet -tiedosto
+villagerProfsFileButton: Vaihda kyläläisten ammatit -tiedosto
+# Buttons shown in multiple view panels 
+openingMenuViewButton: Palaa alkuvalikkoon
+openingMenuViewButton2: Palaa alkuvalikkoon (päättää pelin)
+returnToMapViewButton: Palaa karttanäkymään
+endTurnButton: Päätä vuoro
+# MapViewPanel buttons
+templeButton: Käy temppelissä
+trainingCentreButton: Käy valmentautumiskeskuksessa
+doorToDoorConversionButton: Ovelta ovelle -kierrokselle
+saveGameButton: Tallenna peli
+# TempleViewPanel buttons
+preachButton: Saarnaa seurakunnalle
+offerSodaButton: Tarjoa kaikille limpparia
+buyTicketButton: Varaa menolippu paratiisisaarelle
+# TrainingCentreViewPanel buttons
+applyForCharismaCourseButton: Käy karismakurssilla
+applyForDebateCourseButton: Käy väittelykurssilla
+# DoorToDoorViewPanel buttons
+persuasionButton: Yritä suostuttelua
+sermonButton: Yritä saarnausta
+accusationButton: Yritä syyttämistä
+nextTargetButton: Seuraava kohde
+# GameOverViewPanel buttons
+showHallOfFameButton: Näytä kunnialista
+# SettingsViewPanel buttons
+changeLanguageButton: Vaihda kieli
+# LanguageSettingsViewPanel buttons
+loadLangFromFileButton: Lataa kieli tiedostosta
+# End game messages
+finalScoreMessage: Loppupistemääräsi: 
+endMessage1: Peli päättyi vailla menestystä. 
+endMessage2: Limu maistui ja lahkosi on siirtynyt seuraavalle tasolle. 
+endMessage3: Menolippu paratiisisaarelle. 
+endMessageDefault: Peli päättynyt 
+# Temple messages
+templePreachActionOK: Tunteikas saarnasi saa raivoisat suosionosoitukset. Kaikki ovat nyt vähän vähemmän skeptisiä.
+templePreachActionFail: Kelpo suoritus. Harmi vain, ettei paikalla ole ketään.
+templeOfferSodaFail: Sinulla ei ole tarpeeksi karismaa tällaiseen tempaukseen.
+templeBuyTicketFail: Liikkeen tilillä ei ole tarpeeksi rahaa.
+# Training Centre messages
+charismaCourseOK: Karismatasosi on nyt: 
+charismaCourseFail: Eipä onnistunut.
+debateCourseOK: Argumentointitaitotasosi on nyt: 
+debateCourseFail: Eipä onnistunut.
+# Door-to-Door messages
+noTargetsLeft: Ei kohteita jäljellä!
+persuasionOK: Suostuttelu onnistui!
+persuasionFail: Suostuttelu epäonnistui.
+sermonOK: Saarnaaminen onnistui!
+sermonFail: Saarnaaminen epäonnistui.
+accusationOK: Syyttäminen onnistui!
+accusationFail: Syyttäminen epäonnistui.
+# Map view messages
+mapViewInfo1: Valitse kohdekyläläiset ovelta ovelle -käännytykseen.
+mapViewInfo2: Liikkeen jäsenet magentalla.
+noTargetsSelected: Yhtään kohdetta ei valittu.
+saveFileLocationTitle: Valitse tallennuspaikka
+# New Game view messages
+nameTooLong: Nimi saa olla maksimissaan 25 merkkiä pitkä.
+fileChoosingCancelled: Tiedoston lataaminen peruutettu.
+invalidConfigFile: Virheellinen konfiguraatiotiedosto.
+filesCannotBeRead: Tiedoston lukeminen ei onnistunut.
+chooseConfigFileTitle: Valitse konfiguraatiotiedosto
+choosevilNamesTitle: Valitse kyläläisten nimet -tiedosto
+choosevilProfsTitle: Valitse kyläläisten ammatit -tiedosto
+# Load Game view messages
+openSaveFileTitle: Avaa pelitiedosto
+# Language settings messages
+openLangFileTitle: Avaa kielitiedosto
+# InfoPanel fields
+turnInfoPanel: Kierros: 
+balanceInfoPanel: Saldo: 
+membersInfoPanel: Jäseniä: 
+currTargetInfoPanel: Nykyinen kohde: 
+totalTargetsInfoPanel: Kohteita yhteensä: 

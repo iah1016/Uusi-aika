@@ -19,9 +19,11 @@ package fi.sewsiaica.uusiaika.ui.viewpanellisteners;
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
 import fi.sewsiaica.uusiaika.ui.PanelNames;
+import fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
@@ -36,6 +38,7 @@ public class NewGameViewPanelListener implements ActionListener {
 
     private final GameLogic gameLogic;
     private final GameFrame gameFrame;
+    private final DialoguePanel dialoguePanel;
     private final JTextField textFieldPlayerName;
     private final JTextField textFieldSectName;
     private final AbstractButton createGameButton;
@@ -45,6 +48,7 @@ public class NewGameViewPanelListener implements ActionListener {
     private final AbstractButton openingMenuViewButton;
     private final JFileChooser fileChooser;
     private final File[] configFiles;
+    private Map<String, String> language;
 
     /**
      * The constructor is given five JTextFields, an array of one
@@ -56,15 +60,17 @@ public class NewGameViewPanelListener implements ActionListener {
      * shown.
      * @param textFieldPlayerName The player name given by the player.
      * @param textFieldSectName The sect name given by the player.
+     * @param dialoguePanel Displays the output and the dialogue of the game.
      * @param buttons [0] createGameButton creates a new active game.
      */
     public NewGameViewPanelListener(GameLogic gameLogic, GameFrame frame,
             JTextField textFieldPlayerName, JTextField textFieldSectName,
-            AbstractButton[] buttons) {
+            DialoguePanel dialoguePanel, AbstractButton[] buttons) {
         this.gameLogic = gameLogic;
         this.gameFrame = frame;
         this.textFieldPlayerName = textFieldPlayerName;
         this.textFieldSectName = textFieldSectName;
+        this.dialoguePanel = dialoguePanel;
         this.createGameButton = buttons[0];
         this.configValuesFileButton = buttons[1];
         this.villagerNamesFileButton = buttons[2];
@@ -86,16 +92,18 @@ public class NewGameViewPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        language = gameLogic.getActiveLanguage();
 
         if (ae.getSource() == createGameButton) {
             createGameSelected();
         } else if (ae.getSource() == configValuesFileButton) {
-            fileChooserDialog(0, "Choose the configuration file");
+            fileChooserDialog(0, language.get("chooseConfigFileTitle"));
         } else if (ae.getSource() == villagerNamesFileButton) {
-            fileChooserDialog(1, "Choose the villager names file");
+            fileChooserDialog(1, language.get("choosevilNamesTitle"));
         } else if (ae.getSource() == villagerProfsFileButton) {
-            fileChooserDialog(2, "Choose the villager professions file");
+            fileChooserDialog(2, language.get("choosevilProfsTitle"));
         } else if (ae.getSource() == openingMenuViewButton) {
+            dialoguePanel.resetText();
             gameFrame.changeViewPanel(PanelNames.OPENING_MENU_VIEW);
         }
     }
@@ -106,9 +114,9 @@ public class NewGameViewPanelListener implements ActionListener {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             configFiles[configFileID] = fileChooser.getSelectedFile();
-            System.out.println(configFiles[configFileID].getName());
+            dialoguePanel.showText(configFiles[configFileID].getName());
         } else {
-            System.out.println("Cancelled.");
+            dialoguePanel.showText(language.get("fileChoosingCancelled"));
         }
     }
 
@@ -126,7 +134,7 @@ public class NewGameViewPanelListener implements ActionListener {
         if (nameLengthsAreNotOverLimit(names, 25)) {
             tryCreatingNewGame(names);
         } else {
-            System.out.println("A name can be max 25 characters long.");
+            dialoguePanel.showText(language.get("nameTooLong"));
         }
     }
 
@@ -138,13 +146,14 @@ public class NewGameViewPanelListener implements ActionListener {
         try {
             updateConfigFilesInGameLogic();
             if (gameLogic.newGame(names)) {
+                dialoguePanel.resetText();
                 gameFrame.changeViewPanel(PanelNames.MAP_VIEW);
             } else {
-                System.out.println("Invalid Config file");
+                dialoguePanel.showText(language.get("invalidConfigFile"));
                 gameFrame.changeViewPanel(PanelNames.NEW_GAME_VIEW);
             }
         } catch (Exception e) {
-            System.out.println("File(s) cannot be read.");
+            dialoguePanel.showText(language.get("filesCannotBeRead"));
         }
     }
 
