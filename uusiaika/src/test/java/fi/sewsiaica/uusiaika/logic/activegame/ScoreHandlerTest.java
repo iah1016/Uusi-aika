@@ -62,18 +62,27 @@ public class ScoreHandlerTest {
         // [3] congregation size, [4] turns played, [5] max turns, 
         // [6] charisma needed for the condition 2, 
         // [7] balance needed for the condition 3.
-        int[] elements0 = {1, 0, 0, 0, 100, 100, 600, 10000};
+        int[] elements0 = {1, 0, 0, 1, 100, 100, 600, 10000};
         int score = scoreHandler.calculateScore(elements0);
-        assertNotEquals(0, score);
-        int[] elements1 = {1, 0, -1, 0, 1, 100, 600, 10000};
+        assertEquals(2, score);
+        int[] elements1 = {1, 0, -1, 1, 1, 100, 600, 10000};
         score = scoreHandler.calculateScore(elements1);
-        assertNotEquals(0, score);
-        int[] elements2 = {2, 600, 0, 0, 99, 100, 600, 10000};
+        assertEquals(2, score);
+        int[] elements2 = {1, 0, 2300, 1, 1, 100, 600, 10000};
         score = scoreHandler.calculateScore(elements2);
-        assertNotEquals(0, score);
-        int[] elements3 = {3, 0, 10000, 0, 99, 100, 600, 10000};
+        assertEquals(23, score);
+        int[] elements3 = {2, 600, 0, 0, 99, 100, 600, 10000};
         score = scoreHandler.calculateScore(elements3);
-        assertNotEquals(0, score);
+        assertEquals(100, score);
+        int[] elements4 = {2, 880, 40000, 11, 65, 100, 600, 10000};
+        score = scoreHandler.calculateScore(elements4);
+        assertEquals(65730, score);
+        int[] elements5 = {3, 0, 10000, 0, 99, 100, 600, 10000};
+        score = scoreHandler.calculateScore(elements5);
+        assertEquals(120, score);
+        int[] elements6 = {3, 77, 89000, 4, 65, 100, 600, 10000};
+        score = scoreHandler.calculateScore(elements6);
+        assertEquals(43455, score);
     }
     
     @Test

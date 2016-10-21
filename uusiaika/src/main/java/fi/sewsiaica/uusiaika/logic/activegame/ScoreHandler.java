@@ -53,7 +53,7 @@ public class ScoreHandler {
         int condition = elements[0];
         switch (condition) {
             case 1:
-                return maxTurnsCondition(elements);
+                return unsuccessCondition(elements);
             case 2:
                 return deathCultCondition(elements);
             case 3:
@@ -64,35 +64,50 @@ public class ScoreHandler {
         }
     }
 
-    private int maxTurnsCondition(int[] elements) {
+    private int unsuccessCondition(int[] elements) {
         int sectBalance = elements[2];
         int congregationSize = elements[3];
 
-        score = -1000;
+        if (sectBalance <= 0) {
+            score = congregationSize + 1;
+        } else {
+            score = sectBalance / 1000 + congregationSize * 20 + 1;
+        }
         return score;
     }
 
-    private int deathCultCondition(int[] elements) {
-        int playerCharisma = elements[1];
-        int sectBalance = elements[2];
-        int congregationSize = elements[3];
-        int turnsPlayed = elements[4];
-        int maxTurns = elements[5];
-        int charismaThreshold = elements[6];
+    private int basePointsForWinningCondition(int balance, int members) {
+        return balance / 500 + members * 50;
+    }
 
-        score = -1000;
+    private int turnsLeftBonus(int played, int max) {
+        return (max - played) * 100;
+    }
+
+    private int deathCultCondition(int[] elements) {
+        int congregationSize = elements[3];
+        int playerCharisma = elements[1];
+        int charismaThreshold = elements[6];
+        
+        int base = basePointsForWinningCondition(elements[2], elements[3]);
+        int turnsLeftBonus = turnsLeftBonus(elements[4], elements[5]);
+        int deathCultBonus = 20 * congregationSize
+                * (playerCharisma - charismaThreshold);
+
+        score = base + turnsLeftBonus + deathCultBonus;
         return score;
     }
 
     private int paradiseIslandCondition(int[] elements) {
         int playerCharisma = elements[1];
         int sectBalance = elements[2];
-        int congregationSize = elements[3];
-        int turnsPlayed = elements[4];
-        int maxTurns = elements[5];
         int balanceThreshold = elements[7];
-
-        score = -1000;
+        
+        int base = basePointsForWinningCondition(elements[2], elements[3]);
+        int turnsLeftBonus = turnsLeftBonus(elements[4], elements[5]);
+        int paradiseIslandBonus = (sectBalance - balanceThreshold) / 2;
+        
+        score = base + playerCharisma + turnsLeftBonus + paradiseIslandBonus;
         return score;
     }
 }
