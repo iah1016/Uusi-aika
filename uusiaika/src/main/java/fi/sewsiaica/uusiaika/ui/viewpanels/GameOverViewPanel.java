@@ -51,7 +51,7 @@ public class GameOverViewPanel extends AbstractViewPanel {
      * logic parts are called.
      * @param frame GameFrame gives itself as parameter, so that the active
      * ViewPanel can be changed.
-     * @param endCondition The end condition are: [0] the game has not ended,
+     * @param endCondition The end conditions are: [0] the game has not ended,
      * [1] the maximum amount of turns has been reached, [2] the death cult
      * ending, [3] the paradise island ending.
      * @param finalScore The final score.

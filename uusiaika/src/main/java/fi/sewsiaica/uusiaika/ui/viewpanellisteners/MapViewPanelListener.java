@@ -30,8 +30,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * The object of this class handles the events in the map view. It currently
- * implements the ActionListener interface, though this may change.
+ * The object of this class handles the events in the map view.
  *
  * @author iah1016
  */
@@ -63,8 +62,8 @@ public class MapViewPanelListener implements ActionListener {
      * @param buttons The current ViewPanel changes to [0] TEMPLE_VIEW, [1]
      * TRAININGCENTRE_VIEW, [2] DOORTODOOR_VIEW (conversion), [3] Ends the turn
      * via GameLogic, [4] Saves the game via GameLogic, [5]
-     * openingMenuViewButton The current ViewPanel changes to OPENING_MENU_VIEW,
-     * thus ending the active game.
+     * openingMenuViewButton - the current ViewPanel changes to
+     * OPENING_MENU_VIEW, thus ending the active game.
      */
     public MapViewPanelListener(GameLogic gameLogic, GameFrame frame,
             VillagerListPanel villagerListPanel, AbstractButton[] buttons) {

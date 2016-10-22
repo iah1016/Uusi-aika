@@ -25,7 +25,7 @@ package fi.sewsiaica.uusiaika.domain;
  */
 public class Villager {
 
-    private String name;
+    private final String name;
     private boolean inSect;
     private int scepticism;
     private int selfEsteem;

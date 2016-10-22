@@ -37,7 +37,7 @@
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">     * @param string String.</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">     * @return Returns true if the string can be converted, false otherwise.</em>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> stringCanBeConvertedToInt(String string) {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">boolean</strong> stringCanBeConvertedToInt(String string) {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>              Integer.parseInt(string);
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          } <strong class="jxr_keyword">catch</strong> (NumberFormatException e) {
@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * @param i Integer.</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">     * @return Returns true if the integer can be converted, false otherwise.</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> intCanBeConvertedToBoolean(<strong class="jxr_keyword">int</strong> i) {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">boolean</strong> intCanBeConvertedToBoolean(<strong class="jxr_keyword">int</strong> i) {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">return</strong> i == 0 || i == 1;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  

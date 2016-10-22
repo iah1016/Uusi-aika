@@ -48,7 +48,7 @@ public class DoorToDoorViewPanelListener implements ActionListener {
     private Map<String, String> language;
 
     /**
-     * The constructor is given an array of five AbstractButtons, GameFrame,
+     * The constructor is given an array of six AbstractButtons, GameFrame,
      * GameLogic, and DialoguePanel as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other

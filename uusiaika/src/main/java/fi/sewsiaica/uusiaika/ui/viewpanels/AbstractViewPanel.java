@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 /**
  * The abstract view panel currently contains the implementation of the
- * createButtonPanel method.
+ * getNewButtonPanel method.
  *
  * @author iah1016
  */

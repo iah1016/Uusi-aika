@@ -44,7 +44,7 @@ public class SettingsViewPanelListener implements ActionListener {
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param buttons The buttons are as follows: [0] change the language, [1]
-     * go back to the opening menu.
+     * go back to Main menu.
      */
     public SettingsViewPanelListener(GameFrame frame, GameLogic gameLogic,
             AbstractButton[] buttons) {

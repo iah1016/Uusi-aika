@@ -52,7 +52,7 @@ public class NewGameViewPanelListener implements ActionListener {
 
     /**
      * The constructor is given five JTextFields, an array of one
-     * AbstractButton, GameFrame, and GameLogic as parameters.
+     * AbstractButton, GameFrame, GameLogic, and DialoguePanel as parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
@@ -61,7 +61,9 @@ public class NewGameViewPanelListener implements ActionListener {
      * @param textFieldPlayerName The player name given by the player.
      * @param textFieldSectName The sect name given by the player.
      * @param dialoguePanel Displays the output and the dialogue of the game.
-     * @param buttons [0] createGameButton creates a new active game.
+     * @param buttons [0] createGameButton creates a new active game, [1] choose
+     * the Config values file, [2] choose the villager names file, [3] choose
+     * the professions file, [4] go back to Main menu.
      */
     public NewGameViewPanelListener(GameLogic gameLogic, GameFrame frame,
             JTextField textFieldPlayerName, JTextField textFieldSectName,

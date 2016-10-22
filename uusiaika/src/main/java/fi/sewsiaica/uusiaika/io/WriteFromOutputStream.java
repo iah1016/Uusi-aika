@@ -53,7 +53,7 @@ public class WriteFromOutputStream {
     /**
      * This method creates a new file if the file does not exist.
      *
-     * @param saveFile The file.
+     * @param saveFile The save file.
      * @return Returns true if a new file is created and false otherwise.
      * @throws IOException Returns the IOException.
      */

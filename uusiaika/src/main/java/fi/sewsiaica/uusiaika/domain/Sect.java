@@ -47,7 +47,7 @@ public class Sect {
         this.balance = balance;
         this.expenses = expenses;
         this.memberFee = memberFee;
-        this.congregation = new ArrayList<Villager>();
+        this.congregation = new ArrayList<>();
     }
 
     public String getName() {

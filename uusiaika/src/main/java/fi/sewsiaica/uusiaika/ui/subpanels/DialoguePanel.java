@@ -59,7 +59,7 @@ public class DialoguePanel extends JPanel {
     }
 
     /**
-     * Appends the text in the dialogue panel.
+     * Appends the text to the dialogue panel.
      *
      * @param outputText The output text to be displayed.
      */

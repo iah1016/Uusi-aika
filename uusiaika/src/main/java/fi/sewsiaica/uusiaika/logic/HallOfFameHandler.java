@@ -50,7 +50,7 @@ public class HallOfFameHandler {
 
     /**
      * The constructor creates new ReadFromInputStream, WriteFromOutputStream
-     * and GeneralTools objects. It call the private method
+     * and GeneralTools objects. It calls the private method
      * loadOrCreateHallOfFame which either creates new hallOfFameMap and
      * hallOfFameList objects or loads them from the given file.
      *
@@ -130,7 +130,7 @@ public class HallOfFameHandler {
     /**
      * Updates the updateHallOfFameList object.
      *
-     * @return Returns false if hallOfFameMap's lastKey call throws a
+     * @return Returns false if hallOfFameMap's lastKey call throws the
      * NoSuchElementException.
      */
     protected boolean updateHallOfFameList() {

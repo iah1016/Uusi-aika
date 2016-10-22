@@ -43,14 +43,15 @@ public class LoadGameViewPanelListener implements ActionListener {
     private Map<String, String> language;
 
     /**
-     * The constructor is given one AbstractButton, GameFrame, and GameLogic as
+     * The constructor is given two AbstractButtons, GameFrame, and GameLogic as
      * parameters.
      *
      * @param gameLogic The core logic of the game, through which the other
      * logic parts are called.
      * @param frame The core class of the GUI. It controls which view panel is
      * shown.
-     * @param buttons [0] loadGameButton Loads a game from a save file.
+     * @param buttons [0] loadGameButton Loads a game from a save file, [1] go
+     * back to Main menu.
      */
     public LoadGameViewPanelListener(GameLogic gameLogic, GameFrame frame,
             AbstractButton[] buttons) {

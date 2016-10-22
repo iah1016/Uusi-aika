@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2016</copyright>
     <item>
-      <title>File: 60,
+      <title>File: 73,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -144,20 +144,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.io.ReadFromTextFile.java">fi/sewsiaica/uusiaika/io/ReadFromTextFile.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanellisteners.TrainingCentreViewPanelListener.java">fi/sewsiaica/uusiaika/ui/viewpanellisteners/TrainingCentreViewPanelListener.java</a>
                 </td>
                 <td>
@@ -215,6 +201,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.subpanellisteners.VillagerListPanelListener.java">fi/sewsiaica/uusiaika/ui/subpanellisteners/VillagerListPanelListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.io.ReadFromInputStream.java">fi/sewsiaica/uusiaika/io/ReadFromInputStream.java</a>
                 </td>
                 <td>
                   0
@@ -298,6 +298,34 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.HallOfFameHandler.java">fi/sewsiaica/uusiaika/logic/HallOfFameHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.subpanels.DialoguePanel.java">fi/sewsiaica/uusiaika/ui/subpanels/DialoguePanel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.main.Main.java">fi/sewsiaica/uusiaika/main/Main.java</a>
                 </td>
                 <td>
@@ -312,7 +340,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanellisteners.HallOfFameViewPanelListener.java">fi/sewsiaica/uusiaika/ui/viewpanellisteners/HallOfFameViewPanelListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.activegame.TurnLogic.java">fi/sewsiaica/uusiaika/logic/activegame/TurnLogic.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.io.WriteFromOutputStream.java">fi/sewsiaica/uusiaika/io/WriteFromOutputStream.java</a>
                 </td>
                 <td>
                   0
@@ -368,6 +424,34 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.GameLogicActionsForActiveGame.java">fi/sewsiaica/uusiaika/logic/GameLogicActionsForActiveGame.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.generaltools.StringListToIntStrListTreeMapConversion.java">fi/sewsiaica/uusiaika/generaltools/StringListToIntStrListTreeMapConversion.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.activegame.Temple.java">fi/sewsiaica/uusiaika/logic/activegame/Temple.java</a>
                 </td>
                 <td>
@@ -397,6 +481,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanels.GameOverViewPanel.java">fi/sewsiaica/uusiaika/ui/viewpanels/GameOverViewPanel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.activegame.ScoreHandler.java">fi/sewsiaica/uusiaika/logic/activegame/ScoreHandler.java</a>
                 </td>
                 <td>
                   0
@@ -480,7 +578,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.config.SaveConfig.java">fi/sewsiaica/uusiaika/config/SaveConfig.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.dialogue.Dialogue.java">fi/sewsiaica/uusiaika/dialogue/Dialogue.java</a>
                 </td>
                 <td>
                   0
@@ -648,7 +746,63 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.LanguageHandler.java">fi/sewsiaica/uusiaika/logic/LanguageHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.domain.Player.java">fi/sewsiaica/uusiaika/domain/Player.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanels.LanguageSettingsViewPanel.java">fi/sewsiaica/uusiaika/ui/viewpanels/LanguageSettingsViewPanel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.dialogue.KeysForLangMaps.java">fi/sewsiaica/uusiaika/dialogue/KeysForLangMaps.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanels.HallOfFameViewPanel.java">fi/sewsiaica/uusiaika/ui/viewpanels/HallOfFameViewPanel.java</a>
                 </td>
                 <td>
                   0
@@ -774,6 +928,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.viewpanellisteners.LanguageSettingsViewPanelListener.java">fi/sewsiaica/uusiaika/ui/viewpanellisteners/LanguageSettingsViewPanelListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.logic.activegamechanger.PlayerAndSectHandler.java">fi/sewsiaica/uusiaika/logic/activegamechanger/PlayerAndSectHandler.java</a>
                 </td>
                 <td>
@@ -817,6 +985,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.generaltools.StrIntMapAndStringListInterconversion.java">fi/sewsiaica/uusiaika/generaltools/StrIntMapAndStringListInterconversion.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.sewsiaica.uusiaika.ui.subpanels.CustomCellRendererForVillagerListPanel.java">fi/sewsiaica/uusiaika/ui/subpanels/CustomCellRendererForVillagerListPanel.java</a>
                 </td>
                 <td>
                   0

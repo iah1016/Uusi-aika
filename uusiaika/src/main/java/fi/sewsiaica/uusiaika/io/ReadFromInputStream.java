@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class will replace the ReadFromTextFile class.
+ * This class loads data from a file through InputStream as binary data.
  *
  * @author iah1016
  */
