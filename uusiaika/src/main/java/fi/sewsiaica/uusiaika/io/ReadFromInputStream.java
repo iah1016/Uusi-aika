@@ -46,7 +46,7 @@ public class ReadFromInputStream {
         this.newLines = new ArrayList<>();
         try {
             BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(inputStream));
+                    new InputStreamReader(inputStream, "UTF-8"));
             String line = bufferedReader.readLine();
             goThroughLines(line, bufferedReader);
         } finally {
