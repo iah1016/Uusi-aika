@@ -39,4 +39,4 @@ Päivä | Tunnit | Kuvaus
 19.10.2016 | 6h | Pelin tallentusominaisuus toteutettu, Hall of Famea aloitettu
 20.10.2016 | 6h | Hall of Fame toteutettu
 21.10.2016 | 9h | Jäsenten korostus listassa, DialoguePanel, kielenvaihto toteutettu.
-22.10.2016 | 10h | Pisteytyssysteemi toteutettu, luokka- ja sekvenssikaaviot ajantasalla, dokumentointi ajantasalla
+22.10.2016 | 11h | Pisteytyssysteemi toteutettu, luokka- ja sekvenssikaaviot ajantasalla, dokumentointi ajantasalla
