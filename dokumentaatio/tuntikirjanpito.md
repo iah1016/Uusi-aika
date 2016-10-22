@@ -32,3 +32,11 @@ Päivä | Tunnit | Kuvaus
 12.10.2016 | 19h | Käännytys, konfiguraatioiden ja pelin latauksen toteutusta, testejä
 13.10.2016 | 2h | Pelin latauksen toteutusta, testejä
 14.10.2016 | 9h | Pelin loppuminen toimimaan, uudet luokkakaaviot, rakennekuvaus, käyttöohjeet
+15.10.2016 | 1h | TurnLogicin muokkausta
+16.10.2016 | 8h | TurnLogicin muokkausta, GameLogicia pilkottu: aktiivista peliä käsittelevät metodit omassa luokassaan, kieliasetuksia ja ReadFromInputStream aloitettu
+17.10.2016 | 5h | Kielenvaihtotoiminto toteutettu
+18.10.2016 | 3h | Pelin tallentusominaisuutta aloitettu
+19.10.2016 | 6h | Pelin tallentusominaisuus toteutettu, Hall of Famea aloitettu
+20.10.2016 | 6h | Hall of Fame toteutettu
+21.10.2016 | 9h | Jäsenten korostus listassa, DialoguePanel, kielenvaihto toteutettu.
+22.10.2016 | 10h | Pisteytyssysteemi toteutettu, luokka- ja sekvenssikaaviot ajantasalla, dokumentointi ajantasalla

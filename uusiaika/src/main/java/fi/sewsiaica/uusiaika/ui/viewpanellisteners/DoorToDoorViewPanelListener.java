@@ -162,7 +162,7 @@ public class DoorToDoorViewPanelListener implements ActionListener {
         if (!noTargetsLeft()) {
             Villager currentTarget = getTargetVillagers().get(0);
 
-            if (gameLogic.conversion(currentTarget, 'b')) {
+            if (gameLogic.conversion(currentTarget, 'c')) {
                 dialoguePanel.showText(language.get("accusationOK"));
                 removeFirstTargetIfTargetListNotEmpty();
             } else {

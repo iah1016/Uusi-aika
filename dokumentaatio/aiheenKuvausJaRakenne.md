@@ -17,8 +17,8 @@
 **Alkuvalikon toiminnot:**
   - Aloita uusi peli
   - Lataa peli
-  - Asetukset
-  - Taivaallinen kunnialista
+  - Asetukset (kieliasetukset)
+  - Kunnialista
   - Lopeta
 
 **Uuden pelin aloitus:**
@@ -26,52 +26,62 @@
 
 **Pelin toiminnot:**
   - Karttanäkymä
-    - Siirry liikkeen tiloihin
+    - Käy temppelissä
     - Käy valmentautumiskeskuksessa
     - Ovelta ovelle -kierrokselle
-    - Valitse kaupan piha kojun pystytykselle (kaupan kojun totetutus jäänee tulevaisuuteen)
+    - Valitse kaupan piha kojun pystytykselle (ei toteutusta tässä versiossa)
+    - Päätä vuoro
     - Tallenna peli
+    - Palaa alkuvalikkoon (päättää pelin)
   
   - Liikenäkymä
     - Saarnaa seurakunnalle
     - Tarjoa kaikille limpparia
     - Varaa menolippu paratiisisaarelle
-    - Paluu karttanäkymään
+    - Palaa karttanäkymään
+    - Päätä vuoro
 
   - Valmentautumiskeskus-näkymä
     - Käy karismakurssilla (tässä versiossa karisman kasvattaminen onnistuu joka kerta)
     - Käy väittelykurssilla (tässä versiossa argumentointitaitojen kasvattaminen onnistuu joka kerta)
-    - Paluu karttanäkymään
+    - Palaa karttanäkymään
+    - Päätä vuoro
 
   - Ovelta ovelle -näkymä
-    - Graafisen tekstiseikkailun dialogi
-    - Paluu karttanäkymään
+    - Yritä suostuttelua
+    - Yritä saarnausta
+    - Yritä syyttämistä
+    - Seuraava kohde
+    - Palaa karttanäkymään
+    - Päätä vuoro
   
-  - Kojunäkymä (ei luultavasti toteutusta tässä versiossa)
+  - Kojunäkymä (ei toteutusta tässä versiossa)
     - Tyrkytä esitteitä
     - Tarjoa kahvia ja rupattele niitä-näitä (karismasta hyötyä)
-    - Paluu karttanäkymään
+    - Palaa karttanäkymään
+    - Päätä vuoro
     
 ##Rakennekuvaus
-Ohjelma on jaettu eri paketteihin siten, että toiminnaltaan vastaavat luokat ovat samassa paketissa. Näitä ovat logiikka, käyttöliittymä, konfiguraatio, tiedostonhallinta, yleiset työkalut ja "domain"-paketti, joka sisältää käsiteltävien olioiden luokat.
+Ohjelma on jaettu eri paketteihin siten, että toiminnaltaan vastaavat luokat ovat samassa paketissa. Näitä ovat logiikka, käyttöliittymä, konfiguraatio, dialogi, tiedostonhallinta, yleiset työkalut ja "domain"-paketti, joka sisältää käsiteltävien olioiden luokat. Paketit noudattavat hierarkiaa: kaaviossa ylempänä olevat paketit ohjaavat alempana olevia; käyttöliittymä siis ohjaa logiikkaa, logiikka konfiguraatiota ja dialogia jne.
 
-Logiikan keskeisin luokka on GameLogic. Sitä kautta käyttöliittymä ohjaa pelin kulkua. Tähän luokkaan on pysyvästi kiinni ActiveGameChanger-luokka, joka kontrolloi, mikä peli on aktiivisena. Jos pelaaja on käyttöliittymän kautta valinnut uuden pelin, ActiveGameChanger luo uuden ActiveGame-tyyppisen olion käyttäen apunaan kompositioonsa kuuluvia CreateVillagers- ja PlayerAndSectHandler-tyyppisiä olioita. Jos valinta on lataa peli, käyttää ActiveGameChanger kompositioonsa kuuluvaa LoadGameHandleria. Tallennusominaisuus ei ole tällä hetkellä toiminnassa. ActiveGame-olioon kuuluu pysyvästi seuraavantyyppiset oliot: TurnLogic, Temple, TrainingCentre sekä abstraktin luokan (Conversionin) toteuttavat Persuasion, Sermon ja Accusation.
+Logiikan keskeisin luokka on GameLogic. Sitä kautta käyttöliittymä ohjaa pelin kulkua. Tähän luokkaan on pysyvästi kiinni ActiveGameChanger-luokka, joka kontrolloi, mikä peli on aktiivisena. Jos pelaaja on käyttöliittymän kautta valinnut uuden pelin, ActiveGameChanger luo uuden ActiveGame-tyyppisen olion käyttäen apunaan kompositioonsa kuuluvia CreateVillagers- ja PlayerAndSectHandler-tyyppisiä olioita. Jos valinta on lataa peli, käyttää ActiveGameChanger kompositioonsa kuuluvaa LoadGameHandleria. Vastaavasti pelin tallennus käyttää ActiveGameChangerin komposition osaa SaveGameHandler. ActiveGame-olioon kuuluu pysyvästi seuraavantyyppiset oliot: ScoreHandler, TurnLogic, Temple, TrainingCentre sekä abstraktin luokan (Conversionin) toteuttavat Persuasion, Sermon ja Accusation.
 
-Käyttöliittymän ytimessä ovat Runnable-rajapinnan toteuttava RunnableGUI ja JFramen aliluokka GameFrame. Jälkimmäinen ohjaa sitä, mikä näkymä ruudulla kulloinkin näkyy. Näkymät ovat abstraktin luokan AbstractViewPanelin (joka itsessään on JPanelin aliluokka) toteuttavien luokkien olioita. Tällaisia luokkia ovat seuraavat: MapViewPanel, DoorToDoorViewPanel, TempleViewPanel, TrainingCentreViewPanel, OpeningMenuViewPanel, NewGameViewPanel, LoadGameViewPanel, SettingsViewPanel ja GameOverViewPanel. Kullakin näkymällä on oma tapahtumankuuntelijansa. Neljä ensimmäistä luokkaa sisältää InfoPanel-paneelin. Tämä ja MapViewPanelissa oleva VillagerListPanel ovat abstraktin AbstractSubPanelin aliluokkia. VillagerListPanelilla on oma ListSelectionListener-kuuntelija.
+Käyttöliittymän ytimessä ovat Runnable-rajapinnan toteuttava RunnableGUI ja JFramen aliluokka GameFrame. Jälkimmäinen ohjaa sitä, mikä näkymä ruudulla kulloinkin näkyy. Näkymät ovat abstraktin luokan AbstractViewPanelin (joka itsessään on JPanelin aliluokka) toteuttavien luokkien olioita. Tällaisia luokkia ovat seuraavat: MapViewPanel, DoorToDoorViewPanel, TempleViewPanel, TrainingCentreViewPanel, NewGameViewPanel, OpeningMenuViewPanel, LoadGameViewPanel, SettingsViewPanel, GameOverViewPanel, HallOfFameViewPanel ja LanguageSettingsViewPanel. Kullakin näkymällä on oma tapahtumankuuntelijansa. Neljä ensimmäistä luokkaa sisältää InfoPanel-paneelin, joka näyttää pelin tiedot näkymän yläpalkissa. Tämä ja MapViewPanelissa oleva VillagerListPanel ovat abstraktin AbstractSubPanelin aliluokkia. VillagerListPanelilla on oma ListSelectionListener-kuuntelijansa ja kustomoitu renderöintiluokka CustomCellRendererForVillagerListPanel, joka värjää kyläläislistastasta lahkon jäsenet magentalla värillä. Näkymistä DoorToDoorViewPanel, TempleViewPanel, TrainingCentreViewPanel ja NewGameViewPanel sisältävät DialoguePanel-JPanelin, joka näyttää pelin dialogia yms.
 
-Tiedostonkäsittelijäpaketissa on tällä hetkellä vain ReadFromTextFile-luokka, joka siis lukee dataa tekstitiedostosta. Konfiguraatiopaketissa on logiikalle "näkyvä" luokka Config, jota pelin konfiguraatioiden asettaminen ja hakeminen suoritetaan. Tähän kuuluu kompositiona tällä hetkellä LoadConfig-luokka ja muutama Enum-luokka, jotka sisältävät pelin oletusarvoja.
+Dialogue-paketissa samanniminen luokka käsittelee pelin dialogin lataamisen eri kielillä tiedostoista. Kielitiedoston oikeellisuuden sen tarkistaa KeysForLangMaps-nimisen enum-luokan avulla. Konfiguraatiopaketissa on logiikalle "näkyvä" luokka Config, jota pelin konfiguraatioiden asettaminen ja hakeminen suoritetaan. Tähän kuuluu kompositiona LoadConfig-luokka, joka lataa konfiguraatiot käyttämällä tiedostonkäsittelijäpakettia, ja muutama Enum-luokka, jotka sisältävät pelin oletusarvoja.
 
-Yleiset työkalut -paketista muualle "näkyvä" luokka on GeneralTools. Pakettiin kuuluu erilaisia tyypistä tyyppiin -konversioluokkia.
+Tiedostonkäsittelijäpaketti sisältää ReadFromInputStream- ja WriteFromOutputStream-luokat. Dataa käsitellään siis tavuina. Yleiset työkalut -paketista muualle "näkyvä" luokka on GeneralTools. Pakettiin kuuluu erilaisia tyypistä tyyppiin -konversioluokkia.
 
 ##Luokkakaaviot
 **Luokkakaavio – logiikka**
-![dokumentaatio/Luokkakaavio - logiikka.png](Luokkakaavio - logiikka.png)
+![dokumentaatio/Luokkakaavio - logiikka ja domain - final.png](Luokkakaavio - logiikka ja domain - final.png)
 **Luokkakaavio – käyttöliittymä**
-![dokumentaatio/Luokkakaavio - kayttoliittyma.png](Luokkakaavio - kayttoliittyma.png)
-**Luokkakaavio – muut paketit (ei Enum-luokkia)**
-![dokumentaatio/Luokkakaavio - loput.png](Luokkakaavio - loput.png)
+![dokumentaatio/Luokkakaavio - kayttoliittyma - final.png](Luokkakaavio - kayttoliittyma - final.png)
+**Luokkakaavio – muut paketit**
+![dokumentaatio/Luokkakaavio - loput - final.png](Luokkakaavio - loput - final.png)
 
-##Sekvenssikaavioita (lisää tulossa lähipäivinä)
+##Sekvenssikaavioita
 ![dokumentaatio/Sekvenssikaavio 1.png](Sekvenssikaavio 1.png)
 ![dokumentaatio/Sekvenssikaavio 2.png](Sekvenssikaavio 2.png)
 ![dokumentaatio/Sekvenssikaavio 3.png](Sekvenssikaavio 3.png)
+![dokumentaatio/Sekvenssikaavio 4.png](Sekvenssikaavio 4.png)

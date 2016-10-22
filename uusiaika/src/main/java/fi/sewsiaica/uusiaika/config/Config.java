@@ -16,9 +16,7 @@
  */
 package fi.sewsiaica.uusiaika.config;
 
-import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVilNames;
-import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultVariableValues;
-import fi.sewsiaica.uusiaika.config.defaultvalues.DefaultProfessions;
+import fi.sewsiaica.uusiaika.config.defaultvalues.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;

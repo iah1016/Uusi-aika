@@ -18,7 +18,7 @@ package fi.sewsiaica.uusiaika.ui.viewpanels;
 
 import fi.sewsiaica.uusiaika.logic.GameLogic;
 import fi.sewsiaica.uusiaika.ui.GameFrame;
-import fi.sewsiaica.uusiaika.ui.viewpanellisteners.LanguageSettingsViewPanelListener;
+import fi.sewsiaica.uusiaika.ui.viewpanellisteners.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
